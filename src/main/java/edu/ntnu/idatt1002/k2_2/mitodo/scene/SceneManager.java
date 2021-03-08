@@ -1,10 +1,11 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.scene;
 
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class SceneManager
 {
-    private Scene currentScene;
+    private Page currentPage;
     private Stage stage;
 
     private static SceneManager instance;
@@ -23,15 +24,16 @@ public class SceneManager
         return instance;
     }
 
-    public static void setScene(Scene scene)
+    public static void setPage(Page page)
     {
-        get().currentScene = scene;
-        get().currentScene.show();
+        get().currentPage = page;
+        Scene scene = get().currentPage.getScene();
+        get().stage.setScene(scene);
     }
 
-    public static Scene getCurrentScene()
+    public static Page getCurrentPage()
     {
-        return get().currentScene;
+        return get().currentPage;
     }
 
     public static void setStage(Stage stage)

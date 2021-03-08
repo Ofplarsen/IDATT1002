@@ -43,7 +43,7 @@ public class Project
         this.subprojects = subprojects;
     }
 
-    public ArrayList<Subproject> getSubproject()
+    public ArrayList<Subproject> getSubprojects()
     {
         return subprojects;
     }

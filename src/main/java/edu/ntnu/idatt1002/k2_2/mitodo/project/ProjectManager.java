@@ -6,14 +6,15 @@ import java.util.ArrayList;
 
 public class ProjectManager
 {
-    private ArrayList<Project> projects = new ArrayList<>();
-    private final QuickTasks quickTasks = new QuickTasks();
+    private ArrayList<Project> projects;
+    private final QuickTasks quickTasks;
 
     private static ProjectManager instance;
 
     private ProjectManager()
     {
-
+        projects = new ArrayList<>();
+        quickTasks = new QuickTasks();
     }
 
     public static ProjectManager get()
@@ -46,9 +47,9 @@ public class ProjectManager
         get().projects = projects;
     }
 
-    public ArrayList<Project> getProjects()
+    public static ArrayList<Project> getProjects()
     {
-        return projects;
+        return get().projects;
     }
 
     public static QuickTasks getQuickTasks()

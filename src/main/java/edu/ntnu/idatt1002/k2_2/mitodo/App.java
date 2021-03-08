@@ -16,7 +16,8 @@ public class App extends Application {
         TestData.fillWithTestData();
 
         SceneManager.setStage(stage);
-        SceneManager.setScene(new QuickTasksScene());
+        SceneManager.setPage(new QuickTasksPage());
+        stage.show();
     }
 
     public static void main(String[] args) {

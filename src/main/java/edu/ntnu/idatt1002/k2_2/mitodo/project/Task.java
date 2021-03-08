@@ -57,6 +57,8 @@ public class Task
 
     public Date getDueDate()
     {
+        QuickTasks quickTasks = new QuickTasks();
+
         return dueDate;
     }
 

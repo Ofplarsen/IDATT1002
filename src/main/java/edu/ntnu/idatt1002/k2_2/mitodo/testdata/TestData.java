@@ -17,6 +17,6 @@ public class TestData
         Subproject subprojectNTNUProgram = projectNTNU.addSubproject("Programmering", Color.LIGHTPINK);
 
         Project projectPersonal = ProjectManager.addProject("Personal");
-        Subproject subprojectPersonalWorkOut = projectNTNU.addSubproject("Work out plan", Color.LIGHTSEAGREEN);
+        Subproject subprojectPersonalWorkOut = projectPersonal.addSubproject("Work out plan", Color.LIGHTSEAGREEN);
     }
 }

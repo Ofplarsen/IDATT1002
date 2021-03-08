@@ -4,7 +4,7 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
-public class Subproject implements Listable
+public class Subproject
 {
     private String title;
     private Color color;
