@@ -10,7 +10,9 @@ public class QuickTasksPage extends Page
     {
         //StackPane parent = new StackPane();
 
-        StackPane menu = getMenuLayout();
+
+
+        StackPane menu = new MainMenu().getMenuLayout();
         //Node content = getContentNode();
 
         //parent.getChildren().addAll(menu, content);
