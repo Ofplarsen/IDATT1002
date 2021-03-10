@@ -14,12 +14,20 @@ import java.util.ArrayList;
 
 public class MainMenu
 {
+    private final String currentPageTitle;
+    private TreeItem<Button> currentPageBranch;
+
+    public MainMenu(String currentPageTitle)
+    {
+        this.currentPageTitle = currentPageTitle;
+    }
+
     protected StackPane getMenuLayout()
     {
         TreeItem<Button> root = new TreeItem<>();
         root.setExpanded(true);
 
-        makeBranch("Quick tasks", root, event -> {
+        currentPageBranch = makeBranch("Quick tasks", root, event -> {
             SceneManager.setPage(new QuickTasksPage());
         });
 
@@ -45,10 +53,18 @@ public class MainMenu
 
         TreeView<Button> tree = new TreeView<>(root);
         tree.setShowRoot(false);
+        tree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (oldValue != null && newValue != oldValue)
+            {
+                newValue.getValue().fire();
+            }
+        });
+        tree.getSelectionModel().select(currentPageBranch);
 
         StackPane layout = new StackPane();
         layout.getChildren().add(tree);
         layout.getStyleClass().add("main-menu");
+        layout.getStylesheets().add("css/menu.css");
 
         return layout;
     }
@@ -74,7 +90,7 @@ public class MainMenu
         for (Subproject subproject : subprojects)
         {
             makeBranch(subproject.getTitle(), projectBranch, event -> {
-                //SceneManager.setPage(new SubprojectPage(subproject));
+                SceneManager.setPage(new SubprojectPage(subproject));
             });
         }
     }
@@ -86,9 +102,13 @@ public class MainMenu
         {
             button.setOnAction(eventEventHandler);
         }
-        button.getStyleClass().add("main-menu-button");
         TreeItem<Button> item = new TreeItem<>(button);
         item.setExpanded(true);
+        if (title.equals(currentPageTitle))
+        {
+            currentPageBranch = item;
+        }
+
         parent.getChildren().add(item);
         return item;
     }

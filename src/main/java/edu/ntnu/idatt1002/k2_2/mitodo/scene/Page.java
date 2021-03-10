@@ -9,8 +9,6 @@ public abstract class Page
 {
     public abstract Scene getScene();
 
-
-
     protected StackPane getTaskLayout(Task task)
     {
         return new StackPane(new Label(task.getTitle()));
