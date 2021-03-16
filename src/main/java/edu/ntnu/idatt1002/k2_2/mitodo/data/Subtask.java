@@ -1,10 +1,10 @@
-package edu.ntnu.idatt1002.k2_2.mitodo.project;
+package edu.ntnu.idatt1002.k2_2.mitodo.data;
 
 public class Subtask
 {
     private String title;
 
-    protected Subtask(String title)
+    public Subtask(String title)
     {
         setTitle(title);
     }

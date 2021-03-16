@@ -1,6 +1,8 @@
 package edu.ntnu.idatt1002.k2_2.mitodo;
 
-import edu.ntnu.idatt1002.k2_2.mitodo.scene.*;
+import edu.ntnu.idatt1002.k2_2.mitodo.controller.DataManager;
+import edu.ntnu.idatt1002.k2_2.mitodo.controller.PageManager;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.*;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.testdata.TestData;
 import javafx.application.Application;
@@ -15,13 +17,11 @@ public class App extends Application {
     public void start(Stage stage) {
         TestData.fillWithTestData();
 
-        SceneManager.setStage(stage);
-        SceneManager.setPage(new QuickTasksPage());
-        stage.show();
+        PageManager.setStage(stage);
+        PageManager.setPage(new QuickTasksPage(DataManager.getQuickTasks()));
     }
 
     public static void main(String[] args) {
         launch();
     }
-
 }

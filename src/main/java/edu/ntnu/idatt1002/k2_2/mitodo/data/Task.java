@@ -1,4 +1,4 @@
-package edu.ntnu.idatt1002.k2_2.mitodo.project;
+package edu.ntnu.idatt1002.k2_2.mitodo.data;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,7 +12,7 @@ public class Task
     private String comment;
     private ArrayList<Subtask> subtasks;
 
-    protected Task(String title, PriorityEnum priority)
+    public Task(String title, PriorityEnum priority)
     {
         setTitle(title);
         setPriority(priority);

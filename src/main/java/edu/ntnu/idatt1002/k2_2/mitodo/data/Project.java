@@ -1,4 +1,4 @@
-package edu.ntnu.idatt1002.k2_2.mitodo.project;
+package edu.ntnu.idatt1002.k2_2.mitodo.data;
 
 import javafx.scene.paint.Color;
 
@@ -9,7 +9,7 @@ public class Project
     private String title;
     private ArrayList<Subproject> subprojects;
 
-    protected Project(String title)
+    public Project(String title)
     {
         setTitle(title);
 
