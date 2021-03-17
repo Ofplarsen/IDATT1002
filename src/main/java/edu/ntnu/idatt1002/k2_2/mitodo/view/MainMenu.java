@@ -1,12 +1,14 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
+import edu.ntnu.idatt1002.k2_2.mitodo.controller.PageManager;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.controller.DataManager;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Subproject;
-import javafx.scene.Parent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
 
@@ -20,32 +22,43 @@ public class MainMenu
         this.currentPageTitle = currentPageTitle;
     }
 
-    public void editMenuLayout(Parent parent)
+    public void editMenuLayout(TreeView tree)
     {
         TreeItem<Label> root = new TreeItem<>();
         root.setExpanded(true);
 
-        currentPageBranch = makeBranch("Quick tasks", root);
+        makeBranch("Quick tasks", root, mouseEvent -> {
+            PageManager.setPage(SubprojectPage.getNewPage(DataManager.getQuickTasks()));
+        });
 
-        TreeItem<Label> calendarBranch = makeBranch("Calendar", root);
-        makeBranch("List", calendarBranch);
-        makeBranch("Day", calendarBranch);
-        makeBranch("Week", calendarBranch);
-        makeBranch("Month", calendarBranch);
+        makeBranch("Calendar", root, mouseEvent -> {
+            //PageManager.setPage(new CalendarPage());
+        });
 
         makeProjectBranches(root);
 
-        makeBranch("Settings", root);
+        makeBranch("Settings", root, mouseEvent -> {
+            //PageManager.setPage(new SettingsPage());
+        });
 
-        TreeView<Label> tree = (TreeView<Label>) parent.lookup("#mainMenu");;
         tree.setRoot(root);
         tree.setShowRoot(false);
         tree.getSelectionModel().select(currentPageBranch);
+
+        tree.setOnMouseClicked(mouseEvent -> {
+            TreeView<Label> clickedTree = (TreeView<Label>) mouseEvent.getSource();
+            TreeItem<Label> clickedItem = clickedTree.getSelectionModel().getSelectedItem();
+            Label clickedLabel = clickedItem.getValue();
+            EventHandler<MouseEvent> eventHandler = (EventHandler<MouseEvent>) clickedLabel.getOnMouseClicked();
+            eventHandler.handle(mouseEvent);
+        });
     }
 
     private void makeProjectBranches(TreeItem<Label> root)
     {
-        TreeItem<Label> allProjectsBranch = makeBranch("Projects", root);
+        TreeItem<Label> allProjectsBranch = makeBranch("Projects", root, mouseEvent -> {
+            //PageManager.setPage(new AllProjectsPage());
+        });
         ArrayList<Project> projects = DataManager.getProjects();
         for (Project project : projects)
         {
@@ -55,17 +68,22 @@ public class MainMenu
 
     private void makeSubprojectBranches(Project project, TreeItem<Label> allProjects)
     {
-        TreeItem<Label> projectBranch = makeBranch(project.getTitle(), allProjects);
+        TreeItem<Label> projectBranch = makeBranch(project.getTitle(), allProjects, mouseEvent -> {
+            //PageManager.setPage(new ProjectPage(project));
+        });
         ArrayList<Subproject> subprojects = project.getSubprojects();
         for (Subproject subproject : subprojects)
         {
-            makeBranch(subproject.getTitle(), projectBranch);
+            makeBranch(subproject.getTitle(), projectBranch, mouseEvent -> {
+                PageManager.setPage(SubprojectPage.getNewPage(subproject));
+            });
         }
     }
 
-    private TreeItem<Label> makeBranch(String title, TreeItem<Label> parent)
+    private TreeItem<Label> makeBranch(String title, TreeItem<Label> parent, EventHandler<MouseEvent> eventHandler)
     {
         Label label = new Label(title);
+        label.setOnMouseClicked(eventHandler);
         TreeItem<Label> item = new TreeItem<>(label);
         item.setExpanded(true);
         if (title.equals(currentPageTitle))

@@ -10,7 +10,7 @@ public class DataManager
 {
     private static final ArrayList<Project> projects = new ArrayList<>();
     private static final QuickTasks quickTasks = new QuickTasks();
-    private static Settings settings;
+    private static final Settings settings = new Settings();
 
     public static Project addProject(String title)
     {
@@ -36,14 +36,6 @@ public class DataManager
 
     public static Settings getSettings()
     {
-        if (settings == null)
-        {
-            settings = FileManager.loadSettings();
-        }
-        if (settings == null)
-        {
-            settings = new Settings();
-        }
         return settings;
     }
 }

@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.controller;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.view.Page;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -21,6 +22,12 @@ public class PageManager
         page.fillWithContent();
     }
 
+    public static Page getPage(String name)
+    {
+        FXMLLoader fxmlLoader = FileManager.getFXMLLoader(name);
+        return fxmlLoader.getController();
+    }
+
     public static Page getCurrentPage()
     {
         return currentPage;
@@ -30,6 +37,7 @@ public class PageManager
     {
         stage.setWidth(720);
         stage.setHeight(580);
+        stage.setTitle("MiTodo");
         PageManager.stage = stage;
     }
 
