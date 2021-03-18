@@ -12,6 +12,23 @@ public class TaskTest {
     Task task = new Task("A task", PriorityEnum.MEDIUM);
 
     @Nested
+    class instantiateTask{
+
+        @Test
+        void instantiateTaskInvalidNameTask(){
+            Assertions.assertThrows(IllegalArgumentException.class, () -> {
+                Task invalidTask = new Task("", PriorityEnum.MEDIUM);
+            });
+        }
+
+        @Test
+        void instantiateTaskInvalidPriority(){
+            Assertions.assertThrows(NullPointerException.class, () -> {
+                Task invalidTask = new Task("Invalid Task", null);
+            });
+        }
+    }
+    @Nested
     @DisplayName("Tests for addSubtask method")
     class addSubtasksTest{
 
