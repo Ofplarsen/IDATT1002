@@ -55,6 +55,9 @@ public class Subproject
 
     public void removeTask(Task task)
     {
+        if(!tasks.contains(task)){
+            throw new IllegalArgumentException("Can't find task");
+        }
         tasks.remove(task);
     }
 

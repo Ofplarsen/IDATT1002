@@ -29,7 +29,12 @@ class DataManagerTest {
     }
     @AfterEach
     public void delete(){
+        DataManager.getQuickTasks().removeTask(new Task("Buy milk", PriorityEnum.HIGH));
+        DataManager.getQuickTasks().removeTask(new Task("Do this", PriorityEnum.HIGH));
+        DataManager.getQuickTasks().removeTask(new Task("Do that", PriorityEnum.HIGH));
 
+        DataManager.removeProject(new Project("Personal"));
+        DataManager.removeProject(new Project("NTNU"));
     }
     @Nested
     @DisplayName("Tests to add and remove projects")

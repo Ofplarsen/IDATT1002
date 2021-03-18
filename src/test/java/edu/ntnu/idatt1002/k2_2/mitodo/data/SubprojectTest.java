@@ -77,18 +77,30 @@ class SubprojectTest {
         @Test
         void addTasksFalse(){
             try{
+                ntnuMatte.addTask("Task1", PriorityEnum.MEDIUM);
+                ntnuMatte.addTask("Task1", PriorityEnum.MEDIUM);
+            }catch (IllegalArgumentException e){
+                assertEquals(e.getMessage(), "Tasks already added");
+            }
+        }
+
+        @Test
+        void addTasksTaskFalse(){
+            try{
                 ntnuMatte.addTask("", PriorityEnum.MEDIUM);
             }catch (IllegalArgumentException e){
-                assertTrue(true);
+                assertEquals(e.getMessage(), "Invalid Input");
             }
         }
 
         @Test
         void addTaskAlreadyExists(){
             try{
-
+                assertNotEquals(ntnuMatte.getTasks().size(), 1);
+                ntnuMatte.addTask("Task1", PriorityEnum.MEDIUM);
+                ntnuMatte.removeTask(new Task("1", PriorityEnum.MEDIUM));
             }catch (IllegalArgumentException e){
-                assertTrue(true);
+                assertEquals(e.getMessage(), "Can't find task");
             }
         }
 
@@ -97,7 +109,7 @@ class SubprojectTest {
             ntnuMatte.addTask("Task1", PriorityEnum.MEDIUM);
             assertEquals(ntnuMatte.getTasks().size(), 1);
             ntnuMatte.removeTask(new Task("Task1", PriorityEnum.MEDIUM));
-            assertEquals(ntnuMatte.getTasks(), 0);
+            assertEquals(ntnuMatte.getTasks().size(), 0);
         }
     }
 }
