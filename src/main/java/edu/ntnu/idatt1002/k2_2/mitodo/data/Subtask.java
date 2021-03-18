@@ -6,7 +6,7 @@ public class Subtask
 
     public Subtask(String title)
     {
-        setTitle(title);
+        this.title = title;
     }
 
     public void setTitle(String title)

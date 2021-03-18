@@ -12,7 +12,7 @@ public class Project
 
     public Project(String title)
     {
-        setTitle(title);
+        this.title = title;
 
         subprojects = new ArrayList<>();
     }

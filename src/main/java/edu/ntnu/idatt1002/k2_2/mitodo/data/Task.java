@@ -2,6 +2,7 @@ package edu.ntnu.idatt1002.k2_2.mitodo.data;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 import java.util.Objects;
 
 public class Task
@@ -12,12 +13,13 @@ public class Task
     private Date dueDate;
     private String comment;
     private ArrayList<Subtask> subtasks;
+    private UUID uuid;
 
     public Task(String title, PriorityEnum priority)
     {
-        setTitle(title);
-        setPriority(priority);
-
+        this.title = title;
+        this.priority = priority;
+        this.uuid = UUID.randomUUID();
         subtasks = new ArrayList<>();
     }
 

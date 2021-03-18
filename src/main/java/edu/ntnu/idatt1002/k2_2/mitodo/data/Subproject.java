@@ -17,8 +17,8 @@ public class Subproject
 
     public Subproject(String title, Color color)
     {
-        setTitle(title);
-        setColor(color);
+        this.title = title;
+        this.color = color;
 
         tasks = new ArrayList<>();
     }
