@@ -10,6 +10,11 @@ public class Subproject
     private Color color;
     private ArrayList<Task> tasks;
 
+    public Subproject(String title) {
+        this.title = title;
+        this.color = color.BLUE;
+    }
+
     public Subproject(String title, Color color)
     {
         setTitle(title);
@@ -59,4 +64,6 @@ public class Subproject
     {
         return tasks;
     }
+
+
 }
