@@ -17,10 +17,21 @@ public class Task
 
     public Task(String title, PriorityEnum priority)
     {
-        this.title = title;
+        if(validInput(title) || validInput(priority.name())){
+            throw new IllegalArgumentException("Invalid Input");
+        }
+
+        this.title = title.trim();
         this.priority = priority;
         this.uuid = UUID.randomUUID();
         subtasks = new ArrayList<>();
+    }
+
+    private boolean validInput(String input){
+        if(input.isEmpty() || input.isBlank()){
+            return true;
+        }
+        return false;
     }
 
     public void setTitle(String title)

@@ -5,12 +5,8 @@ import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Subproject;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
 import javafx.scene.paint.Color;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
+import org.junit.BeforeClass;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,26 +27,33 @@ class DataManagerTest {
         Project projectPersonal = DataManager.addProject("Personal");
         Subproject subprojectPersonalWorkOut = projectPersonal.addSubproject("Work out plan", Color.LIGHTSEAGREEN);
     }
+    @AfterEach
+    public void delete(){
 
-    @Test
-    void addProject() {
-        assertEquals(DataManager.getProjects().size(), 2);
-        Project projectTest = DataManager.addProject("Test project");
-        assertEquals(DataManager.getProjects().size(), 2+1);
+    }
+    @Nested
+    @DisplayName("Tests to add and remove projects")
+    class addAndRemoveProjects {
+
+        @Test
+        void addProject() {
+
+            assertEquals(DataManager.getProjects().size(), 2);
+            Project projectTest = DataManager.addProject("Test project");
+            assertEquals(DataManager.getProjects().size(), 3);
+        }
+
+        @Test
+        void removeProject() {
+
+            assertEquals(DataManager.getProjects().size(), 2);
+            Project projectTest = DataManager.addProject("Test project");
+            assertEquals(DataManager.getProjects().size(), 2 + 1);
+            DataManager.removeProject(new Project("Test project"));
+            assertEquals(DataManager.getProjects().size(), 2);
+        }
     }
 
-    @Test
-    void removeProject() {
-        assertEquals(DataManager.getProjects().size(), 2);
-        Project projectTest = DataManager.addProject("Test project");
-        assertEquals(DataManager.getProjects().size(), 2+1);
-        DataManager.removeProject(new Project("Test project"));
-        assertEquals(DataManager.getProjects().size(), 2);
-    }
-
-    @Test
-    void getProjects() {
-    }
 
     @Nested
     @DisplayName("Tests to make sure Quicktasks in DataManager works")
@@ -58,6 +61,7 @@ class DataManagerTest {
 
         @Test
         void getQuickTasksDoesNotContainTask(){
+
             assertFalse(DataManager.getQuickTasks().getTasks().contains(new Task("milk", PriorityEnum.HIGH)));
             assertFalse(DataManager.getQuickTasks().getTasks().contains(new Task("this", PriorityEnum.HIGH)));
             assertFalse(DataManager.getQuickTasks().getTasks().contains(new Task("o that", PriorityEnum.HIGH)));
@@ -74,8 +78,4 @@ class DataManagerTest {
 
     }
 
-    @Test
-    void getSettings() {
-
-    }
 }

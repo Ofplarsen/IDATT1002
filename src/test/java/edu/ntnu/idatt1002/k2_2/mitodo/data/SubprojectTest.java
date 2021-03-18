@@ -64,20 +64,40 @@ class SubprojectTest {
     }
 
 
-    @Test
-    void addTask() {
+    @Nested
+    @DisplayName("Test to test add- and removeTask methods")
+    class AddAndRemoveTasks{
+        @Test
+        void addTaskTrue(){
+            assertEquals(ntnuMatte.getTasks().size(), 0);
+            ntnuMatte.addTask("Task1", PriorityEnum.MEDIUM);
+            assertEquals(ntnuMatte.getTasks().size(), 1);
+        }
 
-    }
+        @Test
+        void addTasksFalse(){
+            try{
+                ntnuMatte.addTask("", PriorityEnum.MEDIUM);
+            }catch (IllegalArgumentException e){
+                assertTrue(true);
+            }
+        }
 
-    @Test
-    void removeTask() {
-    }
+        @Test
+        void addTaskAlreadyExists(){
+            try{
 
-    @Test
-    void setTasks() {
-    }
+            }catch (IllegalArgumentException e){
+                assertTrue(true);
+            }
+        }
 
-    @Test
-    void getTasks() {
+        @Test
+        void removeTasksTrue(){
+            ntnuMatte.addTask("Task1", PriorityEnum.MEDIUM);
+            assertEquals(ntnuMatte.getTasks().size(), 1);
+            ntnuMatte.removeTask(new Task("Task1", PriorityEnum.MEDIUM));
+            assertEquals(ntnuMatte.getTasks(), 0);
+        }
     }
 }

@@ -45,6 +45,9 @@ public class Subproject
 
     public Task addTask(String title, PriorityEnum priority)
     {
+        if(tasks.contains(new Task(title,priority))){
+            throw new IllegalArgumentException("Tasks already added");
+        }
         Task task = new Task(title, priority);
         tasks.add(task);
         return task;
