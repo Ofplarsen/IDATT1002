@@ -3,6 +3,7 @@ package edu.ntnu.idatt1002.k2_2.mitodo.data;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Project
 {
@@ -46,5 +47,13 @@ public class Project
     public ArrayList<Subproject> getSubprojects()
     {
         return subprojects;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Project)) return false;
+        Project project = (Project) o;
+        return title.equals(project.title);
     }
 }

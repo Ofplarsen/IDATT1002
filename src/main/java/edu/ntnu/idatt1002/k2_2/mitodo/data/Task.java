@@ -95,6 +95,7 @@ public class Task
         return subtasks;
     }
 
+    // Endre denne til basert på en ID
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
