@@ -2,6 +2,8 @@ package edu.ntnu.idatt1002.k2_2.mitodo.data;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
+import java.util.Objects;
 
 /**
  * Class for task with methods to edit subtasks.
@@ -14,6 +16,7 @@ public class Task
     private Date dueDate;
     private String comment;
     private ArrayList<Subtask> subtasks;
+    private UUID uuid;
 
     /**
      * Constructs a new Task with title and priority.
@@ -22,10 +25,21 @@ public class Task
      */
     public Task(String title, PriorityEnum priority)
     {
-        setTitle(title);
-        setPriority(priority);
+        if(validInput(title) || validInput(priority.name())){
+            throw new IllegalArgumentException("Invalid Input");
+        }
 
+        this.title = title.trim();
+        this.priority = priority;
+        this.uuid = UUID.randomUUID();
         subtasks = new ArrayList<>();
+    }
+
+    private boolean validInput(String input){
+        if(input.isEmpty() || input.isBlank()){
+            return true;
+        }
+        return false;
     }
 
     public void setTitle(String title)
@@ -100,5 +114,19 @@ public class Task
     public ArrayList<Subtask> getSubtasks()
     {
         return subtasks;
+    }
+
+    // Endre denne til basert på en ID
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Task)) return false;
+        Task task = (Task) o;
+        return title.equals(task.title) && priority == task.priority;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, priority);
     }
 }

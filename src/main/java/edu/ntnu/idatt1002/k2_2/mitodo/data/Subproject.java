@@ -13,15 +13,23 @@ public class Subproject
     private Color color;
     private ArrayList<Task> tasks;
 
+<<<<<<< HEAD
     /**
      * Constructs a new Subproject with title and color.
      * @param title The subproject title.
      * @param color The color of the subproject.
      */
+=======
+    public Subproject(String title) {
+        this.title = title;
+        this.color = color.BLUE;
+    }
+
+>>>>>>> 54783d99efa9bfaf2225fef3a002e5c6bf1bbdce
     public Subproject(String title, Color color)
     {
-        setTitle(title);
-        setColor(color);
+        this.title = title;
+        this.color = color;
 
         tasks = new ArrayList<>();
     }
@@ -54,6 +62,9 @@ public class Subproject
      */
     public Task addTask(String title, PriorityEnum priority)
     {
+        if(tasks.contains(new Task(title,priority))){
+            throw new IllegalArgumentException("Tasks already added");
+        }
         Task task = new Task(title, priority);
         tasks.add(task);
         return task;
@@ -66,7 +77,19 @@ public class Subproject
      */
     public boolean removeTask(Task task)
     {
+<<<<<<< HEAD
         return tasks.remove(task);
+=======
+        if(!tasks.contains(task)){
+            throw new IllegalArgumentException("Can't find task");
+        }
+        tasks.remove(task);
+    }
+
+    public void setTasks(ArrayList<Task> tasks)
+    {
+        this.tasks = tasks;
+>>>>>>> 54783d99efa9bfaf2225fef3a002e5c6bf1bbdce
     }
 
     /**
@@ -76,4 +99,6 @@ public class Subproject
     {
         return tasks;
     }
+
+
 }

@@ -1,8 +1,13 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.data;
 
+<<<<<<< HEAD
 /**
  * Class for subtask.
  */
+=======
+import java.util.Objects;
+
+>>>>>>> 54783d99efa9bfaf2225fef3a002e5c6bf1bbdce
 public class Subtask
 {
     private String title;
@@ -13,7 +18,7 @@ public class Subtask
      */
     public Subtask(String title)
     {
-        setTitle(title);
+        this.title = title;
     }
 
     /**
@@ -32,5 +37,15 @@ public class Subtask
     public String getTitle()
     {
         return title;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if(!(o instanceof Subtask)){
+            return false;
+        }
+        Subtask subtask = (Subtask) o;
+        return Objects.equals(title, subtask.title);
     }
 }
