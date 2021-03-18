@@ -5,6 +5,9 @@ import java.util.Date;
 import java.util.UUID;
 import java.util.Objects;
 
+/**
+ * Class for task with methods to edit subtasks.
+ */
 public class Task
 {
     private String title;
@@ -15,6 +18,11 @@ public class Task
     private ArrayList<Subtask> subtasks;
     private UUID uuid;
 
+    /**
+     * Constructs a new Task with title and priority.
+     * @param title The task title.
+     * @param priority The task priority.
+     */
     public Task(String title, PriorityEnum priority)
     {
         if(validInput(title) || validInput(priority.name())){

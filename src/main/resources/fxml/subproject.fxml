@@ -47,11 +47,11 @@
 
 <SplitPane fx:id="parent" dividerPositions="0.2" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.SubprojectPage">
    <items>
-      <ScrollPane fitToHeight="true" fitToWidth="true" maxWidth="-Infinity" prefHeight="-1.0" prefWidth="-1.0" >
+      <ScrollPane fitToHeight="true" fitToWidth="true" maxWidth="-Infinity" prefHeight="-1.0" prefWidth="-1.0">
          <content>
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0">
                <children>
-                  <TreeView fx:id="mainMenu" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                  <TreeView fx:id="mainMenu" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
          </content>

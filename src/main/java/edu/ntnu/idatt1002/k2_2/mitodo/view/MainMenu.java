@@ -17,11 +17,19 @@ public class MainMenu
     private final String currentPageTitle;
     private TreeItem<Label> currentPageBranch;
 
+    /**
+     * Constructs a new MainMenu
+     * @param currentPageTitle The current page title
+     */
     public MainMenu(String currentPageTitle)
     {
         this.currentPageTitle = currentPageTitle;
     }
 
+    /**
+     * Adds menu items to the menu
+     * @param tree The menu TreeView
+     */
     public void editMenuLayout(TreeView tree)
     {
         TreeItem<Label> root = new TreeItem<>();
