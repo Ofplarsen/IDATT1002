@@ -34,11 +34,18 @@ class DataManagerTest {
 
     @Test
     void addProject() {
-
+        assertEquals(DataManager.getProjects().size(), 2);
+        Project projectTest = DataManager.addProject("Test project");
+        assertEquals(DataManager.getProjects().size(), 2+1);
     }
 
     @Test
     void removeProject() {
+        assertEquals(DataManager.getProjects().size(), 2);
+        Project projectTest = DataManager.addProject("Test project");
+        assertEquals(DataManager.getProjects().size(), 2+1);
+        DataManager.removeProject(new Project("Test project"));
+        assertEquals(DataManager.getProjects().size(), 2);
     }
 
     @Test
@@ -69,5 +76,6 @@ class DataManagerTest {
 
     @Test
     void getSettings() {
+
     }
 }
