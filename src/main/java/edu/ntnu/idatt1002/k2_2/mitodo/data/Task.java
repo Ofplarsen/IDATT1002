@@ -3,6 +3,9 @@ package edu.ntnu.idatt1002.k2_2.mitodo.data;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Class for task with methods to edit subtasks.
+ */
 public class Task
 {
     private String title;
@@ -12,6 +15,11 @@ public class Task
     private String comment;
     private ArrayList<Subtask> subtasks;
 
+    /**
+     * Constructs a new Task with title and priority.
+     * @param title The task title.
+     * @param priority The task priority.
+     */
     public Task(String title, PriorityEnum priority)
     {
         setTitle(title);
