@@ -1,13 +1,10 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.data;
 
-<<<<<<< HEAD
 /**
  * Class for subtask.
  */
-=======
 import java.util.Objects;
 
->>>>>>> 54783d99efa9bfaf2225fef3a002e5c6bf1bbdce
 public class Subtask
 {
     private String title;

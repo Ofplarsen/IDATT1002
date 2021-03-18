@@ -13,19 +13,16 @@ public class Subproject
     private Color color;
     private ArrayList<Task> tasks;
 
-<<<<<<< HEAD
     /**
      * Constructs a new Subproject with title and color.
      * @param title The subproject title.
-     * @param color The color of the subproject.
      */
-=======
+
     public Subproject(String title) {
         this.title = title;
         this.color = color.BLUE;
     }
 
->>>>>>> 54783d99efa9bfaf2225fef3a002e5c6bf1bbdce
     public Subproject(String title, Color color)
     {
         this.title = title;
@@ -77,19 +74,15 @@ public class Subproject
      */
     public boolean removeTask(Task task)
     {
-<<<<<<< HEAD
-        return tasks.remove(task);
-=======
         if(!tasks.contains(task)){
             throw new IllegalArgumentException("Can't find task");
         }
-        tasks.remove(task);
+        return tasks.remove(task);
     }
 
     public void setTasks(ArrayList<Task> tasks)
     {
         this.tasks = tasks;
->>>>>>> 54783d99efa9bfaf2225fef3a002e5c6bf1bbdce
     }
 
     /**
