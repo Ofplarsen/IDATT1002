@@ -25,7 +25,7 @@ public class Task
      */
     public Task(String title, PriorityEnum priority)
     {
-        if(validInput(title) || validInput(priority.name())){
+        if(invalidInput(title) || invalidInput(priority.name())){
             throw new IllegalArgumentException("Invalid Input");
         }
 
@@ -35,7 +35,7 @@ public class Task
         subtasks = new ArrayList<>();
     }
 
-    private boolean validInput(String input){
+    private boolean invalidInput(String input){
         if(input.isEmpty() || input.isBlank()){
             return true;
         }
@@ -79,7 +79,7 @@ public class Task
 
     public Date getDueDate()
     {
-        QuickTasks quickTasks = new QuickTasks();
+        QuickTasks quickTasks = new QuickTasks(); //Why is line this here?
 
         return dueDate;
     }
@@ -122,7 +122,7 @@ public class Task
         if (this == o) return true;
         if (!(o instanceof Task)) return false;
         Task task = (Task) o;
-        return title.equals(task.title) && priority == task.priority;
+        return title.equals(task.title) && priority == task.priority; //TODO: should we add a trim to the title check?
     }
 
     @Override

@@ -12,7 +12,8 @@ public class TaskTest {
     Task task = new Task("A task", PriorityEnum.MEDIUM);
 
     @Nested
-    class instantiateTask{
+    @DisplayName("Tests for instantiating a task")
+    class InstantiateTaskTest{
 
         @Test
         void instantiateTaskInvalidNameTask(){
@@ -28,16 +29,49 @@ public class TaskTest {
             });
         }
     }
+
     @Nested
     @DisplayName("Tests for addSubtask method")
-    class addSubtasksTest{
+    class AddSubtasksTest{
 
         @Test
         void subtaskIsSuccessfullyAdded(){
+            Assertions.assertEquals(0, task.getSubtasks().size());
             task.addSubtasks("A subtask");
-            Subtask subtask = new Subtask("A subtask");
-            Assertions.assertEquals(task.getSubtasks().get(0), subtask);
+            Assertions.assertEquals(1, task.getSubtasks().size());
         }
+
+        /*@Test
+        void subtaskIsNotSuccessfullyAdded*/ //TODO: make a negative test if relevant e.g. if checking params on instantiation
     }
 
+    @Nested
+    @DisplayName("Tests for equals method")
+    class EqualsTest{
+
+        @Test
+        void tasksAreEqual(){
+            Task task1 = new Task("Task", PriorityEnum.MEDIUM);
+            Task task2 = new Task("Task", PriorityEnum.MEDIUM);
+
+            assertEquals(task1, task2);
+        }
+
+        @Test
+        void tasksHaveDifferentTitles(){
+            Task task1 = new Task("Task", PriorityEnum.MEDIUM);
+            Task task2 = new Task("Different task", PriorityEnum.MEDIUM);
+
+            assertNotEquals(task1, task2);
+        }
+
+        @Test
+        void tasksHaveDifferentPriorities(){
+            Task task1 = new Task("Task", PriorityEnum.MEDIUM);
+            Task task2 = new Task("Task", PriorityEnum.HIGH);
+
+            assertNotEquals(task1, task2);
+        }
+
+    }
 }
