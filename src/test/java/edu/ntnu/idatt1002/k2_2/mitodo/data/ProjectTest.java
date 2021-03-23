@@ -31,6 +31,7 @@ class ProjectTest {
             try{
                 project.addSubproject("subproject", Color.AQUA);
             }catch (IllegalArgumentException e){
+                project.removeSubproject(new Subproject("subproject", Color.AQUA));
                 assertEquals(e.getMessage(), "Subproject already in project");
             }
         }
@@ -41,14 +42,19 @@ class ProjectTest {
     @Nested
     @DisplayName("Test to make sure removeSubject works")
     class removeSubproject{
+        /*
         @Test
         void removeSubprojectTrue(){
-
+            Subproject subproject = new Subproject("subproject", Color.AQUA);
+            project.addSubproject(subproject.getTitle(), subproject.getColor());
+            assertTrue(project.removeSubproject(subproject));
         }
+
+         */
 
         @Test
         void removeSubprojectFalse(){
-
+            assertFalse(project.removeSubproject(new Subproject("subproject", Color.AQUA)));
         }
     }
 
