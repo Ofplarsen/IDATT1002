@@ -5,7 +5,6 @@ import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Subproject;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
 import javafx.scene.paint.Color;
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;

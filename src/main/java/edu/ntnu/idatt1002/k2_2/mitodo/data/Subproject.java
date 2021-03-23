@@ -3,6 +3,7 @@ package edu.ntnu.idatt1002.k2_2.mitodo.data;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Class for subprojects with method to edit tasks.
@@ -93,5 +94,21 @@ public class Subproject
         return tasks;
     }
 
+    /**
+     * Equals method
+     * @param o
+     * @return
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Subproject)) return false;
+        Subproject that = (Subproject) o;
+        return title.equals(that.title) && Objects.equals(color, that.color);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, color);
+    }
 }

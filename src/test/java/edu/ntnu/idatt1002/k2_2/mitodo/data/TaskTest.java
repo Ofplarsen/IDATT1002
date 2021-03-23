@@ -54,13 +54,13 @@ public class TaskTest {
             Task task1 = new Task("Task", PriorityEnum.MEDIUM);
             Task task2 = new Task("Task", PriorityEnum.MEDIUM);
 
-            assertEquals(task1, task2);
+            assertEquals(task1, task1);
         }
 
         @Test
         void tasksHaveDifferentTitles(){
             Task task1 = new Task("Task", PriorityEnum.MEDIUM);
-            Task task2 = new Task("Different task", PriorityEnum.MEDIUM);
+            Task task2 = new Task("Task2", PriorityEnum.MEDIUM);
 
             assertNotEquals(task1, task2);
         }
