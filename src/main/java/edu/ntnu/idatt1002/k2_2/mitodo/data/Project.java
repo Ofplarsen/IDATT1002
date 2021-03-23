@@ -30,7 +30,10 @@ public class Project
      */
     public void setTitle(String title)
     {
-        this.title = title;
+        if(title.isEmpty() || title.isBlank()){
+            throw new IllegalArgumentException("Title can't be empty/blank");
+        }
+        this.title = title.trim();
     }
 
     /**
@@ -50,6 +53,9 @@ public class Project
     public Subproject addSubproject(String title, Color color)
     {
         Subproject subproject = new Subproject(title, color);
+        if(subprojects.contains(subproject)){
+            throw new IllegalArgumentException("Subproject already in project");
+        }
         subprojects.add(subproject);
         return subproject;
     }
