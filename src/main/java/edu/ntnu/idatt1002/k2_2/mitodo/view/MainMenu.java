@@ -1,9 +1,7 @@
+/*
 package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.controller.PageManager;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
-import edu.ntnu.idatt1002.k2_2.mitodo.controller.DataManager;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.Subproject;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
@@ -17,19 +15,23 @@ public class MainMenu
     private final String currentPageTitle;
     private TreeItem<Label> currentPageBranch;
 
-    /**
+    */
+/**
      * Constructs a new MainMenu
      * @param currentPageTitle The current page title
-     */
+     *//*
+
     public MainMenu(String currentPageTitle)
     {
         this.currentPageTitle = currentPageTitle;
     }
 
-    /**
+    */
+/**
      * Adds menu items to the menu
      * @param tree The menu TreeView
-     */
+     *//*
+
     public void editMenuLayout(TreeView tree)
     {
         TreeItem<Label> root = new TreeItem<>();
@@ -103,3 +105,4 @@ public class MainMenu
         return item;
     }
 }
+*/

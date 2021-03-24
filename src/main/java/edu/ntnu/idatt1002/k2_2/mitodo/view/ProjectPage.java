@@ -1,7 +1,9 @@
+/*
+
 package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.controller.PageManager;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.Subproject;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -10,11 +12,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TreeView;
 
-public class SubprojectPage extends Page
+public class ProjectPage extends Page
 {
     public final static String FXML_NAME = "subproject";
 
-    private Subproject subproject;
+    private Project subproject;
     private Scene scene;
 
     @FXML
@@ -26,10 +28,10 @@ public class SubprojectPage extends Page
     @FXML
     private ComboBox sortComboBox;
 
-    public static SubprojectPage getNewPage(Subproject subproject)
+    public static ProjectPage getNewPage(Project project)
     {
-        SubprojectPage subprojectPage = (SubprojectPage) PageManager.getPage(FXML_NAME);
-        subprojectPage.setSubproject(subproject);
+        ProjectPage subprojectPage = (ProjectPage) PageManager.getPage(FXML_NAME);
+        subprojectPage.setSubproject(project);
         return subprojectPage;
     }
 
@@ -62,3 +64,5 @@ public class SubprojectPage extends Page
         );
     }
 }
+
+*/
