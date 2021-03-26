@@ -92,7 +92,7 @@ public class Project {
                indexOfTask = tasks.indexOf(task);
             }
         }
-        application.getProjectbyTitle(projectTitle).addTask(tasks.get(indexOfTask));
+        application.getProjectbyTitle(projectTitle).addTask(tasks.get(indexOfTask)); //TODO: This will throw an IndexOutOfBoundsException if the title param does not match any task in the project, is that the way we want it to be? Maybe create our own exception?
         removeTaskbyTitle(title);
     }
 
