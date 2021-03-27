@@ -96,12 +96,12 @@ public class Project {
         removeTaskbyTitle(title);
     }
 
-    public void removeTask(UUID id) {
-        tasks.removeIf(task -> task.getId().equals(id));
+    public boolean removeTask(UUID id) {
+        return tasks.removeIf(task -> task.getId().equals(id));
     }
 
-    public void removeTaskbyTitle(String title) {
-        tasks.removeIf(task -> task.getTitle().equals(title));
+    public boolean removeTaskbyTitle(String title) {
+        return tasks.removeIf(task -> task.getTitle().equals(title));
     }
 
     public ArrayList<Project> getProjects() {
@@ -156,12 +156,12 @@ public class Project {
         }
     }
 
-    public void removeProject(UUID id) {
-        projects.removeIf(project -> project.getId().equals(id));
+    public boolean removeProject(UUID id) {
+        return projects.removeIf(project -> project.getId().equals(id));
     }
 
-    public void removeProjectbyTitle(String title) {
-        projects.removeIf(project -> project.getTitle().equals(title));
+    public boolean removeProjectbyTitle(String title) {
+        return projects.removeIf(project -> project.getTitle().equals(title));
     }
 
     @Override
