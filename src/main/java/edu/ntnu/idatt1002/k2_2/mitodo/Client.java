@@ -20,7 +20,7 @@ public class Client extends Application {
         this.pageManager = new PageManager();
 
         pageManager.setStage(stage);
-        PageTest pageTestPage = (PageTest) pageManager.getPage("PageTest");
+        PageTest pageTestPage = (PageTest) pageManager.getPage("AllProjects");
         pageManager.setPage(pageTestPage);
 
         AllProjects allProjectsPage = (AllProjects) pageManager.getPage("AllProjects");
