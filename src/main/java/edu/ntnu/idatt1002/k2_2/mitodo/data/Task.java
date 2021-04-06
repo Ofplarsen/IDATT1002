@@ -3,6 +3,14 @@ package edu.ntnu.idatt1002.k2_2.mitodo.data;
 import java.util.Date;
 import java.util.UUID;
 
+/**
+ * Public class Task
+ * The Task class consists of an id, title, priority and end/start date
+ * When the user creates a task, it gets an unique Id and the user gives the task an title
+ * The unique id is created from the class UUID, which is a Java class that among other things lets you get a random
+ * 128-bit number. This makes it as good as impossible for two task get the same id. This is implemented, because the user
+ * should be able to create two tasks with the same title.
+ */
 public class Task {
     private UUID id;
     private String title;

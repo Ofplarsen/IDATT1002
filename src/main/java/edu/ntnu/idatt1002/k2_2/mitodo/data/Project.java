@@ -3,6 +3,9 @@ package edu.ntnu.idatt1002.k2_2.mitodo.data;
 import java.util.ArrayList;
 import java.util.UUID;
 
+/**
+ * Public class Project
+ */
 public class Project {
     private UUID id;
     private String title;
