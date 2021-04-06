@@ -1,5 +1,7 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.data;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -14,6 +16,8 @@ public class Task {
         this.title = title;
         this.id = UUID.randomUUID();
     }
+
+    public Task(){} //Empty constructor needed for some JSON related shenanigans
 
     public UUID getId() {
         return id;
