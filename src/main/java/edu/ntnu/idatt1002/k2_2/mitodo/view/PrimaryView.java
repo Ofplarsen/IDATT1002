@@ -1,37 +1,41 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
-import edu.ntnu.idatt1002.k2_2.mitodo.Client;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import java.util.ArrayList;
 
-
-public class Primary extends Page {
+public class PrimaryView extends View
+{
 
     private Scene scene;
 
     @FXML
-    private VBox tasksDisplay;
+    private SplitPane parent;
+
     @FXML
-    private VBox parent;
-    @FXML
-    private Label allTasksTitle;
+    private AnchorPane content;
 
     public void initialize() {
         this.scene = new Scene(parent);
     }
 
-    @Override
+    public void setContent(View view)
+    {
+        content.getChildren().add(view.getParent());
+    }
+
     public Scene getScene() {
         return scene;
     }
 
     @Override
-    public void fillWithContent() {
-
+    public Node getParent()
+    {
+        return parent;
     }
 }

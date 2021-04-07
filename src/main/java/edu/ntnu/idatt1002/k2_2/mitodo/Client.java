@@ -2,31 +2,38 @@ package edu.ntnu.idatt1002.k2_2.mitodo;
 
 
 //import edu.ntnu.idatt1002.k2_2.mitodo.controller.FileManager;
-import edu.ntnu.idatt1002.k2_2.mitodo.controller.FileManager;
-import edu.ntnu.idatt1002.k2_2.mitodo.controller.PageManager;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
+import edu.ntnu.idatt1002.k2_2.mitodo.file.FileManager;
 import edu.ntnu.idatt1002.k2_2.mitodo.testdata.Default;
-import edu.ntnu.idatt1002.k2_2.mitodo.view.Primary;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.PrimaryView;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Client extends Application {
     private static Project rootProject;
-    private PageManager pageManager;
+    private static PrimaryView primaryView;
 
     public void start(Stage stage) {
+        stage.setWidth(720);
+        stage.setHeight(580);
+        stage.setTitle("MiTodo");
+
         rootProject = new Project("application");
+        primaryView = (PrimaryView) FileManager.getView("PrimaryView");
+
+        setView("ProjectView");
+
+        Scene primaryScene = primaryView.getScene();
+        stage.setScene(primaryScene);
+        stage.show();
 
         //if(!FileManager.createNewFile("rootprojects.json")){ //TODO everything that is commented out is related to JSON
         //    rootProject = FileManager.readProjectFile("rootprojects.json");
         //}
         Default.fillWithTestData(rootProject);
-
-        this.pageManager = new PageManager();
-
-        pageManager.setStage(stage);
-        Primary pageTestPage = (Primary) pageManager.getPage("Primary");
-        pageManager.setPage(pageTestPage);
     }
 
     /*@Override
@@ -37,6 +44,13 @@ public class Client extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+
+    public static View setView(String name)
+    {
+        View view = FileManager.getView(name);
+        primaryView.setContent(view);
+        return view;
     }
 
     public static Project getRootProject() {

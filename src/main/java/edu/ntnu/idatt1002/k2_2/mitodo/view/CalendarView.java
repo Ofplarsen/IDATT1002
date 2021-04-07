@@ -1,15 +1,14 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 
-public class CalendarView extends Page {
-
-    private Scene scene;
-
+public class CalendarView extends View
+{
     @FXML
     private VBox tasksDisplay;
     @FXML
@@ -18,16 +17,11 @@ public class CalendarView extends Page {
     private Label allTasksTitle;
 
     public void initialize() {
-        this.scene = new Scene(parent);
     }
 
     @Override
-    public Scene getScene() {
-        return scene;
-    }
-
-    @Override
-    public void fillWithContent() {
-
+    public Node getParent()
+    {
+        return parent;
     }
 }

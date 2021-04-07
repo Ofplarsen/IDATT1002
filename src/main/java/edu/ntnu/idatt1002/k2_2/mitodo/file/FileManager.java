@@ -1,11 +1,10 @@
-package edu.ntnu.idatt1002.k2_2.mitodo.controller;
+package edu.ntnu.idatt1002.k2_2.mitodo.file;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import javafx.fxml.FXMLLoader;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 
@@ -21,7 +20,7 @@ public class FileManager
      * @param name The name of the file without the file-ending ".fxml".
      * @return The loaded FXMLLoader. null if not found.
      */
-    public static FXMLLoader getFXMLLoader(String name)
+    public static View getView(String name)
     {
         URL url = FileManager.class.getResource("/fxml/" + name + ".fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(url);
@@ -36,7 +35,7 @@ public class FileManager
             return null;
         }
 
-        return fxmlLoader;
+        return fxmlLoader.getController();
     }
 
     //Jackson:
