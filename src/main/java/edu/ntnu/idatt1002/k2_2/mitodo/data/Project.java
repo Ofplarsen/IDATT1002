@@ -7,7 +7,7 @@ import java.util.UUID;
  * Public class Project
  */
 public class Project {
-    private UUID id;
+    private final UUID ID ;
     private String title;
     private ArrayList<Task> tasks;
     private ArrayList<Project> projects;
@@ -16,11 +16,11 @@ public class Project {
         this.title = title;
         this.tasks = new ArrayList<>();
         this.projects = new ArrayList<>();
-        this.id = UUID.randomUUID();
+        this.ID = UUID.randomUUID();
     }
 
-    public UUID getId() {
-        return id;
+    public UUID getID() {
+        return ID;
     }
 
     public String getTitle() {
@@ -57,7 +57,7 @@ public class Project {
 
     public Task getTask(UUID id) {
         for (Task task : tasks) {
-            if (task.getId().equals(id)) {
+            if (task.getID().equals(id)) {
                 return task;
             }
         }
@@ -80,7 +80,7 @@ public class Project {
     public void moveTask(UUID id, UUID projectId, Project application) {
         int indexOfTask = -1;
         for (Task task : tasks) {
-            if (task.getId().equals(id)) {
+            if (task.getID().equals(id)) {
                 indexOfTask = tasks.indexOf(task);
             }
         }
@@ -92,7 +92,7 @@ public class Project {
         int indexOfTask = -1;
         for (Task task : tasks) {
             if (task.getTitle().equals(title)) {
-               indexOfTask = tasks.indexOf(task);
+                indexOfTask = tasks.indexOf(task);
             }
         }
         application.getProjectbyTitle(projectTitle).addTask(tasks.get(indexOfTask)); //TODO: This will throw an IndexOutOfBoundsException if the title param does not match any task in the project, is that the way we want it to be? Maybe create our own exception?
@@ -100,7 +100,7 @@ public class Project {
     }
 
     public boolean removeTask(UUID id) {
-        return tasks.removeIf(task -> task.getId().equals(id));
+        return tasks.removeIf(task -> task.getID().equals(id));
     }
 
     public boolean removeTaskbyTitle(String title) {
@@ -113,7 +113,7 @@ public class Project {
 
     public Project getProject(UUID id) {
         for (Project project : projects) {
-            if (project.getId().equals(id)) {
+            if (project.getID().equals(id)) {
                 return project;
             } else {
                 if (project.getProjects().size() > 0) {
@@ -143,7 +143,7 @@ public class Project {
 
     public void moveProject(UUID id, int index) {
         for (Project project : projects) {
-            if (project.getId().equals(id)) {
+            if (project.getID().equals(id)) {
                 projects.remove(projects.indexOf(project));
                 projects.add(index,project);
             }
@@ -160,7 +160,7 @@ public class Project {
     }
 
     public boolean removeProject(UUID id) {
-        return projects.removeIf(project -> project.getId().equals(id));
+        return projects.removeIf(project -> project.getID().equals(id));
     }
 
     public boolean removeProjectbyTitle(String title) {
@@ -170,7 +170,7 @@ public class Project {
     @Override
     public String toString() {
         return "\nProject{" +
-                "\nid=" + id +
+                "\nid=" + ID +
                 "\ntitle='" + title +
                 "\ntasks=" + tasks +
                 "\nprojects=" + projects +

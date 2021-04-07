@@ -1,6 +1,5 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.data;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -30,7 +29,7 @@ class ProjectTest {
 
             @Test
             void idBelongsToATaskInProject(){
-                UUID supposedId = task2.getId();
+                UUID supposedId = task2.getID();
 
                 Assertions.assertEquals(task2, project.getTask(supposedId));
             }
@@ -97,7 +96,7 @@ class ProjectTest {
 
             @Test
             void moveTaskByThatIsInAProject() {
-                project.moveTask(task1.getId(), project2.getId(), project);
+                project.moveTask(task1.getID(), project2.getID(), project);
 
                 Assertions.assertEquals(task1, project2.getTask("Task1"));
                 Assertions.assertNull(project.getTask("Task1"));
@@ -107,7 +106,7 @@ class ProjectTest {
             void moveTaskThatIsCurrentlyNotInAnyProject(){
                 Task task4 = new Task("Task4");
 
-                Assertions.assertThrows(IndexOutOfBoundsException.class, () -> project.moveTask(task4.getId(), project2.getId(), project));
+                Assertions.assertThrows(IndexOutOfBoundsException.class, () -> project.moveTask(task4.getID(), project2.getID(), project));
             }
         }
 
@@ -134,7 +133,7 @@ class ProjectTest {
 
             @Test
             void projectWithIdIsInAnotherProject(){
-                UUID project2Id = project2.getId();
+                UUID project2Id = project2.getID();
 
                 Assertions.assertNotNull(project.getProject(project2Id));
             }
@@ -186,7 +185,7 @@ class ProjectTest {
 
             @Test
             void moveASubprojectToAnotherIndexWithinAProject(){
-                UUID project4Id = project4.getId();
+                UUID project4Id = project4.getID();
                 int project4IndexBeforeMoving = project.getProjects().indexOf(project4);
 
                 project.moveProject(project4Id, 0);
@@ -199,7 +198,7 @@ class ProjectTest {
             @Test
             void moveAProjectThatIsNotInAnotherProject(){
                 Project project5 = new Project("Project5");
-                UUID project5Id = project5.getId();
+                UUID project5Id = project5.getID();
 
                 int project2IndexBeforeMoving = project.getProjects().indexOf(project2);
                 int project3IndexBeforeMoving = project.getProjects().indexOf(project3);
@@ -274,13 +273,13 @@ class ProjectTest {
 
             @Test
             void removeASubprojectFromAProject(){
-                Assertions.assertTrue(project.removeProject(project2.getId()));
+                Assertions.assertTrue(project.removeProject(project2.getID()));
             }
 
             @Test
             void removeAProjectThatIsNotASubproject(){
                 Project project5 = new Project("Project5");
-                Assertions.assertFalse(project.removeProject(project5.getId()));
+                Assertions.assertFalse(project.removeProject(project5.getID()));
             }
         }
 

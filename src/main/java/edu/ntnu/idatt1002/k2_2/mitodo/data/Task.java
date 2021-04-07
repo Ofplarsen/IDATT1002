@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.data;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -12,7 +13,7 @@ import java.util.UUID;
  * should be able to create two tasks with the same title.
  */
 public class Task {
-    private UUID id;
+    private final UUID ID;
     private String title;
     private PriorityEnum priority;
     private Date startDate;
@@ -20,11 +21,11 @@ public class Task {
 
     public Task(String title) {
         this.title = title;
-        this.id = UUID.randomUUID();
+        this.ID = UUID.randomUUID();
     }
 
-    public UUID getId() {
-        return id;
+    public UUID getID() {
+        return ID;
     }
 
     public String getTitle() {
@@ -62,11 +63,24 @@ public class Task {
     @Override
     public String toString() {
         return "\nTask{" +
-                "\nid=" + id +
+                "\nid=" + ID +
                 "\ntitle='" + title +
                 "\npriority=" + priority +
                 "\nstartDate=" + startDate +
                 "\ndueDate=" + dueDate +
                 "\n}";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Task)) return false;
+        Task task = (Task) o;
+        return ID.equals(task.ID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID);
     }
 }
