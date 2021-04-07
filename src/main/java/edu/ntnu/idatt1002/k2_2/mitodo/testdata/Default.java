@@ -24,6 +24,5 @@ public class Default
         application.getProjectbyTitle("Skole").addTask(taskForJsonTest2);
 
         application.getProjectbyTitle("Matte").moveTaskbyTitle("Komplekse tall", "Skole", application);
-        System.out.println(application.getProjectbyTitle("Skole"));
     }
 }

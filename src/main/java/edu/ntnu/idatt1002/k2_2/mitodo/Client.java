@@ -24,7 +24,7 @@ public class Client extends Application {
         rootProject = new Project("application");
         primaryView = (PrimaryView) FileManager.getView("PrimaryView");
 
-        setView("ProjectView");
+        setView("EditTaskView");
 
         Scene primaryScene = primaryView.getScene();
         stage.setScene(primaryScene);

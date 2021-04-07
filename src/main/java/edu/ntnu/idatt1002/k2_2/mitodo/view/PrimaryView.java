@@ -3,10 +3,8 @@ package edu.ntnu.idatt1002.k2_2.mitodo.view;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 
 
 public class PrimaryView extends View
