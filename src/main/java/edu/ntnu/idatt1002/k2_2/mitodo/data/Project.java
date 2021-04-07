@@ -132,15 +132,22 @@ public class Project {
     }
 
     public Project getProjectbyTitle(String title) {
-        for (Project project : projects) {
-            if (project.getTitle().equals(title)) {
+        for (Project project : projects)
+        {
+            if (project.getTitle().equals(title))
+            {
                 return project;
-            } else {
-                if (project.getProjects().size() > 0) {
-                    return project.getProjectbyTitle(title);
-                }
             }
         }
+        for (Project project : projects)
+        {
+            Project result = project.getProjectbyTitle(title);
+            if (result != null)
+            {
+                return result;
+            }
+        }
+
         return null;
     }
 
