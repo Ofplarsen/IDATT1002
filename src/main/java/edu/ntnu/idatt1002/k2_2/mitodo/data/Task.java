@@ -21,6 +21,7 @@ public class Task {
     public Task(String title) {
         this.title = title;
         this.id = UUID.randomUUID();
+        this.priority = PriorityEnum.UNDEFINED;
     }
 
     public UUID getId() {

@@ -4,8 +4,7 @@ package edu.ntnu.idatt1002.k2_2.mitodo;
 import edu.ntnu.idatt1002.k2_2.mitodo.controller.PageManager;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.testdata.Default;
-import edu.ntnu.idatt1002.k2_2.mitodo.view.AllProjects;
-import edu.ntnu.idatt1002.k2_2.mitodo.view.PageTest;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.Primary;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -20,11 +19,8 @@ public class Client extends Application {
         this.pageManager = new PageManager();
 
         pageManager.setStage(stage);
-        PageTest pageTestPage = (PageTest) pageManager.getPage("PageTest");
+        Primary pageTestPage = (Primary) pageManager.getPage("Primary");
         pageManager.setPage(pageTestPage);
-
-        AllProjects allProjectsPage = (AllProjects) pageManager.getPage("AllProjects");
-        pageManager.setPage(allProjectsPage);
     }
 
     public static void main(String[] args) {
