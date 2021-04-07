@@ -1,5 +1,10 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.data;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.UUIDDeserializer;
+import com.fasterxml.jackson.databind.ser.std.UUIDSerializer;
+
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -7,7 +12,7 @@ import java.util.UUID;
  * Public class Project
  */
 public class Project {
-    private final UUID ID ;
+    private UUID ID ;
     private String title;
     private ArrayList<Task> tasks;
     private ArrayList<Project> projects;
@@ -18,6 +23,8 @@ public class Project {
         this.projects = new ArrayList<>();
         this.ID = UUID.randomUUID();
     }
+
+    public Project(){} //Empty constructor needed for some JSON related shenanigans
 
     public UUID getID() {
         return ID;

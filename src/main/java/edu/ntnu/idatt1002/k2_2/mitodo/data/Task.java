@@ -1,5 +1,7 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.data;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -13,7 +15,7 @@ import java.util.UUID;
  * should be able to create two tasks with the same title.
  */
 public class Task {
-    private final UUID ID;
+    private UUID ID;
     private String title;
     private PriorityEnum priority;
     private Date startDate;
@@ -23,6 +25,8 @@ public class Task {
         this.title = title;
         this.ID = UUID.randomUUID();
     }
+
+    public Task(){} //Empty constructor needed for some JSON related shenanigans
 
     public UUID getID() {
         return ID;

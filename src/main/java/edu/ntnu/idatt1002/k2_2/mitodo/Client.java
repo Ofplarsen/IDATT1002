@@ -1,6 +1,8 @@
 package edu.ntnu.idatt1002.k2_2.mitodo;
 
 
+//import edu.ntnu.idatt1002.k2_2.mitodo.controller.FileManager;
+import edu.ntnu.idatt1002.k2_2.mitodo.controller.FileManager;
 import edu.ntnu.idatt1002.k2_2.mitodo.controller.PageManager;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.testdata.Default;
@@ -15,6 +17,10 @@ public class Client extends Application {
 
     public void start(Stage stage) {
         rootProject = new Project("application");
+
+        //if(!FileManager.createNewFile("rootprojects.json")){ //TODO everything that is commented out is related to JSON
+        //    rootProject = FileManager.readProjectFile("rootprojects.json");
+        //}
         Default.fillWithTestData(rootProject);
 
         this.pageManager = new PageManager();
@@ -27,11 +33,20 @@ public class Client extends Application {
         pageManager.setPage(allProjectsPage);
     }
 
+    /*@Override
+    public void stop() throws Exception {
+        FileManager.writeProjectFile(rootProject, "rootprojects.json");
+        super.stop();
+    }*/
+
     public static void main(String[] args) {
         launch();
     }
 
     public static Project getRootProject() {
+        //if(!FileManager.createNewFile("rootprojects.json")){
+        //    rootProject = FileManager.readProjectFile("rootprojects.json");
+        //}
         return rootProject;
     }
 
