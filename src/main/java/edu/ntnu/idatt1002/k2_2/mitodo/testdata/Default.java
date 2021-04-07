@@ -14,6 +14,15 @@ public class Default
         application.getProjectbyTitle("Matte").addTask(new Task("Komplekse tall"));
         application.getProjectbyTitle("Matte").addTask(new Task("Logikk øving 2"));
 
+        application.addProject(new Project("Personlig"));
+        application.getProjectbyTitle("Personlig").addProject(new Project("Trening"));
+        application.getProjectbyTitle("Trening").addProject(new Project("Intervall"));
+        application.getProjectbyTitle("Trening").addProject(new Project("Styrke"));
+
+        application.getProjectbyTitle("Personlig").addTask(new Task("Kjøp melk"));
+        application.getProjectbyTitle("Intervall").addTask(new Task("Jogge eller noe sånn"));
+        application.getProjectbyTitle("Styrke").addTask(new Task("Vektløfting eller noe sånn"));
+
         //From 17-24 is to see if Jackson is capable of saving all the variables
         Task taskForJsonTest = new Task("JSON osv");
         taskForJsonTest.setStartDate(new Date(1999, 10, 20));

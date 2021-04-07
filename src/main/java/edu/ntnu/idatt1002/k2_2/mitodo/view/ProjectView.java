@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
+import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -10,6 +11,7 @@ import javafx.scene.layout.VBox;
 
 public class ProjectView extends View
 {
+    private Project project;
 
     @FXML
     private VBox tasksDisplay;
@@ -20,6 +22,11 @@ public class ProjectView extends View
 
     public void initialize() {
 
+    }
+
+    public void setProject(Project project)
+    {
+        this.project = project;
     }
 
     @Override

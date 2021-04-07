@@ -9,5 +9,7 @@ module mitodo {
     opens edu.ntnu.idatt1002.k2_2.mitodo.view to javafx.fxml;
     opens edu.ntnu.idatt1002.k2_2.mitodo.data to com.fasterxml.jackson.databind;
     exports edu.ntnu.idatt1002.k2_2.mitodo;
+    exports edu.ntnu.idatt1002.k2_2.mitodo.view;
     exports edu.ntnu.idatt1002.k2_2.mitodo.data to com.fasterxml.jackson.databind;
+    opens edu.ntnu.idatt1002.k2_2.mitodo.view.components to javafx.fxml;
 }

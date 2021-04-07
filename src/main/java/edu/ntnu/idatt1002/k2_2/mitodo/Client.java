@@ -22,9 +22,11 @@ public class Client extends Application {
         stage.setTitle("MiTodo");
 
         rootProject = new Project("application");
-        primaryView = (PrimaryView) FileManager.getView("PrimaryView");
+        Default.fillWithTestData(rootProject);
 
-        setView("EditTaskView");
+        primaryView = (PrimaryView) FileManager.getView("PrimaryView");
+        ProjectView projectView = (ProjectView) Client.setView("ProjectView");
+        projectView.setProject(Client.getRootProject());
 
         Scene primaryScene = primaryView.getScene();
         stage.setScene(primaryScene);
@@ -33,7 +35,6 @@ public class Client extends Application {
         //if(!FileManager.createNewFile("rootprojects.json")){ //TODO everything that is commented out is related to JSON
         //    rootProject = FileManager.readProjectFile("rootprojects.json");
         //}
-        Default.fillWithTestData(rootProject);
     }
 
     /*@Override
@@ -51,6 +52,11 @@ public class Client extends Application {
         View view = FileManager.getView(name);
         primaryView.setContent(view);
         return view;
+    }
+
+    public static PrimaryView getPrimaryView()
+    {
+        return primaryView;
     }
 
     public static Project getRootProject() {
