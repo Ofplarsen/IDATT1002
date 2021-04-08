@@ -5,6 +5,7 @@ package edu.ntnu.idatt1002.k2_2.mitodo;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.file.FileManager;
 import edu.ntnu.idatt1002.k2_2.mitodo.testdata.Default;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.EditTaskView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.PrimaryView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
@@ -27,6 +28,9 @@ public class Client extends Application {
         primaryView = (PrimaryView) FileManager.getView("PrimaryView");
         ProjectView projectView = (ProjectView) Client.setView("ProjectView");
         projectView.setProject(Client.getRootProject());
+
+        EditTaskView editTaskView = (EditTaskView) Client.setView("EditTaskView");
+        editTaskView.update();
 
         Scene primaryScene = primaryView.getScene();
         stage.setScene(primaryScene);
