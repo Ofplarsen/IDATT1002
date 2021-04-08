@@ -1,10 +1,5 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.data;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.deser.std.UUIDDeserializer;
-import com.fasterxml.jackson.databind.ser.std.UUIDSerializer;
-
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -17,7 +12,8 @@ public class Project {
     private ArrayList<Task> tasks;
     private ArrayList<Project> projects;
 
-    public Project(String title) {
+    public Project(String title)
+    {
         this.title = title;
         this.tasks = new ArrayList<>();
         this.projects = new ArrayList<>();
@@ -26,83 +22,101 @@ public class Project {
 
     public Project(){} //Empty constructor needed for some JSON related shenanigans
 
-    public UUID getID() {
+    public UUID getID()
+    {
         return ID;
     }
 
-    public String getTitle() {
+    public String getTitle()
+    {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(String title)
+    {
         this.title = title;
     }
 
-    public ArrayList<Task> getTasks() {
+    public ArrayList<Task> getTasks()
+    {
         return tasks;
     }
 
-    public ArrayList<Task> getAllTasks() {
-        ArrayList<Task> taskBucket = new ArrayList<>();
-        if (tasks.size() > 0) {
-            taskBucket.addAll(tasks);
+    public ArrayList<Task> getAllTasks()
+    {
+        ArrayList<Task> taskBucket = new ArrayList<>(tasks);
+
+        for (Project project : projects)
+        {
+            taskBucket.addAll(project.getAllTasks());
         }
-        for (Project project : projects) {
-            if (project.getTasks().size() > 0) {
-                taskBucket.addAll(project.getAllTasks());
-            }
-        }
-        if (taskBucket.size() > 0) {
-            return taskBucket;
-        }
-        return null;
+
+        return taskBucket;
     }
 
-    public Task getTaskFromAll(UUID ID) {
+    public Task getTaskFromAll(UUID ID)
+    {
         ArrayList<Task> allTasks = getAllTasks();
-        for (Task task : allTasks) {
-            if (task.getID().equals(ID)) {
+        for (Task task : allTasks)
+        {
+            if (task.getID().equals(ID))
+            {
                 return task;
             }
         }
         return null;
     }
-    public Task getTaskFromAll(String title) {
+
+    public Task getTaskFromAll(String title)
+    {
         ArrayList<Task> allTasks = getAllTasks();
-        for (Task task : allTasks) {
-            if (task.getTitle().equals(title)) {
+        for (Task task : allTasks)
+        {
+            if (task.getTitle().equals(title))
+            {
                 return task;
             }
         }
         return null;
     }
 
-    public Task getTask(UUID id) {
-        for (Task task : tasks) {
-            if (task.getID().equals(id)) {
+    public Task getTask(UUID id)
+    {
+        for (Task task : tasks)
+        {
+            if (task.getID().equals(id))
+            {
+                return task;
+            }
+        }
+
+        return null;
+    }
+
+    public Task getTask(String title)
+    {
+        for (Task task : tasks)
+        {
+            if (task.getTitle().equals(title))
+            {
                 return task;
             }
         }
         return null;
     }
 
-    public Task getTask(String title) {
-        for (Task task : tasks) {
-            if (task.getTitle().equals(title)) {
-                return task;
-            }
-        }
-        return null;
-    }
-
-    public void addTask(Task task) {
+    public void addTask(Task task)
+    {
         tasks.add(task);
     }
 
-    public void moveTask(UUID id, UUID projectId, Project application) {
+    public void moveTask(UUID id, UUID projectId, Project application)
+    {
         int indexOfTask = -1;
-        for (Task task : tasks) {
-            if (task.getID().equals(id)) {
+        for (Task task : tasks)
+        {
+            if (task.getID().equals(id))
+            {
                 indexOfTask = tasks.indexOf(task);
             }
         }
@@ -110,37 +124,42 @@ public class Project {
         removeTask(id);
     }
 
-    public void moveTaskbyTitle(String title, String projectTitle, Project application) {
+    public void moveTaskByTitle(String title, String projectTitle, Project application)
+    {
         int indexOfTask = -1;
-        for (Task task : tasks) {
-            if (task.getTitle().equals(title)) {
+        for (Task task : tasks)
+        {
+            if (task.getTitle().equals(title))
+            {
                 indexOfTask = tasks.indexOf(task);
             }
         }
-        application.getProjectbyTitle(projectTitle).addTask(tasks.get(indexOfTask)); //TODO: This will throw an IndexOutOfBoundsException if the title param does not match any task in the project, is that the way we want it to be? Maybe create our own exception?
-        removeTaskbyTitle(title);
+        application.getProjectByTitle(projectTitle).addTask(tasks.get(indexOfTask)); //TODO: This will throw an IndexOutOfBoundsException if the title param does not match any task in the project, is that the way we want it to be? Maybe create our own exception?
+        removeTaskByTitle(title);
     }
 
-    public boolean removeTask(UUID id) {
+    public boolean removeTask(UUID id)
+    {
         return tasks.removeIf(task -> task.getID().equals(id));
     }
 
-    public boolean removeTaskbyTitle(String title) {
+    public boolean removeTaskByTitle(String title)
+    {
         return tasks.removeIf(task -> task.getTitle().equals(title));
     }
 
-    public ArrayList<Project> getProjects() {
+    public ArrayList<Project> getProjects()
+    {
         return projects;
     }
 
-    public Project getProject(UUID id) {
-        for (Project project : projects) {
-            if (project.getID().equals(id)) {
+    public Project getProject(UUID id)
+    {
+        for (Project project : projects)
+        {
+            if (project.getID().equals(id))
+            {
                 return project;
-            } else {
-                if (project.getProjects().size() > 0) {
-                    return project.getProject(id);
-                }
             }
         }
         for (Project project : projects)
@@ -154,7 +173,8 @@ public class Project {
         return null;
     }
 
-    public Project getProjectbyTitle(String title) {
+    public Project getProjectByTitle(String title)
+    {
         for (Project project : projects)
         {
             if (project.getTitle().equals(title))
@@ -164,7 +184,7 @@ public class Project {
         }
         for (Project project : projects)
         {
-            Project result = project.getProjectbyTitle(title);
+            Project result = project.getProjectByTitle(title);
             if (result != null)
             {
                 return result;
@@ -173,38 +193,48 @@ public class Project {
         return null;
     }
 
-    public void addProject(Project project) {
+    public void addProject(Project project)
+    {
         projects.add(project);
     }
 
-    public void moveProject(UUID id, int index) {
-        for (Project project : projects) {
-            if (project.getID().equals(id)) {
-                projects.remove(projects.indexOf(project));
+    public void moveProject(UUID id, int index)
+    {
+        for (Project project : projects)
+        {
+            if (project.getID().equals(id))
+            {
+                projects.remove(project);
                 projects.add(index,project);
             }
         }
     }
 
-    public void moveProjectbyTitle(String title, int index) {
-        for (Project project : projects) {
-            if (project.getTitle().equals(title)) {
-                projects.remove(projects.indexOf(project));
+    public void moveProjectByTitle(String title, int index)
+    {
+        for (Project project : projects)
+        {
+            if (project.getTitle().equals(title))
+            {
+                projects.remove(project);
                 projects.add(index,project);
             }
         }
     }
 
-    public boolean removeProject(UUID id) {
+    public boolean removeProject(UUID id)
+    {
         return projects.removeIf(project -> project.getID().equals(id));
     }
 
-    public boolean removeProjectbyTitle(String title) {
+    public boolean removeProjectByTitle(String title)
+    {
         return projects.removeIf(project -> project.getTitle().equals(title));
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "\nProject{" +
                 "\nid=" + ID +
                 "\ntitle='" + title +
