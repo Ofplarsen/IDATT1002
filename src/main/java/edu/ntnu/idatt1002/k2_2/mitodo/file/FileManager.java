@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.scene.Node;
 
 /**
  * Class with static methods for loading and saving files.

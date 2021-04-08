@@ -25,6 +25,8 @@ public class Default
 
         application.getProjectbyTitle("Personlig").addTask(new Task("Kjøp melk"));
         application.getProjectbyTitle("Intervall").addTask(new Task("Jogge eller noe sånn"));
+        application.getProjectbyTitle("Intervall").addTask(new Task("Jepp"));
+        application.getProjectbyTitle("Intervall").addTask(new Task("Halo"));
         application.getProjectbyTitle("Styrke").addTask(new Task("Vektløfting eller noe sånn"));
 
         //From 17-24 is to see if Jackson is capable of saving all the variables
