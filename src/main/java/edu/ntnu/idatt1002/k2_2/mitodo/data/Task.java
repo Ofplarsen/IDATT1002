@@ -3,7 +3,6 @@ package edu.ntnu.idatt1002.k2_2.mitodo.data;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -15,7 +14,8 @@ import java.util.UUID;
  * 128-bit number. This makes it as good as impossible for two task get the same id. This is implemented, because the user
  * should be able to create two tasks with the same title.
  */
-public class Task {
+public class Task
+{
     private final UUID ID = UUID.randomUUID();
     private String title;
     private String comments;
@@ -23,7 +23,8 @@ public class Task {
     private LocalDate startDate;
     private LocalDate dueDate;
 
-    public Task(String title) {
+    public Task(String title)
+    {
         this.title = title;
         this.priority = PriorityEnum.UNDEFINED;
         this.startDate = null;
@@ -32,72 +33,86 @@ public class Task {
 
     public Task(){} //Empty constructor needed for some JSON related shenanigans
 
-    public UUID getID() {
+    public UUID getID()
+    {
         return ID;
     }
 
-    public String getTitle() {
+    public String getTitle()
+    {
         return title;
     }
 
-    public String getComments() {
+    public String getComments()
+    {
         return comments;
     }
 
-    public void setComments(String comments) {
+    public void setComments(String comments)
+    {
         this.comments = comments;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(String title)
+    {
         this.title = title;
     }
 
-    public PriorityEnum getPriority() {
+    public PriorityEnum getPriority()
+    {
         return priority;
     }
 
-    public void setPriority(PriorityEnum priority) {
+    public void setPriority(PriorityEnum priority)
+    {
         this.priority = priority;
     }
 
-    public LocalDate getStartDate() {
+    public LocalDate getStartDate()
+    {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(LocalDate startDate)
+    {
         this.startDate = startDate;
     }
 
-    public LocalDate getDueDate() {
+    public LocalDate getDueDate()
+    {
         return dueDate;
     }
 
-    public void setDueDate(LocalDate dueDate) {
+    public void setDueDate(LocalDate dueDate)
+    {
         this.dueDate = dueDate;
     }
 
-    public String getStartDateAsString(){
-        if (startDate==null){
-            return "";
-        }
-        String asString =Integer.toString(startDate.getDayOfMonth());
-        asString += "." + Integer.toString(startDate.getMonthValue());
-        asString += "." + Integer.toString(startDate.getYear());
-        return asString;
+    public String getStartDateAsString()
+    {
+        return getDateAsString(startDate);
     }
 
-    public String getDueDateAsString(){
-        if (dueDate==null){
+    public String getDueDateAsString()
+    {
+        return getDateAsString(dueDate);
+    }
+
+    private String getDateAsString(LocalDate date)
+    {
+        if (date == null)
+        {
             return "";
         }
-        String asString =Integer.toString(dueDate.getDayOfMonth());
-        asString += "." + Integer.toString(dueDate.getMonthValue());
-        asString += "." + Integer.toString(dueDate.getYear());
+        String asString = "" + date.getDayOfMonth();
+        asString += "." + date.getMonthValue();
+        asString += "." + date.getYear();
         return asString;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "\nTask{" +
                 "\nid=" + ID +
                 "\ntitle='" + title +
@@ -109,7 +124,8 @@ public class Task {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o)
+    {
         if (this == o) return true;
         if (!(o instanceof Task)) return false;
         Task task = (Task) o;
@@ -117,7 +133,8 @@ public class Task {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return Objects.hash(ID);
     }
 }
