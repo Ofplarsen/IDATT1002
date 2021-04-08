@@ -76,7 +76,7 @@ class ProjectTest {
 
             @Test
             void moveTaskThatIsInAProject(){
-                project.moveTaskbyTitle("Task1", project2.getTitle(), project);
+                project.moveTaskByTitle("Task1", project2.getTitle(), project);
 
                 Assertions.assertEquals(task1, project2.getTask("Task1"));
                 Assertions.assertNull(project.getTask("Task1"));
@@ -87,7 +87,7 @@ class ProjectTest {
                 Task task4 = new Task("Task4");
                 String task4Title = task4.getTitle();
 
-                Assertions.assertThrows(IndexOutOfBoundsException.class, () -> project.moveTaskbyTitle(task4Title, "Project2", project));
+                Assertions.assertThrows(IndexOutOfBoundsException.class, () -> project.moveTaskByTitle(task4Title, "Project2", project));
             }
         }
 
@@ -153,14 +153,14 @@ class ProjectTest {
             void projectWithTitleIsInAnotherProject(){
                 String project2Title = project2.getTitle();
 
-                Assertions.assertNotNull(project.getProjectbyTitle(project2Title));
+                Assertions.assertNotNull(project.getProjectByTitle(project2Title));
             }
 
             @Test
             void titleDoesNotBelongToAnyProjectInAnotherProject(){
                 String notAProjectName = "NotAProjectName";
 
-                Assertions.assertNull(project.getProjectbyTitle(notAProjectName));
+                Assertions.assertNull(project.getProjectByTitle(notAProjectName));
             }
         }
     }
@@ -224,7 +224,7 @@ class ProjectTest {
                 String project4Title = project4.getTitle();
                 int project4IndexBeforeMoving = project.getProjects().indexOf(project4);
 
-                project.moveProjectbyTitle(project4Title, 0);
+                project.moveProjectByTitle(project4Title, 0);
                 int project4IndexAfterMoving = project.getProjects().indexOf(project4);
 
                 Assertions.assertEquals(2, project4IndexBeforeMoving);
@@ -240,7 +240,7 @@ class ProjectTest {
                 int project3IndexBeforeMoving = project.getProjects().indexOf(project3);
                 int project4IndexBeforeMoving = project.getProjects().indexOf(project4);
 
-                project.moveProjectbyTitle(project5Title, 1);
+                project.moveProjectByTitle(project5Title, 1);
 
                 int project2IndexAfterMoving = project.getProjects().indexOf(project2);
                 int project3IndexAfterMoving = project.getProjects().indexOf(project3);
@@ -288,13 +288,13 @@ class ProjectTest {
 
             @Test
             void removeASubprojectFromAProject(){
-                Assertions.assertTrue(project.removeProjectbyTitle(project2.getTitle()));
+                Assertions.assertTrue(project.removeProjectByTitle(project2.getTitle()));
             }
 
             @Test
             void removeAProjectThatIsNotASubproject(){
                 Project project5 = new Project("Project5");
-                Assertions.assertFalse(project.removeProjectbyTitle(project5.getTitle()));
+                Assertions.assertFalse(project.removeProjectByTitle(project5.getTitle()));
             }
         }
     }
