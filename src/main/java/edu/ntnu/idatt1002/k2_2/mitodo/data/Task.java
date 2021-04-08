@@ -80,8 +80,8 @@ public class Task {
         if (startDate==null){
             return "";
         }
-        String asString =Integer.toString(startDate.getDate());
-        asString += "." + Integer.toString(startDate.getMonth());
+        String asString =Integer.toString(startDate.getDayOfMonth());
+        asString += "." + Integer.toString(startDate.getMonthValue());
         asString += "." + Integer.toString(startDate.getYear());
         return asString;
     }
@@ -90,8 +90,8 @@ public class Task {
         if (dueDate==null){
             return "";
         }
-        String asString =Integer.toString(dueDate.getDate());
-        asString += "." + Integer.toString(dueDate.getMonth());
+        String asString =Integer.toString(dueDate.getDayOfMonth());
+        asString += "." + Integer.toString(dueDate.getMonthValue());
         asString += "." + Integer.toString(dueDate.getYear());
         return asString;
     }
