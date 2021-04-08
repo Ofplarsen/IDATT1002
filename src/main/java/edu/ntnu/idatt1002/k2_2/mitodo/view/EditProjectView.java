@@ -20,6 +20,8 @@ public class EditProjectView extends View{
         this.project = project;
     }
 
+    public void setProject(Project project){ this.project= project; }
+
     public EditProjectView(){
         this.project = new Project("Project title");
     }

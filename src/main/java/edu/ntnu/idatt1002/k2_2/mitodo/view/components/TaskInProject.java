@@ -37,8 +37,9 @@ public class TaskInProject {
         this.task = t;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
+    public void setProject(Project projectMain)
+    {
+        this.project = projectMain;
     }
 
     public void setTaskName(String task){
@@ -67,8 +68,11 @@ public class TaskInProject {
         editTaskView.setProject(project);
         editTaskView.update();
     }
-
+//TODO Idk viss denna egentlig fungere, e litt rar
     public void handleDeleteTaskButtonClick() {
+        project.removeTask(task.getID());
+        ProjectView projectView = (ProjectView) Client.setView("ProjectView");
+        projectView.setProject(project);
     }
     public Node getParent() {
         return parent;

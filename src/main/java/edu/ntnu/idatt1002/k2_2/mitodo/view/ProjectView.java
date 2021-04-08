@@ -1,10 +1,12 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
+import edu.ntnu.idatt1002.k2_2.mitodo.Client;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.TaskInProject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -32,8 +34,6 @@ public class ProjectView extends View
     @FXML
     private ComboBox filterBox;
 
-    //Background taskBackground;
-    //BackgroundFill bf = new BackgroundFill(Color.BLANCHEDALMOND, new CornerRadii(1), null);
     public void initialize() {
         ObservableList<String> options =
                 FXCollections.observableArrayList(
@@ -45,10 +45,13 @@ public class ProjectView extends View
         filterBox.setItems(options);
     }
 
-    public void setProject(Project project)
+    public void setProject(Project projectMain)
     {
-        this.project = project;
-        headline.setText(project.getTitle());
+        this.project = projectMain;
+
+        System.out.println(projectMain.getAllTasks().size()); //remove
+        System.out.println(project.getAllTasks().size()); //remove
+        headline.setText(projectMain.getTitle());
         addTasks();
     }
 
@@ -57,19 +60,17 @@ public class ProjectView extends View
     {
         return parent;
     }
-    /*
-    @Override
-    public void setHeadline(String s) {
-        headline.setText(s);
-    }*/
-
     public void setContent(String name) {
         headline.setText(name);
 
     }
+    public void handleEditButtonClick(ActionEvent event){
+        EditProjectView editProjectView =(EditProjectView) Client.setView("EditProjectView");
+        editProjectView.setProject(project);
+    }
 
     public void addTasks(){
-        if (project.getAllTasks().size() < 2){
+        if (project.getAllTasks().size() < 1){
             HBox hBox = new HBox();
             Label noTaskMessage = new Label("No Tasks Currently Added");
             noTaskMessage.setPadding(new Insets(30,0,0,8));
@@ -105,19 +106,4 @@ public class ProjectView extends View
             }
         }
     }
-    /*
-            HBox tester = new HBox();
-            tester.setPrefSize(100,100);
-            CheckBox box = new CheckBox();
-            box.setSelected(false);
-            box.setText(s);
-            System.out.println(box.getProperties());
-            box.setAlignment(Pos.TOP_LEFT);
-            Label priority = new Label("Priority");
-            box.setPrefSize(100,100);
-            priority.autosize();
-            taskBackground = new Background(bf);
-            tester.setBackground(taskBackground);
-            tester.getChildren().addAll(box,priority);
-            parent.getChildren().add(tester);*/
 }

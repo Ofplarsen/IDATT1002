@@ -108,8 +108,8 @@ public class Project
 
     public void addTask(Task task)
     {
-        tasks.add(task);
-    }
+     if(!tasks.contains(task))
+        tasks.add(task); }
 
     public void moveTask(UUID id, UUID projectId, Project application)
     {
@@ -232,6 +232,7 @@ public class Project
     {
         return projects.removeIf(project -> project.getTitle().equals(title));
     }
+
 
     @Override
     public String toString()
