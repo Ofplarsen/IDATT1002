@@ -26,7 +26,7 @@
       <Label prefHeight="78.0" prefWidth="9.0" text="-" />
       <Label fx:id="dueDate" prefHeight="86.0" prefWidth="100.0" text="02.01.1001" />
       <Button fx:id="editButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="77.0" prefWidth="68.0" />
-      <Button fx:id="deleteButton" alignment="CENTER" mnemonicParsing="false" prefHeight="77.0" prefWidth="68.0">
+      <Button fx:id="deleteButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleDeleteTaskButtonClick" prefHeight="77.0" prefWidth="68.0">
          <padding>
             <Insets left="30.0" />
          </padding>

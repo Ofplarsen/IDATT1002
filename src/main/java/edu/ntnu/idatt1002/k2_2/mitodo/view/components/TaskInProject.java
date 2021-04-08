@@ -4,6 +4,7 @@ import edu.ntnu.idatt1002.k2_2.mitodo.Client;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.EditTaskView;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -65,6 +66,9 @@ public class TaskInProject {
         editTaskView.setTask(Client.getRootProject().getTaskFromAll(task.getID()));
         editTaskView.setProject(project);
         editTaskView.update();
+    }
+
+    public void handleDeleteTaskButtonClick() {
     }
     public Node getParent() {
         return parent;
