@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view.components;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.EditTaskView;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
 import javafx.event.ActionEvent;
@@ -29,9 +30,14 @@ public class TaskInProject {
     Button deleteButton;
 
     Task task;
+    Project project;
 
     public void setTask(Task t){
         this.task = t;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     public void setTaskName(String task){
@@ -56,7 +62,8 @@ public class TaskInProject {
     }
     public void handleButtonClick(ActionEvent event){
         EditTaskView editTaskView = (EditTaskView) Client.setView("EditTaskView");
-        editTaskView.setTask(task);
+        editTaskView.setTask(Client.getRootProject().getTaskFromAll(task.getID()));
+        editTaskView.setProject(project);
         editTaskView.update();
     }
     public Node getParent() {

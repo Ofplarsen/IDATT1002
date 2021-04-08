@@ -9,7 +9,7 @@
 
 <HBox fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="78.0" prefWidth="1700" style="-fx-background-color: LIGHTBLUE;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.components.TaskInProject">
    <children>
-      <CheckBox fx:id="taskBox" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="78.0" prefWidth="275.0" text="Task name ">
+      <CheckBox fx:id="taskBox" mnemonicParsing="false" prefHeight="78.0" prefWidth="275.0" text="CheckBox">
          <font>
             <Font size="25.0" />
          </font>
@@ -25,7 +25,7 @@
       <Label fx:id="startDate" prefHeight="78.0" prefWidth="62.0" text="01.01.1001" />
       <Label prefHeight="78.0" prefWidth="9.0" text="-" />
       <Label fx:id="dueDate" prefHeight="86.0" prefWidth="100.0" text="02.01.1001" />
-      <Button fx:id="editButton" alignment="CENTER" mnemonicParsing="false" prefHeight="77.0" prefWidth="68.0" />
+      <Button fx:id="editButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="77.0" prefWidth="68.0" />
       <Button fx:id="deleteButton" alignment="CENTER" mnemonicParsing="false" prefHeight="77.0" prefWidth="68.0">
          <padding>
             <Insets left="30.0" />

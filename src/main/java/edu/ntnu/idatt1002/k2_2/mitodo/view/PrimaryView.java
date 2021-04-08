@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
+import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.MainMenu;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -18,6 +19,7 @@ public class PrimaryView extends View
 {
     private Scene scene;
     private MainMenu mainMenu;
+    private Project project;
 
     @FXML
     private SplitPane parent;

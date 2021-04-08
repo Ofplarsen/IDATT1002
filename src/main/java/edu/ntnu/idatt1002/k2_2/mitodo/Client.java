@@ -29,11 +29,6 @@ public class Client extends Application {
         ProjectView projectView = (ProjectView) Client.setView("ProjectView");
         projectView.setProject(Client.getRootProject());
 
-        EditTaskView editTaskView = (EditTaskView) Client.setView("EditTaskView");
-        editTaskView.setTask(rootProject.getTaskFromAll("Lag struktur"));
-        editTaskView.update();
-        System.out.println();
-
         Scene primaryScene = primaryView.getScene();
         stage.setScene(primaryScene);
         stage.show();
