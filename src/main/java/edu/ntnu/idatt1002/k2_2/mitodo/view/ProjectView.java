@@ -92,6 +92,7 @@ public class ProjectView extends View
                     TaskInProject controller = loader.getController();
                     ImageView deleteButton = new ImageView(deleteButtonUrl.toExternalForm());
 
+                    controller.setTask(s);
                     controller.setTaskName(s.getTitle()); //set label
                     controller.setPriorityText(s.getPriority().toString().toLowerCase());
                     controller.setDate(s.getStartDateAsString(), s.getDueDateAsString());
