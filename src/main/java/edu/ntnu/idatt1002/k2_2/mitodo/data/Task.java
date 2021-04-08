@@ -24,6 +24,8 @@ public class Task {
     public Task(String title) {
         this.title = title;
         this.priority = PriorityEnum.UNDEFINED;
+        this.startDate = null;
+        this.dueDate = null;
     }
 
     public Task(){} //Empty constructor needed for some JSON related shenanigans
@@ -62,6 +64,26 @@ public class Task {
 
     public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
+    }
+
+    public String getStartDateAsString(){
+        if (startDate==null){
+            return "";
+        }
+        String asString =Integer.toString(startDate.getDate());
+        asString += "." + Integer.toString(startDate.getMonth());
+        asString += "." + Integer.toString(startDate.getYear());
+        return asString;
+    }
+
+    public String getDueDateAsString(){
+        if (dueDate==null){
+            return "";
+        }
+        String asString =Integer.toString(dueDate.getDate());
+        asString += "." + Integer.toString(dueDate.getMonth());
+        asString += "." + Integer.toString(dueDate.getYear());
+        return asString;
     }
 
     @Override

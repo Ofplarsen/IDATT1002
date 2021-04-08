@@ -1,63 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<VBox  fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView" fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1980.0" prefWidth="1979.0" style="-fx-background-color: LIGHTGREY;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView">
    <children>
-      <HBox spacing="8.0">
-         <children>
-            <CheckBox mnemonicParsing="false" text="Task Name" />
-         </children>
+      <HBox fx:id="header" prefHeight="82.0" prefWidth="718.0" spacing="8.0">
          <VBox.margin>
-            <Insets />
+            <Insets bottom="6.0" />
          </VBox.margin>
          <padding>
             <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
          </padding>
-      </HBox>
-      <HBox spacing="8.0">
          <children>
-            <CheckBox mnemonicParsing="false" text="Task Name" />
+            <Label fx:id="headline" prefHeight="54.0" prefWidth="359.0" text="Label">
+               <font>
+                  <Font name="Calibri" size="48.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="71.0" text="Sort by: ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="filterBox" prefHeight="30.0" prefWidth="114.0" promptText="Filter">
+               <HBox.margin>
+                  <Insets top="12.0" />
+               </HBox.margin>
+            </ComboBox>
          </children>
-         <padding>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-         </padding>
-      </HBox>
-      <HBox spacing="8.0">
-         <children>
-            <CheckBox mnemonicParsing="false" text="Task Name" />
-         </children>
-         <padding>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-         </padding>
-      </HBox>
-      <HBox spacing="8.0">
-         <children>
-            <CheckBox mnemonicParsing="false" text="Task Name" />
-         </children>
-         <padding>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-         </padding>
-      </HBox>
-      <HBox spacing="8.0">
-         <children>
-            <CheckBox mnemonicParsing="false" text="Task Name" />
-         </children>
-         <padding>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-         </padding>
-      </HBox>
-      <HBox spacing="8.0">
-         <children>
-            <CheckBox mnemonicParsing="false" text="Task Name" />
-         </children>
-         <padding>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-         </padding>
       </HBox>
    </children>
 </VBox>

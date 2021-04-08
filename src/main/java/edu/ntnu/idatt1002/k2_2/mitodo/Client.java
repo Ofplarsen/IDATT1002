@@ -17,8 +17,8 @@ public class Client extends Application {
     private static PrimaryView primaryView;
 
     public void start(Stage stage) {
-        stage.setWidth(720);
-        stage.setHeight(580);
+        stage.setWidth(1080);
+        stage.setHeight(720);
         stage.setTitle("MiTodo");
 
         rootProject = new Project("application");
