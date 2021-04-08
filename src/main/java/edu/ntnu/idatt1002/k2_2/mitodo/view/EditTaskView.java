@@ -15,7 +15,9 @@ import java.util.Date;
 public class EditTaskView extends View
 {
     @FXML
-    public ChoiceBox<PriorityEnum> selectPriority;
+    private ChoiceBox<PriorityEnum> selectPriority;
+    @FXML
+    private CheckBox checked;
     @FXML
     private  TextArea comments;
     @FXML

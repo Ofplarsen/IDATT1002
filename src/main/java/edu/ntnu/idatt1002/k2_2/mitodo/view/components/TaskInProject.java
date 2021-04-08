@@ -1,5 +1,7 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view.components;
 
+import edu.ntnu.idatt1002.k2_2.mitodo.Client;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.EditTaskView;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -44,6 +46,7 @@ public class TaskInProject {
         image.setFitWidth(50);
         deleteButton.setGraphic(image);
     }
+
     public Node getParent() {
         return parent;
     }

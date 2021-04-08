@@ -43,7 +43,6 @@ public class ProjectView extends View
                         "Date Added"
                 );
         filterBox.setItems(options);
-
     }
 
     public void setProject(Project project)
@@ -58,7 +57,7 @@ public class ProjectView extends View
     {
         return parent;
     }
-/*
+    /*
     @Override
     public void setHeadline(String s) {
         headline.setText(s);
