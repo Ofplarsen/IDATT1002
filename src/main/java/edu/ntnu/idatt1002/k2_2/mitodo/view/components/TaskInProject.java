@@ -2,6 +2,7 @@ package edu.ntnu.idatt1002.k2_2.mitodo.view.components;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.EditTaskView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -54,7 +55,9 @@ public class TaskInProject {
         deleteButton.setGraphic(image);
     }
     public void handleButtonClick(ActionEvent event){
-        Client.setView(task.getTitle());
+        EditTaskView editTaskView = (EditTaskView) Client.setView("EditTaskView");
+        editTaskView.setTask(task);
+        editTaskView.update();
     }
     public Node getParent() {
         return parent;
