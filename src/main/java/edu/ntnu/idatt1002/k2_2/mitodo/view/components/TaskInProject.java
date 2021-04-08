@@ -1,5 +1,8 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view.components;
 
+import edu.ntnu.idatt1002.k2_2.mitodo.Client;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -24,6 +27,12 @@ public class TaskInProject {
     @FXML
     Button deleteButton;
 
+    Task task;
+
+    public void setTask(Task t){
+        this.task = t;
+    }
+
     public void setTaskName(String task){
         taskBox.setText(task);
     }
@@ -43,6 +52,9 @@ public class TaskInProject {
         image.setFitHeight(50);
         image.setFitWidth(50);
         deleteButton.setGraphic(image);
+    }
+    public void handleButtonClick(ActionEvent event){
+        Client.setView(task.getTitle());
     }
     public Node getParent() {
         return parent;

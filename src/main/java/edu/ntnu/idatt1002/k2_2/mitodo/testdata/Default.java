@@ -30,12 +30,18 @@ public class Default
 
         //From 17-24 is to see if Jackson is capable of saving all the variables
         Task taskForJsonTest = new Task("JSON osv");
-        taskForJsonTest.setStartDate(LocalDate.of(2020,5,10));
+        taskForJsonTest.setStartDate(LocalDate.of(2011,5,10));
         taskForJsonTest.setPriority(PriorityEnum.MEDIUM);
         Task taskForJsonTest2 = new Task("JSON 2 osv");
+
         taskForJsonTest2.setDueDate(LocalDate.of(2020,5,10));
         application.getProjectByTitle("Skole").addTask(taskForJsonTest);
         application.getProjectByTitle("Skole").addTask(taskForJsonTest2);
+
+        taskForJsonTest2.setDueDate(LocalDate.of(2012,5,10));
+        application.getProjectByTitle("Skole").addTask(taskForJsonTest);
+        application.getProjectByTitle("Skole").addTask(taskForJsonTest2);
+
 
 
         application.getProjectByTitle("Matte").moveTaskByTitle("Komplekse tall", "Skole", application);
