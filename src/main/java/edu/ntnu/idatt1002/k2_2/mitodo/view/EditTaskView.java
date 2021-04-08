@@ -29,16 +29,16 @@ public class EditTaskView extends View
 
     private Task task;
 
-    public EditTaskView(Task task) {
-        this.task = task;
+    public EditTaskView() {
+        this.task = new Task("Default");
     }
 
-    public EditTaskView() {
-        this.task = new Task("Test-Task");
-        task.setPriority(PriorityEnum.HIGH);
-        task.setDueDate(LocalDate.of(2020,5,10));
-        task.setStartDate(LocalDate.of(2020,5,10));
-        task.setComments("Dette er en test-task, bla bla bla...");
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
     }
 
     public void update() {

@@ -45,19 +45,34 @@ public class Project {
     public ArrayList<Task> getAllTasks() {
         ArrayList<Task> taskBucket = new ArrayList<>();
         if (tasks.size() > 0) {
-            for (Task task : tasks) {
-                taskBucket.add(task);
-            }
+            taskBucket.addAll(tasks);
         }
         for (Project project : projects) {
             if (project.getTasks().size() > 0) {
-                for (Task task : project.getAllTasks()) {
-                    taskBucket.add(task);
-                }
+                taskBucket.addAll(project.getAllTasks());
             }
         }
         if (taskBucket.size() > 0) {
             return taskBucket;
+        }
+        return null;
+    }
+
+    public Task getTaskFromAll(UUID ID) {
+        ArrayList<Task> allTasks = getAllTasks();
+        for (Task task : allTasks) {
+            if (task.getID().equals(ID)) {
+                return task;
+            }
+        }
+        return null;
+    }
+    public Task getTaskFromAll(String title) {
+        ArrayList<Task> allTasks = getAllTasks();
+        for (Task task : allTasks) {
+            if (task.getTitle().equals(title)) {
+                return task;
+            }
         }
         return null;
     }
@@ -128,6 +143,14 @@ public class Project {
                 }
             }
         }
+        for (Project project : projects)
+        {
+            Project result = project.getProject(id);
+            if (result != null)
+            {
+                return result;
+            }
+        }
         return null;
     }
 
@@ -147,7 +170,6 @@ public class Project {
                 return result;
             }
         }
-
         return null;
     }
 

@@ -11,7 +11,10 @@ public class Default
     {
         application.addProject(new Project("Skole"));
         application.getProjectbyTitle("Skole").addProject(new Project("Matte"));
-        application.getProjectbyTitle("Skole").addTask(new Task("Lag struktur"));
+        Task lagStrukturTask = new Task("Lag struktur");
+        lagStrukturTask.setPriority(PriorityEnum.HIGH);
+        lagStrukturTask.setDueDate(LocalDate.of(2020,2,3));
+        application.getProjectbyTitle("Skole").addTask(lagStrukturTask);
         application.getProjectbyTitle("Matte").addTask(new Task("Komplekse tall"));
         application.getProjectbyTitle("Matte").addTask(new Task("Logikk øving 2"));
 
@@ -32,6 +35,7 @@ public class Default
         taskForJsonTest2.setDueDate(LocalDate.of(2020,5,10));
         application.getProjectbyTitle("Skole").addTask(taskForJsonTest);
         application.getProjectbyTitle("Skole").addTask(taskForJsonTest2);
+
 
         application.getProjectbyTitle("Matte").moveTaskbyTitle("Komplekse tall", "Skole", application);
     }
