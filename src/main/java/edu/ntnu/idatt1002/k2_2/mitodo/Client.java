@@ -18,8 +18,8 @@ public class Client extends Application {
     private static PrimaryView primaryView;
 
     public void start(Stage stage) {
-        stage.setWidth(720);
-        stage.setHeight(580);
+        stage.setWidth(1080);
+        stage.setHeight(720);
         stage.setTitle("MiTodo");
 
         rootProject = new Project("application");
@@ -28,9 +28,6 @@ public class Client extends Application {
         primaryView = (PrimaryView) FileManager.getView("PrimaryView");
         ProjectView projectView = (ProjectView) Client.setView("ProjectView");
         projectView.setProject(Client.getRootProject());
-
-        EditTaskView editTaskView = (EditTaskView) Client.setView("EditTaskView");
-        editTaskView.update();
 
         Scene primaryScene = primaryView.getScene();
         stage.setScene(primaryScene);

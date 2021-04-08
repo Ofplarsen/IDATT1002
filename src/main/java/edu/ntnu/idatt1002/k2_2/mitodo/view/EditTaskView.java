@@ -1,6 +1,8 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
+import edu.ntnu.idatt1002.k2_2.mitodo.Client;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.PriorityEnum;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -15,7 +17,9 @@ import java.util.Date;
 public class EditTaskView extends View
 {
     @FXML
-    public ChoiceBox<PriorityEnum> selectPriority;
+    private ChoiceBox<PriorityEnum> selectPriority;
+    @FXML
+    private CheckBox checked;
     @FXML
     private  TextArea comments;
     @FXML
@@ -28,17 +32,28 @@ public class EditTaskView extends View
     private VBox parent;
 
     private Task task;
+    //TODO: This could be done much better, if you try to go back in a task that dosen't have a project, everything goes bad
+    private Project project;
 
-    public EditTaskView(Task task) {
+    public EditTaskView() {
+        this.task = new Task("Default");
+    }
+
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
         this.task = task;
     }
 
-    public EditTaskView() {
-        this.task = new Task("Test-Task");
-        task.setPriority(PriorityEnum.HIGH);
-        task.setDueDate(LocalDate.of(2020,5,10));
-        task.setStartDate(LocalDate.of(2020,5,10));
-        task.setComments("Dette er en test-task, bla bla bla...");
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public Project getProject() {
+        return project;
     }
 
     public void update() {
@@ -64,7 +79,8 @@ public class EditTaskView extends View
     }
 
     public void exit() {
-
+        ProjectView projectView = (ProjectView) Client.setView("ProjectView");
+        projectView.setProject(project);
     }
 
     public void setStartDate() {
