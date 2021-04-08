@@ -6,7 +6,8 @@ import java.util.UUID;
 /**
  * Public class Project
  */
-public class Project {
+public class Project
+{
     private UUID ID ;
     private String title;
     private ArrayList<Task> tasks;
