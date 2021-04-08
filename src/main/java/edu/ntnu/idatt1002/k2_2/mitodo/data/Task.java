@@ -2,6 +2,7 @@ package edu.ntnu.idatt1002.k2_2.mitodo.data;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -17,9 +18,10 @@ import java.util.UUID;
 public class Task {
     private final UUID ID = UUID.randomUUID();
     private String title;
+    private String comments;
     private PriorityEnum priority;
-    private Date startDate;
-    private Date dueDate;
+    private LocalDate startDate;
+    private LocalDate dueDate;
 
     public Task(String title) {
         this.title = title;
@@ -36,6 +38,14 @@ public class Task {
         return title;
     }
 
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -48,19 +58,19 @@ public class Task {
         this.priority = priority;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 
@@ -69,6 +79,7 @@ public class Task {
         return "\nTask{" +
                 "\nid=" + ID +
                 "\ntitle='" + title +
+                "\ncomments='" + comments +
                 "\npriority=" + priority +
                 "\nstartDate=" + startDate +
                 "\ndueDate=" + dueDate +

@@ -2,6 +2,7 @@ package edu.ntnu.idatt1002.k2_2.mitodo.testdata;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.data.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Default
@@ -25,10 +26,10 @@ public class Default
 
         //From 17-24 is to see if Jackson is capable of saving all the variables
         Task taskForJsonTest = new Task("JSON osv");
-        taskForJsonTest.setStartDate(new Date(1999, 10, 20));
+        taskForJsonTest.setStartDate(LocalDate.of(2020,5,10));
         taskForJsonTest.setPriority(PriorityEnum.MEDIUM);
         Task taskForJsonTest2 = new Task("JSON 2 osv");
-        taskForJsonTest2.setDueDate(new Date());
+        taskForJsonTest2.setDueDate(LocalDate.of(2020,5,10));
         application.getProjectbyTitle("Skole").addTask(taskForJsonTest);
         application.getProjectbyTitle("Skole").addTask(taskForJsonTest2);
 

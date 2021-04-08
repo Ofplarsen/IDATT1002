@@ -7,6 +7,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -15,19 +16,32 @@
    <children>
       <BorderPane>
          <left>
-            <CheckBox fx:id="taskName" mnemonicParsing="false" text="Task Name" BorderPane.alignment="CENTER" />
+            <CheckBox fx:id="checked" mnemonicParsing="false" BorderPane.alignment="CENTER">
+               <padding>
+                  <Insets right="8.0" />
+               </padding></CheckBox>
          </left>
          <right>
             <HBox spacing="8.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" text="Save" />
+                  <Button mnemonicParsing="false" onAction="#save" text="Save" />
                   <Button mnemonicParsing="false" onAction="#exit" text="Exit" />
                </children>
+               <padding>
+                  <Insets left="8.0" />
+               </padding>
             </HBox>
          </right>
          <padding>
             <Insets bottom="8.0" right="8.0" top="8.0" />
          </padding>
+         <center>
+            <TextField fx:id="taskName" text="Task Name" BorderPane.alignment="CENTER">
+               <padding>
+                  <Insets left="8.0" right="8.0" />
+               </padding>
+            </TextField>
+         </center>
       </BorderPane>
        <VBox spacing="8.0">
            <padding>
