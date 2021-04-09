@@ -99,6 +99,12 @@ public class Project implements Serializable
     {
         return tasks.removeIf(task -> task.getID().equals(id));
     }
+    public void removeTasksFromSubProjects(UUID id){ //added because it wasnt able to delete tasks from "over" projects
+        tasks.removeIf(task -> task.getID().equals(id));
+        for (Project p: projects) {
+            p.removeTasksFromSubProjects(id);
+        }
+    }
 
     public ArrayList<Project> getProjects()
     {

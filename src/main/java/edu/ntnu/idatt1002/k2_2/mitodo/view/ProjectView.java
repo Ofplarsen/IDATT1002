@@ -47,6 +47,7 @@ public class ProjectView extends View
     public void setProject(Project projectMain)
     {
         this.project = projectMain;
+
         headline.setText(projectMain.getTitle());
         addTasks();
     }
@@ -66,7 +67,7 @@ public class ProjectView extends View
     }
 
     public void addTasks(){
-        if (project.getTasks().size() < 1){
+        if (project.getAllTasks().size() < 1){
             HBox hBox = new HBox();
             Label noTaskMessage = new Label("No Tasks Currently Added");
             noTaskMessage.setPadding(new Insets(30,0,0,8));
@@ -76,7 +77,7 @@ public class ProjectView extends View
         }
         else {
 
-            for (Task s : project.getTasks()) {
+            for (Task s : project.getAllTasks()) {
                 FXMLLoader loader = new FXMLLoader();
                 try {
                     Node node = loader.load(getClass().getResource("/fxml/TaskInProject.fxml").openStream());

@@ -64,13 +64,17 @@ public class TaskInProject {
     }
     public void handleButtonClick(ActionEvent event){
         EditTaskView editTaskView = (EditTaskView) Client.setView("EditTaskView");
-        editTaskView.setTask(Client.getRootProject().getTaskFromAll(task.getID()));
+        if (project.getTitle().equals("Quick Tasks")) {
+            editTaskView.setTask(Client.getQuickTasks().getTaskFromAll(task.getID())); //because QuickTasks is own
+        }else{editTaskView.setTask(Client.getRootProject().getTaskFromAll(task.getID()));}
+       // editTaskView.setTask(Client.getRootProject().getTaskFromAll(task.getID()));
         editTaskView.setProject(project);
         editTaskView.update();
     }
 //TODO Idk viss denna egentlig fungere, e litt rar
     public void handleDeleteTaskButtonClick() {
-        project.removeTask(task.getID());
+        //project.removeTask(task.getID()); //DOES NOT REMOVE PROPERLY
+        project.removeTasksFromSubProjects(task.getID()); //REMOVES PROPERLY
         ProjectView projectView = (ProjectView) Client.setView("ProjectView");
         projectView.setProject(project);
     }

@@ -13,6 +13,9 @@ import javafx.stage.Stage;
 public class Client extends Application {
     private static Project rootProject;
     private static PrimaryView primaryView;
+    private static Project quickTasks; // Gjer det sånt, eller laga det ein anna plass detta?? Gjor berre at det er
+                                       // QuickTasks som e på toppen av menyen uansett ka (Så lenge den er øverst
+                                       // der menyen blir laga), siden MainMenu.java kaller på getQuickTasks
 
     @Override
     public void start(Stage stage) {
@@ -22,12 +25,14 @@ public class Client extends Application {
             rootProject = new Project("Quick tasks");
         }
 
-        //Default.fillWithTestData(rootProject);
-
+        rootProject = new Project("Application");
+        quickTasks = new Project("Quick Tasks");
+        Default.fillWithTestData(rootProject);
+        Default.fillQuickTasksData(quickTasks);
         primaryView = (PrimaryView) FileManager.getView("PrimaryView");
 
         ProjectView projectView = (ProjectView) Client.setView("ProjectView");
-        projectView.setProject(rootProject);
+        projectView.setProject(Client.getQuickTasks());
 
         Scene primaryScene = primaryView.getScene();
         stage.setScene(primaryScene);
@@ -62,5 +67,12 @@ public class Client extends Application {
 
     public static Project getRootProject() {
         return rootProject;
+    }
+    public static Project getQuickTasks(){
+        return quickTasks;
+    }
+
+    public static void setRootProject(Project rootProject) {
+        Client.rootProject = rootProject;
     }
 }

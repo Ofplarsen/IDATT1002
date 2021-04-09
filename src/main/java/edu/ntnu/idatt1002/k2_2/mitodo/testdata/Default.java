@@ -6,6 +6,10 @@ import java.time.LocalDate;
 
 public class Default
 {
+    public static void fillQuickTasksData(Project quickTaskProject){
+        quickTaskProject.addProject("Quick Tasks");
+        quickTaskProject.addTask("Test bro");
+    }
     public static void fillWithTestData(Project project)
     {
         Project skoleProject = project.addProject("Skole");
