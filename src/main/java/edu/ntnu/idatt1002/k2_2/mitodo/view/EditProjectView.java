@@ -37,7 +37,7 @@ public class EditProjectView extends View{
     }
 
     public void delete(){
-        project.removeProjectByTitle(project.getTitle());
+        project.removeProject(project.getID());
         exit();
     }
 

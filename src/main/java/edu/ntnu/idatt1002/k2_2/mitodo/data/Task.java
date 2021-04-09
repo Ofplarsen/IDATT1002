@@ -1,7 +1,6 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.data;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
@@ -14,7 +13,7 @@ import java.util.UUID;
  * 128-bit number. This makes it as good as impossible for two task get the same id. This is implemented, because the user
  * should be able to create two tasks with the same title.
  */
-public class Task
+public class Task implements Serializable
 {
     private final UUID ID = UUID.randomUUID();
     private String title;
@@ -31,7 +30,13 @@ public class Task
         this.dueDate = null;
     }
 
-    public Task(){} //Empty constructor needed for some JSON related shenanigans
+    public Task(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate)
+    {
+        this.title = title;
+        this.priority = priority;
+        this.startDate = startDate;
+        this.dueDate = dueDate;
+    }
 
     public UUID getID()
     {

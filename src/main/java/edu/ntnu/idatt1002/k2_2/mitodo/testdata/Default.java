@@ -6,44 +6,24 @@ import java.time.LocalDate;
 
 public class Default
 {
-    public static void fillWithTestData(Project application)
+    public static void fillWithTestData(Project project)
     {
-        application.addProject(new Project("Skole"));
-        application.getProjectByTitle("Skole").addProject(new Project("Matte"));
-        Task lagStrukturTask = new Task("Lag struktur");
-        lagStrukturTask.setPriority(PriorityEnum.HIGH);
-        lagStrukturTask.setDueDate(LocalDate.of(2020,2,3));
-        application.getProjectByTitle("Skole").addTask(lagStrukturTask);
-        application.getProjectByTitle("Matte").addTask(new Task("Komplekse tall"));
-        application.getProjectByTitle("Matte").addTask(new Task("Logikk øving 2"));
+        Project skoleProject = project.addProject("Skole");
+        skoleProject.addTask("Lag struktur", PriorityEnum.HIGH, null, LocalDate.of(2020,2,3));
 
-        application.addProject(new Project("Personlig"));
-        application.getProjectByTitle("Personlig").addProject(new Project("Trening"));
-        application.getProjectByTitle("Trening").addProject(new Project("Intervall"));
-        application.getProjectByTitle("Trening").addProject(new Project("Styrke"));
+        Project matteProject = skoleProject.addProject("Matte");
+        matteProject.addTask("Komplekse tall");
+        matteProject.addTask("Logikk øving 2");
 
-        application.getProjectByTitle("Personlig").addTask(new Task("Kjøp melk"));
-        application.getProjectByTitle("Intervall").addTask(new Task("Jogge eller noe sånn"));
-        application.getProjectByTitle("Intervall").addTask(new Task("Jepp"));
-        application.getProjectByTitle("Intervall").addTask(new Task("Halo"));
-        application.getProjectByTitle("Styrke").addTask(new Task("Vektløfting eller noe sånn"));
+        Project personligProject = project.addProject("Personlig");
+        personligProject.addTask("Kjøp melk");
 
-        //From 17-24 is to see if Jackson is capable of saving all the variables
-        Task taskForJsonTest = new Task("JSON osv");
-        taskForJsonTest.setStartDate(LocalDate.of(2011,5,10));
-        taskForJsonTest.setPriority(PriorityEnum.MEDIUM);
-        Task taskForJsonTest2 = new Task("JSON 2 osv");
+        Project treningProject = personligProject.addProject("Trening");
 
-        taskForJsonTest2.setDueDate(LocalDate.of(2020,5,10));
-        application.getProjectByTitle("Skole").addTask(taskForJsonTest);
-        application.getProjectByTitle("Skole").addTask(taskForJsonTest2);
+        Project intervallProject = treningProject.addProject("Intervall");
+        intervallProject.addTask("Jogge eller noe sånn");
 
-        taskForJsonTest2.setDueDate(LocalDate.of(2012,5,10));
-        application.getProjectByTitle("Skole").addTask(taskForJsonTest);
-        application.getProjectByTitle("Skole").addTask(taskForJsonTest2);
-
-
-
-        application.getProjectByTitle("Matte").moveTaskByTitle("Komplekse tall", "Skole", application);
+        Project styrkeProject = treningProject.addProject("Styrke");
+        styrkeProject.addTask("Vektløfting eller noe sånn");
     }
 }

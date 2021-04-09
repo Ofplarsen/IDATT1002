@@ -39,8 +39,7 @@ public class ProjectView extends View
                 FXCollections.observableArrayList(
                         "Priority",
                         "Due Date",
-                        "Start Date",
-                        "Date Added"
+                        "Start Date"
                 );
         filterBox.setItems(options);
     }
@@ -48,9 +47,6 @@ public class ProjectView extends View
     public void setProject(Project projectMain)
     {
         this.project = projectMain;
-
-        System.out.println(projectMain.getAllTasks().size()); //remove
-        System.out.println(project.getAllTasks().size()); //remove
         headline.setText(projectMain.getTitle());
         addTasks();
     }
@@ -70,7 +66,7 @@ public class ProjectView extends View
     }
 
     public void addTasks(){
-        if (project.getAllTasks().size() < 1){
+        if (project.getTasks().size() < 1){
             HBox hBox = new HBox();
             Label noTaskMessage = new Label("No Tasks Currently Added");
             noTaskMessage.setPadding(new Insets(30,0,0,8));
@@ -80,14 +76,13 @@ public class ProjectView extends View
         }
         else {
 
-            for (Task s : project.getAllTasks()
-            ) {
+            for (Task s : project.getTasks()) {
                 FXMLLoader loader = new FXMLLoader();
                 try {
                     Node node = loader.load(getClass().getResource("/fxml/TaskInProject.fxml").openStream());
                     parent.getChildren().add(node);
-                    URL editButtonUrl = getClass().getResource("/Images/editImage.jpg");
-                    URL deleteButtonUrl = getClass().getResource("/Images/deleteImage.jpg");
+                    URL editButtonUrl = getClass().getResource("/images/editImage.jpg");
+                    URL deleteButtonUrl = getClass().getResource("/images/deleteImage.jpg");
                     ImageView editButton = new ImageView(editButtonUrl.toExternalForm());
                     TaskInProject controller = loader.getController();
                     ImageView deleteButton = new ImageView(deleteButtonUrl.toExternalForm());

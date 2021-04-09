@@ -4,18 +4,16 @@ import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import javafx.fxml.FXMLLoader;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import javafx.scene.Node;
 
 /**
  * Class with static methods for loading and saving files.
  */
 public class FileManager
 {
+    private static final String PATH = "src/main/resources/files/root_project";
+
     /**
      * Gets a loaded FXMLLoader from the path "/fxml/{name}.fxml"
      * @param name The name of the file without the file-ending ".fxml".
@@ -39,58 +37,54 @@ public class FileManager
         return fxmlLoader.getController();
     }
 
-    //Jackson:
-    /**
-     * File path (this includes double quotation marks, not single) should be on the form: "'file name'.json"
-     *
-     * TODO I (w) have yet to manage to make a new path and a new file at the same time, plz teach me if you know how.
-     *
-     * @param fileName name of the file you want to create
-     */
-    public static boolean createNewFile(String fileName){
-        File projectFile = new File(fileName);
+    public static void saveProject(Project project)
+    {
+        File projectFile = new File(PATH);
 
-        try{ return projectFile.createNewFile(); //Creates a new file if it does not already exist
-        }catch (IOException e){ e.printStackTrace(); }
-        return false;
-    }
+        try
+        {
+            projectFile.createNewFile();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
 
-    /**
-     * Method writes state of a Project object to a JSON file to given file (see createNewFile method for comment on fileName).
-     * There is no need for opening or closing any files, the ObjectMapper does this for you.
-     *
-     * @param project project you want to save as a JSON file
-     * @param fileName the file you want to write to
-     */
-    public static void writeProjectFile(Project project, String fileName){
-        ObjectMapper om = new ObjectMapper();
-
-        try {
-            om.writerWithDefaultPrettyPrinter().writeValue(new File(fileName), project);
-        } catch (IOException e) {
+        try
+        (
+            FileOutputStream fs = new FileOutputStream(projectFile);
+            ObjectOutputStream os = new ObjectOutputStream(fs);
+        )
+        {
+            os.writeObject(project);
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
     }
 
-    /**
-     * Method for reading from a JSON file (see createNewFile method for comment on fileName), creating and returning
-     * a Project object. An IOException is thrown if this fails and null is returned.
-     * There is no need for opening or closing any files, the ObjectMapper does this for you.
-     *
-     * Currently there is a bug with this method where som special characters (e.g. ø) gets decoded as a
-     * replacement character, even though encoding them is no problem.
-     *
-     * @param fileName the file you want to read from
-     * @return the file you read from as a Project object or null if this fails
-     */
-    public static Project readProjectFile(String fileName){
-        ObjectMapper om = new ObjectMapper();
+    public static Project loadProject()
+    {
+        File projectFile = new File(PATH);
+        if (!projectFile.isFile())
+        {
+            return null;
+        }
 
-        try {
-            return om.readValue(new File(fileName), Project.class);
-        } catch (IOException e) {
+        Project project = null;
+        try
+        (
+            FileInputStream fs = new FileInputStream(projectFile);
+            ObjectInputStream is = new ObjectInputStream(fs);
+        )
+        {
+            project = (Project) is.readObject();
+        }
+        catch (IOException | ClassNotFoundException e)
+        {
             e.printStackTrace();
         }
-        return null;
+        return project;
     }
 }

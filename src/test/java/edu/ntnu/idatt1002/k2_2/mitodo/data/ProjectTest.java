@@ -62,57 +62,6 @@ class ProjectTest {
     }
 
     @Nested
-    class TestsForBothMoveTaskMethods {
-
-        Project project2 = new Project("Project2");
-
-        @BeforeEach
-        void setup(){
-            project.addProject(project2);
-        }
-
-        @Nested
-        class MoveTaskByTitle{
-
-            @Test
-            void moveTaskThatIsInAProject(){
-                project.moveTaskByTitle("Task1", project2.getTitle(), project);
-
-                Assertions.assertEquals(task1, project2.getTask("Task1"));
-                Assertions.assertNull(project.getTask("Task1"));
-            }
-
-            @Test
-            void moveTaskThatIsCurrentlyNotInAnyProject(){
-                Task task4 = new Task("Task4");
-                String task4Title = task4.getTitle();
-
-                Assertions.assertThrows(IndexOutOfBoundsException.class, () -> project.moveTaskByTitle(task4Title, "Project2", project));
-            }
-        }
-
-        @Nested
-        class MoveTaskById{
-
-            @Test
-            void moveTaskByThatIsInAProject() {
-                project.moveTask(task1.getID(), project2.getID(), project);
-
-                Assertions.assertEquals(task1, project2.getTask("Task1"));
-                Assertions.assertNull(project.getTask("Task1"));
-            }
-
-            @Test
-            void moveTaskThatIsCurrentlyNotInAnyProject(){
-                Task task4 = new Task("Task4");
-
-                Assertions.assertThrows(IndexOutOfBoundsException.class, () -> project.moveTask(task4.getID(), project2.getID(), project));
-            }
-        }
-
-    }
-
-    @Nested
     class TestsForBothGetProjectMethods {
 
         Project project2 = new Project("Project2");
@@ -145,24 +94,6 @@ class ProjectTest {
                 Assertions.assertNull(project.getProject(notAProjectId));
             }
         }
-
-        @Nested
-        class GetProjectByTitle {
-
-            @Test
-            void projectWithTitleIsInAnotherProject(){
-                String project2Title = project2.getTitle();
-
-                Assertions.assertNotNull(project.getProjectByTitle(project2Title));
-            }
-
-            @Test
-            void titleDoesNotBelongToAnyProjectInAnotherProject(){
-                String notAProjectName = "NotAProjectName";
-
-                Assertions.assertNull(project.getProjectByTitle(notAProjectName));
-            }
-        }
     }
 
     @Nested
@@ -180,79 +111,6 @@ class ProjectTest {
 
         }
 
-        @Nested
-        class MoveProjectById {
-
-            @Test
-            void moveASubprojectToAnotherIndexWithinAProject(){
-                UUID project4Id = project4.getID();
-                int project4IndexBeforeMoving = project.getProjects().indexOf(project4);
-
-                project.moveProject(project4Id, 0);
-                int project4IndexAfterMoving = project.getProjects().indexOf(project4);
-
-                Assertions.assertEquals(2, project4IndexBeforeMoving);
-                Assertions.assertEquals(0, project4IndexAfterMoving);
-            }
-
-            @Test
-            void moveAProjectThatIsNotInAnotherProject(){
-                Project project5 = new Project("Project5");
-                UUID project5Id = project5.getID();
-
-                int project2IndexBeforeMoving = project.getProjects().indexOf(project2);
-                int project3IndexBeforeMoving = project.getProjects().indexOf(project3);
-                int project4IndexBeforeMoving = project.getProjects().indexOf(project4);
-
-                project.moveProject(project5Id, 1);
-
-                int project2IndexAfterMoving = project.getProjects().indexOf(project2);
-                int project3IndexAfterMoving = project.getProjects().indexOf(project3);
-                int project4IndexAfterMoving = project.getProjects().indexOf(project4);
-
-                Assertions.assertEquals(project2IndexBeforeMoving, project2IndexAfterMoving);
-                Assertions.assertEquals(project3IndexBeforeMoving, project3IndexAfterMoving);
-                Assertions.assertEquals(project4IndexBeforeMoving, project4IndexAfterMoving);
-            }
-        }
-
-        @Nested
-        class MoveProjectByTitle {
-
-            @Test
-            void moveASubprojectToAnotherIndexWithinAProject(){
-                String project4Title = project4.getTitle();
-                int project4IndexBeforeMoving = project.getProjects().indexOf(project4);
-
-                project.moveProjectByTitle(project4Title, 0);
-                int project4IndexAfterMoving = project.getProjects().indexOf(project4);
-
-                Assertions.assertEquals(2, project4IndexBeforeMoving);
-                Assertions.assertEquals(0, project4IndexAfterMoving);
-            }
-
-            @Test
-            void moveAProjectThatIsNotInAnotherProject(){
-                Project project5 = new Project("Project5");
-                String project5Title = project5.getTitle();
-
-                int project2IndexBeforeMoving = project.getProjects().indexOf(project2);
-                int project3IndexBeforeMoving = project.getProjects().indexOf(project3);
-                int project4IndexBeforeMoving = project.getProjects().indexOf(project4);
-
-                project.moveProjectByTitle(project5Title, 1);
-
-                int project2IndexAfterMoving = project.getProjects().indexOf(project2);
-                int project3IndexAfterMoving = project.getProjects().indexOf(project3);
-                int project4IndexAfterMoving = project.getProjects().indexOf(project4);
-
-                Assertions.assertEquals(project2IndexBeforeMoving, project2IndexAfterMoving);
-                Assertions.assertEquals(project3IndexBeforeMoving, project3IndexAfterMoving);
-                Assertions.assertEquals(project4IndexBeforeMoving, project4IndexAfterMoving);
-            }
-        }
-    }
-
     @Nested
     class TestsForBothRemoveProjectMethods {
 
@@ -265,7 +123,6 @@ class ProjectTest {
             project.addProject(project2);
             project.addProject(project3);
             project.addProject(project4);
-
         }
 
         @Nested
@@ -280,21 +137,6 @@ class ProjectTest {
             void removeAProjectThatIsNotASubproject(){
                 Project project5 = new Project("Project5");
                 Assertions.assertFalse(project.removeProject(project5.getID()));
-            }
-        }
-
-        @Nested
-        class RemoveAProjectByTitle {
-
-            @Test
-            void removeASubprojectFromAProject(){
-                Assertions.assertTrue(project.removeProjectByTitle(project2.getTitle()));
-            }
-
-            @Test
-            void removeAProjectThatIsNotASubproject(){
-                Project project5 = new Project("Project5");
-                Assertions.assertFalse(project.removeProjectByTitle(project5.getTitle()));
             }
         }
     }
