@@ -22,12 +22,12 @@ public class Client extends Application {
         rootProject = FileManager.loadProject();
         if (rootProject==null)
         {
-            rootProject = new Project("Quick tasks");
+            rootProject = new Project("Other Projects");
         }
 
-        rootProject = new Project("Application");
+       // rootProject = new Project("Application");
         quickTasks = new Project("Quick Tasks");
-        Default.fillWithTestData(rootProject);
+        //Default.fillWithTestData(rootProject);
         Default.fillQuickTasksData(quickTasks);
         primaryView = (PrimaryView) FileManager.getView("PrimaryView");
 
