@@ -13,22 +13,24 @@ import javafx.stage.Stage;
 public class Client extends Application {
     private static Project rootProject;
     private static PrimaryView primaryView;
-    private static Project quickTasks; // Gjer det sånt, eller laga det ein anna plass detta?? Gjor berre at det er
-                                       // QuickTasks som e på toppen av menyen uansett ka (Så lenge den er øverst
-                                       // der menyen blir laga), siden MainMenu.java kaller på getQuickTasks
+    private static Project quickTasks;
 
     @Override
     public void start(Stage stage) {
-        rootProject = FileManager.loadProject();
+        rootProject = FileManager.loadProject("root_project");
         if (rootProject==null)
         {
             rootProject = new Project("Other Projects");
         }
 
-       // rootProject = new Project("Application");
-        quickTasks = new Project("Quick Tasks");
-        //Default.fillWithTestData(rootProject);
-        Default.fillQuickTasksData(quickTasks);
+        quickTasks = FileManager.loadProject("quick_tasks");
+        if (quickTasks==null)
+        {
+            quickTasks = new Project("Quick Tasks");
+        }
+
+        //Default.fillQuickTasksData(quickTasks);
+
         primaryView = (PrimaryView) FileManager.getView("PrimaryView");
 
         ProjectView projectView = (ProjectView) Client.setView("ProjectView");
@@ -46,7 +48,8 @@ public class Client extends Application {
     @Override
     public void stop()
     {
-        FileManager.saveProject(rootProject);
+        FileManager.saveProject(rootProject, "root_project");
+        FileManager.saveProject(quickTasks, "quick_tasks");
     }
 
     public static void main(String[] args) {
@@ -68,11 +71,8 @@ public class Client extends Application {
     public static Project getRootProject() {
         return rootProject;
     }
+
     public static Project getQuickTasks(){
         return quickTasks;
-    }
-
-    public static void setRootProject(Project rootProject) {
-        Client.rootProject = rootProject;
     }
 }

@@ -37,12 +37,14 @@ public class MainMenu
 
         makeTreeItem("Quick tasks", root, mouseEvent -> {
             ProjectView projectView = (ProjectView) Client.setView("ProjectView");
-            projectView.setProject(Client.getQuickTasks()); //Make it go to quick tasks instead of rootProject
+            projectView.setProject(Client.getQuickTasks());
         });
 
+        /*
         makeTreeItem("Calendar", root, mouseEvent -> {
             Client.setView("CalendarView");
         });
+         */
 
 
         /*

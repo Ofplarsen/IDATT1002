@@ -12,7 +12,7 @@ import java.net.URL;
  */
 public class FileManager
 {
-    private static final String PATH = "src/main/resources/files/root_project";
+    private static final String FILES_PATH = "src/main/resources/files/";
 
     /**
      * Gets a loaded FXMLLoader from the path "/fxml/{name}.fxml"
@@ -37,9 +37,9 @@ public class FileManager
         return fxmlLoader.getController();
     }
 
-    public static void saveProject(Project project)
+    public static void saveProject(Project project, String name)
     {
-        File projectFile = new File(PATH);
+        File projectFile = new File(FILES_PATH + name);
 
         try
         {
@@ -64,9 +64,10 @@ public class FileManager
         }
     }
 
-    public static Project loadProject()
+    public static Project loadProject(String name)
     {
-        File projectFile = new File(PATH);
+        File projectFile = new File(FILES_PATH + name);
+
         if (!projectFile.isFile())
         {
             return null;
