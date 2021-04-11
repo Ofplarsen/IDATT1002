@@ -16,9 +16,9 @@ class ProjectTest {
 
     @BeforeEach
     void init(){
-        //project.addTask(task1);
-        //project.addTask(task2);
-       // project.addTask(task3);
+        project.addTask(task1.getTitle());
+        project.addTask(task2.getTitle());
+        project.addTask(task3.getTitle());
     }
 
     @Nested
@@ -29,7 +29,8 @@ class ProjectTest {
 
             @Test
             void idBelongsToATaskInProject(){
-                UUID supposedId = task2.getID();
+                task2 = project.getTasks().stream().filter(p -> p.getTitle().equals("Task2")).findFirst().get();
+                UUID supposedId = project.getTasks().stream().filter(p -> p.getTitle().equals("Task2")).findFirst().get().getID();
 
                 Assertions.assertEquals(task2, project.getTask(supposedId));
             }
@@ -74,7 +75,7 @@ class ProjectTest {
             //project2.addTask(task4);
             //project2.addTask(task5);
             //project2.addTask(task6);
-           // project.addProject(project2);
+           project.addProject("Project2");
         }
 
         @Nested
@@ -82,9 +83,9 @@ class ProjectTest {
 
             @Test
             void projectWithIdIsInAnotherProject(){
-                UUID project2Id = project2.getID();
+                Project p = project.getProjects().stream().filter(e -> e.getTitle() == "Project2").findFirst().get();
 
-                Assertions.assertNotNull(project.getProject(project2Id));
+                Assertions.assertNotNull(project.getProject(p.getID()));
             }
 
             @Test
