@@ -38,6 +38,11 @@
                   <Insets left="30.0" top="12.0" />
                </HBox.margin>
             </Button>
+            <Button fx:id="addTaskButton" mnemonicParsing="false" onAction="#handleAddTaskButton" prefHeight="30.0" prefWidth="86.0" text="Add Task">
+               <HBox.margin>
+                  <Insets left="30.0" top="12.0" />
+               </HBox.margin>
+            </Button>
          </children>
       </HBox>
    </children>

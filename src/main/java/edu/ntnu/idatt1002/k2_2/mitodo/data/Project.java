@@ -94,6 +94,9 @@ public class Project implements Serializable
         tasks.add(task);
         return task;
     }
+    public Task getNewestTask(){ //Ehmmm, blir litt styr når me ska laga ein ny task, så detta får ver ein løysning enn så lenge
+        return tasks.get(tasks.size()-1);
+    }
 
     public boolean removeTask(UUID id)
     {

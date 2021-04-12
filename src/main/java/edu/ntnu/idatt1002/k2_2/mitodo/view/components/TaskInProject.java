@@ -62,12 +62,11 @@ public class TaskInProject {
         image.setFitWidth(50);
         deleteButton.setGraphic(image);
     }
-    public void handleButtonClick(ActionEvent event){
+    public void handleButtonClick(){
         EditTaskView editTaskView = (EditTaskView) Client.setView("EditTaskView");
         if (project.getTitle().equals("Quick Tasks")) {
             editTaskView.setTask(Client.getQuickTasks().getTaskFromAll(task.getID())); //because QuickTasks is own
         }else{editTaskView.setTask(Client.getRootProject().getTaskFromAll(task.getID()));}
-       // editTaskView.setTask(Client.getRootProject().getTaskFromAll(task.getID()));
         editTaskView.setProject(project);
         editTaskView.update();
     }

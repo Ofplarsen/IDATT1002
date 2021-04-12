@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -25,8 +26,6 @@ public class ProjectView extends View
 {
     private Project project;
 
-    @FXML
-    private HBox header;
     @FXML
     private VBox parent;
     @FXML
@@ -61,7 +60,16 @@ public class ProjectView extends View
         headline.setText(name);
 
     }
-    public void handleEditButtonClick(ActionEvent event){
+
+  public void handleAddTaskButton() {
+        project.addTask("'New Task'");
+        EditTaskView editTaskView = (EditTaskView) Client.setView("EditTaskView");
+        editTaskView.setTask(project.getNewestTask());
+        editTaskView.setProject(project);
+        editTaskView.update();
+    }
+
+    public void handleEditButtonClick(){
         EditProjectView editProjectView =(EditProjectView) Client.setView("EditProjectView");
         editProjectView.setProject(project);
     }
