@@ -48,6 +48,7 @@ public class ProjectView extends View
         this.project = projectMain;
 
         headline.setText(projectMain.getTitle());
+       // if(project.getProjects().size()>0) //maybe do something like this to add projects instead of tasks
         addTasks();
     }
 
@@ -73,15 +74,15 @@ public class ProjectView extends View
         EditProjectView editProjectView =(EditProjectView) Client.setView("EditProjectView");
         editProjectView.setProject(project);
     }
-
+//TODO Maybe find a way to optimize this?
     public void addTasks(){
         if (project.getAllTasks().size() < 1){
-            HBox hBox = new HBox();
+           // HBox hBox = new HBox();
             Label noTaskMessage = new Label("No Tasks Currently Added");
             noTaskMessage.setPadding(new Insets(30,0,0,8));
             noTaskMessage.setFont(new Font(40));
-            hBox.getChildren().add(noTaskMessage);
-            parent.getChildren().add(hBox);
+          //  hBox.getChildren().add(noTaskMessage);
+            parent.getChildren().add(noTaskMessage); //parent.getChildren().add(hBox);
         }
         else {
 
