@@ -63,9 +63,9 @@ public class ProjectView extends View
     }
 
   public void handleAddTaskButton() {
-        project.addTask("'New Task'");
+        Task newTask = project.addTask("'New Task'");
         EditTaskView editTaskView = (EditTaskView) Client.setView("EditTaskView");
-        editTaskView.setTask(project.getNewestTask());
+        editTaskView.setTask(newTask);
         editTaskView.setProject(project);
         editTaskView.update();
     }
@@ -102,6 +102,7 @@ public class ProjectView extends View
                     controller.setTaskName(s.getTitle()); //set label
                     controller.setPriorityText(s.getPriority().toString().toLowerCase());
                     controller.setDate(s.getStartDateAsString(), s.getDueDateAsString());
+                    controller.setIsDone(s.isDone());
                     controller.setEditImage(editButton);
                     controller.setDeleteImage(deleteButton);
 

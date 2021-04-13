@@ -52,6 +52,10 @@ public class TaskInProject {
         startDate.setText(start);
         dueDate.setText(end);
     }
+    public void setIsDone(boolean isDone)
+    {
+        taskBox.setSelected(isDone);
+    }
     public void setEditImage(ImageView image){
         image.setFitHeight(50);
         image.setFitWidth(50);
@@ -62,7 +66,12 @@ public class TaskInProject {
         image.setFitWidth(50);
         deleteButton.setGraphic(image);
     }
-    public void handleButtonClick(){
+    public void handleTaskIsDoneButtonClick()
+    {
+        task.toggleIsDone();
+    }
+
+    public void handleEditTaskButtonClick(){
         EditTaskView editTaskView = (EditTaskView) Client.setView("EditTaskView");
         if (project.getTitle().equals("Quick Tasks")) {
             editTaskView.setTask(Client.getQuickTasks().getTaskFromAll(task.getID())); //because QuickTasks is own

@@ -21,6 +21,7 @@ public class Task implements Serializable
     private PriorityEnum priority;
     private LocalDate startDate;
     private LocalDate dueDate;
+    private boolean isDone = false;
 
     public Task(String title)
     {
@@ -113,6 +114,21 @@ public class Task implements Serializable
         asString += "." + date.getMonthValue();
         asString += "." + date.getYear();
         return asString;
+    }
+
+    public boolean isDone()
+    {
+        return isDone;
+    }
+
+    public void setDone(boolean isDone)
+    {
+        this.isDone = isDone;
+    }
+
+    public void toggleIsDone()
+    {
+        isDone = !isDone;
     }
 
     @Override
