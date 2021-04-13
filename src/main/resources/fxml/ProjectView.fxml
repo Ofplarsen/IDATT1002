@@ -28,7 +28,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <ComboBox fx:id="filterBox" prefHeight="30.0" prefWidth="114.0" promptText="Filter">
+            <ComboBox fx:id="filterBox" onAction="#sort" prefHeight="30.0" prefWidth="114.0" promptText="Filter">
                <HBox.margin>
                   <Insets top="12.0" />
                </HBox.margin>

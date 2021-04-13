@@ -3,6 +3,7 @@ package edu.ntnu.idatt1002.k2_2.mitodo.data;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.UUID;
 
 /**
@@ -66,6 +67,20 @@ public class Project implements Serializable
             }
         }
         return null;
+    }
+    public void sortTasksByPriority(){
+        Comparator<Task>priorityComparator = (t1, t2) -> t2.getPriority().compareTo(t1.getPriority());
+        tasks.sort(priorityComparator);
+    }
+
+    public void sortTasksByDueDate(){
+        Comparator<Task> dueDateComparator = (t1, t2) -> t2.getDueDate().compareTo(t1.getDueDate());
+        tasks.sort(dueDateComparator);
+    }
+
+    public void sortTasksByStartDate(){
+        Comparator<Task> startDateComparator = (t1, t2) -> t1.getStartDate().compareTo(t2.getStartDate());
+        tasks.sort(startDateComparator);
     }
 
     public Task getTask(UUID id)

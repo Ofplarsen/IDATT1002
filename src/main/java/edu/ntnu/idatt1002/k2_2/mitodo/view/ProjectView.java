@@ -44,6 +44,27 @@ public class ProjectView extends View
                 );
         filterBox.setItems(options);
     }
+    public void sort(){
+       System.out.println(filterBox.getValue().toString());
+        String value = filterBox.getValue().toString();
+        switch (value){
+            case "Priority":
+                project.sortTasksByPriority();
+                break;
+            case "Due Date":
+                project.sortTasksByDueDate();
+                break;
+            case "Start Date":
+                project.sortTasksByStartDate();
+                break;
+            default:
+                System.out.println("Something went wrong with sorting of tasks");
+                break;
+        }
+        filterBox.setPromptText(value);
+        ProjectView projectView = (ProjectView) Client.setView("ProjectView");
+        projectView.setProject(project);
+    }
 
     public void setProject(Project projectMain)
     {
