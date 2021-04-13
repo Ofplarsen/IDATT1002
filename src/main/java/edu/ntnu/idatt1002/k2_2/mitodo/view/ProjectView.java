@@ -32,6 +32,8 @@ public class ProjectView extends View
     private Label headline;
     @FXML
     private ComboBox filterBox;
+    @FXML
+    private Button editButton;
 
     public void initialize() {
         ObservableList<String> options =
@@ -46,7 +48,7 @@ public class ProjectView extends View
     public void setProject(Project projectMain)
     {
         this.project = projectMain;
-
+        if (project.getTitle().equals(Client.getQuickTasks().getTitle())){editButton.setVisible(false);}
         headline.setText(projectMain.getTitle());
        // if(project.getProjects().size()>0) //maybe do something like this to add projects instead of tasks
         addTasks();
