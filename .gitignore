@@ -3,3 +3,4 @@ target
 .idea
 *.iml
 javadoc
+/src/main/resources/files/

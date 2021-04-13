@@ -20,7 +20,9 @@ public class EditProjectView extends View{
         this.project = project;
     }
 
-    public void setProject(Project project){ this.project= project; }
+    public void setProject(Project project){
+        this.project= project;
+        projectTitle.setText(project.getTitle());}
 
     public EditProjectView(){
         this.project = new Project("Project title");
@@ -28,19 +30,26 @@ public class EditProjectView extends View{
 
 
     public void save() {
-        project.setTitle(projectTitle.getText());
+        //TODO: show user that string must be over 1 character
+        if (projectTitle.getText().isBlank()) {
+            return;
+        }
+        Client.getRootProject().getProject(project.getID()).setTitle(projectTitle.getText());
+        Client.getPrimaryView().updateMainMenu();
         exit();
     }
 
-    public void exit(){ //Returns to the same project
+    public void exit() {
         ProjectView projectView = (ProjectView) Client.setView("ProjectView");
         projectView.setProject(project);
     }
 
-    public void delete(){ //denna fjerne ikkje prosjektet forresten, må sikkert gå via rootProject for å fjerna
-        project.removeProject(project.getID());
-        //exit();
-        ProjectView projectView = (ProjectView) Client.setView("ProjectView"); //returns to quick tasks because it can not return to deleted project
+    public void delete(){
+        //TODO: Create "delete from all"-method in Project and use that instead
+        Client.getRootProject().removeProject(project.getID());
+        Client.getPrimaryView().updateMainMenu();
+
+        ProjectView projectView = (ProjectView) Client.setView("ProjectView");
         projectView.setProject(Client.getQuickTasks());
     }
 
