@@ -1,5 +1,8 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.data;
 
+import edu.ntnu.idatt1002.k2_2.mitodo.Client;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -73,14 +76,28 @@ public class Project implements Serializable
         tasks.sort(priorityComparator);
     }
 
-    public void sortTasksByDueDate(){
+    public void sortTasksByDueDate(){ //Ugly code, but it works
+        ArrayList<Task> noDueDate = new ArrayList<>();
+        for(int i = 0; i<tasks.size(); i++){
+            if(tasks.get(i).getDueDate()==null){
+                noDueDate.add(tasks.remove(i));
+            }
+        }
         Comparator<Task> dueDateComparator = (t1, t2) -> t2.getDueDate().compareTo(t1.getDueDate());
         tasks.sort(dueDateComparator);
+        tasks.addAll(noDueDate);
     }
 
-    public void sortTasksByStartDate(){
+    public void sortTasksByStartDate(){ //Ugly code, but it works
+        ArrayList<Task> noStartDate = new ArrayList<>();
+        for(int i = 0; i<tasks.size(); i++){
+            if(tasks.get(i).getDueDate()==null){
+                noStartDate.add(tasks.remove(i));
+            }
+        }
         Comparator<Task> startDateComparator = (t1, t2) -> t1.getStartDate().compareTo(t2.getStartDate());
         tasks.sort(startDateComparator);
+        tasks.addAll(noStartDate);
     }
 
     public Task getTask(UUID id)
