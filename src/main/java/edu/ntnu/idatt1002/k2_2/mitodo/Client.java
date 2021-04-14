@@ -40,10 +40,11 @@ public class Client extends Application {
         Scene primaryScene = primaryView.getScene();
         stage.setScene(primaryScene);
 
-        stage.setWidth(1080);
+        stage.setWidth(1280);
         stage.setHeight(720);
         stage.setTitle("MiTodo");
         stage.show();
+        stage.setResizable(false); //makes the app look weird if you change around on its size
     }
 
     @Override
