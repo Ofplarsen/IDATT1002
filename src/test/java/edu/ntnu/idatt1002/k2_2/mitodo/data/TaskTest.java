@@ -43,15 +43,6 @@ class TaskTest {
             }
         }
 
-        @Test
-        void setStartDateBeforeLocalDateNow(){
-            try{
-                task1.setStartDate(LocalDate.of(year, month, day-1));
-            }catch (IllegalArgumentException e){
-                assertEquals(task1.getStartDate(), LocalDate.now());
-                assertEquals(e.getMessage(), "Can't set start date earlier than today");
-            }
-        }
     }
 
     @Nested

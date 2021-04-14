@@ -29,8 +29,8 @@ public class Client extends Application {
             quickTasks = new Project("Quick Tasks");
         }
 
-        Default.fillWithTestData(rootProject);
-        Default.fillQuickTasksData(quickTasks);
+        //Default.fillWithTestData(rootProject);
+        //Default.fillQuickTasksData(quickTasks);
 
         primaryView = (PrimaryView) FileManager.getView("PrimaryView");
 
