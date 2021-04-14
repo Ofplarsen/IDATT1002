@@ -7,6 +7,10 @@ import javafx.fxml.FXMLLoader;
 import java.io.*;
 import java.net.URL;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  * Class with static methods for loading and saving files.
  */
@@ -88,4 +92,39 @@ public class FileManager
         }
         return project;
     }
+
+    //JSON (excluding createNewFile)
+
+    public static boolean createNewFile(String fileName){
+        File projectFile = new File(FILES_PATH + fileName);
+
+        try{ return projectFile.createNewFile(); //Creates a new file if it does not already exist
+        }catch (IOException e){ e.printStackTrace(); }
+        return false;
+    }
+
+    public static void writeProjectFile(Project project, String fileName){
+        ObjectMapper om = new ObjectMapper();
+        om.registerModule(new JavaTimeModule()); //Need this to make the ObjectMapper understand we are dealing with LocalDate
+
+        try {
+            om.writerWithDefaultPrettyPrinter().writeValue(new File(FILES_PATH + fileName), project);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Project readProjectFile(String fileName){
+        ObjectMapper om = new ObjectMapper();
+        om.registerModule(new JavaTimeModule()); //Need this to make the ObjectMapper understand we are dealing with LocalDate
+        om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); //To make everything not act up when reading from file
+
+        try {
+            return om.readValue(new File(FILES_PATH + fileName), Project.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
