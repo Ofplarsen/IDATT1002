@@ -32,9 +32,11 @@ public class Task implements Serializable
     }
 
     public Task(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate){
-        if(startDate.isAfter(dueDate)){
+
+        if (startDate != null && dueDate != null && startDate.isAfter(dueDate)) {
             throw new IllegalArgumentException("Can't set due date before start date");
         }
+
         this.title = title;
         this.priority = priority;
         this.startDate = startDate;
@@ -84,11 +86,10 @@ public class Task implements Serializable
     public void setStartDate(LocalDate startDate)
     {
         //TODO add hvis begge er tilfelle, også på due date
-        if(dueDate != null){
-            if(startDate.isAfter(dueDate)){
-                throw new IllegalArgumentException("Can't set start date later than due date");
-            }
+        if(dueDate != null && startDate.isAfter(dueDate)){
+            throw new IllegalArgumentException("Can't set start date later than due date");
         }
+
         if(startDate.isBefore(LocalDate.now())){
             throw new IllegalArgumentException("Can't set start date earlier than today");
         }
@@ -105,11 +106,11 @@ public class Task implements Serializable
         if(dueDate.isBefore(LocalDate.now())){
             throw new IllegalArgumentException("Can't set due date earlier than today's date");
         }
-        if(startDate != null){
-            if(dueDate.isBefore(startDate)){
-                throw new IllegalArgumentException("Can't set due date earlier than start date");
-            }
+
+        if(startDate != null && dueDate.isBefore(startDate)){
+            throw new IllegalArgumentException("Can't set due date earlier than start date");
         }
+
         this.dueDate = dueDate;
     }
 
@@ -177,4 +178,5 @@ public class Task implements Serializable
     {
         return Objects.hash(ID);
     }
+
 }
