@@ -7,13 +7,12 @@ import edu.ntnu.idatt1002.k2_2.mitodo.view.components.SubProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.TaskInProject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.Scene;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -21,10 +20,11 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
+
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 
 public class ProjectView extends View
@@ -60,28 +60,49 @@ public class ProjectView extends View
     }
     //TODO DET FUNGERE IKKJE MED OVERPROSJEKT FORDI DEN GÅR IKKJE GJENNOM UNDERPROSJEKTA FOR Å SORTERA FML
     public void sort(){
-       System.out.println(filterBox.getValue().toString());
+        System.out.println(filterBox.getValue().toString());
         String value = filterBox.getValue().toString();
+        ProjectView projectView = (ProjectView) Client.setView("ProjectView");
+        ArrayList<Task> sortedList = project.getAllTasks();
         switch (value){
             case "Priority":
-                project.sortTasksByPriority();
+                project.sortTasksByPriority(sortedList);
+                projectView.setProjectSorted(project,sortedList);
                 break;
             case "Due Date":
-                project.sortTasksByDueDate();
+                project.sortTasksByDueDate(sortedList);
+                projectView.setProjectSorted(project, sortedList);
                 break;
             case "Start Date":
-                project.sortTasksByStartDate();
+                project.sortTasksByStartDate(sortedList);
+                projectView.setProjectSorted(project, sortedList);
                 break;
             default:
                 System.out.println("Something went wrong with sorting of tasks");
                 break;
         }
         filterBox.setPromptText(value);
-        ProjectView projectView = (ProjectView) Client.setView("ProjectView");
-        projectView.setProject(project);
+       //ProjectView projectView = (ProjectView) Client.setView("ProjectView");
+        //projectView.setProject(project);
     }
 
     public void setProject(Project projectMain)
+    {
+        this.project = projectMain;
+        if (project.getTitle().equals(Client.getQuickTasks().getTitle())){
+            projectsOrTasks.setDisable(true);
+            projectsOrTasks.setVisible(false);
+            editButton.setDisable(true);
+            editButton.setVisible(false);
+        }
+        if(project.getProjects().size()<1){
+            projectsOrTasks.setDisable(true);
+            projectsOrTasks.setVisible(false);
+        }
+        addTasks();
+        headline.setText(projectMain.getTitle());
+    }
+    public void setProjectSorted(Project projectMain, ArrayList<Task> sortedTask)
     {
         this.project = projectMain;
         if (project.getTitle().equals(Client.getQuickTasks().getTitle())){
@@ -95,7 +116,7 @@ public class ProjectView extends View
             projectsOrTasks.setDisable(true);
             projectsOrTasks.setVisible(false);
         }
-        addTasks();
+        addTasksSorted(sortedTask);
         headline.setText(projectMain.getTitle());
     }
 
@@ -135,10 +156,6 @@ public class ProjectView extends View
     {
         return parent;
     }
-    public void setContent(String name) {
-        headline.setText(name);
-
-    }
 
   public void handleAddTaskButton() {
         Task newTask = project.addTask("'New Task'");
@@ -155,12 +172,7 @@ public class ProjectView extends View
 //TODO Maybe find a way to optimize this?
     public void addTasks(){
         if (project.getAllTasks().size() < 1){
-           // HBox hBox = new HBox();
-            Label noTaskMessage = new Label("No Tasks Currently Added");
-            noTaskMessage.setPadding(new Insets(30,0,0,8));
-            noTaskMessage.setFont(new Font(40));
-          //  hBox.getChildren().add(noTaskMessage);
-            parent.getChildren().add(noTaskMessage); //parent.getChildren().add(hBox);
+            parent.getChildren().add(noTaskMessageLabel()); //parent.getChildren().add(hBox);
         }
         else {
 
@@ -177,12 +189,34 @@ public class ProjectView extends View
 
                     controller.setProject(project);
                     controller.setTask(s);
-                    controller.setTaskName(s.getTitle()); //set label
-                    controller.setPriorityText(s.getPriority().toString().toLowerCase());
-                    controller.setDate(s.getStartDateAsString(), s.getDueDateAsString());
-                    controller.setIsDone(s.isDone());
-                    controller.setEditImage(editButton);
-                    controller.setDeleteImage(deleteButton);
+                    setControllerInfo(controller,s,editButton,deleteButton);
+
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+    }
+    public void addTasksSorted(ArrayList<Task> sortedList){
+        if (sortedList.size() < 1){
+            parent.getChildren().add(noTaskMessageLabel());
+        }
+        else {
+
+            for (Task s : sortedList) {
+                FXMLLoader loader = new FXMLLoader();
+                try {
+                    Node node = loader.load(getClass().getResource("/fxml/TaskInProject.fxml").openStream());
+                    parent.getChildren().add(node);
+                    URL editButtonUrl = getClass().getResource("/images/editImage.jpg");
+                    URL deleteButtonUrl = getClass().getResource("/images/deleteImage.jpg");
+                    ImageView editButton = new ImageView(editButtonUrl.toExternalForm());
+                    TaskInProject controller = loader.getController();
+                    ImageView deleteButton = new ImageView(deleteButtonUrl.toExternalForm());
+
+                    controller.setProject(project);
+                    controller.setTask(s);
+                    setControllerInfo(controller,s,editButton,deleteButton);
 
                 } catch (IOException ex) {
                     ex.printStackTrace();
@@ -215,10 +249,7 @@ public class ProjectView extends View
     }
     public void addTasksForSub(Project subProject, int j){
         if (subProject.getAllTasks().size() < 1){
-            Label noTaskMessage = new Label("No Tasks Currently Added");
-            noTaskMessage.setPadding(new Insets(30,0,0,8));
-            noTaskMessage.setFont(new Font(40));
-            parent.getChildren().add(j,noTaskMessage); //parent.getChildren().add(hBox);
+            parent.getChildren().add(j,noTaskMessageLabel()); //parent.getChildren().add(hBox);
         }
         else {
 
@@ -235,12 +266,7 @@ public class ProjectView extends View
 
                     controller.setProject(project);
                     controller.setTask(s);
-                    controller.setTaskName(s.getTitle()); //set label
-                    controller.setPriorityText(s.getPriority().toString().toLowerCase());
-                    controller.setDate(s.getStartDateAsString(), s.getDueDateAsString());
-                    controller.setIsDone(s.isDone());
-                    controller.setEditImage(editButton);
-                    controller.setDeleteImage(deleteButton);
+                    setControllerInfo(controller,s,editButton,deleteButton);
 
                 } catch (IOException ex) {
                     ex.printStackTrace();
@@ -262,5 +288,19 @@ public class ProjectView extends View
                 }
             }
         }
+    }
+    public Label noTaskMessageLabel(){
+        Label noTaskMessage = new Label("No Tasks Currently Added");
+        noTaskMessage.setPadding(new Insets(30,0,0,8));
+        noTaskMessage.setFont(new Font(40));
+        return noTaskMessage;
+    }
+    public void setControllerInfo(TaskInProject controller, Task s, ImageView editButton, ImageView deleteButton){
+        controller.setTaskName(s.getTitle()); //set label
+        controller.setPriorityText(s.getPriority().toString().toLowerCase());
+        controller.setDate(s.getStartDateAsString(), s.getDueDateAsString());
+        controller.setIsDone(s.isDone());
+        controller.setEditImage(editButton);
+        controller.setDeleteImage(deleteButton);
     }
   }

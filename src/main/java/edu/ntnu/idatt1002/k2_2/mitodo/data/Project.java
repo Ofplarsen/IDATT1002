@@ -71,7 +71,7 @@ public class Project implements Serializable
         }
         return null;
     }
-    public void sortTasksByPriority(){
+    /*public void sortTasksByPriority(){
         Comparator<Task>priorityComparator = (t1, t2) -> t2.getPriority().compareTo(t1.getPriority());
         tasks.sort(priorityComparator);
     }
@@ -88,7 +88,7 @@ public class Project implements Serializable
         tasks.addAll(noDueDate);
     }
 
-    public void sortTasksByStartDate(){ //Ugly code, but it works
+     public void sortTasksByStartDate(){ //Ugly code, but it works
         ArrayList<Task> noStartDate = new ArrayList<>();
         for(int i = 0; i<tasks.size(); i++){
             if(tasks.get(i).getDueDate()==null){
@@ -98,7 +98,38 @@ public class Project implements Serializable
         Comparator<Task> startDateComparator = (t1, t2) -> t1.getStartDate().compareTo(t2.getStartDate());
         tasks.sort(startDateComparator);
         tasks.addAll(noStartDate);
+    }*/
+
+     public void sortTasksByPriority(ArrayList <Task> list){
+        Comparator<Task>priorityComparator = (t1, t2) -> t2.getPriority().compareTo(t1.getPriority());
+        list.sort(priorityComparator);
     }
+
+    public void sortTasksByDueDate(ArrayList <Task> list){ //Ugly code, but it works
+        ArrayList<Task> noDueDate = new ArrayList<>();
+        for(int i = 0; i<list.size(); i++){
+            if(list.get(i).getDueDate()==null){
+                noDueDate.add(list.remove(i));
+            }
+        }
+        Comparator<Task> dueDateComparator = (t1, t2) -> t2.getDueDate().compareTo(t1.getDueDate());
+        list.sort(dueDateComparator);
+        list.addAll(noDueDate);
+    }
+
+    public void sortTasksByStartDate(ArrayList <Task> list){ //Ugly code, but it works
+        ArrayList<Task> noStartDate = new ArrayList<>();
+        for(int i = 0; i<list.size(); i++){
+            if(list.get(i).getStartDate()==null){
+                noStartDate.add(list.remove(i));
+            }
+        }
+        Comparator<Task> startDateComparator = (t1, t2) -> t1.getStartDate().compareTo(t2.getStartDate());
+        list.sort(startDateComparator);
+        list.addAll(noStartDate);
+    
+    }
+
 
     public Task getTask(UUID id)
     {
