@@ -3,5 +3,4 @@ target
 .idea
 *.iml
 javadoc
-/src/main/resources/files/quick_tasks
-/src/main/resources/files/root_project
+/src/main/resources/files/*
