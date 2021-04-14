@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.IllegalFormatWidthException;
 import java.util.UUID;
 
 /**
@@ -153,9 +154,13 @@ public class Project implements Serializable
 
     public Task addTask(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate)
     {
-        Task task = new Task(title, priority, startDate, dueDate);
-        tasks.add(task);
-        return task;
+        try {
+            Task task = new Task(title, priority, startDate, dueDate);
+            tasks.add(task);
+            return task;
+        }catch (IllegalArgumentException e){
+            throw new IllegalArgumentException(e.getMessage());
+        }
     }
     public Task getNewestTask(){ //Ehmmm, blir litt styr når me ska laga ein ny task, så detta får ver ein løysning enn så lenge
         return tasks.get(tasks.size()-1);

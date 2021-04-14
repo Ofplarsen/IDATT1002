@@ -70,12 +70,17 @@ public class EditTaskView extends View
     }
 
     public void save() {
-        task.setStartDate(selectStartDate.getValue());
-        task.setDueDate(selectDueDate.getValue());
-        task.setComments(comments.getText());
-        task.setPriority(selectPriority.getValue());
-        task.setTitle(taskName.getText());
-        update();
+        try {
+            task.setStartDate(selectStartDate.getValue());
+            task.setDueDate(selectDueDate.getValue());
+            task.setComments(comments.getText());
+            task.setPriority(selectPriority.getValue());
+            task.setTitle(taskName.getText());
+            update();
+        }catch (IllegalArgumentException e){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Error: " + e.getMessage(), ButtonType.OK);
+            alert.showAndWait();
+        }
     }
 
     public void exit() {
