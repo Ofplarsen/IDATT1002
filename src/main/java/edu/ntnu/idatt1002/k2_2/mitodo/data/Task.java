@@ -31,7 +31,7 @@ public class Task implements Serializable
         this.dueDate = null;
     }
 
-    public Task(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate){
+    public Task(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate, String comments){
 
         if(dueDate != null && startDate != null && dueDate.isBefore(startDate)){
             throw new IllegalArgumentException("Can't set due date later than start date");
@@ -45,6 +45,7 @@ public class Task implements Serializable
         this.priority = priority;
         this.startDate = startDate;
         this.dueDate = dueDate;
+        this.comments = comments;
     }
 
     public UUID getID()

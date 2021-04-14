@@ -152,10 +152,16 @@ public class Project implements Serializable
          return task;
     }
 
-    public Task addTask(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate)
+    public void moveTask(UUID taskID, UUID projectID) {
+         Task task = this.getTask(taskID);
+         Client.getRootProject().getProject(projectID).addTask(task.getTitle(), task.getPriority(), task.getStartDate(), task.getDueDate(), task.getComments());
+         removeTask(taskID);
+    }
+
+    public Task addTask(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate, String comments)
     {
         try {
-            Task task = new Task(title, priority, startDate, dueDate);
+            Task task = new Task(title, priority, startDate, dueDate, comments);
             tasks.add(task);
             return task;
         }catch (IllegalArgumentException e){
@@ -213,6 +219,7 @@ public class Project implements Serializable
     {
         return projects.removeIf(project -> project.getID().equals(id));
     }
+
 
     @Override
     public String toString()
