@@ -23,7 +23,6 @@ public class EditProjectView extends View{
     public void setParentProject(Project rootProject)
     {
         this.rootProject = rootProject;
-        System.out.println(rootProject);
     }
 
     // Called for edit
@@ -33,6 +32,9 @@ public class EditProjectView extends View{
         projectTitle.setText(project.getTitle());
         if(rootProject == null){
             rootProject = project.getParent();
+            if(rootProject == null){
+                rootProject = Client.getRootProject();
+            }
         }
     }
 
@@ -50,25 +52,30 @@ public class EditProjectView extends View{
         }
     }
 
+    private boolean pAC(String title){
+        return rootProject.getProjects().stream().anyMatch(p -> p.getTitle().equalsIgnoreCase(title));
+    }
+
     public void saveAndExit()
     {
         try {
 
-            Project projectTest = rootProject.addProject(projectTitle.getText(), rootProject);
-
-            if(projectTest.getParent() != null && projectTest.getParent().projectAlreadyCreated(projectTitle.getText())){
-                rootProject.removeProject(projectTest.getID());
-                throw new IllegalArgumentException("Project already created");
+            Project testPro = new Project(projectTitle.getText(), rootProject);
+            if(rootProject != null) {
+                System.out.println(rootProject.getTitle() + " - rootProject");
+            }
+            if(rootProject != null && pAC(testPro.getTitle())) {
+                if(project != null && project.getTitle().equals(projectTitle.getText())){
+                    System.out.println("Text equals as before");
+                }else {
+                    throw new IllegalArgumentException("Project already created");
+                }
             }
 
-            projectTest.getParent().projectAlreadyCreated(projectTitle.getText());
-            projectTest.getParent().getProjects().forEach(p -> System.out.println(p.getTitle()));
-            System.out.println(projectTest.getParent().getTitle());
-            rootProject.removeProject(projectTest.getID());
 
             if (project != null) {
                 if(project.getTitle().equals(projectTitle.getText())){
-
+                    System.out.println("Text equals as before");
                 }else {
                     project.setTitle(projectTitle.getText());
                     System.out.println("Project = 0");

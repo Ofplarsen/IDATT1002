@@ -234,11 +234,9 @@ public class Project implements Serializable
 
     public boolean projectAlreadyCreated(String title){
          if(parent == null || parent.getProjects().size() == 0){
-             System.out.println(parent);
              return false;
          }
-         parent.getProjects().stream().forEach(p -> System.out.println(p.getTitle()));
-         return parent.getProjects().stream().anyMatch(p -> p.getTitle().toLowerCase().equals(title.toLowerCase()));
+         return parent.getProjects().stream().anyMatch(p -> p.getTitle().equalsIgnoreCase(title));
     }
     public boolean removeFromAll(UUID id)
     {
