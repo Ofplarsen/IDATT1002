@@ -10,15 +10,15 @@ import java.util.UUID;
 class ProjectTest {
 
     Project project = new Project("Project");
-    Task task1 = new Task("Task1");
-    Task task2 = new Task("Task2");
-    Task task3 = new Task("Task3");
+    Task task1 = new Task("Task1", project);
+    Task task2 = new Task("Task2", project);
+    Task task3 = new Task("Task3", project);
 
     @BeforeEach
     void init(){
-        project.addTask(task1.getTitle());
-        project.addTask(task2.getTitle());
-        project.addTask(task3.getTitle());
+        project.addTask(task1.getTitle(), project);
+        project.addTask(task2.getTitle(), project);
+        project.addTask(task3.getTitle(), project);
     }
 
     @Nested
@@ -66,9 +66,9 @@ class ProjectTest {
     class TestsForBothGetProjectMethods {
 
         Project project2 = new Project("Project2");
-        Task task4 = new Task("Task4");
-        Task task5 = new Task("Task5");
-        Task task6 = new Task("Task6");
+        Task task4 = new Task("Task4", project2);
+        Task task5 = new Task("Task5", project2);
+        Task task6 = new Task("Task6", project2);
 
         @BeforeEach
         void prep(){

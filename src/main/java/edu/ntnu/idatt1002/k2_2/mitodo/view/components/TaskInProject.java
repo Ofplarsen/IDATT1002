@@ -31,6 +31,9 @@ public class TaskInProject extends View
     Button editButton;
     @FXML
     Button deleteButton;
+    @FXML
+    Label projectName;
+
 
     Task task;
     Project project;
@@ -72,7 +75,13 @@ public class TaskInProject extends View
     {
         task.toggleIsDone();
     }
-
+    public void setProjectName(String project){
+        projectName.setText(project);
+    }
+    public void setProjectNameDisabled(){
+        projectName.setDisable(true);
+        projectName.setVisible(false);
+    }
     public void handleEditTaskButtonClick()
     {
         EditTaskView editTaskView = (EditTaskView) Client.setView("EditTaskView");

@@ -25,14 +25,16 @@ public class Task implements Serializable
     private LocalDate dueDate;
     private RepeatEnum repeat;
     private boolean isDone = false;
+    private Project project;
     private boolean createdNextRepeatingTask = false;
 
-    public Task(String title)
+    public Task(String title, Project project)
     {
         if(title.isBlank() && title.isEmpty()){
             throw new IllegalArgumentException("Empty String is not accepted as title");
         }
         this.title = title.trim();
+        this.project = project;
         this.priority = PriorityEnum.Undefined;
         this.startDate = null;
         this.dueDate = null;
@@ -40,7 +42,7 @@ public class Task implements Serializable
         ID = UUID.randomUUID(); //Setting UUID here for JSON reasons
     }
 
-    public Task(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate, RepeatEnum repeat, String comments){
+    public Task(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate,RepeatEnum repeat, String comments, Project project){
 
         //Makes sure title is not null, nor is empty
         if(title.isBlank() || title.isEmpty()){
@@ -50,6 +52,7 @@ public class Task implements Serializable
         if(this.priority == null){
             this.priority = PriorityEnum.Undefined;
         }
+        this.project =project;
         this.title = title.trim();
         this.priority = priority;
         this.startDate = startDate;
@@ -63,6 +66,13 @@ public class Task implements Serializable
 
     private void setID(UUID ID) { //JSON needs this
         this.ID = ID;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+    public Project getProject(){
+        return project;
     }
 
     public UUID getID()
@@ -183,7 +193,7 @@ public class Task implements Serializable
         {
             LocalDate nextStartDate = repeat.getNextDate(startDate);
             LocalDate nextDueDate = repeat.getNextDate(dueDate);
-            project.addTask(title, priority, nextStartDate, nextDueDate, repeat, comments);
+            project.addTask(title, priority, nextStartDate, nextDueDate, repeat, comments,this.project);
             createdNextRepeatingTask = true;
         }
     }

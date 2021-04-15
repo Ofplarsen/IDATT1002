@@ -92,6 +92,17 @@ public class Project implements Serializable
 
         return taskBucket;
     }
+    public ArrayList<Task> getAllSubProjectTasks()
+    {
+        ArrayList<Task> taskBucket = new ArrayList<>();
+
+        for (Project project : projects)
+        {
+            taskBucket.addAll(project.getAllTasks());
+        }
+
+        return taskBucket;
+    }
 
     public Task getTaskFromAll(UUID ID)
     {
@@ -149,23 +160,23 @@ public class Project implements Serializable
         return null;
     }
 
-    public Task addTask(String title)
+    public Task addTask(String title, Project project)
     {
-         Task task = new Task(title);
+         Task task = new Task(title, project);
          tasks.add(task);
          return task;
     }
 
     public void moveTask(UUID taskID, UUID projectID) {
          Task task = this.getTask(taskID);
-         Client.getRootProject().getProject(projectID).addTask(task.getTitle(), task.getPriority(), task.getStartDate(), task.getDueDate(), task.getRepeat(), task.getComments());
+         Client.getRootProject().getProject(projectID).addTask(task.getTitle(), task.getPriority(), task.getStartDate(), task.getDueDate(),task.getRepeat(), task.getComments(), task.getProject());
          removeTask(taskID);
     }
 
-    public Task addTask(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate, RepeatEnum repeat, String comments)
+    public Task addTask(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate,RepeatEnum repeat, String comments, Project project)
     {
         try {
-            Task task = new Task(title, priority, startDate, dueDate, repeat, comments);
+            Task task = new Task(title, priority, startDate, dueDate,repeat, comments, project);
             tasks.add(task);
             return task;
         }catch (IllegalArgumentException e){

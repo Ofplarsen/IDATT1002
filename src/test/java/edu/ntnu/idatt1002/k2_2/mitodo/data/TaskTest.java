@@ -12,8 +12,8 @@ import java.time.Month;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TaskTest {
-    Task task1 = new Task("Task1");
-    Task task2 = new Task("Task2");
+    Task task1 = new Task("Task1", null);
+    Task task2 = new Task("Task2", null);
     int year = LocalDate.now().getYear();
     Month month = LocalDate.now().getMonth();
     int day = LocalDate.now().getDayOfMonth();
@@ -127,7 +127,7 @@ class TaskTest {
         }
         @Test
         void titleSameButNotId(){
-            Task task3 = new Task("Task1");
+            Task task3 = new Task("Task1", null);
             assertFalse(task1.equals(task3));
         }
         @Test

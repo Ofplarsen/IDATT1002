@@ -78,7 +78,7 @@ public class EditTaskView extends View
     public void saveAndExit() {
         if (task == null)
         {
-            task = project.addTask(taskName.getText());
+            task = project.addTask(taskName.getText(), getProject());
         }
 
         try {
@@ -87,6 +87,7 @@ public class EditTaskView extends View
             task.setComments(comments.getText());
             task.setPriority(selectPriority.getValue());
             task.setTitle(taskName.getText());
+            task.setProject(project);
             update();
             cancel();
         }catch (IllegalArgumentException e){

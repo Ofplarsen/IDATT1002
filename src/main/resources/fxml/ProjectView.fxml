@@ -28,7 +28,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <ComboBox fx:id="filterBox" onAction="#sort" prefHeight="30.0" prefWidth="114.0" promptText="Filter">
+            <ComboBox fx:id="filterBox" onAction="#sort" prefHeight="30.0" prefWidth="114.0" promptText="Standard">
                <HBox.margin>
                   <Insets top="12.0" />
                </HBox.margin>
@@ -43,7 +43,7 @@
                   <Insets left="30.0" top="12.0" />
                </HBox.margin>
             </Button>
-            <ComboBox fx:id="projectsOrTasks" onAction="#showProjectOrTask" prefHeight="30.0" prefWidth="155.0" promptText="Show Tasks/Projects">
+            <ComboBox fx:id="projectsOrTasks" onAction="#showProjectOrTask" prefHeight="30.0" prefWidth="155.0" promptText="Show Tasks">
                <HBox.margin>
                   <Insets left="30.0" top="12.0" />
                </HBox.margin>

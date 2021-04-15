@@ -13,10 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
@@ -42,9 +39,12 @@ public class ProjectView extends View
     @FXML
     private ComboBox projectsOrTasks;
 
+    boolean showingSubTasks;
+
     public void initialize() {
         ObservableList<String> options =
                 FXCollections.observableArrayList(
+                        "Standard",
                         "Priority",
                         "Due Date",
                         "Start Date"
@@ -53,42 +53,47 @@ public class ProjectView extends View
 
         ObservableList<String> showOptions =
                 FXCollections.observableArrayList(
-                        "Show All Tasks",
-                        "Show All Sub Projects"
+                        "Show Tasks",
+                        "Show Sub Projects",
+                        "Show Sub Project tasks"
                 );
         projectsOrTasks.setItems(showOptions);
     }
     //TODO DET FUNGERE IKKJE MED OVERPROSJEKT FORDI DEN GÅR IKKJE GJENNOM UNDERPROSJEKTA FOR Å SORTERA FML
     public void sort(){
-        System.out.println(filterBox.getValue().toString());
-        String value = filterBox.getValue().toString();
+        String value = (String)filterBox.getValue();
+        String oldText = projectsOrTasks.getPromptText();
+        ArrayList<Task> sortedList;
+        if (showingSubTasks){sortedList = project.getAllSubProjectTasks(); }
+        else sortedList = project.getTasks();
         ProjectView projectView = (ProjectView) Client.setView("ProjectView");
-        ArrayList<Task> sortedList = project.getAllTasks();
-        switch (value){
+        projectView.setFilterBoxText(value, oldText, showingSubTasks);
+        switch (value) {
+            case "Standard":
+                projectView.setProjectSorted(project, sortedList, showingSubTasks);
+                break;
             case "Priority":
                 project.sortTasksByPriority(sortedList);
-                projectView.setProjectSorted(project,sortedList);
+                projectView.setProjectSorted(project, sortedList, showingSubTasks);
                 break;
             case "Due Date":
                 project.sortTasksByDueDate(sortedList);
-                projectView.setProjectSorted(project, sortedList);
+                projectView.setProjectSorted(project, sortedList, showingSubTasks);
                 break;
             case "Start Date":
                 project.sortTasksByStartDate(sortedList);
-                projectView.setProjectSorted(project, sortedList);
+                projectView.setProjectSorted(project, sortedList, showingSubTasks);
                 break;
             default:
                 System.out.println("Something went wrong with sorting of tasks");
                 break;
         }
-        filterBox.setPromptText(value);
-       //ProjectView projectView = (ProjectView) Client.setView("ProjectView");
-        //projectView.setProject(project);
     }
 
     public void setProject(Project projectMain)
     {
         this.project = projectMain;
+        showingSubTasks = false;
         if (project.getTitle().equals(Client.getQuickTasks().getTitle())){
             projectsOrTasks.setDisable(true);
             projectsOrTasks.setVisible(false);
@@ -102,15 +107,15 @@ public class ProjectView extends View
         addTasks();
         headline.setText(projectMain.getTitle());
     }
-    public void setProjectSorted(Project projectMain, ArrayList<Task> sortedTask)
+    public void setProjectSorted(Project projectMain, ArrayList<Task> sortedTask, boolean subTasks)
     {
+        if (subTasks){showingSubTasks = true;}
         this.project = projectMain;
         if (project.getTitle().equals(Client.getQuickTasks().getTitle())){
             projectsOrTasks.setDisable(true);
             projectsOrTasks.setVisible(false);
             editButton.setDisable(true);
             editButton.setVisible(false);
-            addTasks();
         }
         if(project.getProjects().size()<1){
             projectsOrTasks.setDisable(true);
@@ -121,20 +126,36 @@ public class ProjectView extends View
     }
 
     public void showProjectOrTask(){
-        String value = projectsOrTasks.getValue().toString();
+        System.out.println(projectsOrTasks.getValue());
+        String value = (String) projectsOrTasks.getValue();
         switch (value){
-            case "Show All Tasks":
+            case "Show Tasks":
                 ProjectView projectViewWithOut = (ProjectView) Client.setView("ProjectView");
+                projectViewWithOut.setProjectsOrTasksText(value);
                 projectViewWithOut.setProjectWithOrWithoutProjects(project, false);
                 break;
-            case "Show All Sub Projects":
+            case "Show Sub Projects":
                 ProjectView projectViewWithSubs = (ProjectView) Client.setView("ProjectView");
+                projectViewWithSubs.setProjectsOrTasksText(value);
                 projectViewWithSubs.setProjectWithOrWithoutProjects(project, true);
+                break;
+            case "Show Sub Project tasks":
+                ProjectView projectViewWithSubTasks = (ProjectView) Client.setView("ProjectView");
+                projectViewWithSubTasks.setProjectsOrTasksText(value);
+                projectViewWithSubTasks.setProjectSorted(project, project.getAllSubProjectTasks(), true);
                 break;
             default:
                 System.out.println("Something went wrong!");
                 break;
         }
+    }
+    public void setProjectsOrTasksText(String s){
+        projectsOrTasks.setPromptText(s);
+    }
+    public void setFilterBoxText(String s, String t,boolean b){
+        filterBox.setPromptText(s);
+        System.out.println(t);
+        if(b){projectsOrTasks.setPromptText(t);}
     }
     public void setProjectWithOrWithoutProjects(Project projectMain, boolean showProjects)
     {
@@ -142,6 +163,7 @@ public class ProjectView extends View
         if (showProjects){
             if(project.getProjects().size()>0){
                 addSubProjects();
+                filterBox.setDisable(true);
             }
             else{
                 addTasks();
@@ -149,6 +171,7 @@ public class ProjectView extends View
         }
         else addTasks();
         headline.setText(projectMain.getTitle());
+        showingSubTasks = false;
     }
 
     @Override
@@ -169,12 +192,12 @@ public class ProjectView extends View
     }
 //TODO Maybe find a way to optimize this?
     public void addTasks(){
-        if (project.getAllTasks().size() < 1){
+        if (project.getTasks().size() < 1){
             parent.getChildren().add(noTaskMessageLabel()); //parent.getChildren().add(hBox);
         }
         else {
 
-            for (Task s : project.getAllTasks()) {
+            for (Task s : project.getTasks()) {
                 FXMLLoader loader = new FXMLLoader();
                 try {
                     Node node = loader.load(getClass().getResource("/fxml/TaskInProject.fxml").openStream());
@@ -200,7 +223,6 @@ public class ProjectView extends View
             parent.getChildren().add(noTaskMessageLabel());
         }
         else {
-
             for (Task s : sortedList) {
                 FXMLLoader loader = new FXMLLoader();
                 try {
@@ -300,5 +322,7 @@ public class ProjectView extends View
         controller.setIsDone(s.isDone());
         controller.setEditImage(editButton);
         controller.setDeleteImage(deleteButton);
+        if (showingSubTasks){controller.setProjectName(s.getProject().getTitle());}
+        else controller.setProjectNameDisabled();
     }
   }
