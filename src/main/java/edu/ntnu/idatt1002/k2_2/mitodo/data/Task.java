@@ -186,14 +186,11 @@ public class Task implements Serializable
     {
         this.isDone = isDone;
 
-        //TODO: Replace with actual parent project
-        Project project = Client.getQuickTasks();
-
         if (isDone && repeat != RepeatEnum.DoesNotRepeat && !createdNextRepeatingTask)
         {
             LocalDate nextStartDate = repeat.getNextDate(startDate);
             LocalDate nextDueDate = repeat.getNextDate(dueDate);
-            project.addTask(title, priority, nextStartDate, nextDueDate, repeat, comments,this.project);
+            project.addTask(title, priority, nextStartDate, nextDueDate, repeat, comments);
             createdNextRepeatingTask = true;
         }
     }

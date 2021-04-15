@@ -14,6 +14,7 @@ public class Client extends Application {
     private static Project rootProject;
     private static PrimaryView primaryView;
     private static Project quickTasks;
+    private static View currentView;
 
     @Override
     public void start(Stage stage) {
@@ -59,14 +60,19 @@ public class Client extends Application {
 
     public static View setView(String name)
     {
-        View view = FileManager.getView(name);
-        primaryView.setContent(view);
-        return view;
+        currentView = FileManager.getView(name);
+        primaryView.setContent(currentView);
+        return currentView;
     }
 
     public static PrimaryView getPrimaryView()
     {
         return primaryView;
+    }
+
+    public static View getCurrentView()
+    {
+        return currentView;
     }
 
     public static Project getRootProject() {

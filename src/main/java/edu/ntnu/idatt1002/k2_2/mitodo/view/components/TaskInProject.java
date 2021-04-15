@@ -2,6 +2,7 @@ package edu.ntnu.idatt1002.k2_2.mitodo.view.components;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.RepeatEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.EditTaskView;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;

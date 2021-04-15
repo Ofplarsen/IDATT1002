@@ -50,6 +50,8 @@ public enum RepeatEnum
 
     public LocalDate getNextDate(LocalDate date)
     {
+        if (date==null) return null;
+
         switch (this)
         {
             case Daily:

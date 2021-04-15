@@ -61,7 +61,7 @@ public class ProjectView extends View
     }
     //TODO DET FUNGERE IKKJE MED OVERPROSJEKT FORDI DEN GÅR IKKJE GJENNOM UNDERPROSJEKTA FOR Å SORTERA FML
     public void sort(){
-        String value = (String)filterBox.getValue();
+        String value = filterBox.getValue().toString();
         String oldText = projectsOrTasks.getPromptText();
         ArrayList<Task> sortedList;
         if (showingSubTasks){sortedList = project.getAllSubProjectTasks(); }

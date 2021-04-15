@@ -169,22 +169,19 @@ public class Project implements Serializable
 
     public void moveTask(UUID taskID, UUID projectID) {
          Task task = this.getTask(taskID);
-         Client.getRootProject().getProject(projectID).addTask(task.getTitle(), task.getPriority(), task.getStartDate(), task.getDueDate(),task.getRepeat(), task.getComments(), task.getProject());
+         Client.getRootProject().getProject(projectID).addTask(task.getTitle(), task.getPriority(), task.getStartDate(), task.getDueDate(),task.getRepeat(), task.getComments());
          removeTask(taskID);
     }
 
-    public Task addTask(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate,RepeatEnum repeat, String comments, Project project)
+    public Task addTask(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate,RepeatEnum repeat, String comments)
     {
         try {
-            Task task = new Task(title, priority, startDate, dueDate,repeat, comments, project);
+            Task task = new Task(title, priority, startDate, dueDate,repeat, comments, this);
             tasks.add(task);
             return task;
         }catch (IllegalArgumentException e){
             throw new IllegalArgumentException(e.getMessage());
         }
-    }
-    public Task getNewestTask(){ //Ehmmm, blir litt styr når me ska laga ein ny task, så detta får ver ein løysning enn så lenge
-        return tasks.get(tasks.size()-1);
     }
 
     public boolean removeTask(UUID id)

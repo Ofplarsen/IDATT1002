@@ -13,7 +13,7 @@ public class Default
     public static void fillWithTestData(Project project)
     {
         Project skoleProject = project.addProject("Skole", project);
-        skoleProject.addTask("Lag struktur", PriorityEnum.High, null, LocalDate.now(), null, null, skoleProject);
+        skoleProject.addTask("Lag struktur", PriorityEnum.High, null, LocalDate.now(), null, null);
 
         Project matteProject = skoleProject.addProject("Matte", skoleProject);
         matteProject.addTask("Komplekse tall",matteProject);
