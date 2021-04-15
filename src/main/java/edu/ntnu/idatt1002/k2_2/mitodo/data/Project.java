@@ -15,10 +15,10 @@ import java.util.UUID;
  */
 public class Project implements Serializable
 {
-    private final UUID ID;
+    private UUID ID; //Had to remove final for JSON
     private String title;
-    private final ArrayList<Task> tasks;
-    private final ArrayList<Project> projects;
+    private ArrayList<Task> tasks; //Had to remove final for JSON
+    private ArrayList<Project> projects; //Had to remove final for JSON
 
     public Project(String title)
     {
@@ -27,6 +27,12 @@ public class Project implements Serializable
         this.projects = new ArrayList<>();
         this.ID = UUID.randomUUID();
     }
+
+    private Project(){} //Had to add this to use JSON
+
+    private void setID(UUID ID) { //If this is not here, no ID will
+        this.ID = ID;
+    } //JSON needs this
 
     public UUID getID()
     {
@@ -152,10 +158,16 @@ public class Project implements Serializable
          return task;
     }
 
-    public Task addTask(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate)
+    public void moveTask(UUID taskID, UUID projectID) {
+         Task task = this.getTask(taskID);
+         Client.getRootProject().getProject(projectID).addTask(task.getTitle(), task.getPriority(), task.getStartDate(), task.getDueDate(), task.getComments());
+         removeTask(taskID);
+    }
+
+    public Task addTask(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate, String comments)
     {
         try {
-            Task task = new Task(title, priority, startDate, dueDate);
+            Task task = new Task(title, priority, startDate, dueDate, comments);
             tasks.add(task);
             return task;
         }catch (IllegalArgumentException e){
@@ -213,6 +225,7 @@ public class Project implements Serializable
     {
         return projects.removeIf(project -> project.getID().equals(id));
     }
+
 
     @Override
     public String toString()

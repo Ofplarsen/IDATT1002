@@ -15,7 +15,7 @@ import java.util.UUID;
  */
 public class Task implements Serializable
 {
-    private final UUID ID = UUID.randomUUID();
+    private UUID ID; //We have to do it like this instead of "private final UUID ID = UUID.randomUUID();" if we want JSON
     private String title;
     private String comments;
     private PriorityEnum priority;
@@ -29,15 +29,24 @@ public class Task implements Serializable
         this.priority = PriorityEnum.UNDEFINED;
         this.startDate = null;
         this.dueDate = null;
+        ID = UUID.randomUUID(); //Setting UUID here for JSON reasons
     }
 
-    public Task(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate){
+    public Task(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate, String comments){
 
 
         this.title = title;
         this.priority = priority;
         this.startDate = startDate;
         this.dueDate = dueDate;
+        this.comments = comments;
+        ID = UUID.randomUUID(); //Setting UUID here for JSON reasons
+    }
+
+    private Task(){} //JSON needs this
+
+    private void setID(UUID ID) { //JSON needs this
+        this.ID = ID;
     }
 
     public UUID getID()
