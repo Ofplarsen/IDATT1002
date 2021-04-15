@@ -19,7 +19,14 @@ public class Project implements Serializable
 
     public Project(String title)
     {
-        this.title = title;
+        if(title.isEmpty() || title.isBlank()){
+            throw new IllegalArgumentException("Title of projects can't be empty");
+        }
+        if(projectAlreadyCreated(title)){
+            throw new IllegalArgumentException("Project already created");
+        }
+
+        this.title = title.trim();
         this.tasks = new ArrayList<>();
         this.projects = new ArrayList<>();
         this.ID = UUID.randomUUID();
@@ -43,6 +50,12 @@ public class Project implements Serializable
 
     public void setTitle(String title)
     {
+        if(title.isEmpty() || title.isBlank()){
+            throw new IllegalArgumentException("Title of projects can't be empty");
+        }
+        if(projectAlreadyCreated(title)){
+            throw new IllegalArgumentException("Project already created");
+        }
         this.title = title;
     }
 
@@ -75,34 +88,6 @@ public class Project implements Serializable
         }
         return null;
     }
-    /*public void sortTasksByPriority(){
-        Comparator<Task>priorityComparator = (t1, t2) -> t2.getPriority().compareTo(t1.getPriority());
-        tasks.sort(priorityComparator);
-    }
-
-    public void sortTasksByDueDate(){ //Ugly code, but it works
-        ArrayList<Task> noDueDate = new ArrayList<>();
-        for(int i = 0; i<tasks.size(); i++){
-            if(tasks.get(i).getDueDate()==null){
-                noDueDate.add(tasks.remove(i));
-            }
-        }
-        Comparator<Task> dueDateComparator = (t1, t2) -> t2.getDueDate().compareTo(t1.getDueDate());
-        tasks.sort(dueDateComparator);
-        tasks.addAll(noDueDate);
-    }
-
-     public void sortTasksByStartDate(){ //Ugly code, but it works
-        ArrayList<Task> noStartDate = new ArrayList<>();
-        for(int i = 0; i<tasks.size(); i++){
-            if(tasks.get(i).getDueDate()==null){
-                noStartDate.add(tasks.remove(i));
-            }
-        }
-        Comparator<Task> startDateComparator = (t1, t2) -> t1.getStartDate().compareTo(t2.getStartDate());
-        tasks.sort(startDateComparator);
-        tasks.addAll(noStartDate);
-    }*/
 
      public void sortTasksByPriority(ArrayList <Task> list){
         Comparator<Task>priorityComparator = (t1, t2) -> t2.getPriority().compareTo(t1.getPriority());
@@ -223,6 +208,12 @@ public class Project implements Serializable
         return projects.removeIf(project -> project.getID().equals(id));
     }
 
+    public boolean projectAlreadyCreated(String title){
+         if( projects == null || projects.size() == 0){
+             return false;
+         }
+         return projects.stream().anyMatch(p -> p.getTitle().toLowerCase().equals(title.toLowerCase()));
+    }
     public boolean removeFromAll(UUID id)
     {
         boolean removed = removeProject(id);

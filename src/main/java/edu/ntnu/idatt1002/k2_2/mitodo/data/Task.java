@@ -38,7 +38,7 @@ public class Task implements Serializable
     public Task(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate, String comments){
 
         //Makes sure title is not null, nor is empty
-        if(title.isBlank() && title.isEmpty()){
+        if(title.isBlank() || title.isEmpty()){
             throw new IllegalArgumentException("Empty String is not accepted as title");
         }
         //Makes sure priority is never null
