@@ -1,5 +1,7 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.data;
 
+import edu.ntnu.idatt1002.k2_2.mitodo.Client;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -21,7 +23,9 @@ public class Task implements Serializable
     private PriorityEnum priority;
     private LocalDate startDate;
     private LocalDate dueDate;
+    private RepeatEnum repeat;
     private boolean isDone = false;
+    private boolean createdNextRepeatingTask = false;
 
     public Task(String title)
     {
@@ -29,13 +33,14 @@ public class Task implements Serializable
             throw new IllegalArgumentException("Empty String is not accepted as title");
         }
         this.title = title.trim();
-        this.priority = PriorityEnum.UNDEFINED;
+        this.priority = PriorityEnum.Undefined;
         this.startDate = null;
         this.dueDate = null;
+        this.repeat = RepeatEnum.DoesNotRepeat;
         ID = UUID.randomUUID(); //Setting UUID here for JSON reasons
     }
 
-    public Task(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate, String comments){
+    public Task(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate, RepeatEnum repeat, String comments){
 
         //Makes sure title is not null, nor is empty
         if(title.isBlank() && title.isEmpty()){
@@ -43,12 +48,13 @@ public class Task implements Serializable
         }
         //Makes sure priority is never null
         if(this.priority == null){
-            this.priority = PriorityEnum.UNDEFINED;
+            this.priority = PriorityEnum.Undefined;
         }
         this.title = title.trim();
         this.priority = priority;
         this.startDate = startDate;
         this.dueDate = dueDate;
+        this.repeat = repeat;
         this.comments = comments;
         ID = UUID.randomUUID(); //Setting UUID here for JSON reasons
     }
@@ -99,8 +105,8 @@ public class Task implements Serializable
         return startDate;
     }
 
-    public void setDates(LocalDate startDate, LocalDate dueDate){
-
+    public void setDates(LocalDate startDate, LocalDate dueDate, RepeatEnum repeat)
+    {
         if (startDate != null && dueDate != null && dueDate.isBefore(startDate)) {
             throw new IllegalArgumentException("Can't set due date earlier than start date");
         }
@@ -108,35 +114,25 @@ public class Task implements Serializable
         if(dueDate != null && dueDate.isBefore(LocalDate.now())){
             throw new IllegalArgumentException("Can't set due date earlier than today's date");
         }
-        this.startDate = startDate;
-        this.dueDate = dueDate;
-    }
 
-    public void setStartDate(LocalDate startDate)
-    {
-        if (startDate != null && dueDate != null && dueDate.isBefore(startDate)) {
-            throw new IllegalArgumentException("Can't set start date later than due date");
+        if(startDate == null && dueDate == null && repeat != RepeatEnum.DoesNotRepeat)
+        {
+            throw new IllegalArgumentException("Can't repeat without either start date or due date.");
+        }
+
+        if (repeat.isShorterThanDates(startDate, dueDate))
+        {
+            throw new IllegalArgumentException("Time between start date and due date can't be longer than the repeating period.");
         }
 
         this.startDate = startDate;
+        this.dueDate = dueDate;
+        this.repeat = repeat;
     }
 
     public LocalDate getDueDate()
     {
         return dueDate;
-    }
-
-    public void setDueDate(LocalDate dueDate)
-    {
-        if(dueDate != null && dueDate.isBefore(LocalDate.now())){
-            throw new IllegalArgumentException("Can't set due date earlier than today's date");
-        }
-
-        if (startDate != null && dueDate != null && dueDate.isBefore(startDate)) {
-            throw new IllegalArgumentException("Can't set due date earlier than start date");
-        }
-
-        this.dueDate = dueDate;
     }
 
     public String getStartDateAsString()
@@ -161,6 +157,16 @@ public class Task implements Serializable
         return asString;
     }
 
+    public RepeatEnum getRepeat()
+    {
+        return repeat;
+    }
+
+    public void setRepeat(RepeatEnum repeat)
+    {
+        this.repeat = repeat;
+    }
+
     public boolean isDone()
     {
         return isDone;
@@ -169,11 +175,22 @@ public class Task implements Serializable
     public void setDone(boolean isDone)
     {
         this.isDone = isDone;
+
+        //TODO: Replace with actual parent project
+        Project project = Client.getQuickTasks();
+
+        if (isDone && repeat != RepeatEnum.DoesNotRepeat && !createdNextRepeatingTask)
+        {
+            LocalDate nextStartDate = repeat.getNextDate(startDate);
+            LocalDate nextDueDate = repeat.getNextDate(dueDate);
+            project.addTask(title, priority, nextStartDate, nextDueDate, repeat, comments);
+            createdNextRepeatingTask = true;
+        }
     }
 
     public void toggleIsDone()
     {
-        isDone = !isDone;
+        setDone(!isDone);
     }
 
     @Override

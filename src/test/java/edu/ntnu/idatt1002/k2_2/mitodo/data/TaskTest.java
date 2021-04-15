@@ -20,8 +20,7 @@ class TaskTest {
 
     @BeforeEach
     void initialize(){
-        task1.setStartDate(LocalDate.now());
-        task1.setDueDate(LocalDate.of(year, month, day+10));
+        task1.setDates(LocalDate.now(),LocalDate.of(year, month, day+10), RepeatEnum.DoesNotRepeat);
     }
 
     @Nested
@@ -33,14 +32,14 @@ class TaskTest {
         class setStartDate {
             @Test
             void setStartDateSuccess() {
-                task1.setStartDate(LocalDate.now());
+                task1.setDates(LocalDate.now(), null, RepeatEnum.DoesNotRepeat);
                 assertEquals(task1.getStartDate(), LocalDate.now());
             }
 
             @Test
             void setStartDateAfterDue() {
                 try {
-                    task1.setStartDate(LocalDate.of(year, month, day + 11));
+                    task1.setDates(LocalDate.of(year, month, day + 11), null, RepeatEnum.DoesNotRepeat);
                 } catch (IllegalArgumentException e) {
                     assertEquals(task1.getStartDate(), LocalDate.now());
                     assertEquals(e.getMessage(), "Can't set start date later than due date");
@@ -55,15 +54,14 @@ class TaskTest {
         class setDueDate {
             @Test
             void setDueDateSuccess() {
-                task1.setDueDate(LocalDate.of(year, month, day + 10));
+                task1.setDates(LocalDate.of(year, month, day + 10), null, RepeatEnum.DoesNotRepeat);
                 assertEquals(task1.getDueDate(), LocalDate.of(year, month, day + 10));
             }
 
             @Test
             void setDueDateBeforeStartDate() {
                 try {
-                    task1.setStartDate(LocalDate.of(year, month, day + 1));
-                    task1.setDueDate(LocalDate.of(year, month, day));
+                    task1.setDates(LocalDate.of(year, month, day + 1),LocalDate.of(year, month, day), RepeatEnum.DoesNotRepeat);
                 } catch (IllegalArgumentException e) {
                     assertEquals(e.getMessage(), "Can't set due date earlier than start date");
                 }
@@ -72,8 +70,7 @@ class TaskTest {
             @Test
             void setDueDateBeforeTodaysDate() {
                 try {
-                    task1.setStartDate(LocalDate.of(year, month, day + 1));
-                    task1.setDueDate(LocalDate.of(year, month, day - 1));
+                    task1.setDates(LocalDate.of(year, month, day + 1), LocalDate.of(year, month, day - 1), RepeatEnum.DoesNotRepeat);
                 } catch (IllegalArgumentException e) {
                     assertEquals(e.getMessage(), "Can't set due date earlier than today's date");
                 }
@@ -84,14 +81,14 @@ class TaskTest {
         class setDates{
             @Test
             void setDatesSuccess(){
-                task1.setDates(LocalDate.now(),LocalDate.now());
+                task1.setDates(LocalDate.now(),LocalDate.now(), RepeatEnum.DoesNotRepeat);
                 assertEquals(task1.getDueDate(), task1.getStartDate());
             }
 
             @Test
             void setDatesDueDateBeforeStartDate(){
                 try{
-                    task1.setDates(LocalDate.of(year,month,day+3),LocalDate.of(year,month,day+2));
+                    task1.setDates(LocalDate.of(year,month,day+3),LocalDate.of(year,month,day+2), RepeatEnum.DoesNotRepeat);
                 }catch (IllegalArgumentException e){
                     assertEquals(e.getMessage(), "Can't set due date earlier than start date");
                 }
@@ -100,7 +97,7 @@ class TaskTest {
             @Test
             void setDatesDueDateBeforeLocalDate(){
                 try{
-                    task1.setDates(LocalDate.of(year,month,day-4),LocalDate.of(year,month,day-2));
+                    task1.setDates(LocalDate.of(year,month,day-4),LocalDate.of(year,month,day-2), RepeatEnum.DoesNotRepeat);
                 }catch (IllegalArgumentException e){
                     assertEquals(e.getMessage(), "Can't set due date earlier than today's date");
                 }

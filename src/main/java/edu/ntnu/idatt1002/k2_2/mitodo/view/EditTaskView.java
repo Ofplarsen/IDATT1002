@@ -3,19 +3,21 @@ package edu.ntnu.idatt1002.k2_2.mitodo.view;
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.PriorityEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.RepeatEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
-
 public class EditTaskView extends View
 {
     @FXML
-    private ChoiceBox<PriorityEnum> selectPriority;
+    private VBox parent;
     @FXML
-    private CheckBox checked;
+    private CheckBox isDone;
+    @FXML
+    private  TextField taskName;
     @FXML
     private  TextArea comments;
     @FXML
@@ -23,9 +25,9 @@ public class EditTaskView extends View
     @FXML
     private  DatePicker selectDueDate;
     @FXML
-    private  TextField taskName;
+    private ChoiceBox<RepeatEnum> selectRepeat;
     @FXML
-    private VBox parent;
+    private ChoiceBox<PriorityEnum> selectPriority;
 
     private Task task = null;
     //TODO: This could be done much better, if you try to go back in a task that dosen't have a project, everything goes bad
@@ -51,13 +53,18 @@ public class EditTaskView extends View
     public void update()
     {
         selectPriority.getItems().setAll(PriorityEnum.values());
+        selectPriority.setValue(PriorityEnum.Undefined);
+
+        selectRepeat.setConverter(RepeatEnum.toString);
+        selectRepeat.getItems().setAll(RepeatEnum.values());
+        selectRepeat.setValue(RepeatEnum.DoesNotRepeat);
 
         if (task != null)
         {
-            checked.setSelected(task.isDone());
+            isDone.setSelected(task.isDone());
             selectStartDate.setValue(task.getStartDate());
             selectDueDate.setValue(task.getDueDate());
-            selectPriority.setValue(task.getPriority());
+            selectRepeat.setValue(task.getRepeat());
             taskName.setText(task.getTitle());
             comments.setText(task.getComments());
             selectPriority.setValue(task.getPriority());
@@ -75,19 +82,17 @@ public class EditTaskView extends View
         }
 
         try {
-            task.setDone(checked.isSelected());
-            task.setStartDate(selectStartDate.getValue());
-            task.setDueDate(selectDueDate.getValue());
-            task.setDates(selectStartDate.getValue(),selectDueDate.getValue());
+            task.setDone(isDone.isSelected());
+            task.setDates(selectStartDate.getValue(),selectDueDate.getValue(), selectRepeat.getValue());
             task.setComments(comments.getText());
             task.setPriority(selectPriority.getValue());
             task.setTitle(taskName.getText());
             update();
+            cancel();
         }catch (IllegalArgumentException e){
             Alert alert = new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage(), ButtonType.OK);
             alert.showAndWait();
         }
-        cancel();
     }
 
     public void cancel() {
@@ -108,6 +113,7 @@ public class EditTaskView extends View
         selectDueDate.setValue(null);
         selectStartDate.setValue(null);
     }
+
     public void setStartDate() {
 
     }

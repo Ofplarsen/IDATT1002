@@ -131,7 +131,6 @@ public class Project implements Serializable
         Comparator<Task> startDateComparator = (t1, t2) -> t1.getStartDate().compareTo(t2.getStartDate());
         list.sort(startDateComparator);
         list.addAll(noStartDate);
-    
     }
 
 
@@ -157,14 +156,14 @@ public class Project implements Serializable
 
     public void moveTask(UUID taskID, UUID projectID) {
          Task task = this.getTask(taskID);
-         Client.getRootProject().getProject(projectID).addTask(task.getTitle(), task.getPriority(), task.getStartDate(), task.getDueDate(), task.getComments());
+         Client.getRootProject().getProject(projectID).addTask(task.getTitle(), task.getPriority(), task.getStartDate(), task.getDueDate(), task.getRepeat(), task.getComments());
          removeTask(taskID);
     }
 
-    public Task addTask(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate, String comments)
+    public Task addTask(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate, RepeatEnum repeat, String comments)
     {
         try {
-            Task task = new Task(title, priority, startDate, dueDate, comments);
+            Task task = new Task(title, priority, startDate, dueDate, repeat, comments);
             tasks.add(task);
             return task;
         }catch (IllegalArgumentException e){

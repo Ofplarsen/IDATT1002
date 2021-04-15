@@ -16,7 +16,7 @@
    <children>
       <HBox minHeight="-Infinity" minWidth="-Infinity">
          <children>
-            <CheckBox fx:id="checked" mnemonicParsing="false">
+            <CheckBox fx:id="isDone" mnemonicParsing="false">
                <padding>
                   <Insets right="8.0" />
                </padding></CheckBox>
@@ -47,13 +47,22 @@
          <children>
             <Label text="Due Date" />
             <DatePicker fx:id="selectDueDate" />
-            <Button fx:id="btnClearDates" onAction="#clearDates" mnemonicParsing="false" text="Clear Dates" />
+            <Button fx:id="btnClearDates" mnemonicParsing="false" onAction="#clearDates" text="Clear Dates" />
          </children>
          <padding>
             <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
          </padding>
       </HBox>
       <HBox spacing="8.0">
+         <children>
+            <Label text="Repeat" />
+            <ChoiceBox fx:id="selectRepeat" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0" HBox.hgrow="ALWAYS" />
+         </children>
+         <padding>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </padding>
+      </HBox>
+      <HBox layoutX="18.0" layoutY="406.0" spacing="8.0">
          <children>
             <Label text="Priority" />
             <ChoiceBox fx:id="selectPriority" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0" HBox.hgrow="ALWAYS" />
