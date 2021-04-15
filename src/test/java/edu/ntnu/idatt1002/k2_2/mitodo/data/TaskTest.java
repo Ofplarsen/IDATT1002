@@ -25,55 +25,89 @@ class TaskTest {
     }
 
     @Nested
-    @DisplayName("setStartDate test")
-    class setStartDate{
-        @Test
-        void setStartDateSuccess() {
-            task1.setStartDate(LocalDate.now());
-            assertEquals(task1.getStartDate(), LocalDate.now());
-        }
+    @DisplayName("Test to make sure all exceptions are handled and that the date system works")
+    class dateTests {
 
-        @Test
-        void setStartDateAfterDue(){
-            try{
-                task1.setStartDate(LocalDate.of(year, month, day+11));
-            }catch (IllegalArgumentException e){
+        @Nested
+        @DisplayName("setStartDate test")
+        class setStartDate {
+            @Test
+            void setStartDateSuccess() {
+                task1.setStartDate(LocalDate.now());
                 assertEquals(task1.getStartDate(), LocalDate.now());
-                assertEquals(e.getMessage(), "Can't set due date earlier than start date");
             }
+
+            @Test
+            void setStartDateAfterDue() {
+                try {
+                    task1.setStartDate(LocalDate.of(year, month, day + 11));
+                } catch (IllegalArgumentException e) {
+                    assertEquals(task1.getStartDate(), LocalDate.now());
+                    assertEquals(e.getMessage(), "Can't set start date later than due date");
+                }
+            }
+
+
         }
 
+        @Nested
+        @DisplayName("Tests for setDue date that catches IllegalArguments")
+        class setDueDate {
+            @Test
+            void setDueDateSuccess() {
+                task1.setDueDate(LocalDate.of(year, month, day + 10));
+                assertEquals(task1.getDueDate(), LocalDate.of(year, month, day + 10));
+            }
+
+            @Test
+            void setDueDateBeforeStartDate() {
+                try {
+                    task1.setStartDate(LocalDate.of(year, month, day + 1));
+                    task1.setDueDate(LocalDate.of(year, month, day));
+                } catch (IllegalArgumentException e) {
+                    assertEquals(e.getMessage(), "Can't set due date earlier than start date");
+                }
+            }
+
+            @Test
+            void setDueDateBeforeTodaysDate() {
+                try {
+                    task1.setStartDate(LocalDate.of(year, month, day + 1));
+                    task1.setDueDate(LocalDate.of(year, month, day - 1));
+                } catch (IllegalArgumentException e) {
+                    assertEquals(e.getMessage(), "Can't set due date earlier than today's date");
+                }
+            }
+        }
+        @Nested
+        @DisplayName("Tests for setDates methos")
+        class setDates{
+            @Test
+            void setDatesSuccess(){
+                task1.setDates(LocalDate.now(),LocalDate.now());
+                assertEquals(task1.getDueDate(), task1.getStartDate());
+            }
+
+            @Test
+            void setDatesDueDateBeforeStartDate(){
+                try{
+                    task1.setDates(LocalDate.of(year,month,day+3),LocalDate.of(year,month,day+2));
+                }catch (IllegalArgumentException e){
+                    assertEquals(e.getMessage(), "Can't set due date earlier than start date");
+                }
+            }
+
+            @Test
+            void setDatesDueDateBeforeLocalDate(){
+                try{
+                    task1.setDates(LocalDate.of(year,month,day-4),LocalDate.of(year,month,day-2));
+                }catch (IllegalArgumentException e){
+                    assertEquals(e.getMessage(), "Can't set due date earlier than today's date");
+                }
+            }
+        }
     }
 
-    @Nested
-    @DisplayName("Tests for setDue date that catches IllegalArguments")
-    class setDueDate{
-        @Test
-        void setDueDateSuccess() {
-            task1.setDueDate(LocalDate.of(year, month, day+10));
-            assertEquals(task1.getDueDate(), LocalDate.of(year, month, day+10));
-        }
-
-        @Test
-        void setDueDateBeforeStartDate(){
-            try{
-                task1.setStartDate(LocalDate.of(year, month ,day+1));
-                task1.setDueDate(LocalDate.of(year,month,day));
-            }catch (IllegalArgumentException e){
-                assertEquals(e.getMessage(), "Can't set due date earlier than start date");
-            }
-        }
-
-        @Test
-        void setDueDateBeforeTodaysDate(){
-            try{
-                task1.setStartDate(LocalDate.of(year, month ,day+1));
-                task1.setDueDate(LocalDate.of(year,month,day-1));
-            }catch (IllegalArgumentException e){
-                assertEquals(e.getMessage(), "Can't set due date earlier than today's date");
-            }
-        }
-    }
 
     @Nested
     @DisplayName("Test for UUID")
