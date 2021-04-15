@@ -14,43 +14,63 @@ public class EditProjectView extends View{
     private VBox parent;
 
     private Project project;
+    private Project rootProject;
 
 
-    public EditProjectView(Project project) {
-        this.project = project;
+    //Called for create
+    public void setParentProject(Project rootProject)
+    {
+        this.rootProject = rootProject;
     }
 
-    public void setProject(Project project){
+    // Called for edit
+    public void setProject(Project project)
+    {
         this.project= project;
-        projectTitle.setText(project.getTitle());}
-
-    public EditProjectView(){
-        this.project = new Project("Project title");
+        projectTitle.setText(project.getTitle());
     }
 
-
-    public void save() {
+    public void saveAndExit()
+    {
         //TODO: show user that string must be over 1 character
         if (projectTitle.getText().isBlank()) {
             return;
         }
-        Client.getRootProject().getProject(project.getID()).setTitle(projectTitle.getText());
+
+        if(project != null)
+        {
+            project.setTitle(projectTitle.getText());
+        }
+        else
+        {
+            project = rootProject.addProject(projectTitle.getText());
+        }
+
         Client.getPrimaryView().updateMainMenu();
-        exit();
+        cancel();
     }
 
-    public void exit() {
+    public void cancel()
+    {
         ProjectView projectView = (ProjectView) Client.setView("ProjectView");
-        projectView.setProject(project);
+        if (project != null)
+        {
+            projectView.setProject(project);
+        }
+        else
+        {
+            projectView.setProject(Client.getQuickTasks());
+        }
     }
 
     public void delete(){
-        //TODO: Create "delete from all"-method in Project and use that instead
-        Client.getRootProject().removeProject(project.getID());
-        Client.getPrimaryView().updateMainMenu();
-
-        ProjectView projectView = (ProjectView) Client.setView("ProjectView");
-        projectView.setProject(Client.getQuickTasks());
+        if(project != null)
+        {
+            Client.getRootProject().removeFromAll(project.getID());
+            Client.getPrimaryView().updateMainMenu();
+            project = null;
+        }
+        cancel();
     }
 
     public Node getParent()

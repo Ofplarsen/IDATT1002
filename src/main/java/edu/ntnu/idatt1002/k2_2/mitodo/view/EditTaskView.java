@@ -31,13 +31,9 @@ public class EditTaskView extends View
     @FXML
     private VBox parent;
 
-    private Task task;
+    private Task task = null;
     //TODO: This could be done much better, if you try to go back in a task that dosen't have a project, everything goes bad
     private Project project;
-
-    public EditTaskView() {
-        this.task = new Task("Default");
-    }
 
     public Task getTask() {
         return task;
@@ -56,21 +52,34 @@ public class EditTaskView extends View
         return project;
     }
 
-    public void update() {
-        selectStartDate.setValue(task.getStartDate());
-        selectDueDate.setValue(task.getDueDate());
-        selectPriority.setValue(task.getPriority());
-        taskName.setText(task.getTitle());
-        comments.setText(task.getComments());
-        selectPriority.getItems().clear();
-        for (PriorityEnum priority : PriorityEnum.values()) {
-            selectPriority.getItems().add(priority);
+    public void update()
+    {
+        selectPriority.getItems().setAll(PriorityEnum.values());
+
+        if (task != null)
+        {
+            checked.setSelected(task.isDone());
+            selectStartDate.setValue(task.getStartDate());
+            selectDueDate.setValue(task.getDueDate());
+            selectPriority.setValue(task.getPriority());
+            taskName.setText(task.getTitle());
+            comments.setText(task.getComments());
+            selectPriority.setValue(task.getPriority());
         }
-        selectPriority.setValue(task.getPriority());
+        else
+        {
+            taskName.setText("My task");
+        }
     }
 
-    public void save() {
+    public void saveAndExit() {
+        if (task == null)
+        {
+            task = project.addTask(taskName.getText());
+        }
+
         try {
+            task.setDone(checked.isSelected());
             task.setStartDate(selectStartDate.getValue());
             task.setDueDate(selectDueDate.getValue());
             task.setComments(comments.getText());
@@ -81,11 +90,21 @@ public class EditTaskView extends View
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Error: " + e.getMessage(), ButtonType.OK);
             alert.showAndWait();
         }
+        cancel();
     }
 
-    public void exit() {
+    public void cancel() {
         ProjectView projectView = (ProjectView) Client.setView("ProjectView");
         projectView.setProject(project);
+    }
+
+    public void delete()
+    {
+        if (task != null)
+        {
+            project.removeTasksFromSubProjects(task.getID());
+        }
+        cancel();
     }
 
     public void setStartDate() {

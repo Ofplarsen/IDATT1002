@@ -158,9 +158,7 @@ public class ProjectView extends View
     }
 
   public void handleAddTaskButton() {
-        Task newTask = project.addTask("'New Task'");
         EditTaskView editTaskView = (EditTaskView) Client.setView("EditTaskView");
-        editTaskView.setTask(newTask);
         editTaskView.setProject(project);
         editTaskView.update();
     }

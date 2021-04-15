@@ -5,10 +5,7 @@ import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.IllegalFormatWidthException;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Public class Project
@@ -220,6 +217,33 @@ public class Project implements Serializable
         return projects.removeIf(project -> project.getID().equals(id));
     }
 
+    public boolean removeFromAll(UUID id)
+    {
+        boolean removed = removeProject(id);
+        if (removed) return true;
+
+        for(Project project : projects)
+        {
+            removed = project.removeFromAll(id);
+            if (removed) return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Project project = (Project) o;
+        return Objects.equals(ID, project.ID);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(ID);
+    }
 
     @Override
     public String toString()

@@ -5,6 +5,7 @@ import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.EditTaskView;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -14,7 +15,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
-public class TaskInProject {
+public class TaskInProject extends View
+{
     @FXML
     HBox parent;
     @FXML
@@ -71,14 +73,14 @@ public class TaskInProject {
         task.toggleIsDone();
     }
 
-    public void handleEditTaskButtonClick(){
+    public void handleEditTaskButtonClick()
+    {
         EditTaskView editTaskView = (EditTaskView) Client.setView("EditTaskView");
-        if (project.getTitle().equals("Quick Tasks")) {
-            editTaskView.setTask(Client.getQuickTasks().getTaskFromAll(task.getID())); //because QuickTasks is own
-        }else{editTaskView.setTask(Client.getRootProject().getTaskFromAll(task.getID()));}
+        editTaskView.setTask(task);
         editTaskView.setProject(project);
         editTaskView.update();
     }
+
 //TODO Idk viss denna egentlig fungere, e litt rar
     public void handleDeleteTaskButtonClick() {
         //project.removeTask(task.getID()); //DOES NOT REMOVE PROPERLY

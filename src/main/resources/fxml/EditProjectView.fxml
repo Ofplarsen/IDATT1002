@@ -31,14 +31,14 @@
       </BorderPane>
       <HBox prefHeight="0.0" prefWidth="415.0">
          <children>
-            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#save" text="Save">
+            <Button fx:id="saveAndExitButton" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveAndExit" text="Save and exit">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#exit" prefWidth="38.0" text="Exit" />
+            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
             <Pane prefHeight="27.0" prefWidth="270.0" HBox.hgrow="ALWAYS" />
-            <Button contentDisplay="RIGHT" graphicTextGap="0.0" mnemonicParsing="false" onAction="#delete" prefHeight="27.0" prefWidth="58.0" style="-fx-background-color: #eb2f33#eb2f33;" text="Delete" />
+            <Button contentDisplay="RIGHT" graphicTextGap="0.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#delete" style="-fx-background-color: #eb2f33#eb2f33;" text="Delete" />
          </children>
       </HBox>
    </children>
