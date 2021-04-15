@@ -16,6 +16,7 @@ public class Project implements Serializable
     private String title;
     private ArrayList<Task> tasks; //Had to remove final for JSON
     private ArrayList<Project> projects; //Had to remove final for JSON
+    private Project parent;
 
     public Project(String title)
     {
@@ -30,6 +31,22 @@ public class Project implements Serializable
         this.tasks = new ArrayList<>();
         this.projects = new ArrayList<>();
         this.ID = UUID.randomUUID();
+    }
+
+    public Project(String title, Project parent)
+    {
+        if(title.isEmpty() || title.isBlank()){
+            throw new IllegalArgumentException("Title of projects can't be empty");
+        }
+        if(projectAlreadyCreated(title)){
+            throw new IllegalArgumentException("Project already created");
+        }
+
+        this.title = title.trim();
+        this.tasks = new ArrayList<>();
+        this.projects = new ArrayList<>();
+        this.ID = UUID.randomUUID();
+        this.parent = parent;
     }
 
     private Project(){} //Had to add this to use JSON
@@ -203,16 +220,25 @@ public class Project implements Serializable
         return project;
     }
 
+    public Project addProject(String title, Project parent)
+    {
+        Project project = new Project(title, parent);
+        projects.add(project);
+        return project;
+    }
+
     public boolean removeProject(UUID id)
     {
         return projects.removeIf(project -> project.getID().equals(id));
     }
 
     public boolean projectAlreadyCreated(String title){
-         if( projects == null || projects.size() == 0){
+         if(parent == null || parent.getProjects().size() == 0){
+             System.out.println(parent);
              return false;
          }
-         return projects.stream().anyMatch(p -> p.getTitle().toLowerCase().equals(title.toLowerCase()));
+         parent.getProjects().stream().forEach(p -> System.out.println(p.getTitle()));
+         return parent.getProjects().stream().anyMatch(p -> p.getTitle().toLowerCase().equals(title.toLowerCase()));
     }
     public boolean removeFromAll(UUID id)
     {
@@ -240,6 +266,10 @@ public class Project implements Serializable
     public int hashCode()
     {
         return Objects.hash(ID);
+    }
+
+    public Project getParent(){
+        return parent;
     }
 
     @Override

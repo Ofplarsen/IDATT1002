@@ -76,8 +76,6 @@ public class EditTaskView extends View
 
         try {
             task.setDone(checked.isSelected());
-            task.setStartDate(selectStartDate.getValue());
-            task.setDueDate(selectDueDate.getValue());
             task.setDates(selectStartDate.getValue(),selectDueDate.getValue());
             task.setComments(comments.getText());
             task.setPriority(selectPriority.getValue());

@@ -23,6 +23,7 @@ public class EditProjectView extends View{
     public void setParentProject(Project rootProject)
     {
         this.rootProject = rootProject;
+        System.out.println(rootProject);
     }
 
     // Called for edit
@@ -30,6 +31,9 @@ public class EditProjectView extends View{
     {
         this.project= project;
         projectTitle.setText(project.getTitle());
+        if(rootProject == null){
+            rootProject = project.getParent();
+        }
     }
 
 
@@ -49,15 +53,29 @@ public class EditProjectView extends View{
     public void saveAndExit()
     {
         try {
-            //TODO: show user that string must be over 1 character
-            if((Client.getRootProject().projectAlreadyCreated(projectTitle.getText()))){
+
+            Project projectTest = rootProject.addProject(projectTitle.getText(), rootProject);
+
+            if(projectTest.getParent() != null && projectTest.getParent().projectAlreadyCreated(projectTitle.getText())){
+                rootProject.removeProject(projectTest.getID());
                 throw new IllegalArgumentException("Project already created");
             }
 
+            projectTest.getParent().projectAlreadyCreated(projectTitle.getText());
+            projectTest.getParent().getProjects().forEach(p -> System.out.println(p.getTitle()));
+            System.out.println(projectTest.getParent().getTitle());
+            rootProject.removeProject(projectTest.getID());
+
             if (project != null) {
-                project.setTitle(projectTitle.getText());
+                if(project.getTitle().equals(projectTitle.getText())){
+
+                }else {
+                    project.setTitle(projectTitle.getText());
+                    System.out.println("Project = 0");
+                }
             } else {
-                project = rootProject.addProject(projectTitle.getText());
+                System.out.println("Legger til");
+                project = rootProject.addProject(projectTitle.getText(), rootProject);
             }
 
             Client.getPrimaryView().updateMainMenu();
