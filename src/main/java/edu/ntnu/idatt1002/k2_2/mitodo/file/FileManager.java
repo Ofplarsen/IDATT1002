@@ -105,7 +105,7 @@ public class FileManager
 
     public static void writeProjectFile(Project project, String fileName){
         ObjectMapper om = new ObjectMapper();
-        om.registerModule(new JavaTimeModule()); //Need this to make the ObjectMapper understand we are dealing with LocalDate
+        om.findAndRegisterModules(); //Need this to make the ObjectMapper understand we are dealing with LocalDate
 
         try {
             om.writerWithDefaultPrettyPrinter().writeValue(new File(FILES_PATH + fileName), project);
@@ -116,7 +116,7 @@ public class FileManager
 
     public static Project readProjectFile(String fileName){
         ObjectMapper om = new ObjectMapper();
-        om.registerModule(new JavaTimeModule()); //Need this to make the ObjectMapper understand we are dealing with LocalDate
+        om.findAndRegisterModules(); //Need this to make the ObjectMapper understand we are dealing with LocalDate
         om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); //To make everything not act up when reading from file
 
         try {
