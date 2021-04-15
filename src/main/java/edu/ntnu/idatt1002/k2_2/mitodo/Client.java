@@ -17,20 +17,20 @@ public class Client extends Application {
 
     @Override
     public void start(Stage stage) {
-        rootProject = FileManager.loadProject("root_project");
+        rootProject = null;
         if (rootProject==null)
         {
             rootProject = new Project("Other Projects");
         }
 
-        quickTasks = FileManager.loadProject("quick_tasks");
+        quickTasks = null;
         if (quickTasks==null)
         {
             quickTasks = new Project("Quick Tasks");
         }
 
-        //Default.fillWithTestData(rootProject);
-        //Default.fillQuickTasksData(quickTasks);
+        Default.fillWithTestData(rootProject);
+        Default.fillQuickTasksData(quickTasks);
 
         primaryView = (PrimaryView) FileManager.getView("PrimaryView");
 
@@ -50,8 +50,7 @@ public class Client extends Application {
     @Override
     public void stop()
     {
-        FileManager.saveProject(rootProject, "root_project");
-        FileManager.saveProject(quickTasks, "quick_tasks");
+
     }
 
     public static void main(String[] args) {

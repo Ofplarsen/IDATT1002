@@ -41,58 +41,6 @@ public class FileManager
         return fxmlLoader.getController();
     }
 
-    public static void saveProject(Project project, String name)
-    {
-        File projectFile = new File(FILES_PATH + name);
-
-        try
-        {
-            projectFile.createNewFile();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
-        try
-        (
-            FileOutputStream fs = new FileOutputStream(projectFile);
-            ObjectOutputStream os = new ObjectOutputStream(fs);
-        )
-        {
-            os.writeObject(project);
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    public static Project loadProject(String name)
-    {
-        File projectFile = new File(FILES_PATH + name);
-
-        if (!projectFile.isFile())
-        {
-            return null;
-        }
-
-        Project project = null;
-        try
-        (
-            FileInputStream fs = new FileInputStream(projectFile);
-            ObjectInputStream is = new ObjectInputStream(fs);
-        )
-        {
-            project = (Project) is.readObject();
-        }
-        catch (IOException | ClassNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-        return project;
-    }
-
     //JSON (excluding createNewFile)
 
     public static boolean createNewFile(String fileName){
@@ -105,7 +53,7 @@ public class FileManager
 
     public static void writeProjectFile(Project project, String fileName){
         ObjectMapper om = new ObjectMapper();
-        om.registerModule(new JavaTimeModule()); //Need this to make the ObjectMapper understand we are dealing with LocalDate
+        om.findAndRegisterModules(); //Need this to make the ObjectMapper understand we are dealing with LocalDate
 
         try {
             om.writerWithDefaultPrettyPrinter().writeValue(new File(FILES_PATH + fileName), project);
@@ -116,7 +64,7 @@ public class FileManager
 
     public static Project readProjectFile(String fileName){
         ObjectMapper om = new ObjectMapper();
-        om.registerModule(new JavaTimeModule()); //Need this to make the ObjectMapper understand we are dealing with LocalDate
+        om.findAndRegisterModules(); //Need this to make the ObjectMapper understand we are dealing with LocalDate
         om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); //To make everything not act up when reading from file
 
         try {

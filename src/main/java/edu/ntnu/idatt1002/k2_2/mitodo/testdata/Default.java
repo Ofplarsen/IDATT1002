@@ -12,22 +12,23 @@ public class Default
     }
     public static void fillWithTestData(Project project)
     {
+
         Project skoleProject = project.addProject("Skole");
         skoleProject.addTask("Lag struktur", PriorityEnum.High, null, LocalDate.now(), null, null);
 
-        Project matteProject = skoleProject.addProject("Matte");
+        Project matteProject = skoleProject.addProject("Matte", skoleProject);
         matteProject.addTask("Komplekse tall");
         matteProject.addTask("Logikk øving 2");
 
-        Project personligProject = project.addProject("Personlig");
+        Project personligProject = project.addProject("Personlig", project);
         personligProject.addTask("Kjøp melk");
 
-        Project treningProject = personligProject.addProject("Trening");
+        Project treningProject = personligProject.addProject("Trening", personligProject);
 
-        Project intervallProject = treningProject.addProject("Intervall");
+        Project intervallProject = treningProject.addProject("Intervall", treningProject);
         intervallProject.addTask("Jogge eller noe sånn");
 
-        Project styrkeProject = treningProject.addProject("Styrke");
+        Project styrkeProject = treningProject.addProject("Styrke", treningProject);
         styrkeProject.addTask("Vektløfting eller noe sånn");
     }
 }
