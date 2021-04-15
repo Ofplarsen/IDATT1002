@@ -39,7 +39,7 @@ class TaskTest {
                 task1.setStartDate(LocalDate.of(year, month, day+11));
             }catch (IllegalArgumentException e){
                 assertEquals(task1.getStartDate(), LocalDate.now());
-                assertEquals(e.getMessage(), "Can't set start date later than due date");
+                assertEquals(e.getMessage(), "Can't set due date earlier than start date");
             }
         }
 

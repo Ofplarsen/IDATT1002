@@ -71,14 +71,19 @@ public class EditTaskView extends View
 
     public void save() {
         try {
-            task.setStartDate(selectStartDate.getValue());
+            if(selectDueDate.getValue() != null && selectDueDate.getValue() != null && selectDueDate.getValue().isBefore(selectStartDate.getValue())){
+                throw new IllegalArgumentException("Can't set due date earlier than start date");
+            }
+
+
             task.setDueDate(selectDueDate.getValue());
+            task.setStartDate(selectStartDate.getValue());
             task.setComments(comments.getText());
             task.setPriority(selectPriority.getValue());
             task.setTitle(taskName.getText());
             update();
         }catch (IllegalArgumentException e){
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Error: " + e.getMessage(), ButtonType.OK);
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage(), ButtonType.OK);
             alert.showAndWait();
         }
     }
@@ -88,6 +93,10 @@ public class EditTaskView extends View
         projectView.setProject(project);
     }
 
+    public void clearDates(){
+        selectDueDate.setValue(null);
+        selectStartDate.setValue(null);
+    }
     public void setStartDate() {
 
     }
