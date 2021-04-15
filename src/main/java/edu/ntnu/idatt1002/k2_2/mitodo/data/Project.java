@@ -12,10 +12,10 @@ import java.util.*;
  */
 public class Project implements Serializable
 {
-    private final UUID ID;
+    private UUID ID; //Had to remove final for JSON
     private String title;
-    private final ArrayList<Task> tasks;
-    private final ArrayList<Project> projects;
+    private ArrayList<Task> tasks; //Had to remove final for JSON
+    private ArrayList<Project> projects; //Had to remove final for JSON
 
     public Project(String title)
     {
@@ -24,6 +24,12 @@ public class Project implements Serializable
         this.projects = new ArrayList<>();
         this.ID = UUID.randomUUID();
     }
+
+    private Project(){} //Had to add this to use JSON
+
+    private void setID(UUID ID) { //If this is not here, no ID will
+        this.ID = ID;
+    } //JSON needs this
 
     public UUID getID()
     {

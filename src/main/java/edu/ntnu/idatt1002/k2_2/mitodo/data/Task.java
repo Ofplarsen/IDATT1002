@@ -15,7 +15,7 @@ import java.util.UUID;
  */
 public class Task implements Serializable
 {
-    private final UUID ID = UUID.randomUUID();
+    private UUID ID; //We have to do it like this instead of "private final UUID ID = UUID.randomUUID();" if we want JSON
     private String title;
     private String comments;
     private PriorityEnum priority;
@@ -25,27 +25,38 @@ public class Task implements Serializable
 
     public Task(String title)
     {
-        this.title = title;
+        if(title.isBlank() && title.isEmpty()){
+            throw new IllegalArgumentException("Empty String is not accepted as title");
+        }
+        this.title = title.trim();
         this.priority = PriorityEnum.UNDEFINED;
         this.startDate = null;
         this.dueDate = null;
+        ID = UUID.randomUUID(); //Setting UUID here for JSON reasons
     }
 
     public Task(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate, String comments){
 
-        if(dueDate != null && startDate != null && dueDate.isBefore(startDate)){
-            throw new IllegalArgumentException("Can't set due date later than start date");
+        //Makes sure title is not null, nor is empty
+        if(title.isBlank() && title.isEmpty()){
+            throw new IllegalArgumentException("Empty String is not accepted as title");
         }
-
-        if(dueDate != null && dueDate.isBefore(LocalDate.now())){
-            throw new IllegalArgumentException("Can't set due date earlier than today's date");
+        //Makes sure priority is never null
+        if(this.priority == null){
+            this.priority = PriorityEnum.UNDEFINED;
         }
-
-        this.title = title;
+        this.title = title.trim();
         this.priority = priority;
         this.startDate = startDate;
         this.dueDate = dueDate;
         this.comments = comments;
+        ID = UUID.randomUUID(); //Setting UUID here for JSON reasons
+    }
+
+    private Task(){} //JSON needs this
+
+    private void setID(UUID ID) { //JSON needs this
+        this.ID = ID;
     }
 
     public UUID getID()
@@ -88,10 +99,22 @@ public class Task implements Serializable
         return startDate;
     }
 
+    public void setDates(LocalDate startDate, LocalDate dueDate){
+
+        if (startDate != null && dueDate != null && dueDate.isBefore(startDate)) {
+            throw new IllegalArgumentException("Can't set due date earlier than start date");
+        }
+
+        if(dueDate != null && dueDate.isBefore(LocalDate.now())){
+            throw new IllegalArgumentException("Can't set due date earlier than today's date");
+        }
+        this.startDate = startDate;
+        this.dueDate = dueDate;
+    }
+
     public void setStartDate(LocalDate startDate)
     {
-        //TODO add hvis begge er tilfelle, også på due date
-        if(dueDate != null && startDate != null && startDate.isAfter(dueDate)){
+        if (startDate != null && dueDate != null && dueDate.isBefore(startDate)) {
             throw new IllegalArgumentException("Can't set start date later than due date");
         }
 
@@ -109,7 +132,7 @@ public class Task implements Serializable
             throw new IllegalArgumentException("Can't set due date earlier than today's date");
         }
 
-        if(startDate != null && dueDate != null && dueDate.isBefore(startDate)){
+        if (startDate != null && dueDate != null && dueDate.isBefore(startDate)) {
             throw new IllegalArgumentException("Can't set due date earlier than start date");
         }
 

@@ -9,10 +9,6 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
-import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
-
 
 public class EditTaskView extends View
 {
@@ -82,12 +78,13 @@ public class EditTaskView extends View
             task.setDone(checked.isSelected());
             task.setStartDate(selectStartDate.getValue());
             task.setDueDate(selectDueDate.getValue());
+            task.setDates(selectStartDate.getValue(),selectDueDate.getValue());
             task.setComments(comments.getText());
             task.setPriority(selectPriority.getValue());
             task.setTitle(taskName.getText());
             update();
         }catch (IllegalArgumentException e){
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Error: " + e.getMessage(), ButtonType.OK);
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage(), ButtonType.OK);
             alert.showAndWait();
         }
         cancel();
@@ -107,6 +104,10 @@ public class EditTaskView extends View
         cancel();
     }
 
+    public void clearDates(){
+        selectDueDate.setValue(null);
+        selectStartDate.setValue(null);
+    }
     public void setStartDate() {
 
     }

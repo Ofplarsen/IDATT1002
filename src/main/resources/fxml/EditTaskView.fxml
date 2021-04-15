@@ -47,6 +47,7 @@
          <children>
             <Label text="Due Date" />
             <DatePicker fx:id="selectDueDate" />
+            <Button fx:id="btnClearDates" onAction="#clearDates" mnemonicParsing="false" text="Clear Dates" />
          </children>
          <padding>
             <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
