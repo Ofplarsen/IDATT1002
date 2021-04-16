@@ -1,6 +1,6 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.data;
 
-import edu.ntnu.idatt1002.k2_2.mitodo.Client;
+import edu.ntnu.idatt1002.k2_2.mitodo.effects.SoundEffects;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -185,6 +185,7 @@ public class Task implements Serializable
     public void setDone(boolean isDone)
     {
         this.isDone = isDone;
+        if(isDone){ SoundEffects.playPlingSound(); }
 
         if (isDone && repeat != RepeatEnum.DoesNotRepeat && !createdNextRepeatingTask)
         {
