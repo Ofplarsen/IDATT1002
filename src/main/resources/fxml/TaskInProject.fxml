@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="78.0" prefWidth="1700" style="-fx-background-color: LIGHTBLUE;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.components.TaskInProject">
+<HBox fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="78.0" prefWidth="1162.0" style="-fx-background-color: LIGHTBLUE;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.components.TaskInProject">
    <children>
       <CheckBox fx:id="taskBox" mnemonicParsing="false" onAction="#handleTaskIsDoneButtonClick" prefHeight="78.0" prefWidth="275.0" text="CheckBox">
          <font>

@@ -42,7 +42,6 @@ public class ProjectView extends View
     private ComboBox projectsOrTasks;
 
     boolean showingSubTasks;
-    private FXMLLoader loader = new FXMLLoader();
 
     public void initialize() {
         ObservableList<String> options =
@@ -218,9 +217,10 @@ public class ProjectView extends View
         }
         else {
             for (Task s : sortedList) {
+                FXMLLoader loader = new FXMLLoader();
                 try {
-                    Node node = loader.load(getClass().getResource("/fxml/TaskInProject.fxml").openStream());
-                    parent.getChildren().add(node);
+                    HBox hBox = loader.load(getClass().getResource("/fxml/TaskInProject.fxml").openStream());
+                    parent.getChildren().add(hBox);
                     TaskInProject controller = loader.getController();
 
                     controller.setProject(project);
@@ -235,6 +235,7 @@ public class ProjectView extends View
     }
     public void addSubProjects(){
         for (Project p: project.getProjects()) {
+            FXMLLoader loader = new FXMLLoader();
             try {
                 HBox hbox = loader.load(getClass().getResource("/fxml/SubProject.fxml").openStream());
                 CheckBox checkBox = new CheckBox("Show Tasks");
@@ -262,6 +263,7 @@ public class ProjectView extends View
         else {
 
             for (Task s : subProject.getAllTasks()) {
+                FXMLLoader loader = new FXMLLoader();
                 try {
                     Node node = loader.load(getClass().getResource("/fxml/TaskInProject.fxml").openStream());
                     parent.getChildren().add(j,node);
