@@ -38,7 +38,7 @@
             </Button>
             <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
             <Pane prefHeight="27.0" prefWidth="270.0" HBox.hgrow="ALWAYS" />
-            <Button contentDisplay="RIGHT" graphicTextGap="0.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#delete" style="-fx-background-color: #eb2f33#eb2f33;" text="Delete" />
+            <Button contentDisplay="RIGHT" graphicTextGap="0.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#delete" text="Delete" />
          </children>
       </HBox>
    </children>

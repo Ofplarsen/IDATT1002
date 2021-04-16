@@ -1,0 +1,37 @@
+/*
+mtt-prefix is to prevent overriding already-existing css-classes like (.button)
+
+try to keep sizes in the the power of 2 ex:(2px,4px,8px,16px,32px)
+
+Colors:
+
+Primary
+#2E9EDF
+on: #ffffff
+Primary-2
+#1f6791
+on: #ffffff
+Background-dark
+#0B152C
+on: #ffffff
+Background-light
+#FFFFFF
+on: #000000
+Background-light-2
+#F3F3F3
+on: #000000
+Error
+#ff0030
+on: #ffffff
+*/
+
+.mtt-button {
+    -fx-background-color: #2E9EDF;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 8px;
+}
+
+.mtt-error {
+    -fx-background-color: #ff0030;
+    -fx-text-fill: #ffffff;
+}
