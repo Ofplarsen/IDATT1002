@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.PriorityEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.SubProject;
@@ -299,8 +300,8 @@ public class ProjectView extends View
         return noTaskMessage;
     }
     public void setControllerInfo(TaskInProject controller, Task s){
-        URL editButtonUrl = getClass().getResource("/images/editImage.jpg");
-        URL deleteButtonUrl = getClass().getResource("/images/deleteImage.jpg");
+        URL editButtonUrl = getClass().getResource("/images/editImage.png");
+        URL deleteButtonUrl = getClass().getResource("/images/deleteImage.png");
         ImageView deleteButton = new ImageView(deleteButtonUrl.toExternalForm());
         ImageView editButton = new ImageView(editButtonUrl.toExternalForm());
 

@@ -12,11 +12,11 @@
 
 <ScrollPane fx:id="scrollParent" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView">
    <content>
-      <VBox fx:id="parent">
+      <VBox fx:id="parent" spacing="16.0">
          <children>
             <BorderPane fx:id="header">
                <left>
-                  <Label styleClass="h1" fx:id="headline" text="Label" BorderPane.alignment="CENTER">
+                  <Label fx:id="headline" styleClass="h1" text="Label" BorderPane.alignment="CENTER">
                      <font>
                         <Font />
                      </font>
@@ -28,7 +28,7 @@
                <right>
                   <HBox alignment="CENTER_LEFT" spacing="8.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Label styleClass="h2" alignment="TOP_LEFT" contentDisplay="TOP" text="Sort by: ">
+                        <Label alignment="TOP_LEFT" contentDisplay="TOP" styleClass="h2" text="Sort by: ">
                            <font>
                               <Font />
                            </font>
@@ -45,6 +45,9 @@
                </padding>
             </BorderPane>
          </children>
+         <padding>
+            <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+         </padding>
       </VBox>
    </content>
 </ScrollPane>
