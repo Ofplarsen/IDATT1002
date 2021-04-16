@@ -41,17 +41,14 @@ public class MainMenu
             projectView.setProject(Client.getQuickTasks());
         });
 
+        makeTreeItem("Calendar", root, mouseEvent -> {
+            Client.setView("CalendarView");
+        });
+
         makeTreeItem("+", root, mouseEvent -> {
             EditProjectView editProjectView = (EditProjectView) Client.setView("EditProjectView");
             editProjectView.setParentProject(Client.getRootProject());
         });
-
-        /*
-        makeTreeItem("Calendar", root, mouseEvent -> {
-            Client.setView("CalendarView");
-        });
-         */
-
 
         /*
         makeBranch("Settings", root, mouseEvent -> {

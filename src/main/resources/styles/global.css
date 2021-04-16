@@ -28,7 +28,30 @@ on: #ffffff
     -fx-text-fill: #ffffff;
     -fx-background-radius: 8px;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 0, 0);
+    -fx-font-weight: bold;
 }
+
+.button:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-scale-z: 1.05;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 15, 0, 0, 0);
+}
+
+.card {
+    -fx-background-color: #f3f3f3;
+    -fx-text-fill: #000000;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 0);
+}
+
+.card:hover {
+    -fx-scale-x: 1.01;
+    -fx-scale-y: 1.01;
+    -fx-scale-z: 1.01;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 15, 0, 0, 0)
+}
+
 
 .error {
     -fx-background-color: #ff0030;
@@ -40,8 +63,11 @@ on: #ffffff
     -fx-text-fill: #000000;
 }
 
-.card {
-    -fx-background-color: #f3f3f3;
-    -fx-text-fill: #000000;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 0);
+
+.h1 {
+    -fx-font-size: 32px;
+}
+
+.h2 {
+    -fx-font-size: 16px;
 }

@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.PriorityEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.SubProject;
@@ -61,7 +62,6 @@ public class ProjectView extends View
                 );
         projectsOrTasks.setItems(showOptions);
     }
-    //TODO DET FUNGERE IKKJE MED OVERPROSJEKT FORDI DEN GÅR IKKJE GJENNOM UNDERPROSJEKTA FOR Å SORTERA FML
     public void sort(){
         String value = filterBox.getValue().toString();
         String oldText = projectsOrTasks.getPromptText();
@@ -122,7 +122,6 @@ public class ProjectView extends View
     }
 
     public void showProjectOrTask(){
-        System.out.println(projectsOrTasks.getValue());
         String value = (String) projectsOrTasks.getValue();
         switch (value){
             case "Show Tasks":
@@ -240,8 +239,6 @@ public class ProjectView extends View
                 HBox hbox = loader.load(getClass().getResource("/fxml/SubProject.fxml").openStream());
                 CheckBox checkBox = new CheckBox("Show Tasks");
                 //checkBox.autosize();
-                checkBox.setFont(new Font("System",22));
-                checkBox.setPrefSize(270,120);
                 checkBox.setOnAction(actionEvent -> {
                     int j = parent.getChildren().indexOf(hbox)+1;
                     handleShowTaskBoxActive(checkBox,p, j);
@@ -296,13 +293,13 @@ public class ProjectView extends View
     }
     public Label noTaskMessageLabel(){
         Label noTaskMessage = new Label("No Tasks Currently Added");
-        noTaskMessage.setPadding(new Insets(30,0,0,8));
-        noTaskMessage.setFont(new Font(40));
+        noTaskMessage.setPadding(new Insets(8,8,8,8));
+        noTaskMessage.getStyleClass().add("h2");
         return noTaskMessage;
     }
     public void setControllerInfo(TaskInProject controller, Task s){
-        URL editButtonUrl = getClass().getResource("/images/editImage.jpg");
-        URL deleteButtonUrl = getClass().getResource("/images/deleteImage.jpg");
+        URL editButtonUrl = getClass().getResource("/images/editImage.png");
+        URL deleteButtonUrl = getClass().getResource("/images/deleteImage.png");
         ImageView deleteButton = new ImageView(deleteButtonUrl.toExternalForm());
         ImageView editButton = new ImageView(editButtonUrl.toExternalForm());
 
