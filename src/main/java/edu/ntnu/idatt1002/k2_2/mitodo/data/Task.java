@@ -1,6 +1,8 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.data;
 
+import edu.ntnu.idatt1002.k2_2.mitodo.Client;
 import edu.ntnu.idatt1002.k2_2.mitodo.effects.SoundEffects;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -187,7 +189,7 @@ public class Task implements Serializable
     public void setDone(boolean isDone)
     {
         this.isDone = isDone;
-        if(isDone){ SoundEffects.playPlingSound(); }
+        //if(isDone){ SoundEffects.playPlingSound(); } //TODO Uncomment for annoying sound. Bug btw: if a task is checked, edited then save and exited, sound will play
 
         if (isDone && repeat != RepeatEnum.DoesNotRepeat && !createdNextRepeatingTask)
         {

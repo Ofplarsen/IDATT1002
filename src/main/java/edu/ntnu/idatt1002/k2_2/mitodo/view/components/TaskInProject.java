@@ -81,6 +81,8 @@ public class TaskInProject extends View
     public void handleTaskIsDoneButtonClick()
     {
         task.toggleIsDone();
+        ProjectView projectView = (ProjectView) Client.setView("ProjectView"); //TODO denne koden gjør at en recurring task kommer, men er stuttery. Er det mulig å gjøre at når man checker task at den "går litt inn i skjermen" for å maskere? Får også følelsen av å faktisk trykke på noe
+        projectView.setProject(project);
     }
     public void setProjectName(String project){
         projectName.setText(project);

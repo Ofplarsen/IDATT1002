@@ -52,7 +52,7 @@ public class EditProjectView extends View{
         }
     }
 
-    private boolean pAC(String title){
+    private boolean pAC(String title){ //TODO maybe change this name so that we know it is for checking whether a project already is created or not
         return rootProject.getProjects().stream().anyMatch(p -> p.getTitle().equalsIgnoreCase(title));
     }
 
