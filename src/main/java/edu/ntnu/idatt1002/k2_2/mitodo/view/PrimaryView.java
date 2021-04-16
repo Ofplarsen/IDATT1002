@@ -53,8 +53,15 @@ public class PrimaryView extends View
      */
     public void setContent(View view)
     {
+        Node viewParent = view.getParent();
+
         content.getChildren().clear();
-        content.getChildren().add(view.getParent());
+        content.getChildren().add(viewParent);
+
+        AnchorPane.setBottomAnchor(viewParent, 0.0);
+        AnchorPane.setLeftAnchor(viewParent, 0.0);
+        AnchorPane.setRightAnchor(viewParent, 0.0);
+        AnchorPane.setTopAnchor(viewParent, 0.0);
     }
 
     /**

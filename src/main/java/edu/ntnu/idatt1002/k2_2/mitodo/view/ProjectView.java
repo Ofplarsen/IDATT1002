@@ -29,6 +29,8 @@ public class ProjectView extends View
     private Project project;
 
     @FXML
+    private ScrollPane scrollParent;
+    @FXML
     private VBox parent;
     @FXML
     private Label headline;
@@ -177,7 +179,7 @@ public class ProjectView extends View
     @Override
     public Node getParent()
     {
-        return parent;
+        return scrollParent;
     }
 
   public void handleAddTaskButton() {

@@ -16,22 +16,25 @@ public class Client extends Application {
     private static Project quickTasks;
     private static View currentView;
 
+    private static final String rootProjectName = "rootProject";
+    private static final String quickTasksName = "quickTasks";
+
     @Override
     public void start(Stage stage) {
-        rootProject = null;
+        rootProject = FileManager.loadProject(rootProjectName);
         if (rootProject==null)
         {
-            rootProject = new Project("Other Projects");
+            rootProject = new Project("Root Project");
         }
 
-        quickTasks = null;
+        quickTasks = FileManager.loadProject(quickTasksName);;
         if (quickTasks==null)
         {
             quickTasks = new Project("Quick Tasks");
         }
 
-        Default.fillWithTestData(rootProject);
-        Default.fillQuickTasksData(quickTasks);
+        //Default.fillWithTestData(rootProject);
+        //Default.fillQuickTasksData(quickTasks);
 
         primaryView = (PrimaryView) FileManager.getView("PrimaryView");
 
@@ -45,13 +48,13 @@ public class Client extends Application {
         stage.setHeight(720);
         stage.setTitle("MiTodo");
         stage.show();
-        stage.setResizable(false); //makes the app look weird if you change around on its size
     }
 
     @Override
     public void stop()
     {
-
+        FileManager.saveProject(rootProject, rootProjectName);
+        FileManager.saveProject(quickTasks, quickTasksName);
     }
 
     public static void main(String[] args) {
