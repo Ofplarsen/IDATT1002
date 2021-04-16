@@ -25,13 +25,13 @@
       <Label fx:id="startDate" prefHeight="78.0" prefWidth="62.0" text="01.01.1001" />
       <Label prefHeight="78.0" prefWidth="9.0" text="-" />
       <Label fx:id="dueDate" prefHeight="86.0" prefWidth="100.0" text="02.01.1001" />
-      <Button fx:id="editButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleEditTaskButtonClick" prefHeight="77.0" prefWidth="68.0" />
-      <Button fx:id="deleteButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleDeleteTaskButtonClick" prefHeight="77.0" prefWidth="68.0">
-         <padding>
-            <Insets left="30.0" />
-         </padding>
+      <Button fx:id="editButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleEditTaskButtonClick" prefHeight="77.0" prefWidth="50.0">
          <HBox.margin>
-            <Insets left="30.0" />
+            <Insets bottom="15.0" top="15.0" />
+         </HBox.margin></Button>
+      <Button fx:id="deleteButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleDeleteTaskButtonClick" prefHeight="77.0" prefWidth="50.0">
+         <HBox.margin>
+            <Insets bottom="15.0" left="30.0" top="15.0" />
          </HBox.margin>
       </Button>
       <Label fx:id="projectName" alignment="CENTER" prefHeight="91.0" prefWidth="175.0" text="Project Name">

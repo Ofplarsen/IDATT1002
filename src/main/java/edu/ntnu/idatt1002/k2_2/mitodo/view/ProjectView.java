@@ -40,6 +40,7 @@ public class ProjectView extends View
     private ComboBox projectsOrTasks;
 
     boolean showingSubTasks;
+    private FXMLLoader loader = new FXMLLoader();
 
     public void initialize() {
         ObservableList<String> options =
@@ -95,13 +96,10 @@ public class ProjectView extends View
         this.project = projectMain;
         showingSubTasks = false;
         if (project.getTitle().equals(Client.getQuickTasks().getTitle())){
-            projectsOrTasks.setDisable(true);
             projectsOrTasks.setVisible(false);
-            editButton.setDisable(true);
             editButton.setVisible(false);
         }
         if(project.getProjects().size()<1){
-            projectsOrTasks.setDisable(true);
             projectsOrTasks.setVisible(false);
         }
         addTasks();
@@ -112,13 +110,10 @@ public class ProjectView extends View
         if (subTasks){showingSubTasks = true;}
         this.project = projectMain;
         if (project.getTitle().equals(Client.getQuickTasks().getTitle())){
-            projectsOrTasks.setDisable(true);
             projectsOrTasks.setVisible(false);
-            editButton.setDisable(true);
             editButton.setVisible(false);
         }
         if(project.getProjects().size()<1){
-            projectsOrTasks.setDisable(true);
             projectsOrTasks.setVisible(false);
         }
         addTasksSorted(sortedTask);
@@ -202,15 +197,12 @@ public class ProjectView extends View
                 try {
                     Node node = loader.load(getClass().getResource("/fxml/TaskInProject.fxml").openStream());
                     parent.getChildren().add(node);
-                    URL editButtonUrl = getClass().getResource("/images/editImage.jpg");
-                    URL deleteButtonUrl = getClass().getResource("/images/deleteImage.jpg");
-                    ImageView editButton = new ImageView(editButtonUrl.toExternalForm());
+
                     TaskInProject controller = loader.getController();
-                    ImageView deleteButton = new ImageView(deleteButtonUrl.toExternalForm());
 
                     controller.setProject(project);
                     controller.setTask(s);
-                    setControllerInfo(controller,s,editButton,deleteButton);
+                    setControllerInfo(controller,s);
 
                 } catch (IOException ex) {
                     ex.printStackTrace();
@@ -224,19 +216,14 @@ public class ProjectView extends View
         }
         else {
             for (Task s : sortedList) {
-                FXMLLoader loader = new FXMLLoader();
                 try {
                     Node node = loader.load(getClass().getResource("/fxml/TaskInProject.fxml").openStream());
                     parent.getChildren().add(node);
-                    URL editButtonUrl = getClass().getResource("/images/editImage.jpg");
-                    URL deleteButtonUrl = getClass().getResource("/images/deleteImage.jpg");
-                    ImageView editButton = new ImageView(editButtonUrl.toExternalForm());
                     TaskInProject controller = loader.getController();
-                    ImageView deleteButton = new ImageView(deleteButtonUrl.toExternalForm());
 
                     controller.setProject(project);
                     controller.setTask(s);
-                    setControllerInfo(controller,s,editButton,deleteButton);
+                    setControllerInfo(controller,s);
 
                 } catch (IOException ex) {
                     ex.printStackTrace();
@@ -246,7 +233,6 @@ public class ProjectView extends View
     }
     public void addSubProjects(){
         for (Project p: project.getProjects()) {
-            FXMLLoader loader = new FXMLLoader();
             try {
                 HBox hbox = loader.load(getClass().getResource("/fxml/SubProject.fxml").openStream());
                 CheckBox checkBox = new CheckBox("Show Tasks");
@@ -274,19 +260,14 @@ public class ProjectView extends View
         else {
 
             for (Task s : subProject.getAllTasks()) {
-                FXMLLoader loader = new FXMLLoader();
                 try {
                     Node node = loader.load(getClass().getResource("/fxml/TaskInProject.fxml").openStream());
                     parent.getChildren().add(j,node);
-                    URL editButtonUrl = getClass().getResource("/images/editImage.jpg");
-                    URL deleteButtonUrl = getClass().getResource("/images/deleteImage.jpg");
-                    ImageView editButton = new ImageView(editButtonUrl.toExternalForm());
                     TaskInProject controller = loader.getController();
-                    ImageView deleteButton = new ImageView(deleteButtonUrl.toExternalForm());
 
                     controller.setProject(project);
                     controller.setTask(s);
-                    setControllerInfo(controller,s,editButton,deleteButton);
+                    setControllerInfo(controller,s);
 
                 } catch (IOException ex) {
                     ex.printStackTrace();
@@ -315,13 +296,19 @@ public class ProjectView extends View
         noTaskMessage.setFont(new Font(40));
         return noTaskMessage;
     }
-    public void setControllerInfo(TaskInProject controller, Task s, ImageView editButton, ImageView deleteButton){
+    public void setControllerInfo(TaskInProject controller, Task s){
+        URL editButtonUrl = getClass().getResource("/images/editImage.jpg");
+        URL deleteButtonUrl = getClass().getResource("/images/deleteImage.jpg");
+        ImageView deleteButton = new ImageView(deleteButtonUrl.toExternalForm());
+        ImageView editButton = new ImageView(editButtonUrl.toExternalForm());
+
         controller.setTaskName(s.getTitle()); //set label
         controller.setPriorityText(s.getPriority().toString().toLowerCase());
         controller.setDate(s.getStartDateAsString(), s.getDueDateAsString());
         controller.setIsDone(s.isDone());
         controller.setEditImage(editButton);
         controller.setDeleteImage(deleteButton);
+
         if (showingSubTasks){controller.setProjectName(s.getProject().getTitle());}
         else controller.setProjectNameDisabled();
     }

@@ -63,13 +63,13 @@ public class TaskInProject extends View
         taskBox.setSelected(isDone);
     }
     public void setEditImage(ImageView image){
-        image.setFitHeight(50);
-        image.setFitWidth(50);
+        image.setFitHeight(40);
+        image.setFitWidth(40);
         editButton.setGraphic(image);
     }
     public void setDeleteImage(ImageView image){
-        image.setFitHeight(50);
-        image.setFitWidth(50);
+        image.setFitHeight(40);
+        image.setFitWidth(40);
         deleteButton.setGraphic(image);
     }
     public void handleTaskIsDoneButtonClick()
