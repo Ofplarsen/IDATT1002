@@ -44,6 +44,7 @@ public class CalendarView extends View
         if (allTasks.size() < 1){
             Label noTaskMessage = new Label("No Tasks With Due Date");
             noTaskMessage.setFont(new Font("System", 32));
+            noTaskMessage.setPrefHeight(40);
             noTaskMessage.setAlignment(Pos.CENTER);
             parent.getChildren().add(noTaskMessage);
         }
@@ -51,13 +52,21 @@ public class CalendarView extends View
             LocalDate date = LocalDate.now();
             Label today = new Label("Today");
             today.setFont(new Font("System", 32));
+            today.setPrefHeight(40);
             parent.getChildren().add(today);
+            if(!allTasks.get(0).getDueDate().isEqual(date)){
+                Label noToday = new Label("No Tasks Due Today");
+                noToday.setFont(new Font("System", 23));
+                noToday.setPrefHeight(30);
+                parent.getChildren().add(noToday);
+            }
 
             for (Task s : allTasks) {
                 FXMLLoader loader = new FXMLLoader();
                 if(date.isBefore(s.getDueDate())){
                     Label dateOfTask = new Label(s.getDueDate().getDayOfMonth() + ". " + s.getDueDate().getMonth().toString());
                     dateOfTask.setFont(new Font("System", 23));
+                    dateOfTask.setPrefHeight(30);
                     parent.getChildren().add(dateOfTask);
                 }
                 try {

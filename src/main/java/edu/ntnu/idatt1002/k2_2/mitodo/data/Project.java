@@ -129,7 +129,7 @@ public class Project implements Serializable
                 noDueDate.add(list.remove(i));
             }
         }
-        Comparator<Task> dueDateComparator = (t1, t2) -> t2.getDueDate().compareTo(t1.getDueDate());
+        Comparator<Task> dueDateComparator = (t1, t2) -> t1.getDueDate().compareTo(t2.getDueDate());
         list.sort(dueDateComparator);
         list.addAll(noDueDate);
     }
