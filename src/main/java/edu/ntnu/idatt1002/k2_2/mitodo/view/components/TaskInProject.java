@@ -35,6 +35,7 @@ public class TaskInProject extends View
     Button deleteButton;
     @FXML
     Label projectName;
+    boolean fromCalendar = false;
 
 
     Task task;
@@ -42,6 +43,10 @@ public class TaskInProject extends View
 
     public void setTask(Task t){
         this.task = t;
+    }
+    public void setTask(Task t, boolean calendarView){
+        this.task = t;
+        this.fromCalendar = calendarView;
     }
 
     public void setProject(Project projectMain)
@@ -95,9 +100,15 @@ public class TaskInProject extends View
 //TODO Idk viss denna egentlig fungere, e litt rar
     public void handleDeleteTaskButtonClick() {
         //project.removeTask(task.getID()); //DOES NOT REMOVE PROPERLY
+        System.out.println(project.getTitle());
         project.removeTasksFromSubProjects(task.getID()); //REMOVES PROPERLY
-        ProjectView projectView = (ProjectView) Client.setView("ProjectView");
-        projectView.setProject(project);
+        if(fromCalendar){
+            Client.setView("CalendarView");
+        }
+        else{
+            ProjectView projectView = (ProjectView) Client.setView("ProjectView");
+            projectView.setProject(project);
+        }
     }
     public Node getParent() {
         return parent;

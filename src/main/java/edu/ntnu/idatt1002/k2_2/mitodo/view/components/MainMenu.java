@@ -46,11 +46,10 @@ public class MainMenu
             editProjectView.setParentProject(Client.getRootProject());
         });
 
-        /*
         makeTreeItem("Calendar", root, mouseEvent -> {
             Client.setView("CalendarView");
         });
-         */
+
 
 
         /*

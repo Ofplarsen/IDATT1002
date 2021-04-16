@@ -62,7 +62,6 @@ public class ProjectView extends View
                 );
         projectsOrTasks.setItems(showOptions);
     }
-    //TODO DET FUNGERE IKKJE MED OVERPROSJEKT FORDI DEN GÅR IKKJE GJENNOM UNDERPROSJEKTA FOR Å SORTERA FML
     public void sort(){
         String value = filterBox.getValue().toString();
         String oldText = projectsOrTasks.getPromptText();
@@ -123,7 +122,6 @@ public class ProjectView extends View
     }
 
     public void showProjectOrTask(){
-        System.out.println(projectsOrTasks.getValue());
         String value = (String) projectsOrTasks.getValue();
         switch (value){
             case "Show Tasks":
