@@ -219,8 +219,8 @@ public class ProjectView extends View
             for (Task s : sortedList) {
                 FXMLLoader loader = new FXMLLoader();
                 try {
-                    HBox hBox = loader.load(getClass().getResource("/fxml/TaskInProject.fxml").openStream());
-                    parent.getChildren().add(hBox);
+                    BorderPane borderPane = loader.load(getClass().getResource("/fxml/TaskInProject.fxml").openStream());
+                    parent.getChildren().add(borderPane);
                     TaskInProject controller = loader.getController();
 
                     controller.setProject(project);
