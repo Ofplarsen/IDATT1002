@@ -240,8 +240,6 @@ public class ProjectView extends View
                 HBox hbox = loader.load(getClass().getResource("/fxml/SubProject.fxml").openStream());
                 CheckBox checkBox = new CheckBox("Show Tasks");
                 //checkBox.autosize();
-                checkBox.setFont(new Font("System",22));
-                checkBox.setPrefSize(270,120);
                 checkBox.setOnAction(actionEvent -> {
                     int j = parent.getChildren().indexOf(hbox)+1;
                     handleShowTaskBoxActive(checkBox,p, j);
