@@ -11,7 +11,7 @@
 
 <ScrollPane fx:id="scrollParent" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView">
    <content>
-      <VBox fx:id="parent" style="-fx-background-color: LIGHTGREY;">
+      <VBox fx:id="parent">
          <children>
             <HBox fx:id="header" prefHeight="82.0" prefWidth="718.0" spacing="8.0">
                <VBox.margin>

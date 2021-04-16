@@ -25,6 +25,8 @@ public class Task implements Serializable
     private LocalDate dueDate;
     private RepeatEnum repeat;
     private boolean isDone = false;
+
+    //TODO: Change this, tasks are stored in a project's array
     private Project project;
     private boolean createdNextRepeatingTask = false;
 
