@@ -1,18 +1,15 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.TaskInProject;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
@@ -73,20 +70,8 @@ public class CalendarView extends View
                     Node hBox = loader.load(getClass().getResource("/fxml/TaskInProject.fxml").openStream());
                     parent.getChildren().add(hBox);
                     TaskInProject controller = loader.getController();
-                    URL editButtonUrl = getClass().getResource("/images/editImage.png");
-                    URL deleteButtonUrl = getClass().getResource("/images/deleteImage.png");
-                    ImageView deleteButton = new ImageView(deleteButtonUrl.toExternalForm());
-                    ImageView editButton = new ImageView(editButtonUrl.toExternalForm());
-                    controller.setTaskName(s.getTitle()); //set label
-                    controller.setTask(s, true);
-                    controller.setPriorityText(s.getPriority().toString().toLowerCase());
-                    controller.setDate(s.getStartDateAsString(), s.getDueDateAsString());
-                    controller.setIsDone(s.isDone());
-                    controller.setEditImage(editButton);
-                    controller.setDeleteImage(deleteButton);
-                    controller.setProjectName(s.getProject().getTitle());
                     controller.setProject(s.getProject());
-
+                    controller.setTask(s, true);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }

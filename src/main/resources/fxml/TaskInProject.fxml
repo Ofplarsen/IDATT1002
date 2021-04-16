@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="parent" styleClass="card" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.components.TaskInProject">
+<BorderPane fx:id="parent" prefHeight="62.0" prefWidth="709.0" styleClass="card" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.components.TaskInProject">
    <right>
       <HBox alignment="CENTER_LEFT" spacing="8.0" BorderPane.alignment="CENTER_RIGHT">
          <children>
@@ -26,7 +26,7 @@
       </HBox>
    </right>
    <left>
-      <CheckBox fx:id="taskBox" mnemonicParsing="false" onAction="#handleTaskIsDoneButtonClick" styleClass="h2" text="CheckBox" BorderPane.alignment="CENTER">
+      <CheckBox fx:id="taskBox" mnemonicParsing="false" onAction="#handleTaskIsDoneButtonClick" prefHeight="17.0" prefWidth="155.0" styleClass="h2" text="CheckBox" BorderPane.alignment="CENTER">
          <font>
             <Font />
          </font>
@@ -42,18 +42,18 @@
       <Insets />
    </opaqueInsets>
    <center>
-      <HBox alignment="CENTER_RIGHT" spacing="8.0" BorderPane.alignment="CENTER_RIGHT">
+      <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="361.0" spacing="8.0" BorderPane.alignment="CENTER_RIGHT">
          <children>
-            <Label fx:id="priority" styleClass="h2" text="Test">
+            <Label fx:id="priority" prefHeight="17.0" prefWidth="157.0" styleClass="h2" text="Test">
                <font>
                   <Font />
                </font>
             </Label>
-            <Label fx:id="startDate" text="01.01.1001" />
+            <Label fx:id="startDate" prefHeight="17.0" prefWidth="70.0" text="01.01.1001" />
             <!--TODO: make this dissapear when you don't have a date-->
             <Label text="-" />
-            <Label fx:id="dueDate" text="02.01.1001" />
-            <Label fx:id="projectName" styleClass="h2" text="Project Name">
+            <Label fx:id="dueDate" prefHeight="17.0" prefWidth="65.0" text="02.01.1001" />
+            <Label fx:id="projectName" prefHeight="17.0" prefWidth="95.0" styleClass="h2" text="Project Name">
                <font>
                   <Font />
                </font>

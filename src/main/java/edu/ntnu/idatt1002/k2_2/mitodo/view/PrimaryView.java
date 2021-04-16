@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;

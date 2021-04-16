@@ -190,7 +190,7 @@ public class Task implements Serializable
     {
         this.isDone = isDone;
         //if(isDone){ SoundEffects.playPlingSound(); } //TODO Uncomment for annoying sound. Bug btw: if a task is checked, edited then save and exited, sound will play
-
+                                                       //Bug skjer pga at metoden blir ikkje kalt før du trykke save and exit
         if (isDone && repeat != RepeatEnum.DoesNotRepeat && !createdNextRepeatingTask)
         {
             LocalDate nextStartDate = repeat.getNextDate(startDate);

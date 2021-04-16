@@ -2,12 +2,10 @@ package edu.ntnu.idatt1002.k2_2.mitodo.view.components;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.RepeatEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.EditTaskView;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -15,7 +13,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
+
+import java.net.URL;
 
 public class TaskInProject extends View
 {
@@ -41,12 +40,23 @@ public class TaskInProject extends View
     Task task;
     Project project;
 
+    public void initialize(){
+        URL editButtonUrl = getClass().getResource("/images/editImage.png");
+        URL deleteButtonUrl = getClass().getResource("/images/deleteImage.png");
+        ImageView deleteButton = new ImageView(deleteButtonUrl.toExternalForm());
+        ImageView editButton = new ImageView(editButtonUrl.toExternalForm());
+        setDeleteImage(deleteButton);
+        setEditImage(editButton);
+    }
+
     public void setTask(Task t){
         this.task = t;
+        setInfo();
     }
     public void setTask(Task t, boolean calendarView){
         this.task = t;
         this.fromCalendar = calendarView;
+        setInfo();
     }
 
     public void setProject(Project projectMain)
@@ -81,8 +91,13 @@ public class TaskInProject extends View
     public void handleTaskIsDoneButtonClick()
     {
         task.toggleIsDone();
-        ProjectView projectView = (ProjectView) Client.setView("ProjectView"); //TODO denne koden gjør at en recurring task kommer, men er stuttery. Er det mulig å gjøre at når man checker task at den "går litt inn i skjermen" for å maskere? Får også følelsen av å faktisk trykke på noe
-        projectView.setProject(project);
+        if(fromCalendar){
+            Client.setView("CalendarView");
+        }
+        else{
+            ProjectView projectView = (ProjectView) Client.setView("ProjectView"); //TODO denne koden gjør at en recurring task kommer, men er stuttery. Er det mulig å gjøre at når man checker task at den "går litt inn i skjermen" for å maskere? Får også følelsen av å faktisk trykke på noe
+            projectView.setProject(project);
+        }
     }
     public void setProjectName(String project){
         projectName.setText(project);
@@ -111,6 +126,14 @@ public class TaskInProject extends View
             ProjectView projectView = (ProjectView) Client.setView("ProjectView");
             projectView.setProject(project);
         }
+    }
+    private void setInfo(){
+        setPriorityText(task.getPriority().toString());
+        setDate(task.getStartDateAsString(), task.getDueDateAsString());
+        setIsDone(task.isDone());
+        setProjectName(task.getProject().getTitle());
+        setProject(task.getProject());
+        setTaskName(task.getTitle()); //set label
     }
     public Node getParent() {
         return parent;

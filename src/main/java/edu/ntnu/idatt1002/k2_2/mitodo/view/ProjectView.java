@@ -1,7 +1,6 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.PriorityEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.SubProject;
@@ -17,7 +16,6 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
 
 
 import java.io.IOException;
@@ -149,7 +147,6 @@ public class ProjectView extends View
     }
     public void setFilterBoxText(String s, String t,boolean b){
         filterBox.setPromptText(s);
-        System.out.println(t);
         if(b){projectsOrTasks.setPromptText(t);}
     }
     public void setProjectWithOrWithoutProjects(Project projectMain, boolean showProjects)
@@ -238,7 +235,6 @@ public class ProjectView extends View
             try {
                 HBox hbox = loader.load(getClass().getResource("/fxml/SubProject.fxml").openStream());
                 CheckBox checkBox = new CheckBox("Show Tasks");
-                //checkBox.autosize();
                 checkBox.setOnAction(actionEvent -> {
                     int j = parent.getChildren().indexOf(hbox)+1;
                     handleShowTaskBoxActive(checkBox,p, j);
@@ -298,18 +294,6 @@ public class ProjectView extends View
         return noTaskMessage;
     }
     public void setControllerInfo(TaskInProject controller, Task s){
-        URL editButtonUrl = getClass().getResource("/images/editImage.png");
-        URL deleteButtonUrl = getClass().getResource("/images/deleteImage.png");
-        ImageView deleteButton = new ImageView(deleteButtonUrl.toExternalForm());
-        ImageView editButton = new ImageView(editButtonUrl.toExternalForm());
-
-        controller.setTaskName(s.getTitle()); //set label
-        controller.setPriorityText(s.getPriority().toString().toLowerCase());
-        controller.setDate(s.getStartDateAsString(), s.getDueDateAsString());
-        controller.setIsDone(s.isDone());
-        controller.setEditImage(editButton);
-        controller.setDeleteImage(deleteButton);
-
         if (showingSubTasks){controller.setProjectName(s.getProject().getTitle());}
         else controller.setProjectNameDisabled();
     }

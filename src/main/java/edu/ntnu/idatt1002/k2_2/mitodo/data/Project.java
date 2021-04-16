@@ -124,7 +124,7 @@ public class Project implements Serializable
 
     public void sortTasksByDueDate(ArrayList <Task> list){ //Ugly code, but it works
         ArrayList<Task> noDueDate = new ArrayList<>();
-        for(int i = 0; i<list.size(); i++){
+        for(int i = list.size()-1; i >=0; i-=1){
             if(list.get(i).getDueDate()==null){
                 noDueDate.add(list.remove(i));
             }
@@ -136,10 +136,16 @@ public class Project implements Serializable
 
     public void sortTasksByStartDate(ArrayList <Task> list){ //Ugly code, but it works
         ArrayList<Task> noStartDate = new ArrayList<>();
-        for(int i = 0; i<list.size(); i++){
+       /* for(int i = 0; i<list.size(); i++){
             if(list.get(i).getStartDate()==null){
                 noStartDate.add(list.remove(i));
+                System.out.println(list.size());
             }
+        }*/
+        for(int i = list.size()-1; i >=0; i-=1){
+            if(list.get(i).getStartDate()==null){ //Av ein eller anna grunn må me ha detta formatet for at det skal fungera
+                noStartDate.add(list.remove(i));  //verken den gamle for løkka eller for each fungere (den gamle for løkka er forstålig)
+            }                                     //foreach kan berre ha vore ein skrivefeil idk.. Detta gjelde for sortTaskByDueDate og
         }
         Comparator<Task> startDateComparator = (t1, t2) -> t1.getStartDate().compareTo(t2.getStartDate());
         list.sort(startDateComparator);
