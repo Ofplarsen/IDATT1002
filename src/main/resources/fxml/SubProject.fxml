@@ -8,9 +8,9 @@
 
 <HBox fx:id="parent" alignment="BASELINE_LEFT" spacing="8.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.components.SubProject">
    <children>
-      <Label fx:id="projectName" alignment="TOP_CENTER" text="PROJECT_NAME">
+      <Label styleClass="h2" fx:id="projectName" alignment="TOP_CENTER" text="PROJECT_NAME">
          <font>
-            <Font size="36.0" />
+            <Font />
          </font>
       </Label>
       <Button mnemonicParsing="false" onAction="#handleGoToProjectClick" text="Go To Project">

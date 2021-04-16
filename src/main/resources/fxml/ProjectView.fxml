@@ -16,9 +16,9 @@
          <children>
             <BorderPane fx:id="header">
                <left>
-                  <Label fx:id="headline" text="Label" BorderPane.alignment="CENTER">
+                  <Label styleClass="h1" fx:id="headline" text="Label" BorderPane.alignment="CENTER">
                      <font>
-                        <Font name="Calibri" size="36.0" />
+                        <Font />
                      </font>
                      <BorderPane.margin>
                         <Insets right="32.0" />
@@ -28,9 +28,9 @@
                <right>
                   <HBox alignment="CENTER_LEFT" spacing="8.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Label alignment="TOP_LEFT" contentDisplay="TOP" text="Sort by: ">
+                        <Label styleClass="h2" alignment="TOP_LEFT" contentDisplay="TOP" text="Sort by: ">
                            <font>
-                              <Font size="18.0" />
+                              <Font />
                            </font>
                         </Label>
                         <ComboBox fx:id="filterBox" onAction="#sort" promptText="Standard" />

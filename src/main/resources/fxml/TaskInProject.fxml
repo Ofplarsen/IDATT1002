@@ -12,9 +12,9 @@
    <right>
       <HBox alignment="CENTER_LEFT" spacing="8.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="priority" alignment="CENTER" text="Test">
+            <Label styleClass="h2" fx:id="priority" alignment="CENTER" text="Test">
                <font>
-                  <Font size="18.0" />
+                  <Font />
                </font>
             </Label>
             <Label fx:id="startDate" text="01.01.1001" />
@@ -30,18 +30,18 @@
                   <Insets />
                </HBox.margin>
             </Button>
-            <Label fx:id="projectName" alignment="CENTER" text="Project Name">
+            <Label styleClass="h2" fx:id="projectName" alignment="CENTER" text="Project Name">
                <font>
-                  <Font size="18.0" />
+                  <Font />
                </font>
             </Label>
          </children>
       </HBox>
    </right>
    <left>
-      <CheckBox fx:id="taskBox" mnemonicParsing="false" onAction="#handleTaskIsDoneButtonClick" text="CheckBox" BorderPane.alignment="CENTER">
+      <CheckBox styleClass="h2" fx:id="taskBox" mnemonicParsing="false" onAction="#handleTaskIsDoneButtonClick" text="CheckBox" BorderPane.alignment="CENTER">
          <font>
-            <Font size="25.0" />
+            <Font />
          </font>
          <BorderPane.margin>
             <Insets right="32.0" />

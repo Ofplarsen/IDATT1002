@@ -294,8 +294,8 @@ public class ProjectView extends View
     }
     public Label noTaskMessageLabel(){
         Label noTaskMessage = new Label("No Tasks Currently Added");
-        noTaskMessage.setPadding(new Insets(30,0,0,8));
-        noTaskMessage.setFont(new Font(40));
+        noTaskMessage.setPadding(new Insets(8,8,8,8));
+        noTaskMessage.getStyleClass().add("h2");
         return noTaskMessage;
     }
     public void setControllerInfo(TaskInProject controller, Task s){

@@ -45,3 +45,11 @@ on: #ffffff
     -fx-text-fill: #000000;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 0);
 }
+
+.h1 {
+    -fx-font-size: 32px;
+}
+
+.h2 {
+    -fx-font-size: 16px;
+}
