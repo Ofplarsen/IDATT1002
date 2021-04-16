@@ -13,7 +13,7 @@
             <Font size="28.0" />
          </font>
       </Label>
-      <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#handleGoToProjectClick" prefHeight="50.0" prefWidth="177.0" text="Go To Project">
+      <Button styleClass="error" fx:id="deleteButton" mnemonicParsing="false" onAction="#handleGoToProjectClick" prefHeight="50.0" prefWidth="177.0" text="Go To Project">
          <HBox.margin>
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
          </HBox.margin>

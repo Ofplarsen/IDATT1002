@@ -1,12 +1,10 @@
 /*
-mtt-prefix is to prevent overriding already-existing css-classes like (.button)
-
 try to keep sizes in the the power of 2 ex:(2px,4px,8px,16px,32px)
 
 Colors:
 
 Primary
-#2E9EDF
+#2e9edf
 on: #ffffff
 Primary-2
 #1f6791
@@ -15,23 +13,35 @@ Background-dark
 #0B152C
 on: #ffffff
 Background-light
-#FFFFFF
+#ffffff
 on: #000000
 Background-light-2
-#F3F3F3
+#f3f3f3
 on: #000000
 Error
 #ff0030
 on: #ffffff
 */
 
-.mtt-button {
-    -fx-background-color: #2E9EDF;
+.button {
+    -fx-background-color: #2e9edf;
     -fx-text-fill: #ffffff;
     -fx-background-radius: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 0, 0);
 }
 
-.mtt-error {
+.error {
     -fx-background-color: #ff0030;
     -fx-text-fill: #ffffff;
+}
+
+.background {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+}
+
+.card {
+    -fx-background-color: #f3f3f3;
+    -fx-text-fill: #000000;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 0);
 }
