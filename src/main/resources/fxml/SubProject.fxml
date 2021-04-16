@@ -6,14 +6,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.0" prefWidth="1700" style="-fx-background-color: LIGHTBLUE;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.components.SubProject">
+<HBox fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.0" prefWidth="1700" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.components.SubProject">
    <children>
       <Label fx:id="projectName" alignment="CENTER" prefHeight="110.0" prefWidth="278.0" text="PROJECT_NAME">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
-      <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#handleGoToProjectClick" prefHeight="50.0" prefWidth="177.0" text="Go To Project">
+      <Button styleClass="error" fx:id="deleteButton" mnemonicParsing="false" onAction="#handleGoToProjectClick" prefHeight="50.0" prefWidth="177.0" text="Go To Project">
          <HBox.margin>
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
          </HBox.margin>

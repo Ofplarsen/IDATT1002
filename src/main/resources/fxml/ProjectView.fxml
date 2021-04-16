@@ -5,54 +5,45 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <ScrollPane fx:id="scrollParent" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView">
    <content>
-      <VBox fx:id="parent" style="-fx-background-color: LIGHTGREY;">
+      <VBox fx:id="parent">
          <children>
-            <HBox fx:id="header" prefHeight="82.0" prefWidth="718.0" spacing="8.0">
-               <VBox.margin>
-                  <Insets bottom="6.0" />
-               </VBox.margin>
+            <BorderPane fx:id="header">
+               <left>
+                  <Label fx:id="headline" text="Label" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="Calibri" size="36.0" />
+                     </font>
+                     <BorderPane.margin>
+                        <Insets right="32.0" />
+                     </BorderPane.margin>
+                  </Label>
+               </left>
+               <right>
+                  <HBox alignment="CENTER_LEFT" spacing="8.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label alignment="TOP_LEFT" contentDisplay="TOP" text="Sort by: ">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="filterBox" onAction="#sort" promptText="Standard" />
+                        <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleAddTaskButton" text="Add Task" />
+                        <Button fx:id="editButton" mnemonicParsing="false" onAction="#handleEditButtonClick" text="Edit Project" />
+                        <ComboBox fx:id="projectsOrTasks" onAction="#showProjectOrTask" promptText="Show Tasks" />
+                     </children>
+                  </HBox>
+               </right>
                <padding>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </padding>
-               <children>
-                  <Label fx:id="headline" prefHeight="54.0" prefWidth="359.0" text="Label">
-                     <font>
-                        <Font name="Calibri" size="48.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="50.0" prefWidth="71.0" text="Sort by: ">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <ComboBox fx:id="filterBox" onAction="#sort" prefHeight="30.0" prefWidth="114.0" promptText="Standard">
-                     <HBox.margin>
-                        <Insets top="12.0" />
-                     </HBox.margin>
-                  </ComboBox>
-                  <Button mnemonicParsing="false" onAction="#handleAddTaskButton" prefHeight="30.0" prefWidth="86.0" text="Add Task">
-                     <HBox.margin>
-                        <Insets left="30.0" top="12.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="editButton" mnemonicParsing="false" onAction="#handleEditButtonClick" prefHeight="30.0" prefWidth="113.0" text="Edit Project">
-                     <HBox.margin>
-                        <Insets left="30.0" top="12.0" />
-                     </HBox.margin>
-                  </Button>
-                  <ComboBox fx:id="projectsOrTasks" onAction="#showProjectOrTask" prefHeight="30.0" prefWidth="155.0" promptText="Show Tasks">
-                     <HBox.margin>
-                        <Insets left="30.0" top="12.0" />
-                     </HBox.margin>
-                  </ComboBox>
-               </children>
-            </HBox>
+            </BorderPane>
          </children>
       </VBox>
    </content>

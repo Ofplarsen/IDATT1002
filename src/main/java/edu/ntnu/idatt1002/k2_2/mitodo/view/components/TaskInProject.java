@@ -14,12 +14,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
 public class TaskInProject extends View
 {
     @FXML
-    HBox parent;
+    BorderPane parent;
     @FXML
     CheckBox taskBox;
     @FXML

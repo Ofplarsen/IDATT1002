@@ -12,7 +12,7 @@ import java.net.URL;
  */
 public class FileManager
 {
-    private static final String FILES_PATH = "src/main/resources/files/";
+    public static final File SAVE_DIR = new File(new File(System.getProperty("user.home")), ".mitodo");
 
     /**
      * Gets a loaded FXMLLoader from the path "/fxml/{name}.fxml"
@@ -39,10 +39,11 @@ public class FileManager
 
     public static void saveProject(Project project, String name)
     {
-        File projectFile = new File(FILES_PATH + name);
+        File projectFile = new File(SAVE_DIR, name);
 
         try
         {
+            SAVE_DIR.mkdir();
             projectFile.createNewFile();
         }
         catch (IOException e)
@@ -66,7 +67,7 @@ public class FileManager
 
     public static Project loadProject(String name)
     {
-        File projectFile = new File(FILES_PATH + name);
+        File projectFile = new File(SAVE_DIR, name);
 
         if (!projectFile.isFile())
         {
