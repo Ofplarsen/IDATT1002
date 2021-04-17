@@ -16,9 +16,9 @@ class ProjectTest {
 
     @BeforeEach
     void init(){
-        project.addTask(task1.getTitle(), project);
-        project.addTask(task2.getTitle(), project);
-        project.addTask(task3.getTitle(), project);
+        project.addTask(task1.getTitle());
+        project.addTask(task2.getTitle());
+        project.addTask(task3.getTitle());
     }
 
     @Nested

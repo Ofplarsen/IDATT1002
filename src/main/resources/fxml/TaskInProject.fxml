@@ -8,46 +8,43 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="parent" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.components.TaskInProject">
+<BorderPane fx:id="parent" onMouseClicked="#handleEditTaskButtonClick" styleClass="card" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.components.TaskInProject">
    <right>
-      <HBox alignment="CENTER_LEFT" spacing="8.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_RIGHT" minWidth="-Infinity" spacing="8.0" BorderPane.alignment="CENTER_RIGHT">
          <children>
-            <Label fx:id="priority" alignment="CENTER" text="Test">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="startDate" text="01.01.1001" />
-            <Label text="-" />
-            <Label fx:id="dueDate" text="02.01.1001" />
-            <Button fx:id="editButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleEditTaskButtonClick" prefHeight="25.0" prefWidth="25.0">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Button>
             <Button fx:id="deleteButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleDeleteTaskButtonClick" prefHeight="25.0" prefWidth="25.0" styleClass="error">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
             </Button>
-            <Label fx:id="projectName" alignment="CENTER" text="Project Name">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
          </children>
       </HBox>
    </right>
    <left>
-      <CheckBox fx:id="taskBox" mnemonicParsing="false" onAction="#handleTaskIsDoneButtonClick" text="CheckBox" BorderPane.alignment="CENTER">
+      <CheckBox fx:id="isDoneCheckBox" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleTaskIsDoneButtonClick" styleClass="h2" text="CheckBox" BorderPane.alignment="CENTER_LEFT">
          <font>
-            <Font size="25.0" />
+            <Font />
          </font>
          <BorderPane.margin>
-            <Insets right="32.0" />
+            <Insets right="8.0" />
          </BorderPane.margin>
       </CheckBox>
    </left>
+   <center>
+      <HBox alignment="CENTER" prefWidth="600.0" spacing="20.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="priorityLabel" prefWidth="100.0" styleClass="h2" text="Medium Priority"/>
+            <Label fx:id="startDateLabel" alignment="CENTER_RIGHT" prefWidth="100.0" text="01.01.1001" />
+            <Label prefWidth="5.0" text="-"/>
+            <Label fx:id="dueDateLabel" prefWidth="100.0" text="02.01.1001" />
+            <Label fx:id="repeatLabel" layoutX="262.0" layoutY="24.0" prefWidth="120.0" text="Repeats Monthly" />
+            <Label fx:id="projectNameLabel" prefWidth="120.0" styleClass="h2" text="Project Name"/>
+         </children>
+         <BorderPane.margin>
+            <Insets right="8.0" />
+         </BorderPane.margin>
+      </HBox>
+   </center>
    <padding>
       <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
    </padding>

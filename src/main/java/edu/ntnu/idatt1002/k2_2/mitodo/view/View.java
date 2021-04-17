@@ -5,4 +5,5 @@ import javafx.scene.Node;
 public abstract class View
 {
     public abstract Node getParent();
+    public void update(){};
 }

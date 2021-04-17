@@ -6,20 +6,30 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.0" prefWidth="1700" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.components.SubProject">
+<HBox fx:id="parent" alignment="TOP_CENTER" spacing="8.0" styleClass="card" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.components.SubProject">
    <children>
-      <Label fx:id="projectName" alignment="CENTER" prefHeight="110.0" prefWidth="278.0" text="PROJECT_NAME" styleClass="header">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Label>
-      <Button styleClass="error" fx:id="deleteButton" mnemonicParsing="false" onAction="#handleGoToProjectClick" prefHeight="50.0" prefWidth="177.0" text="Go To Project">
+      <HBox alignment="CENTER_LEFT" HBox.hgrow="NEVER">
+         <children>
+            <Label fx:id="projectName" styleClass="h2" text="PROJECT_NAME">
+               <font>
+                  <Font />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
          <HBox.margin>
-            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+            <Insets />
          </HBox.margin>
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
+         <children>
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleGoToProjectClick" text="Go To Project" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
    </children>
+   <padding>
+      <Insets bottom="8.0" left="32.0" right="32.0" top="8.0" />
+   </padding>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
 </HBox>

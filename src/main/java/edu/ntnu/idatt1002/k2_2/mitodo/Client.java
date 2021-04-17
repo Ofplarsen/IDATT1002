@@ -44,8 +44,8 @@ public class Client extends Application {
         Scene primaryScene = primaryView.getScene();
         stage.setScene(primaryScene);
 
-        stage.setWidth(1280);
-        stage.setHeight(720);
+        stage.setWidth(1120);
+        stage.setHeight(640);
         stage.setTitle("MiTodo");
         stage.show();
     }

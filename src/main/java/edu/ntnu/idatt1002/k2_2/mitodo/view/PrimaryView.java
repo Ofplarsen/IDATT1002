@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
@@ -38,7 +37,9 @@ public class PrimaryView extends View
     /**
      * Initializes the PrimaryView object.
      */
-    public void initialize() {
+    @FXML
+    private void initialize()
+    {
         this.scene = new Scene(parent);
         mainMenu = new MainMenu(mainMenuTreeView);
         updateMainMenu();
@@ -72,7 +73,8 @@ public class PrimaryView extends View
     /**
      * @return The scene
      */
-    public Scene getScene() {
+    public Scene getScene()
+    {
         return scene;
     }
 

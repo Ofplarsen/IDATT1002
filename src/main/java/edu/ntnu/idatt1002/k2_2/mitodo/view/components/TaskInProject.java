@@ -1,13 +1,12 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view.components;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.PriorityEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.RepeatEnum;
-import edu.ntnu.idatt1002.k2_2.mitodo.view.EditTaskView;
+import edu.ntnu.idatt1002.k2_2.mitodo.effects.SoundEffects;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.edittask.EditTaskView;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
-import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -15,91 +14,126 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
+
+import java.net.URL;
 
 public class TaskInProject extends View
 {
     @FXML
-    BorderPane parent;
+    private BorderPane parent;
     @FXML
-    CheckBox taskBox;
+    private CheckBox isDoneCheckBox;
     @FXML
-    Label priority;
+    private Label priorityLabel;
     @FXML
-    Label startDate;
+    private Label startDateLabel;
     @FXML
-    Label dueDate;
+    private Label dueDateLabel;
     @FXML
-    Button editButton;
+    private Label repeatLabel;
     @FXML
-    Button deleteButton;
+    private Label projectNameLabel;
     @FXML
-    Label projectName;
+    private Button deleteButton;
+
+    private Task task;
+    private View view;
 
 
-    Task task;
-    Project project;
-
-    public void setTask(Task t){
-        this.task = t;
-    }
-
-    public void setProject(Project projectMain)
+    @FXML
+    private void initialize()
     {
-        this.project = projectMain;
+        setButtonImage(deleteButton, "deleteImage.png");
     }
 
-    public void setTaskName(String task){
-        taskBox.setText(task);
-    }
-    public void setPriorityText(String prio){
-        priority.setText(prio + " priority" );
-    }
-    public void setDate(String start, String end){
-        startDate.setText(start);
-        dueDate.setText(end);
-    }
-    public void setIsDone(boolean isDone)
+    public void setTask(Task task)
     {
-        taskBox.setSelected(isDone);
+        this.task = task;
+        setInfo();
     }
-    public void setEditImage(ImageView image){
-        image.setFitHeight(40);
-        image.setFitWidth(40);
-        editButton.setGraphic(image);
+
+    public void setView(View view)
+    {
+        this.view = view;
     }
-    public void setDeleteImage(ImageView image){
-        image.setFitHeight(40);
-        image.setFitWidth(40);
-        deleteButton.setGraphic(image);
+
+    private void setButtonImage(Button button, String imageFileName)
+    {
+        URL deleteImageUrl = getClass().getResource("/images/" + imageFileName);
+        ImageView image = new ImageView(deleteImageUrl.toExternalForm());
+        image.setFitHeight(25);
+        image.setFitWidth(25);
+        button.setGraphic(image);
     }
-    public void handleTaskIsDoneButtonClick()
+
+    private void setPriorityInfo()
+    {
+        if (parent.getStyleClass().size() > 1)
+        {
+            parent.getStyleClass().remove(1);
+        }
+
+        switch (task.getPriority()) {
+            case Undefined:
+                priorityLabel.setText("");
+                break;
+
+            case Low:
+                    parent.getStyleClass().add("priority-low");
+                priorityLabel.setText("P3");
+                break;
+
+            case Medium:
+                parent.getStyleClass().add("priority-medium");
+                priorityLabel.setText("P2");
+                break;
+
+            case High:
+                parent.getStyleClass().add("priority-high");
+                priorityLabel.setText("P1");
+                break;
+
+        }
+    }
+
+    @FXML
+    private void handleTaskIsDoneButtonClick()
     {
         task.toggleIsDone();
+        if(task.isDone())
+        {
+            SoundEffects.playPlingSound();
+        }
+        view.update();
     }
-    public void setProjectName(String project){
-        projectName.setText(project);
-    }
-    public void setProjectNameDisabled(){
-        projectName.setDisable(true);
-        projectName.setVisible(false);
-    }
-    public void handleEditTaskButtonClick()
+
+    @FXML
+    private void handleEditTaskButtonClick()
     {
         EditTaskView editTaskView = (EditTaskView) Client.setView("EditTaskView");
         editTaskView.setTask(task);
-        editTaskView.setProject(project);
-        editTaskView.update();
     }
 
-//TODO Idk viss denna egentlig fungere, e litt rar
-    public void handleDeleteTaskButtonClick() {
-        //project.removeTask(task.getID()); //DOES NOT REMOVE PROPERLY
-        project.removeTasksFromSubProjects(task.getID()); //REMOVES PROPERLY
-        ProjectView projectView = (ProjectView) Client.setView("ProjectView");
-        projectView.setProject(project);
+    @FXML
+    private void handleDeleteTaskButtonClick()
+    {
+        task.deleteItself();
+        view.update();
     }
-    public Node getParent() {
+
+    private void setInfo()
+    {
+        isDoneCheckBox.setSelected(task.isDone());
+        isDoneCheckBox.setText(task.getTitle());
+        startDateLabel.setText(task.getStartDateAsString());
+        dueDateLabel.setText(task.getDueDateAsString());
+        repeatLabel.setText(task.getRepeat() == RepeatEnum.DoesNotRepeat? "" : "Repeats " + task.getRepeat().toString());
+        projectNameLabel.setText(task.getProject().getTitle());
+        setPriorityInfo();
+    }
+
+    public Node getParent()
+    {
         return parent;
     }
 }

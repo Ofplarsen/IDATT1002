@@ -1,7 +1,6 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.data;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
-import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -12,18 +11,20 @@ import java.util.*;
  */
 public class Project implements Serializable
 {
-    private UUID ID; //Had to remove final for JSON
+    private final UUID ID;
     private String title;
-    private ArrayList<Task> tasks; //Had to remove final for JSON
-    private ArrayList<Project> projects; //Had to remove final for JSON
+    private final ArrayList<Task> tasks;
+    private final ArrayList<Project> projects;
     private Project parent;
 
     public Project(String title)
     {
-        if(title.isEmpty() || title.isBlank()){
+        if(title.isEmpty() || title.isBlank())
+        {
             throw new IllegalArgumentException("Title of projects can't be empty");
         }
-        if(projectAlreadyCreated(title)){
+        if(projectAlreadyCreated(title))
+        {
             throw new IllegalArgumentException("Project already created");
         }
 
@@ -35,10 +36,12 @@ public class Project implements Serializable
 
     public Project(String title, Project parent)
     {
-        if(title.isEmpty() || title.isBlank()){
+        if(title.isEmpty() || title.isBlank())
+        {
             throw new IllegalArgumentException("Title of projects can't be empty");
         }
-        if(projectAlreadyCreated(title)){
+        if(projectAlreadyCreated(title))
+        {
             throw new IllegalArgumentException("Project already created");
         }
 
@@ -48,12 +51,6 @@ public class Project implements Serializable
         this.ID = UUID.randomUUID();
         this.parent = parent;
     }
-
-    private Project(){} //Had to add this to use JSON
-
-    private void setID(UUID ID) { //If this is not here, no ID will
-        this.ID = ID;
-    } //JSON needs this
 
     public UUID getID()
     {
@@ -67,10 +64,12 @@ public class Project implements Serializable
 
     public void setTitle(String title)
     {
-        if(title.isEmpty() || title.isBlank()){
+        if(title.isEmpty() || title.isBlank())
+        {
             throw new IllegalArgumentException("Title of projects can't be empty");
         }
-        if(projectAlreadyCreated(title)){
+        if(projectAlreadyCreated(title))
+        {
             throw new IllegalArgumentException("Project already created");
         }
         this.title = title;
@@ -92,6 +91,7 @@ public class Project implements Serializable
 
         return taskBucket;
     }
+
     public ArrayList<Task> getAllSubProjectTasks()
     {
         ArrayList<Task> taskBucket = new ArrayList<>();
@@ -117,36 +117,6 @@ public class Project implements Serializable
         return null;
     }
 
-     public void sortTasksByPriority(ArrayList <Task> list){
-        Comparator<Task>priorityComparator = (t1, t2) -> t2.getPriority().compareTo(t1.getPriority());
-        list.sort(priorityComparator);
-    }
-
-    public void sortTasksByDueDate(ArrayList <Task> list){ //Ugly code, but it works
-        ArrayList<Task> noDueDate = new ArrayList<>();
-        for(int i = 0; i<list.size(); i++){
-            if(list.get(i).getDueDate()==null){
-                noDueDate.add(list.remove(i));
-            }
-        }
-        Comparator<Task> dueDateComparator = (t1, t2) -> t2.getDueDate().compareTo(t1.getDueDate());
-        list.sort(dueDateComparator);
-        list.addAll(noDueDate);
-    }
-
-    public void sortTasksByStartDate(ArrayList <Task> list){ //Ugly code, but it works
-        ArrayList<Task> noStartDate = new ArrayList<>();
-        for(int i = 0; i<list.size(); i++){
-            if(list.get(i).getStartDate()==null){
-                noStartDate.add(list.remove(i));
-            }
-        }
-        Comparator<Task> startDateComparator = (t1, t2) -> t1.getStartDate().compareTo(t2.getStartDate());
-        list.sort(startDateComparator);
-        list.addAll(noStartDate);
-    }
-
-
     public Task getTask(UUID id)
     {
         for (Task task : tasks)
@@ -160,14 +130,15 @@ public class Project implements Serializable
         return null;
     }
 
-    public Task addTask(String title, Project project)
+    public Task addTask(String title)
     {
-         Task task = new Task(title, project);
+         Task task = new Task(title, this);
          tasks.add(task);
          return task;
     }
 
-    public void moveTask(UUID taskID, UUID projectID) {
+    public void moveTask(UUID taskID, UUID projectID)
+    {
          Task task = this.getTask(taskID);
          Client.getRootProject().getProject(projectID).addTask(task.getTitle(), task.getPriority(), task.getStartDate(), task.getDueDate(),task.getRepeat(), task.getComments());
          removeTask(taskID);
@@ -175,11 +146,14 @@ public class Project implements Serializable
 
     public Task addTask(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate,RepeatEnum repeat, String comments)
     {
-        try {
+        try
+        {
             Task task = new Task(title, priority, startDate, dueDate,repeat, comments, this);
             tasks.add(task);
             return task;
-        }catch (IllegalArgumentException e){
+        }
+        catch (IllegalArgumentException e)
+        {
             throw new IllegalArgumentException(e.getMessage());
         }
     }
@@ -188,12 +162,20 @@ public class Project implements Serializable
     {
         return tasks.removeIf(task -> task.getID().equals(id));
     }
-    public void removeTasksFromSubProjects(UUID id){ //added because it wasnt able to delete tasks from "over" projects
-        tasks.removeIf(task -> task.getID().equals(id));
-        for (Project p: projects) {
-            p.removeTasksFromSubProjects(id);
+
+    public boolean removeTaskFromAll(UUID id)
+    {
+        boolean removed = removeTask(id);
+        if (removed) return true;
+
+        for(Project project : projects)
+        {
+            removed = project.removeTaskFromAll(id);
+            if (removed) return true;
         }
+        return false;
     }
+
 
     public ArrayList<Project> getProjects()
     {
@@ -234,25 +216,28 @@ public class Project implements Serializable
         return project;
     }
 
+    public boolean projectAlreadyCreated(String title)
+    {
+        if(parent == null || parent.getProjects().size() == 0)
+        {
+            return false;
+        }
+        return parent.getProjects().stream().anyMatch(p -> p.getTitle().equalsIgnoreCase(title));
+    }
+
     public boolean removeProject(UUID id)
     {
         return projects.removeIf(project -> project.getID().equals(id));
     }
 
-    public boolean projectAlreadyCreated(String title){
-         if(parent == null || parent.getProjects().size() == 0){
-             return false;
-         }
-         return parent.getProjects().stream().anyMatch(p -> p.getTitle().equalsIgnoreCase(title));
-    }
-    public boolean removeFromAll(UUID id)
+    public boolean removeProjectFromAll(UUID id)
     {
         boolean removed = removeProject(id);
         if (removed) return true;
 
         for(Project project : projects)
         {
-            removed = project.removeFromAll(id);
+            removed = project.removeProjectFromAll(id);
             if (removed) return true;
         }
         return false;

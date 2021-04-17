@@ -1,6 +1,6 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.data;
 
-import edu.ntnu.idatt1002.k2_2.mitodo.Client;
+import edu.ntnu.idatt1002.k2_2.mitodo.effects.SoundEffects;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -17,7 +17,7 @@ import java.util.UUID;
  */
 public class Task implements Serializable
 {
-    private UUID ID; //We have to do it like this instead of "private final UUID ID = UUID.randomUUID();" if we want JSON
+    private UUID ID;
     private String title;
     private String comments;
     private PriorityEnum priority;
@@ -26,54 +26,56 @@ public class Task implements Serializable
     private RepeatEnum repeat;
     private boolean isDone = false;
 
-    //TODO: Change this, tasks are stored in a project's array
     private Project project;
     private boolean createdNextRepeatingTask = false;
 
     public Task(String title, Project project)
     {
-        if(title.isBlank() && title.isEmpty()){
+        if(title.isBlank() && title.isEmpty())
+        {
             throw new IllegalArgumentException("Empty String is not accepted as title");
         }
+
         this.title = title.trim();
         this.project = project;
         this.priority = PriorityEnum.Undefined;
         this.startDate = null;
         this.dueDate = null;
         this.repeat = RepeatEnum.DoesNotRepeat;
-        ID = UUID.randomUUID(); //Setting UUID here for JSON reasons
+        ID = UUID.randomUUID();
     }
 
-    public Task(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate,RepeatEnum repeat, String comments, Project project){
-
+    public Task(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate,RepeatEnum repeat, String comments, Project project)
+    {
         //Makes sure title is not null, nor is empty
-        if(title.isBlank() || title.isEmpty()){
+        if(title.isBlank() || title.isEmpty())
+        {
             throw new IllegalArgumentException("Empty String is not accepted as title");
         }
+
         //Makes sure priority is never null
-        if(this.priority == null){
+        if(this.priority == null)
+        {
             this.priority = PriorityEnum.Undefined;
         }
+
         this.project =project;
         this.title = title.trim();
         this.priority = priority;
         this.startDate = startDate;
         this.dueDate = dueDate;
-        this.repeat = repeat;
+        this.repeat = repeat == null ? RepeatEnum.DoesNotRepeat : repeat;
         this.comments = comments;
-        ID = UUID.randomUUID(); //Setting UUID here for JSON reasons
+        ID = UUID.randomUUID();
     }
 
-    private Task(){} //JSON needs this
-
-    private void setID(UUID ID) { //JSON needs this
-        this.ID = ID;
-    }
-
-    public void setProject(Project project) {
+    public void setProject(Project project)
+    {
         this.project = project;
     }
-    public Project getProject(){
+
+    public Project getProject()
+    {
         return project;
     }
 
@@ -119,11 +121,13 @@ public class Task implements Serializable
 
     public void setDates(LocalDate startDate, LocalDate dueDate, RepeatEnum repeat)
     {
-        if (startDate != null && dueDate != null && dueDate.isBefore(startDate)) {
+        if (startDate != null && dueDate != null && dueDate.isBefore(startDate))
+        {
             throw new IllegalArgumentException("Can't set due date earlier than start date");
         }
 
-        if(dueDate != null && dueDate.isBefore(LocalDate.now())){
+        if(dueDate != null && dueDate.isBefore(LocalDate.now()))
+        {
             throw new IllegalArgumentException("Can't set due date earlier than today's date");
         }
 
@@ -171,12 +175,11 @@ public class Task implements Serializable
 
     public RepeatEnum getRepeat()
     {
+        if (repeat == null)
+        {
+            repeat = RepeatEnum.DoesNotRepeat;
+        }
         return repeat;
-    }
-
-    public void setRepeat(RepeatEnum repeat)
-    {
-        this.repeat = repeat;
     }
 
     public boolean isDone()
@@ -202,6 +205,11 @@ public class Task implements Serializable
         setDone(!isDone);
     }
 
+    public void deleteItself()
+    {
+        project.removeTask(ID);
+    }
+
     @Override
     public String toString()
     {
@@ -211,7 +219,10 @@ public class Task implements Serializable
                 "\ncomments='" + comments +
                 "\npriority=" + priority +
                 "\nstartDate=" + startDate +
-                "\ndueDate=" + dueDate +
+                "\nrepeat=" + repeat +
+                "\nisDone=" + isDone +
+                "\ncreatedNextRepeatingTask=" + createdNextRepeatingTask +
+                "\nproject=" + project +
                 "\n}";
     }
 
@@ -229,5 +240,4 @@ public class Task implements Serializable
     {
         return Objects.hash(ID);
     }
-
 }
