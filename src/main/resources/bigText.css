@@ -1,0 +1,12 @@
+/* Change the font size accordingly */
+.header{
+    -fx-font-size: 80px;
+}
+
+.button{
+    -fx-font-size: 40px;
+}
+
+.text-field, .label, .textInBoxes{
+    -fx-font-size: 35px;
+}
