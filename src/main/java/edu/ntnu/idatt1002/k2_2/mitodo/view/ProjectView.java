@@ -17,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 
 import java.io.IOException;
@@ -33,7 +34,7 @@ public class ProjectView extends View
     @FXML
     private VBox parent;
     @FXML
-    private Label headline;
+    private Text headline;
     @FXML
     private ComboBox filterBox;
     @FXML

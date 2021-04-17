@@ -53,11 +53,11 @@ public class MainMenu
          */
 
 
-        /*
-        makeBranch("Settings", root, mouseEvent -> {
+
+       /* makeTreeItem("Settings", root, mouseEvent -> {
             Client.setView("SettingsView");
-        });
-         */
+        });*/
+
 
         ArrayList<Project> projects = Client.getRootProject().getProjects();
         projects.forEach(project -> makeProjectTreeItem(root, project));

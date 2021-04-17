@@ -11,6 +11,8 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.File;
+
 /**
  * The PrimaryView contains the main menu and the content.
  * The main menu can be updated and the content can be changed.
@@ -20,6 +22,9 @@ public class PrimaryView extends View
     private Scene scene;
     private MainMenu mainMenu;
     private Project project;
+
+    private String smallTextCss = new File("smallText.css").toString();
+    private String bigTextCss = new File("bigText.css").toString();
 
     @FXML
     private SplitPane parent;
@@ -80,4 +85,13 @@ public class PrimaryView extends View
         return parent;
     }
 
+    public void setBigText(){
+        parent.getStylesheets().remove(smallTextCss);
+        parent.getStylesheets().add(bigTextCss);
+    }
+
+    public void setSmallText(){
+        parent.getStylesheets().remove(bigTextCss);
+        parent.getStylesheets().add(smallTextCss);
+    }
 }
