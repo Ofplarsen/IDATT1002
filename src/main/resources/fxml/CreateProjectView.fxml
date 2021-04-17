@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="parent" spacing="16.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.editproject.EditProjectView">
+<VBox fx:id="parent" spacing="16.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.editproject.CreateProjectView">
    <children>
       <BorderPane>
          <right>
@@ -38,7 +38,6 @@
             </Button>
             <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
             <Pane prefHeight="27.0" prefWidth="270.0" HBox.hgrow="ALWAYS" />
-            <Button styleClass="error" contentDisplay="RIGHT" graphicTextGap="0.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#delete" text="Delete" />
          </children>
       </HBox>
    </children>

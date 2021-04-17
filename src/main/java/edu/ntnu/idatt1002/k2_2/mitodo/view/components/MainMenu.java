@@ -2,7 +2,7 @@ package edu.ntnu.idatt1002.k2_2.mitodo.view.components;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
-import edu.ntnu.idatt1002.k2_2.mitodo.view.EditProjectView;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.editproject.CreateProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
@@ -46,8 +46,8 @@ public class MainMenu
         });
 
         makeTreeItem("+", root, mouseEvent -> {
-            EditProjectView editProjectView = (EditProjectView) Client.setView("EditProjectView");
-            editProjectView.setParentProject(Client.getRootProject());
+            CreateProjectView createProjectView = (CreateProjectView) Client.setView("CreateProjectView");
+            createProjectView.setParentProject(Client.getRootProject());
         });
 
         /*
@@ -86,8 +86,8 @@ public class MainMenu
         });
         //TODO: Turn into right-click-menu-option
         makeTreeItem("+", parent, mouseEvent -> {
-            EditProjectView editProjectView = (EditProjectView) Client.setView("EditProjectView");
-            editProjectView.setParentProject(project);
+            CreateProjectView createProjectView = (CreateProjectView) Client.setView("CreateProjectView");
+            createProjectView.setParentProject(project);
         });
         project.getProjects().forEach(subProject -> makeProjectTreeItem(projectItem, subProject));
     }
