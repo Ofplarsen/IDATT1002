@@ -64,7 +64,7 @@ public class Task implements Serializable
         this.priority = priority;
         this.startDate = startDate;
         this.dueDate = dueDate;
-        this.repeat = repeat;
+        this.repeat = repeat == null ? RepeatEnum.DoesNotRepeat : repeat;
         this.comments = comments;
         ID = UUID.randomUUID();
     }
@@ -175,6 +175,10 @@ public class Task implements Serializable
 
     public RepeatEnum getRepeat()
     {
+        if (repeat == null)
+        {
+            repeat = RepeatEnum.DoesNotRepeat;
+        }
         return repeat;
     }
 

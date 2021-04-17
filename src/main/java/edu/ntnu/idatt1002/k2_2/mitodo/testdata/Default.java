@@ -14,7 +14,7 @@ public class Default
     public static void fillWithTestData(Project project)
     {
         Project skoleProject = project.addProject("Skole", project);
-        skoleProject.addTask("Lag struktur", PriorityEnum.High, null, LocalDate.now(), null, null);
+        skoleProject.addTask("Lag struktur", PriorityEnum.High, null, LocalDate.now(), RepeatEnum.DoesNotRepeat, null);
 
         Project matteProject = skoleProject.addProject("Matte", skoleProject);
         matteProject.addTask("Komplekse tall");

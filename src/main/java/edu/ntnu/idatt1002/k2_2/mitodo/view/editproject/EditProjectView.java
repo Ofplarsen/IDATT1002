@@ -53,7 +53,7 @@ public class EditProjectView extends View
         Client.getPrimaryView().updateMainMenu();
 
         ProjectView projectView = (ProjectView) Client.setView("ProjectView");
-        projectView.setProject(parentProject);
+        projectView.setProject(Client.getQuickTasks());
     }
 
     @Override
