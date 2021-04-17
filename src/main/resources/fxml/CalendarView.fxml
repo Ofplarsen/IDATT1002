@@ -9,16 +9,16 @@
 
 <ScrollPane fx:id="scrollParent" fitToHeight="true" fitToWidth="true" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.CalendarView">
    <content>
-      <VBox fx:id="parent" spacing="16.0">
+      <VBox styleClass="content-container" fx:id="parent" spacing="16.0">
          <children>
             <HBox fx:id="header" alignment="CENTER_LEFT" spacing="8.0">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
                <children>
-                  <Label fx:id="headline" text="Calendar">
+                  <Label styleClass="h1"  fx:id="headline" text="Calendar">
                      <font>
-                        <Font name="Calibri" size="48.0" />
+                        <Font/>
                      </font>
                   </Label>
                </children>
