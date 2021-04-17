@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="parent" prefWidth="613.0" spacing="16.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.EditTaskView">
+<VBox fx:id="parent" spacing="16.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.EditTaskView">
    <children>
-      <HBox minHeight="-Infinity" minWidth="-Infinity">
+      <HBox>
          <children>
             <CheckBox fx:id="isDone" mnemonicParsing="false">
                <padding>
@@ -31,13 +31,13 @@
            <padding>
                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
            </padding>
-           <Label text="Comments" />
+           <Label minHeight="-Infinity" minWidth="-Infinity" text="Comments" />
            <TextArea fx:id="comments" />
        </VBox>
-      <HBox layoutX="18.0" layoutY="18.0" prefHeight="26.0" prefWidth="243.0" spacing="8.0">
+      <HBox layoutX="18.0" layoutY="18.0" spacing="8.0">
          <children>
-            <Label text="Start Date" />
-            <DatePicker fx:id="selectStartDate" />
+            <Label minHeight="-Infinity" minWidth="-Infinity" text="Start Date" />
+            <DatePicker fx:id="selectStartDate" minHeight="-Infinity" minWidth="-Infinity" />
          </children>
          <padding>
             <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
@@ -45,9 +45,9 @@
       </HBox>
       <HBox layoutX="18.0" layoutY="68.0" spacing="8.0">
          <children>
-            <Label text="Due Date" />
-            <DatePicker fx:id="selectDueDate" />
-            <Button fx:id="btnClearDates" mnemonicParsing="false" onAction="#clearDates" text="Clear Dates" />
+            <Label minHeight="-Infinity" minWidth="-Infinity" text="Due Date" />
+            <DatePicker fx:id="selectDueDate" minHeight="-Infinity" minWidth="-Infinity" />
+            <Button fx:id="btnClearDates" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#clearDates" text="Clear Dates" />
          </children>
          <padding>
             <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
@@ -55,7 +55,7 @@
       </HBox>
       <HBox spacing="8.0">
          <children>
-            <Label text="Repeat" />
+            <Label minHeight="-Infinity" minWidth="-Infinity" text="Repeat" />
             <ChoiceBox fx:id="selectRepeat" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0" HBox.hgrow="ALWAYS" />
          </children>
          <padding>
@@ -64,7 +64,7 @@
       </HBox>
       <HBox layoutX="18.0" layoutY="406.0" spacing="8.0">
          <children>
-            <Label text="Priority" />
+            <Label minHeight="-Infinity" minWidth="-Infinity" text="Priority" />
             <ChoiceBox fx:id="selectPriority" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0" HBox.hgrow="ALWAYS" />
          </children>
          <padding>
@@ -83,7 +83,7 @@
                         <Insets />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#cancel" text="Cancel" />
+                  <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
                </children>
             </HBox>
          </left>

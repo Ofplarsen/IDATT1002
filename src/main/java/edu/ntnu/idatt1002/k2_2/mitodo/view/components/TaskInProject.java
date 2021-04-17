@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view.components;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.PriorityEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.EditTaskView;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
@@ -13,7 +14,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 
 import java.net.URL;
 
@@ -30,8 +30,6 @@ public class TaskInProject extends View
     @FXML
     Label dueDate;
     @FXML
-    Button editButton;
-    @FXML
     Button deleteButton;
     @FXML
     Label projectName;
@@ -42,12 +40,9 @@ public class TaskInProject extends View
     Project project;
 
     public void initialize(){
-        URL editButtonUrl = getClass().getResource("/images/editImage.png");
         URL deleteButtonUrl = getClass().getResource("/images/deleteImage.png");
         ImageView deleteButton = new ImageView(deleteButtonUrl.toExternalForm());
-        ImageView editButton = new ImageView(editButtonUrl.toExternalForm());
         setDeleteImage(deleteButton);
-        setEditImage(editButton);
     }
 
     public void setTask(Task t){
@@ -68,8 +63,31 @@ public class TaskInProject extends View
     public void setTaskName(String task){
         taskBox.setText(task);
     }
-    public void setPriorityText(String prio){
-        priority.setText(prio + " priority" );
+    public void setPriorityInfo(PriorityEnum prio){
+        if (parent.getStyleClass().size() > 1) {
+            parent.getStyleClass().remove(1);
+        }
+        switch (prio) {
+            case Undefined: {
+                priority.setText("");
+                break;
+            }
+            case Low: {
+                    parent.getStyleClass().add("priority-low");
+                    priority.setText("P3");
+                break;
+            }
+            case Medium: {
+                parent.getStyleClass().add("priority-medium");
+                priority.setText("P2");
+                break;
+            }
+            case High: {
+                parent.getStyleClass().add("priority-high");
+                priority.setText("P1");
+                break;
+            }
+        }
     }
     public void setDate(String start, String end){
         startDate.setText(start);
@@ -79,11 +97,7 @@ public class TaskInProject extends View
     {
         taskBox.setSelected(isDone);
     }
-    public void setEditImage(ImageView image){
-        image.setFitHeight(25);
-        image.setFitWidth(25);
-        editButton.setGraphic(image);
-    }
+
     public void setDeleteImage(ImageView image){
         image.setFitHeight(25);
         image.setFitWidth(25);
@@ -129,7 +143,7 @@ public class TaskInProject extends View
         }
     }
     private void setInfo(){
-        setPriorityText(task.getPriority().toString());
+        setPriorityInfo(task.getPriority());
         setDate(task.getStartDateAsString(), task.getDueDateAsString());
         setIsDone(task.isDone());
         setProjectName(task.getProject().getTitle());

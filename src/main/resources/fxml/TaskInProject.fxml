@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="parent" styleClass="card" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.components.TaskInProject">
+<BorderPane fx:id="parent" onMouseClicked="#handleEditTaskButtonClick" styleClass="card" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.components.TaskInProject">
    <left>
       <CheckBox fx:id="taskBox" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleTaskIsDoneButtonClick" styleClass="h2" text="CheckBox" BorderPane.alignment="CENTER">
          <font>
@@ -44,11 +44,6 @@
    <right>
       <HBox alignment="CENTER_RIGHT" spacing="8.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="editButton" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleEditTaskButtonClick" prefHeight="25.0" prefWidth="25.0">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Button>
             <Button fx:id="deleteButton" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleDeleteTaskButtonClick" prefHeight="25.0" prefWidth="25.0" styleClass="error">
                <HBox.margin>
                   <Insets />
@@ -58,6 +53,6 @@
       </HBox>
    </right>
    <padding>
-      <Insets bottom="8.0" left="32.0" right="32.0" top="8.0" />
+      <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
    </padding>
 </BorderPane>
