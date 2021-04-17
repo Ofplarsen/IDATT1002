@@ -34,17 +34,15 @@ public class TaskInProject extends View
     @FXML
     private Label projectNameLabel;
     @FXML
-    private Button editButton;
-    @FXML
     private Button deleteButton;
 
     private Task task;
     private View view;
 
+
     @FXML
     private void initialize()
     {
-        setButtonImage(editButton, "editImage.png");
         setButtonImage(deleteButton, "deleteImage.png");
     }
 
@@ -66,6 +64,36 @@ public class TaskInProject extends View
         image.setFitHeight(25);
         image.setFitWidth(25);
         button.setGraphic(image);
+    }
+
+    private void setPriorityInfo()
+    {
+        if (parent.getStyleClass().size() > 1)
+        {
+            parent.getStyleClass().remove(1);
+        }
+
+        switch (task.getPriority()) {
+            case Undefined:
+                priorityLabel.setText("");
+                break;
+
+            case Low:
+                    parent.getStyleClass().add("priority-low");
+                priorityLabel.setText("P3");
+                break;
+
+            case Medium:
+                parent.getStyleClass().add("priority-medium");
+                priorityLabel.setText("P2");
+                break;
+
+            case High:
+                parent.getStyleClass().add("priority-high");
+                priorityLabel.setText("P1");
+                break;
+
+        }
     }
 
     @FXML
@@ -97,11 +125,11 @@ public class TaskInProject extends View
     {
         isDoneCheckBox.setSelected(task.isDone());
         isDoneCheckBox.setText(task.getTitle());
-        priorityLabel.setText(task.getPriority() == PriorityEnum.Undefined? "" : task.getPriority() + " Priority");
         startDateLabel.setText(task.getStartDateAsString());
         dueDateLabel.setText(task.getDueDateAsString());
         repeatLabel.setText(task.getRepeat() == RepeatEnum.DoesNotRepeat? "" : "Repeats " + task.getRepeat().toString());
         projectNameLabel.setText(task.getProject().getTitle());
+        setPriorityInfo();
     }
 
     public Node getParent()
