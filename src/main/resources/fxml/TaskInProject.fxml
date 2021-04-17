@@ -8,16 +8,48 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="parent" prefHeight="62.0" prefWidth="709.0" styleClass="card" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.components.TaskInProject">
-   <right>
-      <HBox alignment="CENTER_LEFT" spacing="8.0" BorderPane.alignment="CENTER_RIGHT">
+<BorderPane fx:id="parent" styleClass="card" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.components.TaskInProject">
+   <left>
+      <CheckBox fx:id="taskBox" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleTaskIsDoneButtonClick" styleClass="h2" text="CheckBox" BorderPane.alignment="CENTER">
+         <font>
+            <Font />
+         </font>
+         <BorderPane.margin>
+            <Insets right="8.0" />
+         </BorderPane.margin>
+      </CheckBox>
+   </left>
+   <center>
+      <HBox alignment="CENTER_RIGHT" spacing="8.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="editButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleEditTaskButtonClick" prefHeight="25.0" prefWidth="25.0">
+            <Label fx:id="priority" minHeight="-Infinity" minWidth="-Infinity" styleClass="h2" text="Test">
+               <font>
+                  <Font />
+               </font>
+            </Label>
+            <Label fx:id="startDate" minHeight="-Infinity" minWidth="-Infinity" text="01.01.1001" />
+            <Label minHeight="-Infinity" minWidth="-Infinity" text="-" />
+            <Label fx:id="dueDate" minHeight="-Infinity" minWidth="-Infinity" text="02.01.1001" />
+            <Label fx:id="projectName" minHeight="-Infinity" minWidth="-Infinity" styleClass="h2" text="Project Name">
+               <font>
+                  <Font />
+               </font>
+            </Label>
+         </children>
+         <BorderPane.margin>
+            <Insets right="8.0" />
+         </BorderPane.margin>
+      </HBox>
+   </center>
+   <right>
+      <HBox alignment="CENTER_RIGHT" spacing="8.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="editButton" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleEditTaskButtonClick" prefHeight="25.0" prefWidth="25.0">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button fx:id="deleteButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleDeleteTaskButtonClick" prefHeight="25.0" prefWidth="25.0" styleClass="error">
+            <Button fx:id="deleteButton" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleDeleteTaskButtonClick" prefHeight="25.0" prefWidth="25.0" styleClass="error">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -25,43 +57,7 @@
          </children>
       </HBox>
    </right>
-   <left>
-      <CheckBox fx:id="taskBox" mnemonicParsing="false" onAction="#handleTaskIsDoneButtonClick" prefHeight="17.0" prefWidth="155.0" styleClass="h2" text="CheckBox" BorderPane.alignment="CENTER">
-         <font>
-            <Font />
-         </font>
-         <BorderPane.margin>
-            <Insets right="32.0" />
-         </BorderPane.margin>
-      </CheckBox>
-   </left>
    <padding>
-      <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+      <Insets bottom="8.0" left="32.0" right="32.0" top="8.0" />
    </padding>
-   <opaqueInsets>
-      <Insets />
-   </opaqueInsets>
-   <center>
-      <HBox alignment="CENTER_RIGHT" prefHeight="37.0" prefWidth="361.0" spacing="8.0" BorderPane.alignment="CENTER_RIGHT">
-         <children>
-            <Label fx:id="priority" prefHeight="17.0" prefWidth="157.0" styleClass="h2" text="Test">
-               <font>
-                  <Font />
-               </font>
-            </Label>
-            <Label fx:id="startDate" prefHeight="17.0" prefWidth="70.0" text="01.01.1001" />
-            <!--TODO: make this dissapear when you don't have a date-->
-            <Label text="-" />
-            <Label fx:id="dueDate" prefHeight="17.0" prefWidth="65.0" text="02.01.1001" />
-            <Label fx:id="projectName" prefHeight="17.0" prefWidth="95.0" styleClass="h2" text="Project Name">
-               <font>
-                  <Font />
-               </font>
-            </Label>
-         </children>
-         <BorderPane.margin>
-            <Insets right="32.0" />
-         </BorderPane.margin>
-      </HBox>
-   </center>
 </BorderPane>

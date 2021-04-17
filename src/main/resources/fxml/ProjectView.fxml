@@ -5,48 +5,35 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane fx:id="scrollParent" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView">
+<ScrollPane fx:id="scrollParent" fitToHeight="true" fitToWidth="true" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView">
    <content>
-      <VBox fx:id="parent" prefWidth="900.0" spacing="16.0">
+      <VBox fx:id="parent" spacing="16.0">
          <children>
-            <BorderPane fx:id="header">
-               <left>
-                  <Label fx:id="headline" styleClass="h1" text="Label" BorderPane.alignment="CENTER">
+            <HBox fx:id="header" alignment="CENTER_LEFT" spacing="8.0">
+               <children>
+                  <Label fx:id="headline" minHeight="-Infinity" minWidth="-Infinity" styleClass="h1" text="Label">
                      <font>
                         <Font />
                      </font>
-                     <BorderPane.margin>
-                        <Insets right="32.0" />
-                     </BorderPane.margin>
                   </Label>
-               </left>
-               <right>
-                  <HBox alignment="CENTER_LEFT" spacing="8.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <Label alignment="TOP_LEFT" contentDisplay="TOP" styleClass="h2" text="Sort by: ">
-                           <font>
-                              <Font />
-                           </font>
-                        </Label>
-                        <ComboBox fx:id="filterBox" onAction="#sort" promptText="Standard" />
-                        <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleAddTaskButton" text="Add Task" />
-                        <Button fx:id="editButton" mnemonicParsing="false" onAction="#handleEditButtonClick" text="Edit Project" />
-                        <ComboBox fx:id="projectsOrTasks" onAction="#showProjectOrTask" promptText="Show Tasks" />
-                     </children>
-                  </HBox>
-               </right>
-               <padding>
-                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-               </padding>
-            </BorderPane>
+                  <Label alignment="TOP_LEFT" contentDisplay="TOP" minHeight="-Infinity" minWidth="-Infinity" styleClass="h2" text="Sort by: ">
+                     <font>
+                        <Font />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="filterBox" minHeight="-Infinity" minWidth="-Infinity" onAction="#sort" promptText="Standard" />
+                  <Button contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAddTaskButton" text="Add Task" />
+                  <Button fx:id="editButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleEditButtonClick" text="Edit Project" />
+                  <ComboBox fx:id="projectsOrTasks" minHeight="-Infinity" minWidth="-Infinity" onAction="#showProjectOrTask" promptText="Show Tasks" />
+               </children>
+            </HBox>
          </children>
          <padding>
-            <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+            <Insets bottom="8.0" left="32.0" right="32.0" top="8.0" />
          </padding>
       </VBox>
    </content>

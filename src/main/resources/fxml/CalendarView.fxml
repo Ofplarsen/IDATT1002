@@ -7,19 +7,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane fx:id="scrollParent" prefHeight="317.0" prefWidth="825.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.CalendarView">
+<ScrollPane fx:id="scrollParent" fitToHeight="true" fitToWidth="true" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.CalendarView">
    <content>
-      <VBox fx:id="parent" prefHeight="88.0" prefWidth="823.0">
+      <VBox fx:id="parent" spacing="16.0">
          <children>
-            <HBox fx:id="header" prefHeight="82.0" prefWidth="550.0" spacing="8.0">
+            <HBox fx:id="header" alignment="CENTER_LEFT" spacing="8.0">
                <VBox.margin>
-                  <Insets bottom="6.0" />
+                  <Insets />
                </VBox.margin>
-               <padding>
-                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-               </padding>
                <children>
-                  <Label fx:id="headline" prefHeight="54.0" prefWidth="359.0" text="Calendar">
+                  <Label fx:id="headline" text="Calendar">
                      <font>
                         <Font name="Calibri" size="48.0" />
                      </font>
@@ -27,6 +24,9 @@
                </children>
             </HBox>
          </children>
+         <padding>
+            <Insets bottom="8.0" left="32.0" right="32.0" top="8.0" />
+         </padding>
       </VBox>
    </content>
 </ScrollPane>
