@@ -1,7 +1,7 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view.components;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.PriorityEnum;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.RepeatEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.effects.SoundEffects;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.edittask.EditTaskView;
@@ -38,6 +38,9 @@ public class TaskInProject extends View
 
     private Task task;
     private View view;
+    private boolean isFromCalendar = false;
+    private Project originProject = null;
+    private int showOption = 1;
 
 
     @FXML
@@ -50,6 +53,15 @@ public class TaskInProject extends View
     {
         this.task = task;
         setInfo();
+    }
+
+    public void setProject(Project project, int i) {
+        this.originProject = project;
+        this.showOption = i;
+    }
+
+    public void fromCalendar(){
+        isFromCalendar = true;
     }
 
     public void setView(View view)
@@ -112,6 +124,11 @@ public class TaskInProject extends View
     {
         EditTaskView editTaskView = (EditTaskView) Client.setView("EditTaskView");
         editTaskView.setTask(task);
+        if(!(originProject==null)){
+            editTaskView.setProject(originProject);
+            editTaskView.setOption(showOption);
+        }
+        editTaskView.isFromCalendar(isFromCalendar);
     }
 
     @FXML

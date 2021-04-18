@@ -11,8 +11,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+import java.text.Format;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class CalendarView extends View
@@ -23,6 +27,7 @@ public class CalendarView extends View
     private VBox taskContainer;
 
     private ArrayList<Task> tasks;
+
     private LocalDate dateToday;
 
     @FXML
@@ -76,7 +81,10 @@ public class CalendarView extends View
             LocalDate date = tasks.get(i).getDueDate();
             tasksDueOnDate = getTasksDueOnDay(date);
 
-            addLabel(date.toString());
+            if (date.isEqual(dateToday.plusDays(1))){
+                addLabel("Tomorrow");
+
+            }else addLabel(dateToString(date));
 
             for (Task task : tasksDueOnDate)
             {
@@ -88,6 +96,10 @@ public class CalendarView extends View
     private ArrayList<Task> getTasksDueOnDay(LocalDate day)
     {
         return (ArrayList<Task>) tasks.stream().filter(task -> task.getDueDate().equals(day)).collect(Collectors.toList());
+    }
+
+    private String dateToString(LocalDate date){ //Remove the withLocale to make it to the computer language of preference
+       return date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(Locale.ENGLISH));
     }
 
     private void addLabel(String title)
@@ -102,6 +114,7 @@ public class CalendarView extends View
     {
         TaskInProject taskInProject = (TaskInProject) FileManager.getView("TaskInProject");
         taskInProject.setTask(task);
+        taskInProject.fromCalendar(); //berre gjer sånn at du ende opp på calendar ette å edita ein task
         taskInProject.setView(this);
         taskContainer.getChildren().add(taskInProject.getParent());
     }
