@@ -102,6 +102,7 @@ public class CalendarView extends View
     {
         TaskInProject taskInProject = (TaskInProject) FileManager.getView("TaskInProject");
         taskInProject.setTask(task);
+        taskInProject.fromCalendar(); //berre gjer sånn at du ende opp på calendar ette å edita ein task
         taskInProject.setView(this);
         taskContainer.getChildren().add(taskInProject.getParent());
     }

@@ -40,6 +40,7 @@ public class ProjectView extends View
     private Project project;
     private ArrayList<Task> tasks;
     private ArrayList<Project> subprojects;
+    private boolean showingSubProjectTasks; //gjer sånn at når du komme tilbake frå edita task, så komme du tilbake til den orignale plassen
 
     private enum SortOption
     {
@@ -87,6 +88,25 @@ public class ProjectView extends View
         update();
     }
 
+    //Denna gjer sånn at når du komme tilbake frå editTask så får du det valget du hadde sist
+    @FXML
+    public void setShowOption(int i){
+        switch (i){
+            case 1:
+               showComboBox.setValue(ShowOption.Task);
+               break;
+            case 2:
+                showComboBox.setValue(ShowOption.Subprojects);
+                break;
+            case 3:
+                showComboBox.setValue(ShowOption.SubprojectsTasks);
+                break;
+            default:
+                break;
+        }
+        update();
+    }
+
     @FXML
     private void updateShowOption()
     {
@@ -103,12 +123,14 @@ public class ProjectView extends View
                 fillWithSubprojects();
                 break;
             case SubprojectsTasks:
-                tasks = project.getAllTasks();
+                tasks = project.getAllSubProjectTasks();
                 updateSortOption();
+                showingSubProjectTasks = true;
                 break;
             case Task:
                 tasks = project.getTasks();
                 updateSortOption();
+                showingSubProjectTasks= false;
                 break;
         }
     }
@@ -157,7 +179,8 @@ public class ProjectView extends View
         for (Project project : subprojects)
         {
             SubProject subProject = (SubProject) FileManager.getView("SubProject");
-            subProject.setProject(project);
+            subProject.setProjectAndListContainer(project, listContainer);
+            subProject.setOriginProject(this.project);
             listContainer.getChildren().add(subProject.getParent());
         }
     }
@@ -171,6 +194,7 @@ public class ProjectView extends View
         {
             TaskInProject taskInProject = (TaskInProject) FileManager.getView("TaskInProject");
             taskInProject.setTask(task);
+            if(showingSubProjectTasks){taskInProject.setProject(project,3);} //viss showing subtasks så endre han prosjektet til tasken til her (sånn at du ende opp på samme plass du begynte)
             taskInProject.setView(this);
             listContainer.getChildren().add(taskInProject.getParent());
         }
