@@ -10,6 +10,7 @@ import edu.ntnu.idatt1002.k2_2.mitodo.view.components.TaskInProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.editproject.EditProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.edittask.CreateTaskView;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -84,6 +85,13 @@ public class ProjectView extends View
         }
 
         this.title.setText(project.getTitle());
+        Platform.runLater(new Runnable() {
+
+            @Override
+            public void run() {
+                title.requestFocus();
+            }
+        });
         update();
     }
 

@@ -2,6 +2,7 @@ package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.MainMenu;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -58,7 +59,12 @@ public class PrimaryView extends View
 
         content.getChildren().clear();
         content.getChildren().add(viewParent);
-
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                viewParent.requestFocus();
+            }
+        });
         AnchorPane.setBottomAnchor(viewParent, 0.0);
         AnchorPane.setLeftAnchor(viewParent, 0.0);
         AnchorPane.setRightAnchor(viewParent, 0.0);
