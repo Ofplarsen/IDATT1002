@@ -1,16 +1,13 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.testdata;
 
-import edu.ntnu.idatt1002.k2_2.mitodo.data.*;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.task.PriorityEnum;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.task.RepeatEnum;
 
 import java.time.LocalDate;
 
 public class Default
 {
-    public static void fillQuickTasksData(Project quickTaskProject){
-        quickTaskProject.addProject("Quick Tasks");
-        quickTaskProject.addTask("Test bro");
-    }
-
     public static void fillWithTestData(Project project)
     {
         Project skoleProject = project.addProject("Skole");

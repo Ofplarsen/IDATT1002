@@ -1,4 +1,6 @@
-package edu.ntnu.idatt1002.k2_2.mitodo.data;
+package edu.ntnu.idatt1002.k2_2.mitodo.data.task;
+
+import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -24,10 +26,10 @@ public class Task implements Serializable
     private RepeatEnum repeat;
     private boolean isDone = false;
 
-    private Project project;
+    private final Project parent;
     private boolean createdNextRepeatingTask = false;
 
-    public Task(String title, Project project)
+    public Task(String title, Project parent)
     {
         if(title.isBlank() && title.isEmpty())
         {
@@ -35,7 +37,7 @@ public class Task implements Serializable
         }
 
         this.title = title.trim();
-        this.project = project;
+        this.parent = parent;
         this.priority = PriorityEnum.Undefined;
         this.startDate = null;
         this.dueDate = null;
@@ -43,7 +45,7 @@ public class Task implements Serializable
         ID = UUID.randomUUID();
     }
 
-    public Task(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate,RepeatEnum repeat, String comments, Project project)
+    public Task(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate,RepeatEnum repeat, String comments, Project parent)
     {
         //Makes sure title is not null, nor is empty
         if(title.isBlank() || title.isEmpty())
@@ -57,7 +59,7 @@ public class Task implements Serializable
             this.priority = PriorityEnum.Undefined;
         }
 
-        this.project =project;
+        this.parent = parent;
         this.title = title.trim();
         this.priority = priority;
         this.startDate = startDate;
@@ -67,14 +69,9 @@ public class Task implements Serializable
         ID = UUID.randomUUID();
     }
 
-    public void setProject(Project project)
+    public Project getParent()
     {
-        this.project = project;
-    }
-
-    public Project getProject()
-    {
-        return project;
+        return parent;
     }
 
     public UUID getID()
@@ -193,7 +190,7 @@ public class Task implements Serializable
         {
             LocalDate nextStartDate = repeat.getNextDate(startDate);
             LocalDate nextDueDate = repeat.getNextDate(dueDate);
-            project.addTask(title, priority, nextStartDate, nextDueDate, repeat, comments);
+            parent.addTask(title, priority, nextStartDate, nextDueDate, repeat, comments);
             createdNextRepeatingTask = true;
         }
     }
@@ -205,7 +202,7 @@ public class Task implements Serializable
 
     public void deleteItself()
     {
-        project.removeTask(ID);
+        parent.removeTask(ID);
     }
 
     @Override
@@ -220,7 +217,7 @@ public class Task implements Serializable
                 "\nrepeat=" + repeat +
                 "\nisDone=" + isDone +
                 "\ncreatedNextRepeatingTask=" + createdNextRepeatingTask +
-                "\nproject=" + project +
+                "\nproject=" + parent +
                 "\n}";
     }
 

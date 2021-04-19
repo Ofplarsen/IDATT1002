@@ -1,6 +1,6 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.file;
 
-import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import javafx.fxml.FXMLLoader;
 
@@ -37,7 +37,7 @@ public class FileManager
         return fxmlLoader.getController();
     }
 
-    public static void saveProject(Project project, String name)
+    public static void saveSerializableObject(Serializable object, String name)
     {
         File projectFile = new File(SAVE_DIR, name);
 
@@ -57,7 +57,7 @@ public class FileManager
             ObjectOutputStream os = new ObjectOutputStream(fs);
         )
         {
-            os.writeObject(project);
+            os.writeObject(object);
         }
         catch (IOException e)
         {
@@ -65,7 +65,7 @@ public class FileManager
         }
     }
 
-    public static Project loadProject(String name)
+    public static Serializable loadSerializableObject(String name)
     {
         File projectFile = new File(SAVE_DIR, name);
 

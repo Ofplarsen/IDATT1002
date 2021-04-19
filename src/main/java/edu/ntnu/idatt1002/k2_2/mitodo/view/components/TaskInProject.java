@@ -1,11 +1,10 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view.components;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.RepeatEnum;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.task.RepeatEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.effects.SoundEffects;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.edittask.EditTaskView;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -40,10 +39,6 @@ public class TaskInProject extends View
 
     private Task task;
     private View view;
-    private boolean isFromCalendar = false;
-    private Project originProject = null;
-    private int showOption = 1;
-
 
     @FXML
     private void initialize()
@@ -55,15 +50,6 @@ public class TaskInProject extends View
     {
         this.task = task;
         setInfo();
-    }
-
-    public void setProject(Project project, int i) {
-        this.originProject = project;
-        this.showOption = i;
-    }
-
-    public void fromCalendar(){
-        isFromCalendar = true;
     }
 
     public void setView(View view)
@@ -85,11 +71,6 @@ public class TaskInProject extends View
         if(keyEvent.getCode() == KeyCode.ENTER){
             EditTaskView editTaskView = (EditTaskView) Client.setView("EditTaskView");
             editTaskView.setTask(task);
-            if(!(originProject==null)){
-                editTaskView.setProject(originProject);
-                editTaskView.setOption(showOption);
-            }
-            editTaskView.isFromCalendar(isFromCalendar);
         }
     }
 
@@ -106,7 +87,7 @@ public class TaskInProject extends View
                 break;
 
             case Low:
-                    parent.getStyleClass().add("priority-low");
+                parent.getStyleClass().add("priority-low");
                 priorityLabel.setText("P3");
                 break;
 
@@ -119,7 +100,6 @@ public class TaskInProject extends View
                 parent.getStyleClass().add("priority-high");
                 priorityLabel.setText("P1");
                 break;
-
         }
     }
 
@@ -139,11 +119,6 @@ public class TaskInProject extends View
     {
         EditTaskView editTaskView = (EditTaskView) Client.setView("EditTaskView");
         editTaskView.setTask(task);
-        if(!(originProject==null)){
-            editTaskView.setProject(originProject);
-            editTaskView.setOption(showOption);
-        }
-        editTaskView.isFromCalendar(isFromCalendar);
     }
 
     @FXML
@@ -160,7 +135,7 @@ public class TaskInProject extends View
         startDateLabel.setText(task.getStartDateAsString());
         dueDateLabel.setText(task.getDueDateAsString());
         repeatLabel.setText(task.getRepeat() == RepeatEnum.DoesNotRepeat? "" : "Repeats " + task.getRepeat().toString());
-        projectNameLabel.setText(task.getProject().getTitle());
+        projectNameLabel.setText(task.getParent().getTitle());
         setPriorityInfo();
     }
 

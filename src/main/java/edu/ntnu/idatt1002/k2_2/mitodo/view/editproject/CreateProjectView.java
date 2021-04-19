@@ -1,7 +1,8 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view.editproject;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.project.UserProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import javafx.fxml.FXML;
@@ -41,13 +42,16 @@ public class CreateProjectView extends View
     @FXML
     private void saveAndExit()
     {
-        try {
-            Project project = parentProject.addProject(projectTitle.getText());
+        try
+        {
+            UserProject project = parentProject.addProject(projectTitle.getText());
             Client.getPrimaryView().updateMainMenu();
 
             ProjectView projectView = (ProjectView) Client.setView("ProjectView");
             projectView.setProject(project);
-        }catch (IllegalArgumentException e){
+        }
+        catch (IllegalArgumentException e)
+        {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage(), ButtonType.OK);
             alert.showAndWait();
         }
@@ -56,8 +60,7 @@ public class CreateProjectView extends View
     @FXML
     private void cancel()
     {
-        ProjectView projectView = (ProjectView) Client.setView("ProjectView");
-        projectView.setProject(parentProject);
+        Client.returnToPreviousView();
     }
 
     @Override

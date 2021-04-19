@@ -1,13 +1,11 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view.edittask;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.PriorityEnum;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.RepeatEnum;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.task.PriorityEnum;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.task.RepeatEnum;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
 import edu.ntnu.idatt1002.k2_2.mitodo.effects.SoundEffects;
-import edu.ntnu.idatt1002.k2_2.mitodo.view.CalendarView;
-import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -35,8 +33,6 @@ public abstract class EditOrCreateTaskView extends View
 
     protected Task task;
     protected Project project;
-    protected boolean fromCalendar;
-    protected int option = 1;
 
     @FXML
     public void initialize()
@@ -86,13 +82,7 @@ public abstract class EditOrCreateTaskView extends View
     @FXML
     protected void cancel()
     {
-        if(fromCalendar){
-            Client.setView("CalendarView");
-        }else {
-            ProjectView projectView = (ProjectView) Client.setView("ProjectView");
-            projectView.setProject(project);
-            if(!project.equals(Client.getQuickTasks())){projectView.setShowOption(option);}
-        }
+        Client.returnToPreviousView();
     }
 
     @Override

@@ -1,8 +1,8 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.TaskListSorter;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.task.TaskListSorter;
 import edu.ntnu.idatt1002.k2_2.mitodo.file.FileManager;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.TaskInProject;
 import javafx.fxml.FXML;
@@ -11,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-import java.text.Format;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -46,8 +45,7 @@ public class CalendarView extends View
 
     private void updateTasks()
     {
-        tasks = Client.getQuickTasks().getTasks();
-        tasks.addAll(Client.getRootProject().getAllTasks());
+        tasks = Client.getRootProject().getAllTasks();
         tasks = (ArrayList<Task>) tasks.stream().filter(task -> task.getDueDate() != null && !task.isDone()).collect(Collectors.toList());
         TaskListSorter.sortByDueDate(tasks, true);
     }
@@ -114,7 +112,6 @@ public class CalendarView extends View
     {
         TaskInProject taskInProject = (TaskInProject) FileManager.getView("TaskInProject");
         taskInProject.setTask(task);
-        taskInProject.fromCalendar(); //berre gjer sånn at du ende opp på calendar ette å edita ein task
         taskInProject.setView(this);
         taskContainer.getChildren().add(taskInProject.getParent());
     }

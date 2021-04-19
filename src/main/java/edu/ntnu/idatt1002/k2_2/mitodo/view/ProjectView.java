@@ -1,9 +1,11 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.TaskListSorter;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.project.RootProject;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.project.UserProject;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.task.TaskListSorter;
 import edu.ntnu.idatt1002.k2_2.mitodo.file.FileManager;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.SubProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.TaskInProject;
@@ -40,10 +42,9 @@ public class ProjectView extends View
 
     private Project project;
     private ArrayList<Task> tasks;
-    private ArrayList<Project> subprojects;
-    private boolean showingSubProjectTasks; //gjer sånn at når du komme tilbake frå edita task, så komme du tilbake til den orignale plassen
+    private ArrayList<UserProject> subprojects;
 
-    private enum SortOption
+    public enum SortOption
     {
         IsDone,
         PriorityIncreasing,
@@ -54,7 +55,7 @@ public class ProjectView extends View
         StartDateDecreasing
     }
 
-    private enum ShowOption
+    public enum ShowOption
     {
         Task,
         Subprojects,
@@ -74,47 +75,25 @@ public class ProjectView extends View
     {
         this.project = project;
 
-        if (project.equals(Client.getQuickTasks()))
+        if (project instanceof RootProject)
         {
             setElementVisible(editProjectButton, false);
+            setElementVisible(showContainer, false);
         }
 
         this.tasks = project.getTasks();
 
         this.subprojects = project.getProjects();
 
-        if (subprojects.size() == 0)
-        {
-            setElementVisible(showContainer, false);
-        }
-
         this.title.setText(project.getTitle());
-        Platform.runLater(new Runnable() {
-
-            @Override
-            public void run() {
-                title.requestFocus();
-            }
-        });
+        Platform.runLater(() -> title.requestFocus());
         update();
     }
 
-    //Denna gjer sånn at når du komme tilbake frå editTask så får du det valget du hadde sist
     @FXML
-    public void setShowOption(int i){
-        switch (i){
-            case 1:
-               showComboBox.setValue(ShowOption.Task);
-               break;
-            case 2:
-                showComboBox.setValue(ShowOption.Subprojects);
-                break;
-            case 3:
-                showComboBox.setValue(ShowOption.SubprojectsTasks);
-                break;
-            default:
-                break;
-        }
+    public void setShowOption(ShowOption option)
+    {
+        showComboBox.setValue(option);
         update();
     }
 
@@ -134,14 +113,12 @@ public class ProjectView extends View
                 fillWithSubprojects();
                 break;
             case SubprojectsTasks:
-                tasks = project.getAllSubProjectTasks();
+                tasks = project.getAllTasks();
                 updateSortOption();
-                showingSubProjectTasks = true;
                 break;
             case Task:
                 tasks = project.getTasks();
                 updateSortOption();
-                showingSubProjectTasks= false;
                 break;
         }
     }
@@ -157,7 +134,7 @@ public class ProjectView extends View
     private void handleEditButtonClick()
     {
         EditProjectView editProjectView =(EditProjectView) Client.setView("EditProjectView");
-        editProjectView.setProject(project);
+        editProjectView.setProject((UserProject) project);
     }
 
     private boolean increasing = true;
@@ -215,7 +192,6 @@ public class ProjectView extends View
         {
             TaskInProject taskInProject = (TaskInProject) FileManager.getView("TaskInProject");
             taskInProject.setTask(task);
-            if(showingSubProjectTasks){taskInProject.setProject(project,3);} //viss showing subtasks så endre han prosjektet til tasken til her (sånn at du ende opp på samme plass du begynte)
             taskInProject.setView(this);
             listContainer.getChildren().add(taskInProject.getParent());
         }

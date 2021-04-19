@@ -1,5 +1,9 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.data;
 
+import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.project.RootProject;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.project.UserProject;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -9,7 +13,7 @@ import java.util.UUID;
 
 class ProjectTest {
 
-    Project project = new Project("Project");
+    RootProject project = new RootProject();
     Task task1 = new Task("Task1", project);
     Task task2 = new Task("Task2", project);
     Task task3 = new Task("Task3", project);
@@ -65,7 +69,7 @@ class ProjectTest {
     @Nested
     class TestsForBothGetProjectMethods {
 
-        Project project2 = new Project("Project2");
+        RootProject project2 = new RootProject();
         Task task4 = new Task("Task4", project2);
         Task task5 = new Task("Task5", project2);
         Task task6 = new Task("Task6", project2);
@@ -83,7 +87,7 @@ class ProjectTest {
 
             @Test
             void projectWithIdIsInAnotherProject(){
-                Project p = project.getProjects().stream().filter(e -> e.getTitle() == "Project2").findFirst().get();
+                Project p = project.getProjects().stream().filter(e -> e.getTitle().equals("Project2")).findFirst().get();
 
                 Assertions.assertNotNull(project.getProject(p.getID()));
             }
@@ -131,7 +135,7 @@ class ProjectTest {
 
             @Test
             void removeAProjectThatIsNotASubproject(){
-                Project project5 = new Project("Project5");
+                RootProject project5 = new RootProject();
                 Assertions.assertFalse(project.removeProject(project5.getID()));
             }
         }

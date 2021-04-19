@@ -1,16 +1,19 @@
-package edu.ntnu.idatt1002.k2_2.mitodo.data;
+package edu.ntnu.idatt1002.k2_2.mitodo.data.task;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 
 import static java.util.Comparator.comparing;
 
-public class TaskListSorter {
-    public static void sortByIsDone(ArrayList<Task> tasks) {
+public class TaskListSorter
+{
+    public static void sortByIsDone(ArrayList<Task> tasks)
+    {
         tasks.sort(comparing(Task::isDone));
     }
 
-    public static void sortByPriority(ArrayList<Task> tasks, boolean increasing) {
+    public static void sortByPriority(ArrayList<Task> tasks, boolean increasing)
+    {
         Comparator<Task> priorityComparator;
         if (increasing) {
             priorityComparator = (t1, t2) -> t1.getPriority().compareTo(t2.getPriority());
@@ -21,7 +24,8 @@ public class TaskListSorter {
         tasks.sort(priorityComparator);
     }
 
-    public static void sortByDueDate(ArrayList<Task> tasks, boolean increasing) {
+    public static void sortByDueDate(ArrayList<Task> tasks, boolean increasing)
+    {
         ArrayList<Task> noDueDate = new ArrayList<>();
 
         for (int i = tasks.size() - 1; i >= 0; i -= 1) {
@@ -41,7 +45,8 @@ public class TaskListSorter {
         tasks.addAll(noDueDate);
     }
 
-    public static void sortByStartDate(ArrayList<Task> tasks, boolean increasing) {
+    public static void sortByStartDate(ArrayList<Task> tasks, boolean increasing)
+    {
         ArrayList<Task> noStartDate = new ArrayList<>();
 
         for (int i = tasks.size() - 1; i >= 0; i -= 1) {

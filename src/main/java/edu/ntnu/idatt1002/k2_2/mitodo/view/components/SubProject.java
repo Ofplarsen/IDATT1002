@@ -1,8 +1,8 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view.components;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
 import edu.ntnu.idatt1002.k2_2.mitodo.file.FileManager;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
@@ -50,7 +50,6 @@ public class SubProject extends View
             {
                 TaskInProject taskInProject = (TaskInProject) FileManager.getView("TaskInProject");
                 taskInProject.setTask(task);
-                taskInProject.setProject(originProject,2);
                 taskInProject.setView(this);
                 listContainer.getChildren().add(i,taskInProject.getParent());
             }

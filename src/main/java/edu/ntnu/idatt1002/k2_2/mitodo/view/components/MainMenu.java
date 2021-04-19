@@ -1,10 +1,10 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view.components;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.project.UserProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.editproject.CreateProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
-import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
@@ -48,12 +48,12 @@ public class MainMenu
 
         makeTreeItem("Quick tasks", root, mouseEvent -> {
             ProjectView projectView = (ProjectView) Client.setView("ProjectView");
-            projectView.setProject(Client.getQuickTasks());
+            projectView.setProject(Client.getRootProject());
         }, keyEvent -> {
             if(keyEvent.getCode() == KeyCode.ENTER){
                 System.out.println("QuickTask");
                 ProjectView projectView = (ProjectView) Client.setView("ProjectView");
-                projectView.setProject(Client.getQuickTasks());
+                projectView.setProject(Client.getRootProject());
             }
         });
 
@@ -68,7 +68,6 @@ public class MainMenu
             createProjectView.setParentProject(Client.getRootProject());
         }, keyEvent -> {
             if(keyEvent.getCode() == KeyCode.ENTER){
-                System.out.println("+");
                 CreateProjectView createProjectView = (CreateProjectView) Client.setView("CreateProjectView");
                 createProjectView.setParentProject(Client.getRootProject());
             }
@@ -80,7 +79,7 @@ public class MainMenu
         });
          */
 
-        ArrayList<Project> projects = Client.getRootProject().getProjects();
+        ArrayList<UserProject> projects = Client.getRootProject().getProjects();
         projects.forEach(project -> makeProjectTreeItem(root, project));
 
         treeView.setRoot(root);

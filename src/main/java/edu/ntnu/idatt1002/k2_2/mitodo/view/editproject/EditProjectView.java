@@ -1,7 +1,7 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view.editproject;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.project.UserProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import javafx.application.Platform;
@@ -13,8 +13,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 
-import java.util.Locale;
-
 public class EditProjectView extends View
 {
     @FXML
@@ -22,23 +20,13 @@ public class EditProjectView extends View
     @FXML
     private VBox parent;
 
-    private Project parentProject;
-    private Project project;
+    private UserProject project;
 
-    public void setParentProject(Project parentProject)
+    public void setProject(UserProject project)
     {
-        this.parentProject = parentProject;
-    }
-
-    public void setProject(Project project)
-    {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                projectTitle.requestFocus();
-            }
-        });
+        Platform.runLater(() -> projectTitle.requestFocus());
         this.project = project;
+        projectTitle.setText(project.getTitle());
     }
 
     @FXML
@@ -59,17 +47,22 @@ public class EditProjectView extends View
     @FXML
     private void saveAndExit()
     {
-        try {
+        try
+        {
             project.setTitle(projectTitle.getText());
             Client.getPrimaryView().updateMainMenu();
 
-            ProjectView projectView = (ProjectView) Client.setView("ProjectView");
-            projectView.setProject(project);
-        }catch (IllegalArgumentException e){
-            if(project.getTitle().equalsIgnoreCase(projectTitle.getText())){
+            Client.returnToPreviousView();
+        }
+        catch (IllegalArgumentException e)
+        {
+            if(project.getTitle().equalsIgnoreCase(projectTitle.getText()))
+            {
 
                 cancel();
-            }else {
+            }
+            else
+            {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage(), ButtonType.OK);
                 alert.showAndWait();
             }
@@ -79,8 +72,7 @@ public class EditProjectView extends View
     @FXML
     private void cancel()
     {
-        ProjectView projectView = (ProjectView) Client.setView("ProjectView");
-        projectView.setProject(project);
+        Client.returnToPreviousView();
     }
 
     @FXML
@@ -88,14 +80,13 @@ public class EditProjectView extends View
     {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete the project?", ButtonType.OK, ButtonType.CANCEL);
         alert.showAndWait().ifPresent(type ->{
-            if(type == ButtonType.OK){
+            if(type == ButtonType.OK)
+            {
                 Client.getRootProject().removeProjectFromAll(project.getID());
                 Client.getPrimaryView().updateMainMenu();
 
                 ProjectView projectView = (ProjectView) Client.setView("ProjectView");
-                projectView.setProject(Client.getQuickTasks());
-            }else if(type == ButtonType.CANCEL){
-
+                projectView.setProject(project.getParent());
             }
         });
     }
