@@ -32,6 +32,12 @@ public class EditProjectView extends View
 
     public void setProject(Project project)
     {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                projectTitle.requestFocus();
+            }
+        });
         this.project = project;
     }
 
