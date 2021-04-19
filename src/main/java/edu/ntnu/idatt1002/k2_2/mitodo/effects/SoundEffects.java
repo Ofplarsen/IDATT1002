@@ -15,4 +15,22 @@ public class SoundEffects
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
     }
+
+    public static void playErrorSound1()
+    {
+        String musicFile = "src/main/resources/sounds/error 1.mp3";
+
+        Media sound = new Media(new File(musicFile).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
+    }
+
+    public static void playErrorSound2()
+    {
+        String musicFile = "src/main/resources/sounds/error 2.mp3";
+
+        Media sound = new Media(new File(musicFile).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
+    }
 }

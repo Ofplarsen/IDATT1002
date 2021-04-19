@@ -46,9 +46,12 @@ public class ProjectView extends View
     private enum SortOption
     {
         IsDone,
-        Priority,
-        DueDate,
-        StartDate
+        PriorityIncreasing,
+        PriorityDecreasing,
+        DueDateIncreasing,
+        DueDateDecreasing,
+        StartDateIncreasing,
+        StartDateDecreasing
     }
 
     private enum ShowOption
@@ -157,6 +160,7 @@ public class ProjectView extends View
         editProjectView.setProject(project);
     }
 
+    private boolean increasing = true;
     @FXML
     private void updateSortOption()
     {
@@ -166,14 +170,23 @@ public class ProjectView extends View
             case IsDone:
                 TaskListSorter.sortByIsDone(tasks);
                 break;
-            case Priority:
-                TaskListSorter.sortByPriority(tasks);
+            case PriorityIncreasing:
+                TaskListSorter.sortByPriority(tasks, increasing);
                 break;
-            case StartDate:
-                TaskListSorter.sortByStartDate(tasks);
+            case PriorityDecreasing:
+                TaskListSorter.sortByPriority(tasks, !increasing);
                 break;
-            case DueDate:
-                TaskListSorter.sortByDueDate(tasks);
+            case StartDateIncreasing:
+                TaskListSorter.sortByStartDate(tasks, increasing);
+                break;
+            case StartDateDecreasing:
+                TaskListSorter.sortByStartDate(tasks, !increasing);
+                break;
+            case DueDateIncreasing:
+                TaskListSorter.sortByDueDate(tasks, increasing);
+                break;
+            case DueDateDecreasing:
+                TaskListSorter.sortByDueDate(tasks, !increasing);
                 break;
         }
         fillWithTasks();

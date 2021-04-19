@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k2_2.mitodo;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
+import edu.ntnu.idatt1002.k2_2.mitodo.effects.SoundEffects;
 import edu.ntnu.idatt1002.k2_2.mitodo.file.FileManager;
 import edu.ntnu.idatt1002.k2_2.mitodo.testdata.Default;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.PrimaryView;

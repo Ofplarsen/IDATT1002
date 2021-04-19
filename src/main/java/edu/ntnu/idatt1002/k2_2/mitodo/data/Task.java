@@ -1,7 +1,5 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.data;
 
-import edu.ntnu.idatt1002.k2_2.mitodo.effects.SoundEffects;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -17,7 +15,7 @@ import java.util.UUID;
  */
 public class Task implements Serializable
 {
-    private UUID ID;
+    private final UUID ID;
     private String title;
     private String comments;
     private PriorityEnum priority;

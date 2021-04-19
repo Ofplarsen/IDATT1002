@@ -204,14 +204,7 @@ public class Project implements Serializable
 
     public Project addProject(String title)
     {
-        Project project = new Project(title);
-        projects.add(project);
-        return project;
-    }
-
-    public Project addProject(String title, Project parent)
-    {
-        Project project = new Project(title, parent);
+        Project project = new Project(title, this);
         projects.add(project);
         return project;
     }
