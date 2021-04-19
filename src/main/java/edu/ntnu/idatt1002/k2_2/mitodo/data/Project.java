@@ -15,7 +15,24 @@ public class Project implements Serializable
     private String title;
     private final ArrayList<Task> tasks;
     private final ArrayList<Project> projects;
-    private final Project parent;
+    private Project parent;
+
+    public Project(String title)
+    {
+        if(title.isEmpty() || title.isBlank())
+        {
+            throw new IllegalArgumentException("Title of projects can't be empty");
+        }
+        if(projectAlreadyCreated(title))
+        {
+            throw new IllegalArgumentException("Project already created");
+        }
+
+        this.title = title.trim();
+        this.tasks = new ArrayList<>();
+        this.projects = new ArrayList<>();
+        this.ID = UUID.randomUUID();
+    }
 
     public Project(String title, Project parent)
     {
@@ -187,7 +204,14 @@ public class Project implements Serializable
 
     public Project addProject(String title)
     {
-        Project project = new Project(title, this);
+        Project project = new Project(title);
+        projects.add(project);
+        return project;
+    }
+
+    public Project addProject(String title, Project parent)
+    {
+        Project project = new Project(title, parent);
         projects.add(project);
         return project;
     }
