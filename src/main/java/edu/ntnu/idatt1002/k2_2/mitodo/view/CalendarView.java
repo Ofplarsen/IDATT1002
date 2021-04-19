@@ -49,7 +49,7 @@ public class CalendarView extends View
         tasks = Client.getQuickTasks().getTasks();
         tasks.addAll(Client.getRootProject().getAllTasks());
         tasks = (ArrayList<Task>) tasks.stream().filter(task -> task.getDueDate() != null && !task.isDone()).collect(Collectors.toList());
-        TaskListSorter.sortByDueDate(tasks);
+        TaskListSorter.sortByDueDate(tasks, true);
     }
 
     private void fillWithTasks()
