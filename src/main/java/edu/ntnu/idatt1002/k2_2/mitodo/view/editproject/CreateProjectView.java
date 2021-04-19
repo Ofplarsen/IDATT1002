@@ -4,6 +4,7 @@ import edu.ntnu.idatt1002.k2_2.mitodo.Client;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -23,6 +24,12 @@ public class CreateProjectView extends View
 
     public void setParentProject(Project parentProject)
     {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                projectTitle.requestFocus();
+            }
+        });
         this.parentProject = parentProject;
     }
 
