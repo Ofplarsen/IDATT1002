@@ -89,6 +89,7 @@ public class CalendarView extends View
                 addTask(task);
             }
         }
+        
     }
 
     private ArrayList<Task> getTasksDueOnDay(LocalDate day)

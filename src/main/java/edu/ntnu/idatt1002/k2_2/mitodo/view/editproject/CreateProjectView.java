@@ -5,11 +5,14 @@ import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.UserProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 
@@ -19,11 +22,19 @@ public class CreateProjectView extends View
     private TextField projectTitle;
     @FXML
     private VBox parent;
+    @FXML
+    private Button btnSaE;
 
     private Project parentProject;
 
     public void setParentProject(Project parentProject)
     {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                projectTitle.requestFocus();
+            }
+        });
         this.parentProject = parentProject;
     }
 
@@ -37,6 +48,11 @@ public class CreateProjectView extends View
                 cancel();
                 break;
         }
+        projectTitle.addEventFilter(KeyEvent.KEY_PRESSED, keyEventTitle ->{
+            if(keyEventTitle.getCode() == KeyCode.DOWN){
+                btnSaE.requestFocus();
+            }
+        });
     }
 
     @FXML

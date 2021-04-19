@@ -2,6 +2,7 @@ package edu.ntnu.idatt1002.k2_2.mitodo.data.task;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.stream.Collectors;
 
 import static java.util.Comparator.comparing;
 
@@ -24,15 +25,10 @@ public class TaskListSorter
         tasks.sort(priorityComparator);
     }
 
-    public static void sortByDueDate(ArrayList<Task> tasks, boolean increasing)
-    {
-        ArrayList<Task> noDueDate = new ArrayList<>();
+    public static void sortByDueDate(ArrayList<Task> tasks, boolean increasing) {
+        ArrayList<Task> noDueDate = (ArrayList<Task>) tasks.stream().filter(t -> t.getDueDate() == null).collect(Collectors.toList());
 
-        for (int i = tasks.size() - 1; i >= 0; i -= 1) {
-            if (tasks.get(i).getDueDate() == null) {
-                noDueDate.add(tasks.remove(i));
-            }
-        }
+        tasks.removeAll(noDueDate);
 
         Comparator<Task> dueDateComparator;
         if (increasing) {
@@ -45,15 +41,10 @@ public class TaskListSorter
         tasks.addAll(noDueDate);
     }
 
-    public static void sortByStartDate(ArrayList<Task> tasks, boolean increasing)
-    {
-        ArrayList<Task> noStartDate = new ArrayList<>();
+    public static void sortByStartDate(ArrayList<Task> tasks, boolean increasing) {
+        ArrayList<Task> noStartDate = (ArrayList<Task>) tasks.stream().filter(t -> t.getStartDate() == null).collect(Collectors.toList());
 
-        for (int i = tasks.size() - 1; i >= 0; i -= 1) {
-            if (tasks.get(i).getStartDate() == null) {
-                noStartDate.add(tasks.remove(i));
-            }
-        }
+        tasks.removeAll(noStartDate);
 
         Comparator<Task> startDateComparator;
         if (increasing) {

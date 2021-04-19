@@ -31,7 +31,7 @@
       </BorderPane>
       <HBox>
          <children>
-            <Button contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveAndExit" onKeyPressed="#keyListener" text="Save and exit">
+            <Button contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" fx:id="btnSaE" onAction="#saveAndExit" onKeyPressed="#keyListener" text="Save and exit">
                <HBox.margin>
                   <Insets right="8.0" />
                </HBox.margin>

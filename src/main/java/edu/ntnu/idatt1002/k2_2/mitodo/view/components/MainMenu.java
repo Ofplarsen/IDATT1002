@@ -51,7 +51,6 @@ public class MainMenu
             projectView.setProject(Client.getRootProject());
         }, keyEvent -> {
             if(keyEvent.getCode() == KeyCode.ENTER){
-                System.out.println("QuickTask");
                 ProjectView projectView = (ProjectView) Client.setView("ProjectView");
                 projectView.setProject(Client.getRootProject());
             }
@@ -92,7 +91,6 @@ public class MainMenu
             if (clickedItem==null) return;
             Label clickedLabel = clickedItem.getValue();
             EventHandler<MouseEvent> eventHandler = (EventHandler<MouseEvent>) clickedLabel.getOnMouseClicked();
-            System.out.println(eventHandler);
             eventHandler.handle(mouseEvent);
         });
 
@@ -104,8 +102,6 @@ public class MainMenu
                     TreeItem<Label> selectedItem = selectedTree.getSelectionModel().getSelectedItem();
                     if(selectedItem == null) return;
                     Label selectedLabel = selectedItem.getValue();
-                    System.out.println(selectedLabel);
-                    System.out.println(selectedItem);
                     EventHandler<Event> eventHandle = (EventHandler<Event>) selectedLabel.getOnKeyPressed();
                     eventHandle.handle(keyEvent);
                     break;

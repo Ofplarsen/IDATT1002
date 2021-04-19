@@ -7,10 +7,16 @@ import edu.ntnu.idatt1002.k2_2.mitodo.data.task.RepeatEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
 import edu.ntnu.idatt1002.k2_2.mitodo.effects.SoundEffects;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public abstract class EditOrCreateTaskView extends View
 {
@@ -30,7 +36,10 @@ public abstract class EditOrCreateTaskView extends View
     protected ChoiceBox<RepeatEnum> selectRepeat;
     @FXML
     protected ChoiceBox<PriorityEnum> selectPriority;
+    @FXML
+    protected Button btnClearDates;
 
+    protected int elementIndex = 0;
     protected Task task;
     protected Project project;
 
@@ -83,6 +92,146 @@ public abstract class EditOrCreateTaskView extends View
     protected void cancel()
     {
         Client.returnToPreviousView();
+    }
+
+    @FXML
+    public void keyHandler(KeyEvent keyEvent){
+        taskName.addEventFilter(KeyEvent.KEY_PRESSED, keyEventName -> {
+            if(keyEventName.getCode() == KeyCode.UP){
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        taskName.requestFocus();
+                    }
+                });
+            }
+            if(keyEventName.getCode() == KeyCode.DOWN){
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        isDone.requestFocus();
+                    }
+                });
+
+            }
+        });
+
+        isDone.addEventFilter(KeyEvent.KEY_PRESSED, keyEventDone -> {
+            if(keyEventDone.getCode() == KeyCode.UP){
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        taskName.requestFocus();
+                    }
+                });
+            }
+            if(keyEventDone.getCode() == KeyCode.DOWN){
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        comments.requestFocus();
+                    }
+                });
+            }
+        });
+
+        comments.addEventFilter(KeyEvent.KEY_PRESSED, keyEventComment -> {
+            if(keyEventComment.getCode() == KeyCode.UP){
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        isDone.requestFocus();
+                    }
+                });
+            }
+            if(keyEventComment.getCode() == KeyCode.DOWN){
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        selectStartDate.requestFocus();
+                        selectStartDate.show();
+                    }
+                });
+            }
+        });
+
+        selectStartDate.addEventFilter(KeyEvent.KEY_PRESSED, keyEventStartD -> {
+            if(keyEventStartD.getCode() == KeyCode.UP){
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        comments.requestFocus();
+                    }
+                });
+            }
+            if(keyEventStartD.getCode() == KeyCode.DOWN){
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        selectDueDate.requestFocus();
+                        selectDueDate.show();
+                    }
+                });
+            }
+        });
+
+        selectDueDate.addEventFilter(KeyEvent.KEY_PRESSED, keyEventDueD -> {
+            if(keyEventDueD.getCode() == KeyCode.UP){
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        selectStartDate.requestFocus();
+                        selectStartDate.show();
+                    }
+                });
+            }
+            if(keyEventDueD.getCode() == KeyCode.DOWN){
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        btnClearDates.requestFocus();
+                    }
+                });
+            }
+        });
+
+        btnClearDates.addEventFilter(KeyEvent.KEY_PRESSED, keyEventClearD -> {
+            if(keyEventClearD.getCode() == KeyCode.UP){
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        selectDueDate.requestFocus();
+                        selectDueDate.show();
+                    }
+                });
+            }
+            if(keyEventClearD.getCode() == KeyCode.DOWN){
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        selectRepeat.requestFocus();
+                    }
+                });
+            }
+        });
+
+        selectRepeat.addEventFilter(KeyEvent.KEY_PRESSED, keyEventRepeat -> {
+            if(keyEventRepeat.getCode() == KeyCode.UP){
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        btnClearDates.requestFocus();
+                    }
+                });
+            }
+        });
+        if(keyEvent.getCode() == KeyCode.ENTER){
+            saveAndExit();
+        }else if(keyEvent.getCode() == KeyCode.ESCAPE){
+            cancel();
+        }else if(keyEvent.getCode() == KeyCode.DELETE){
+
+        }
     }
 
     @Override
