@@ -13,16 +13,16 @@ public class Default
 
     public static void fillWithTestData(Project project)
     {
-        Project skoleProject = project.addProject("Skole", project);
+        Project skoleProject = project.addProject("Skole");
         skoleProject.addTask("Lag struktur", PriorityEnum.High, null, LocalDate.now(), RepeatEnum.DoesNotRepeat, null);
 
-        Project matteProject = skoleProject.addProject("Matte", skoleProject);
+        Project matteProject = skoleProject.addProject("Matte");
         matteProject.addTask("Komplekse tall");
         matteProject.addTask("Logikk øving 2");
         Project personligProject = project.addProject("Personlig");
         personligProject.addTask("Kjøp melk");
 
-        Project treningProject = personligProject.addProject("Trening", personligProject);
+        Project treningProject = personligProject.addProject("Trening");
 
         Project intervallProject = treningProject.addProject("Intervall");
         intervallProject.addTask("Jogge eller noe sånn");
