@@ -65,6 +65,7 @@ public class Client extends Application {
     {
         currentView = FileManager.getView(name);
         primaryView.setContent(currentView);
+        currentView.getParent().requestFocus();
         return currentView;
     }
 

@@ -25,7 +25,7 @@ on: #ffffff
 
 .button {
     -fx-background-color: #2e9edf;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: black;
     -fx-background-radius: 8px;
     -fx-border-radius: 8px;
     -fx-font-weight: bold;
@@ -36,6 +36,11 @@ on: #ffffff
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 8, 0, 3, 4)
 }
 
+.button:focused{
+    outline: none !important;
+    border:1px;
+    -fx-border-color: black;
+}
 .card {
     -fx-background-color: #f3f3f3;
     -fx-text-fill: #000000;

@@ -22,7 +22,7 @@
             <Insets bottom="8.0" right="8.0" top="8.0" />
          </padding>
          <center>
-            <TextField fx:id="projectTitle" prefHeight="32.0" promptText="Project title" BorderPane.alignment="CENTER">
+            <TextField fx:id="projectTitle" prefHeight="32.0" promptText="Project title" BorderPane.alignment="CENTER" onKeyPressed="#keyListener">
                <padding>
                   <Insets left="8.0" right="8.0" />
                </padding>
@@ -31,17 +31,17 @@
       </BorderPane>
       <HBox>
          <children>
-            <Button contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveAndExit" text="Save and exit">
+            <Button contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveAndExit" onKeyPressed="#keyListener" text="Save and exit">
                <HBox.margin>
                   <Insets right="8.0" />
                </HBox.margin>
             </Button>
-            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancel" text="Cancel">
+            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancel" onKeyPressed="#keyListener" text="Cancel">
                <HBox.margin>
                   <Insets right="8.0" />
                </HBox.margin></Button>
             <Pane HBox.hgrow="ALWAYS" />
-            <Button contentDisplay="RIGHT" graphicTextGap="0.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#delete" styleClass="error" text="Delete" />
+            <Button contentDisplay="RIGHT" graphicTextGap="0.0" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyListener" mnemonicParsing="false" onAction="#delete" styleClass="error" text="Delete" />
          </children>
       </HBox>
    </children>

@@ -22,7 +22,7 @@
             <Insets bottom="8.0" right="8.0" top="8.0" />
          </padding>
          <center>
-            <TextField fx:id="projectTitle" prefHeight="48.0" prefWidth="423.0" promptText="Project title" BorderPane.alignment="CENTER">
+            <TextField fx:id="projectTitle" prefHeight="48.0" prefWidth="423.0" onKeyPressed="#keyListener" promptText="Project title" BorderPane.alignment="CENTER">
                <padding>
                   <Insets left="8.0" right="8.0" />
                </padding>
@@ -31,12 +31,12 @@
       </BorderPane>
       <HBox prefHeight="0.0" prefWidth="415.0">
          <children>
-            <Button contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveAndExit" text="Save and exit">
+            <Button contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onKeyPressed="#keyListener" onAction="#saveAndExit" text="Save and exit">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Button>
-            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
+            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onKeyPressed="#keyListener" onAction="#cancel" text="Cancel" />
             <Pane prefHeight="27.0" prefWidth="270.0" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>

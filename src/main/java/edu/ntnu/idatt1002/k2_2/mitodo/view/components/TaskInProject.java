@@ -13,6 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
 import java.net.URL;
@@ -76,6 +78,19 @@ public class TaskInProject extends View
         image.setFitHeight(25);
         image.setFitWidth(25);
         button.setGraphic(image);
+    }
+
+    @FXML
+    public void boxKeyListener(KeyEvent keyEvent){
+        if(keyEvent.getCode() == KeyCode.ENTER){
+            EditTaskView editTaskView = (EditTaskView) Client.setView("EditTaskView");
+            editTaskView.setTask(task);
+            if(!(originProject==null)){
+                editTaskView.setProject(originProject);
+                editTaskView.setOption(showOption);
+            }
+            editTaskView.isFromCalendar(isFromCalendar);
+        }
     }
 
     private void setPriorityInfo()

@@ -6,7 +6,10 @@ import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 
 public class CreateProjectView extends View
@@ -24,13 +27,30 @@ public class CreateProjectView extends View
     }
 
     @FXML
+    public void keyListener(KeyEvent keyEvent){
+        switch (keyEvent.getCode()){
+            case ENTER:
+                saveAndExit();
+                break;
+            case ESCAPE:
+                cancel();
+                break;
+        }
+    }
+
+    @FXML
     private void saveAndExit()
     {
-        Project project = parentProject.addProject(projectTitle.getText());
-        Client.getPrimaryView().updateMainMenu();
+        try {
+            Project project = parentProject.addProject(projectTitle.getText());
+            Client.getPrimaryView().updateMainMenu();
 
-        ProjectView projectView = (ProjectView) Client.setView("ProjectView");
-        projectView.setProject(project);
+            ProjectView projectView = (ProjectView) Client.setView("ProjectView");
+            projectView.setProject(project);
+        }catch (IllegalArgumentException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage(), ButtonType.OK);
+            alert.showAndWait();
+        }
     }
 
     @FXML
