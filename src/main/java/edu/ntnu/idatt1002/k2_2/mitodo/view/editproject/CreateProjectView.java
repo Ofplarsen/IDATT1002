@@ -8,8 +8,10 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 
@@ -19,6 +21,8 @@ public class CreateProjectView extends View
     private TextField projectTitle;
     @FXML
     private VBox parent;
+    @FXML
+    private Button btnSaE;
 
     private Project parentProject;
 
@@ -43,6 +47,11 @@ public class CreateProjectView extends View
                 cancel();
                 break;
         }
+        projectTitle.addEventFilter(KeyEvent.KEY_PRESSED, keyEventTitle ->{
+            if(keyEventTitle.getCode() == KeyCode.DOWN){
+                btnSaE.requestFocus();
+            }
+        });
     }
 
     @FXML
