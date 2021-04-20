@@ -14,7 +14,9 @@ public class SoundEffects
 
         Media sound = new Media(new File(musicFile).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.play();
+        if(toggleSound){
+            mediaPlayer.play();
+        }
     }
 
     public static void playErrorSound()
