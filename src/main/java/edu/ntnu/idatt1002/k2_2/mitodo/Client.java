@@ -18,7 +18,7 @@ public class Client extends Application
     private static View previousView;
     private static View currentView;
 
-    private static final String rootProjectFileName = "projectManager";
+    private static final String rootProjectFileName = "rootProject";
 
     @Override
     public void start(Stage stage) {
