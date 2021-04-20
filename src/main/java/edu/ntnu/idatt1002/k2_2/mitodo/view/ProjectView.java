@@ -91,13 +91,6 @@ public class ProjectView extends View
     }
 
     @FXML
-    public void setShowOption(ShowOption option)
-    {
-        showComboBox.setValue(option);
-        update();
-    }
-
-    @FXML
     private void updateShowOption()
     {
         update();
