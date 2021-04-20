@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class CalendarView extends View
         ArrayList<Task> tasksToday = getTasksDueOnDay(dateToday);
         if (tasksToday.size() == 0)
         {
-            Label noToday = new Label("No Tasks Due Today");
+            Label noToday = new Label("No tasks due today.");
             noToday.setFont(new Font("System", 16));
             noToday.setPrefHeight(30);
             taskContainer.getChildren().add(noToday);
@@ -92,9 +93,9 @@ public class CalendarView extends View
 
     private void addLabel(String title)
     {
-        Label todayLabel = new Label(title);
+        Text todayLabel = new Text(title);
         todayLabel.setFont(new Font("System", 32));
-        todayLabel.setPrefHeight(40);
+        todayLabel.setId("header");
         taskContainer.getChildren().add(todayLabel);
     }
 

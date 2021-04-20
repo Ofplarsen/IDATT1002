@@ -10,7 +10,7 @@
    <children>
       <HBox alignment="CENTER_LEFT" HBox.hgrow="NEVER">
          <children>
-            <Label fx:id="projectName" styleClass="h2" text="PROJECT_NAME">
+            <Label fx:id="projectName" text="PROJECT_NAME">
                <font>
                   <Font />
                </font>

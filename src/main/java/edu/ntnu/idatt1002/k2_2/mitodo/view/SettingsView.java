@@ -2,9 +2,9 @@ package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.FontSizeEnum;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.PriorityEnum;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
@@ -24,15 +24,21 @@ public class SettingsView extends View{
 
     public void initialize(){
         selectFontSize.getItems().setAll(FontSizeEnum.values());
-        selectFontSize.setValue(FontSizeEnum.Medium);
+        selectFontSize.setValue(Client.getPrimaryView().getCurrentFontSize());
     }
 
     public void save(){
-        if(selectFontSize.getValue().equals(FontSizeEnum.Small)){
-            Client.getPrimaryView().setSmallText();
-        } else if(selectFontSize.getValue().equals(FontSizeEnum.Big)){
-            Client.getPrimaryView().setBigText();
-        }
+        Client.getPrimaryView().setFontSize(selectFontSize.getValue());
+    }
+
+    public void about(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("About");
+        alert.setHeaderText("Mitodo");
+        alert.setContentText("Version 1.0.0 \nMade by Mitoto");
+
+        alert.showAndWait();
+
     }
 
     @Override

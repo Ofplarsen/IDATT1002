@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
+import edu.ntnu.idatt1002.k2_2.mitodo.data.FontSizeEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.MainMenu;
 import javafx.fxml.FXML;
@@ -9,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 
 import java.io.File;
 
@@ -22,8 +24,10 @@ public class PrimaryView extends View
     private MainMenu mainMenu;
     private Project project;
 
-    private String smallTextCss = new File("smallText.css").toString();
-    private String bigTextCss = new File("bigText.css").toString();
+    private final String smallTextCss = new File("smallText.css").toString();
+    private final String bigTextCss = new File("bigText.css").toString();
+    private final String defaultTextCss = new File("defaultText.css").toString();
+    private FontSizeEnum currentFontSize = FontSizeEnum.Medium;
 
     @FXML
     private SplitPane parent;
@@ -43,6 +47,7 @@ public class PrimaryView extends View
         this.scene = new Scene(parent);
         mainMenu = new MainMenu(mainMenuTreeView);
         updateMainMenu();
+        parent.getStylesheets().add(defaultTextCss);
     }
 
     /**
@@ -87,13 +92,35 @@ public class PrimaryView extends View
         return parent;
     }
 
-    public void setBigText(){
-        parent.getStylesheets().remove(smallTextCss);
-        parent.getStylesheets().add(bigTextCss);
+    public FontSizeEnum getCurrentFontSize(){
+        return currentFontSize;
     }
 
-    public void setSmallText(){
-        parent.getStylesheets().remove(bigTextCss);
-        parent.getStylesheets().add(smallTextCss);
+    public void setFontSize(FontSizeEnum newFontSize){
+        switch(currentFontSize){
+            case Big:
+                parent.getStylesheets().remove(bigTextCss);
+                break;
+            case Medium:
+                parent.getStylesheets().remove(defaultTextCss);
+                break;
+            case Small:
+                parent.getStylesheets().remove(smallTextCss);
+                break;
+        }
+        switch (newFontSize){
+            case Big:
+                parent.getStylesheets().add(bigTextCss);
+                currentFontSize = FontSizeEnum.Big;
+                break;
+            case Medium:
+                parent.getStylesheets().add(defaultTextCss);
+                currentFontSize = FontSizeEnum.Medium;
+                break;
+            case Small:
+                parent.getStylesheets().add(smallTextCss);
+                currentFontSize = FontSizeEnum.Small;
+                break;
+        }
     }
 }

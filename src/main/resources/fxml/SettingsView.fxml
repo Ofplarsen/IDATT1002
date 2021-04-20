@@ -26,7 +26,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <ChoiceBox fx:id="selectFontSize" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0" HBox.hgrow="ALWAYS" />
+                  <ChoiceBox fx:id="selectFontSize" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0" HBox.hgrow="ALWAYS"/>
                </children>
             </HBox>
             <!-- TOGGLE SOUNDS
@@ -46,23 +46,7 @@
             </HBox>-->
          </children>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <Button mnemonicParsing="false" onAction="#save" text="Save" />
-         </children>
-      </HBox>
-      <!--<VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;">
-         <children>
-            <Label text="Font size preview:">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="header" text="Headers" wrappingWidth="118.21630859375" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Normal text" />
-            <ChoiceBox prefWidth="150.0" />
-            <Button mnemonicParsing="false" text="Buttons" />
-         </children>
-      </VBox>-->
+      <Button mnemonicParsing="false" onAction="#about" text="About" />
+      <Button mnemonicParsing="false" onAction="#save" text="Save" />
    </children>
 </VBox>

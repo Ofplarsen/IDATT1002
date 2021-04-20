@@ -51,9 +51,9 @@ public class MainMenu
         });
 
 
-       /* makeTreeItem("Settings", root, mouseEvent -> {
+        makeTreeItem("Settings", root, mouseEvent -> {
             Client.setView("SettingsView");
-        });*/
+        });
 
 
         ArrayList<Project> projects = Client.getRootProject().getProjects();
