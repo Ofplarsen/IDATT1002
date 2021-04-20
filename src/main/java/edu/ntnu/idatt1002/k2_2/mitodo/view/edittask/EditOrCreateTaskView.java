@@ -118,6 +118,7 @@ public abstract class EditOrCreateTaskView extends View
             }
         });
 
+
         isDone.addEventFilter(KeyEvent.KEY_PRESSED, keyEventDone -> {
             if(keyEventDone.getCode() == KeyCode.UP){
                 Platform.runLater(new Runnable() {
@@ -150,6 +151,25 @@ public abstract class EditOrCreateTaskView extends View
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
+                        selectProject.requestFocus();
+                    }
+                });
+            }
+        });
+
+        selectProject.addEventFilter(KeyEvent.KEY_PRESSED, keyEventProject -> {
+            if(keyEventProject.getCode() == KeyCode.UP){
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        comments.requestFocus();
+                    }
+                });
+            }
+            if(keyEventProject.getCode() == KeyCode.DOWN){
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
                         selectStartDate.requestFocus();
                         selectStartDate.show();
                     }
@@ -162,7 +182,7 @@ public abstract class EditOrCreateTaskView extends View
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        comments.requestFocus();
+                        selectProject.requestFocus();
                     }
                 });
             }

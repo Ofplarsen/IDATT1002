@@ -21,7 +21,7 @@
       </HBox>
    </right>
    <left>
-      <CheckBox fx:id="isDoneCheckBox" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleTaskIsDoneButtonClick" styleClass="label" text="CheckBox" BorderPane.alignment="CENTER_LEFT">
+      <CheckBox fx:id="isDoneCheckBox" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleTaskIsDoneButtonClick" onKeyPressed="#boxKeyListener" styleClass="label" text="CheckBox" BorderPane.alignment="CENTER_LEFT">
          <font>
             <Font />
          </font>
