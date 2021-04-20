@@ -217,6 +217,10 @@ public class Task implements Serializable
         parent.removeTask(ID);
     }
 
+    public void moveItself(Project project) {
+        parent.moveTask(this, project);
+    }
+
     @Override
     public String toString()
     {
