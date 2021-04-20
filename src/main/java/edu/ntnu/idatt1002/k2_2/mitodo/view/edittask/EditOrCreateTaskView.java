@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view.edittask;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.project.UserProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.PriorityEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.RepeatEnum;
@@ -15,11 +16,15 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.UUID;
 
 public abstract class EditOrCreateTaskView extends View
 {
+    @FXML
+    private ChoiceBox<Project> selectProject;
     @FXML
     protected VBox parent;
     @FXML
@@ -46,6 +51,8 @@ public abstract class EditOrCreateTaskView extends View
     @FXML
     public void initialize()
     {
+        selectProject.getItems().setAll(Client.getRootProject().getAllProjects());
+
         selectPriority.getItems().setAll(PriorityEnum.values());
         selectPriority.setValue(PriorityEnum.Undefined);
 
@@ -57,10 +64,7 @@ public abstract class EditOrCreateTaskView extends View
     @FXML
     protected void handleIsDoneCheckBox()
     {
-        if(isDone.isSelected())
-        {
-            SoundEffects.playPlingSound();
-        }
+        isDone.isSelected();
     }
 
     @FXML
@@ -72,12 +76,12 @@ public abstract class EditOrCreateTaskView extends View
 
     protected void saveAndExit()
     {
-
         task.setTitle(taskName.getText());
         task.setDone(isDone.isSelected());
         task.setDates(selectStartDate.getValue(),selectDueDate.getValue(), selectRepeat.getValue());
         task.setComments(comments.getText());
         task.setPriority(selectPriority.getValue());
+        moveTask();
         cancel();
 
     }
@@ -226,6 +230,12 @@ public abstract class EditOrCreateTaskView extends View
         }else if(keyEvent.getCode() == KeyCode.DELETE){
 
         }
+    }
+
+    public void moveTask() {
+        if (selectProject.getValue() == null) return;
+        Project userProject = selectProject.getValue();
+        project.moveTask(this.task, userProject);
     }
 
     @Override
