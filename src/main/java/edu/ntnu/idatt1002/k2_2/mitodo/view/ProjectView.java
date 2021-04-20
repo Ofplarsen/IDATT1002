@@ -178,7 +178,6 @@ public class ProjectView extends View
         {
             SubProject subProject = (SubProject) FileManager.getView("SubProject");
             subProject.setProjectAndListContainer(project, listContainer);
-            subProject.setOriginProject(this.project);
             listContainer.getChildren().add(subProject.getParent());
         }
     }
@@ -199,7 +198,7 @@ public class ProjectView extends View
 
     private void setElementVisible(Node node, boolean visible)
     {
-        node.setVisible(visible);
+        node.setVisible(visible); //Trur at den disable den
         node.setManaged(visible);
         node.setDisable(!visible);
     }
