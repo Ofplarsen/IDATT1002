@@ -1,5 +1,6 @@
-package edu.ntnu.idatt1002.k2_2.mitodo.data;
+package edu.ntnu.idatt1002.k2_2.mitodo.data.task;
 
+import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.effects.SoundEffects;
 
 import java.io.Serializable;
@@ -17,7 +18,7 @@ import java.util.UUID;
  */
 public class Task implements Serializable
 {
-    private UUID ID;
+    private final UUID ID;
     private String title;
     private String comments;
     private PriorityEnum priority;
@@ -26,18 +27,19 @@ public class Task implements Serializable
     private RepeatEnum repeat;
     private boolean isDone = false;
 
-    private Project project;
+    private final Project parent;
     private boolean createdNextRepeatingTask = false;
 
-    public Task(String title, Project project)
+    public Task(String title, Project parent)
     {
         if(title.isBlank() && title.isEmpty())
         {
+            SoundEffects.playErrorSound2();
             throw new IllegalArgumentException("Empty String is not accepted as title");
         }
 
         this.title = title.trim();
-        this.project = project;
+        this.parent = parent;
         this.priority = PriorityEnum.Undefined;
         this.startDate = null;
         this.dueDate = null;
@@ -45,11 +47,12 @@ public class Task implements Serializable
         ID = UUID.randomUUID();
     }
 
-    public Task(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate,RepeatEnum repeat, String comments, Project project)
+    public Task(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate,RepeatEnum repeat, String comments, Project parent)
     {
         //Makes sure title is not null, nor is empty
         if(title.isBlank() || title.isEmpty())
         {
+            SoundEffects.playErrorSound2();
             throw new IllegalArgumentException("Empty String is not accepted as title");
         }
 
@@ -59,7 +62,7 @@ public class Task implements Serializable
             this.priority = PriorityEnum.Undefined;
         }
 
-        this.project =project;
+        this.parent = parent;
         this.title = title.trim();
         this.priority = priority;
         this.startDate = startDate;
@@ -69,14 +72,9 @@ public class Task implements Serializable
         ID = UUID.randomUUID();
     }
 
-    public void setProject(Project project)
+    public Project getParent()
     {
-        this.project = project;
-    }
-
-    public Project getProject()
-    {
-        return project;
+        return parent;
     }
 
     public UUID getID()
@@ -101,6 +99,11 @@ public class Task implements Serializable
 
     public void setTitle(String title)
     {
+        if(title.isBlank() || title.isEmpty())
+        {
+            SoundEffects.playErrorSound2();
+            throw new IllegalArgumentException("Empty String is not accepted as title");
+        }
         this.title = title;
     }
 
@@ -123,21 +126,25 @@ public class Task implements Serializable
     {
         if (startDate != null && dueDate != null && dueDate.isBefore(startDate))
         {
+            SoundEffects.playErrorSound2();
             throw new IllegalArgumentException("Can't set due date earlier than start date");
         }
 
         if(dueDate != null && dueDate.isBefore(LocalDate.now()))
         {
+            SoundEffects.playErrorSound2();
             throw new IllegalArgumentException("Can't set due date earlier than today's date");
         }
 
         if(startDate == null && dueDate == null && repeat != RepeatEnum.DoesNotRepeat)
         {
+            SoundEffects.playErrorSound2();
             throw new IllegalArgumentException("Can't repeat without either start date or due date.");
         }
 
         if (repeat.isShorterThanDates(startDate, dueDate))
         {
+            SoundEffects.playErrorSound2();
             throw new IllegalArgumentException("Time between start date and due date can't be longer than the repeating period.");
         }
 
@@ -195,7 +202,7 @@ public class Task implements Serializable
         {
             LocalDate nextStartDate = repeat.getNextDate(startDate);
             LocalDate nextDueDate = repeat.getNextDate(dueDate);
-            project.addTask(title, priority, nextStartDate, nextDueDate, repeat, comments);
+            parent.addTask(title, priority, nextStartDate, nextDueDate, repeat, comments);
             createdNextRepeatingTask = true;
         }
     }
@@ -207,7 +214,7 @@ public class Task implements Serializable
 
     public void deleteItself()
     {
-        project.removeTask(ID);
+        parent.removeTask(ID);
     }
 
     @Override
@@ -222,7 +229,7 @@ public class Task implements Serializable
                 "\nrepeat=" + repeat +
                 "\nisDone=" + isDone +
                 "\ncreatedNextRepeatingTask=" + createdNextRepeatingTask +
-                "\nproject=" + project +
+                "\nproject=" + parent +
                 "\n}";
     }
 

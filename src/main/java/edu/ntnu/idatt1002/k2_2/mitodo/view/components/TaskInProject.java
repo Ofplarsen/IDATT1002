@@ -1,11 +1,10 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view.components;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.PriorityEnum;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.RepeatEnum;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.task.RepeatEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.effects.SoundEffects;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.edittask.EditTaskView;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -13,6 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
 import java.net.URL;
@@ -38,7 +39,6 @@ public class TaskInProject extends View
 
     private Task task;
     private View view;
-
 
     @FXML
     private void initialize()
@@ -66,6 +66,14 @@ public class TaskInProject extends View
         button.setGraphic(image);
     }
 
+    @FXML
+    public void boxKeyListener(KeyEvent keyEvent){
+        if(keyEvent.getCode() == KeyCode.ENTER){
+            EditTaskView editTaskView = (EditTaskView) Client.setView("EditTaskView");
+            editTaskView.setTask(task);
+        }
+    }
+
     private void setPriorityInfo()
     {
         if (parent.getStyleClass().size() > 1)
@@ -79,7 +87,7 @@ public class TaskInProject extends View
                 break;
 
             case Low:
-                    parent.getStyleClass().add("priority-low");
+                parent.getStyleClass().add("priority-low");
                 priorityLabel.setText("P3");
                 break;
 
@@ -92,7 +100,6 @@ public class TaskInProject extends View
                 parent.getStyleClass().add("priority-high");
                 priorityLabel.setText("P1");
                 break;
-
         }
     }
 
@@ -127,8 +134,8 @@ public class TaskInProject extends View
         isDoneCheckBox.setText(task.getTitle());
         startDateLabel.setText(task.getStartDateAsString());
         dueDateLabel.setText(task.getDueDateAsString());
-        repeatLabel.setText(task.getRepeat() == RepeatEnum.DoesNotRepeat? "" : task.getRepeat().toString());
-        projectNameLabel.setText(task.getProject().getTitle());
+        repeatLabel.setText(task.getRepeat() == RepeatEnum.DoesNotRepeat? "" : "Repeats " + task.getRepeat().toString());
+        projectNameLabel.setText(task.getParent().getTitle());
         setPriorityInfo();
     }
 

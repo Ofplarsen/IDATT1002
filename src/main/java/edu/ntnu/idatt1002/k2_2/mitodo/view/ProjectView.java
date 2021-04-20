@@ -1,15 +1,18 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.TaskListSorter;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.project.RootProject;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.project.UserProject;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.task.TaskListSorter;
 import edu.ntnu.idatt1002.k2_2.mitodo.file.FileManager;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.SubProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.TaskInProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.editproject.EditProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.edittask.CreateTaskView;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -40,17 +43,20 @@ public class ProjectView extends View
 
     private Project project;
     private ArrayList<Task> tasks;
-    private ArrayList<Project> subprojects;
+    private ArrayList<UserProject> subprojects;
 
-    private enum SortOption
+    public enum SortOption
     {
         IsDone,
-        Priority,
-        DueDate,
-        StartDate
+        PriorityIncreasing,
+        PriorityDecreasing,
+        DueDateIncreasing,
+        DueDateDecreasing,
+        StartDateIncreasing,
+        StartDateDecreasing
     }
 
-    private enum ShowOption
+    public enum ShowOption
     {
         Task,
         Subprojects,
@@ -70,21 +76,25 @@ public class ProjectView extends View
     {
         this.project = project;
 
-        if (project.equals(Client.getQuickTasks()))
+        if (project instanceof RootProject)
         {
             setElementVisible(editProjectButton, false);
+            setElementVisible(showContainer, false);
         }
 
         this.tasks = project.getTasks();
 
         this.subprojects = project.getProjects();
 
-        if (subprojects.size() == 0)
-        {
-            setElementVisible(showContainer, false);
-        }
-
         this.title.setText(project.getTitle());
+        Platform.runLater(() -> title.requestFocus());
+        update();
+    }
+
+    @FXML
+    public void setShowOption(ShowOption option)
+    {
+        showComboBox.setValue(option);
         update();
     }
 
@@ -125,9 +135,10 @@ public class ProjectView extends View
     private void handleEditButtonClick()
     {
         EditProjectView editProjectView =(EditProjectView) Client.setView("EditProjectView");
-        editProjectView.setProject(project);
+        editProjectView.setProject((UserProject) project);
     }
 
+    private boolean increasing = true;
     @FXML
     private void updateSortOption()
     {
@@ -137,14 +148,23 @@ public class ProjectView extends View
             case IsDone:
                 TaskListSorter.sortByIsDone(tasks);
                 break;
-            case Priority:
-                TaskListSorter.sortByPriority(tasks);
+            case PriorityIncreasing:
+                TaskListSorter.sortByPriority(tasks, increasing);
                 break;
-            case StartDate:
-                TaskListSorter.sortByStartDate(tasks);
+            case PriorityDecreasing:
+                TaskListSorter.sortByPriority(tasks, !increasing);
                 break;
-            case DueDate:
-                TaskListSorter.sortByDueDate(tasks);
+            case StartDateIncreasing:
+                TaskListSorter.sortByStartDate(tasks, increasing);
+                break;
+            case StartDateDecreasing:
+                TaskListSorter.sortByStartDate(tasks, !increasing);
+                break;
+            case DueDateIncreasing:
+                TaskListSorter.sortByDueDate(tasks, increasing);
+                break;
+            case DueDateDecreasing:
+                TaskListSorter.sortByDueDate(tasks, !increasing);
                 break;
         }
         fillWithTasks();
@@ -158,7 +178,8 @@ public class ProjectView extends View
         for (Project project : subprojects)
         {
             SubProject subProject = (SubProject) FileManager.getView("SubProject");
-            subProject.setProject(project);
+            subProject.setProjectAndListContainer(project, listContainer);
+            subProject.setOriginProject(this.project);
             listContainer.getChildren().add(subProject.getParent());
         }
     }

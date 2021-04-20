@@ -1,6 +1,6 @@
 package edu.ntnu.idatt1002.k2_2.mitodo;
 
-import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.project.RootProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.file.FileManager;
 import edu.ntnu.idatt1002.k2_2.mitodo.testdata.Default;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.PrimaryView;
@@ -10,36 +10,30 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class Client extends Application {
-    private static Project rootProject;
+public class Client extends Application
+{
+    private static RootProject rootProject;
     private static PrimaryView primaryView;
-    private static Project quickTasks;
+
+    private static View previousView;
     private static View currentView;
 
-    private static final String rootProjectName = "rootProject";
-    private static final String quickTasksName = "quickTasks";
+    private static final String rootProjectFileName = "projectManager";
 
     @Override
     public void start(Stage stage) {
-        rootProject = FileManager.loadProject(rootProjectName);
-        if (rootProject==null)
+        rootProject = (RootProject) FileManager.loadSerializableObject(rootProjectFileName);
+        if (rootProject ==null)
         {
-            rootProject = new Project("Root Project");
-        }
-
-        quickTasks = FileManager.loadProject(quickTasksName);;
-        if (quickTasks==null)
-        {
-            quickTasks = new Project("Quick Tasks");
+            rootProject = new RootProject();
         }
 
         //Default.fillWithTestData(rootProject);
-        //Default.fillQuickTasksData(quickTasks);
 
         primaryView = (PrimaryView) FileManager.getView("PrimaryView");
 
         ProjectView projectView = (ProjectView) Client.setView("ProjectView");
-        projectView.setProject(Client.getQuickTasks());
+        projectView.setProject(rootProject);
 
         Scene primaryScene = primaryView.getScene();
         stage.setScene(primaryScene);
@@ -53,8 +47,7 @@ public class Client extends Application {
     @Override
     public void stop()
     {
-        FileManager.saveProject(rootProject, rootProjectName);
-        FileManager.saveProject(quickTasks, quickTasksName);
+        FileManager.saveSerializableObject(rootProject, rootProjectFileName);
     }
 
     public static void main(String[] args) {
@@ -63,8 +56,19 @@ public class Client extends Application {
 
     public static View setView(String name)
     {
+        previousView = currentView;
         currentView = FileManager.getView(name);
         primaryView.setContent(currentView);
+        currentView.getParent().requestFocus();
+        return currentView;
+    }
+
+    public static View returnToPreviousView()
+    {
+        currentView = previousView;
+        primaryView.setContent(currentView);
+        currentView.getParent().requestFocus();
+        currentView.update();
         return currentView;
     }
 
@@ -78,11 +82,13 @@ public class Client extends Application {
         return currentView;
     }
 
-    public static Project getRootProject() {
-        return rootProject;
+    public static View getPreviousView()
+    {
+        return previousView;
     }
 
-    public static Project getQuickTasks(){
-        return quickTasks;
+    public static RootProject getRootProject()
+    {
+        return rootProject;
     }
 }

@@ -1,8 +1,8 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.Task;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.TaskListSorter;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.task.TaskListSorter;
 import edu.ntnu.idatt1002.k2_2.mitodo.file.FileManager;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.TaskInProject;
 import javafx.fxml.FXML;
@@ -13,7 +13,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class CalendarView extends View
@@ -24,6 +27,7 @@ public class CalendarView extends View
     private VBox taskContainer;
 
     private ArrayList<Task> tasks;
+
     private LocalDate dateToday;
 
     @FXML
@@ -42,10 +46,9 @@ public class CalendarView extends View
 
     private void updateTasks()
     {
-        tasks = Client.getQuickTasks().getTasks();
-        tasks.addAll(Client.getRootProject().getAllTasks());
+        tasks = Client.getRootProject().getAllTasks();
         tasks = (ArrayList<Task>) tasks.stream().filter(task -> task.getDueDate() != null && !task.isDone()).collect(Collectors.toList());
-        TaskListSorter.sortByDueDate(tasks);
+        TaskListSorter.sortByDueDate(tasks, true);
     }
 
     private void fillWithTasks()
@@ -77,18 +80,26 @@ public class CalendarView extends View
             LocalDate date = tasks.get(i).getDueDate();
             tasksDueOnDate = getTasksDueOnDay(date);
 
-            addLabel(date.toString());
+            if (date.isEqual(dateToday.plusDays(1))){
+                addLabel("Tomorrow");
+
+            }else addLabel(dateToString(date));
 
             for (Task task : tasksDueOnDate)
             {
                 addTask(task);
             }
         }
+        
     }
 
     private ArrayList<Task> getTasksDueOnDay(LocalDate day)
     {
         return (ArrayList<Task>) tasks.stream().filter(task -> task.getDueDate().equals(day)).collect(Collectors.toList());
+    }
+
+    private String dateToString(LocalDate date){ //Remove the withLocale to make it to the computer language of preference
+       return date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(Locale.ENGLISH));
     }
 
     private void addLabel(String title)

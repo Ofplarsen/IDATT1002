@@ -1,19 +1,29 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view.components;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.Project;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.project.UserProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.editproject.CreateProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
 
 /**
  * The main menu has a treeView that it fills with buttons to all pages.
+ * Keypress:
+ * ENTER = Clicks on selected item/label
+ * RIGHT = Folds out a folded tree branch
+ * LEFT = Folds tree branch
+ * UP = Selects label above
+ * DOWN = Selects label below
  */
 public class MainMenu
 {
@@ -38,16 +48,28 @@ public class MainMenu
 
         makeTreeItem("Quick tasks", root, mouseEvent -> {
             ProjectView projectView = (ProjectView) Client.setView("ProjectView");
-            projectView.setProject(Client.getQuickTasks());
+            projectView.setProject(Client.getRootProject());
+        }, keyEvent -> {
+            if(keyEvent.getCode() == KeyCode.ENTER){
+                ProjectView projectView = (ProjectView) Client.setView("ProjectView");
+                projectView.setProject(Client.getRootProject());
+            }
         });
 
         makeTreeItem("Calendar", root, mouseEvent -> {
+            Client.setView("CalendarView");
+        }, keyEvent -> {
             Client.setView("CalendarView");
         });
 
         makeTreeItem("+", root, mouseEvent -> {
             CreateProjectView createProjectView = (CreateProjectView) Client.setView("CreateProjectView");
             createProjectView.setParentProject(Client.getRootProject());
+        }, keyEvent -> {
+            if(keyEvent.getCode() == KeyCode.ENTER){
+                CreateProjectView createProjectView = (CreateProjectView) Client.setView("CreateProjectView");
+                createProjectView.setParentProject(Client.getRootProject());
+            }
         });
 
 
@@ -56,7 +78,7 @@ public class MainMenu
         });
 
 
-        ArrayList<Project> projects = Client.getRootProject().getProjects();
+        ArrayList<UserProject> projects = Client.getRootProject().getProjects();
         projects.forEach(project -> makeProjectTreeItem(root, project));
 
         treeView.setRoot(root);
@@ -71,6 +93,21 @@ public class MainMenu
             EventHandler<MouseEvent> eventHandler = (EventHandler<MouseEvent>) clickedLabel.getOnMouseClicked();
             eventHandler.handle(mouseEvent);
         });
+
+        treeView.setOnKeyPressed(keyEvent -> {
+
+            switch (keyEvent.getCode()) {
+                case ENTER:
+                    TreeView<Label> selectedTree = (TreeView<Label>) keyEvent.getSource();
+                    TreeItem<Label> selectedItem = selectedTree.getSelectionModel().getSelectedItem();
+                    if(selectedItem == null) return;
+                    Label selectedLabel = selectedItem.getValue();
+                    EventHandler<Event> eventHandle = (EventHandler<Event>) selectedLabel.getOnKeyPressed();
+                    eventHandle.handle(keyEvent);
+                    break;
+            }
+
+        });
     }
 
     /**
@@ -83,9 +120,17 @@ public class MainMenu
         TreeItem<Label> projectItem = makeTreeItem(project.getTitle(), parent, mouseEvent -> {
             ProjectView projectView = (ProjectView) Client.setView("ProjectView");
             projectView.setProject(project);
+        }, keyEvent -> {
+            if(keyEvent.getCode() == KeyCode.ENTER){
+                ProjectView projectView = (ProjectView) Client.setView("ProjectView");
+                projectView.setProject(project);
+            }
         });
         //TODO: Turn into right-click-menu-option
         makeTreeItem("+", parent, mouseEvent -> {
+            CreateProjectView createProjectView = (CreateProjectView) Client.setView("CreateProjectView");
+            createProjectView.setParentProject(project);
+        }, keyEvent -> {
             CreateProjectView createProjectView = (CreateProjectView) Client.setView("CreateProjectView");
             createProjectView.setParentProject(project);
         });
@@ -99,10 +144,11 @@ public class MainMenu
      * @param eventHandler The eventHandler for when the Treeitem is clicked.
      * @return The TreeItem it created.
      */
-    private TreeItem<Label> makeTreeItem(String title, TreeItem<Label> parent, EventHandler<MouseEvent> eventHandler)
+    private TreeItem<Label> makeTreeItem(String title, TreeItem<Label> parent, EventHandler<MouseEvent> eventHandler , EventHandler<KeyEvent> keyEventEventHandler)
     {
         Label label = new Label(title);
         label.setOnMouseClicked(eventHandler);
+        label.setOnKeyPressed(keyEventEventHandler);
         TreeItem<Label> item = new TreeItem<>(label);
         item.setExpanded(true);
         parent.getChildren().add(item);

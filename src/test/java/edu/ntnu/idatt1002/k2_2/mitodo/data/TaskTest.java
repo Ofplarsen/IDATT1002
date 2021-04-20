@@ -12,6 +12,7 @@ import java.time.Month;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TaskTest {
+    /*
     Task task1 = new Task("Task1", null);
     Task task2 = new Task("Task2", null);
     int year = LocalDate.now().getYear();
@@ -136,4 +137,6 @@ class TaskTest {
         }
 
     }
+
+     */
 }
