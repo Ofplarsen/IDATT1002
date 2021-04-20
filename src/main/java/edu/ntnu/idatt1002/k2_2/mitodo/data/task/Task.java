@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.data.task;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
+import edu.ntnu.idatt1002.k2_2.mitodo.effects.SoundEffects;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -33,6 +34,7 @@ public class Task implements Serializable
     {
         if(title.isBlank() && title.isEmpty())
         {
+            SoundEffects.playErrorSound2();
             throw new IllegalArgumentException("Empty String is not accepted as title");
         }
 
@@ -50,6 +52,7 @@ public class Task implements Serializable
         //Makes sure title is not null, nor is empty
         if(title.isBlank() || title.isEmpty())
         {
+            SoundEffects.playErrorSound2();
             throw new IllegalArgumentException("Empty String is not accepted as title");
         }
 
@@ -118,21 +121,25 @@ public class Task implements Serializable
     {
         if (startDate != null && dueDate != null && dueDate.isBefore(startDate))
         {
+            SoundEffects.playErrorSound2();
             throw new IllegalArgumentException("Can't set due date earlier than start date");
         }
 
         if(dueDate != null && dueDate.isBefore(LocalDate.now()))
         {
+            SoundEffects.playErrorSound2();
             throw new IllegalArgumentException("Can't set due date earlier than today's date");
         }
 
         if(startDate == null && dueDate == null && repeat != RepeatEnum.DoesNotRepeat)
         {
+            SoundEffects.playErrorSound2();
             throw new IllegalArgumentException("Can't repeat without either start date or due date.");
         }
 
         if (repeat.isShorterThanDates(startDate, dueDate))
         {
+            SoundEffects.playErrorSound2();
             throw new IllegalArgumentException("Time between start date and due date can't be longer than the repeating period.");
         }
 

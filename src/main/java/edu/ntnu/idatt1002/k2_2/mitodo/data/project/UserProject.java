@@ -1,5 +1,7 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.data.project;
 
+import edu.ntnu.idatt1002.k2_2.mitodo.effects.SoundEffects;
+
 public class UserProject extends Project
 {
     private String title;
@@ -9,11 +11,13 @@ public class UserProject extends Project
     {
         if(title.isEmpty() || title.isBlank())
         {
+            SoundEffects.playErrorSound2();
             throw new IllegalArgumentException("Title of projects can't be empty");
         }
 
         if(projectAlreadyCreated(title))
         {
+            SoundEffects.playErrorSound2();
             throw new IllegalArgumentException("Project already created");
         }
 
@@ -30,10 +34,12 @@ public class UserProject extends Project
     {
         if(title.isEmpty() || title.isBlank())
         {
+            SoundEffects.playErrorSound2();
             throw new IllegalArgumentException("Title of projects can't be empty");
         }
         if(projectAlreadyCreated(title))
         {
+            SoundEffects.playErrorSound2();
             throw new IllegalArgumentException("Project already created");
         }
         this.title = title;
