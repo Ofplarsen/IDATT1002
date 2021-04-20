@@ -2,6 +2,7 @@ package edu.ntnu.idatt1002.k2_2.mitodo.view.edittask;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
 
+import edu.ntnu.idatt1002.k2_2.mitodo.effects.SoundEffects;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -35,6 +36,7 @@ public class EditTaskView extends EditOrCreateTaskView
         try {
             super.saveAndExit();
         }catch (IllegalArgumentException e){
+            SoundEffects.playErrorSound();
             Alert alert = new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage(), ButtonType.OK);
             alert.showAndWait();
         }
