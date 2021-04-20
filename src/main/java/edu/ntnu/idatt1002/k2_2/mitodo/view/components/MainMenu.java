@@ -75,6 +75,8 @@ public class MainMenu
 
         makeTreeItem("Settings", root, mouseEvent -> {
             Client.setView("SettingsView");
+        }, keyEvent -> {
+            Client.setView("CalendarView");
         });
 
 
