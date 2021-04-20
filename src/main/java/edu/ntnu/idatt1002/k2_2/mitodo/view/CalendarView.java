@@ -3,7 +3,6 @@ package edu.ntnu.idatt1002.k2_2.mitodo.view;
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.TaskListSorter;
-import edu.ntnu.idatt1002.k2_2.mitodo.file.FileManager;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.TaskInProject;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -112,7 +111,7 @@ public class CalendarView extends View
 
     private void addTask(Task task)
     {
-        TaskInProject taskInProject = (TaskInProject) FileManager.getView("TaskInProject");
+        TaskInProject taskInProject = (TaskInProject) Client.getComponent("TaskInProject");
         taskInProject.setTask(task);
         taskInProject.setView(this);
         taskContainer.getChildren().add(taskInProject.getParent());
@@ -122,5 +121,17 @@ public class CalendarView extends View
     public Node getParent()
     {
         return parent;
+    }
+
+    @Override
+    public String getMainMenuTitle()
+    {
+        return "Calendar";
+    }
+
+    @Override
+    public boolean equals(View view)
+    {
+        return view instanceof CalendarView;
     }
 }

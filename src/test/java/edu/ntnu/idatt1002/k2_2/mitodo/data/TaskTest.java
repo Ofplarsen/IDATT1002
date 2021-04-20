@@ -1,18 +1,19 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.data;
 
+import edu.ntnu.idatt1002.k2_2.mitodo.data.task.RepeatEnum;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class TaskTest {
-    /*
+
     Task task1 = new Task("Task1", null);
     Task task2 = new Task("Task2", null);
     int year = LocalDate.now().getYear();
@@ -137,6 +138,4 @@ class TaskTest {
         }
 
     }
-
-     */
 }

@@ -3,16 +3,10 @@ package edu.ntnu.idatt1002.k2_2.mitodo.view.components;
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.UserProject;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.*;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.editproject.CreateProjectView;
-import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
 import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.scene.control.Label;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.*;
 
 import java.util.ArrayList;
 
@@ -27,133 +21,133 @@ import java.util.ArrayList;
  */
 public class MainMenu
 {
-    private final TreeView<Label> treeView;
+    private final TreeView treeView;
+    private TreeItem<MainMenuItem> selectedTreeItem;
+    private final ArrayList<TreeItem<MainMenuItem>> treeItems = new ArrayList<>();
 
     /**
      * Constructs a new main menu object with a TreeView.
      * @param treeView
      */
-    public MainMenu(TreeView<Label> treeView)
+    public MainMenu(TreeView<MainMenuItem> treeView)
     {
         this.treeView = treeView;
+    }
+
+    public void selectCurrentView(View currentView)
+    {
+        for (TreeItem<MainMenuItem> treeItem : treeItems)
+        {
+            if (treeItem.getValue().getView().equals(currentView))
+            {
+                selectedTreeItem = treeItem;
+            }
+        }
+        treeView.getSelectionModel().select(selectedTreeItem);
     }
 
     /**
      * Gets all projects from Client and updates the content of the main menu.
      */
-    public void update()
+    public void update(View currentView)
     {
-        TreeItem<Label> root = new TreeItem<>();
+        treeItems.clear();
+
+        TreeItem root = new TreeItem<>();
         root.setExpanded(true);
 
-        makeTreeItem("Quick tasks", root, mouseEvent -> {
-            ProjectView projectView = (ProjectView) Client.setView("ProjectView");
-            projectView.setProject(Client.getRootProject());
-        }, keyEvent -> {
-            if(keyEvent.getCode() == KeyCode.ENTER){
-                ProjectView projectView = (ProjectView) Client.setView("ProjectView");
-                projectView.setProject(Client.getRootProject());
-            }
+        ProjectView quickTasksView = (ProjectView) Client.getComponent("ProjectView");
+        quickTasksView.setProject(Client.getRootProject());
+        selectedTreeItem = makeTreeItem(root, quickTasksView, null);
+        selectedTreeItem.getValue().setOnDragDropped(dragEvent ->
+        {
+            DragAndDropManager.onTaskDropped(dragEvent, Client.getRootProject());
         });
 
-        makeTreeItem("Calendar", root, mouseEvent -> {
-            Client.setView("CalendarView");
-        }, keyEvent -> {
-            Client.setView("CalendarView");
-        });
+        makeTreeItem(root, (View) Client.getComponent("CalendarView"), null);
 
-        makeTreeItem("+", root, mouseEvent -> {
-            CreateProjectView createProjectView = (CreateProjectView) Client.setView("CreateProjectView");
-            createProjectView.setParentProject(Client.getRootProject());
-        }, keyEvent -> {
-            if(keyEvent.getCode() == KeyCode.ENTER){
-                CreateProjectView createProjectView = (CreateProjectView) Client.setView("CreateProjectView");
-                createProjectView.setParentProject(Client.getRootProject());
-            }
-        });
+        makeTreeItem(root, (View) Client.getComponent("SettingsView"), null);
 
+        CreateProjectView createProjectView = (CreateProjectView) Client.getComponent("CreateProjectView");
+        createProjectView.setParentProject(Client.getRootProject());
+        makeTreeItem(root, createProjectView, null);
 
-        makeTreeItem("Settings", root, mouseEvent -> {
-            Client.setView("SettingsView");
-        }, keyEvent -> {
-            Client.setView("CalendarView");
-        });
-
+        Separator separator = new Separator();
+        TreeItem<Separator> separatorTreeItem = new TreeItem<>(separator);
+        root.getChildren().add(separatorTreeItem);
 
         ArrayList<UserProject> projects = Client.getRootProject().getProjects();
-        projects.forEach(project -> makeProjectTreeItem(root, project));
+        projects.forEach(project -> makeAllProjectTreeItems(root, project));
 
+        treeView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         treeView.setRoot(root);
         treeView.setShowRoot(false);
-        treeView.getSelectionModel().selectFirst();
+        treeView.setOnMouseClicked(this::onMainMenuItemEvent);
+        treeView.setOnKeyPressed(this::onMainMenuItemEvent);
 
-        treeView.setOnMouseClicked(mouseEvent -> {
-            TreeView<Label> clickedTree = (TreeView<Label>) mouseEvent.getSource();
-            TreeItem<Label> clickedItem = clickedTree.getSelectionModel().getSelectedItem();
-            if (clickedItem==null) return;
-            Label clickedLabel = clickedItem.getValue();
-            EventHandler<MouseEvent> eventHandler = (EventHandler<MouseEvent>) clickedLabel.getOnMouseClicked();
-            eventHandler.handle(mouseEvent);
-        });
-
-        treeView.setOnKeyPressed(keyEvent -> {
-
-            switch (keyEvent.getCode()) {
-                case ENTER:
-                    TreeView<Label> selectedTree = (TreeView<Label>) keyEvent.getSource();
-                    TreeItem<Label> selectedItem = selectedTree.getSelectionModel().getSelectedItem();
-                    if(selectedItem == null) return;
-                    Label selectedLabel = selectedItem.getValue();
-                    EventHandler<Event> eventHandle = (EventHandler<Event>) selectedLabel.getOnKeyPressed();
-                    eventHandle.handle(keyEvent);
-                    break;
-            }
-
-        });
+        selectCurrentView(currentView);
     }
 
     /**
-     * Makes a Treeitem for the given project and calls itself recursively for the sub-projects.
      * @param parent The parent TreeItem to create the Treeitem from.
      * @param project The project to create a Treeitem for.
      */
-    private void makeProjectTreeItem(TreeItem<Label> parent, Project project)
+    private TreeItem<MainMenuItem> makeProjectTreeItem(TreeItem<MainMenuItem> parent, Project project)
     {
-        TreeItem<Label> projectItem = makeTreeItem(project.getTitle(), parent, mouseEvent -> {
-            ProjectView projectView = (ProjectView) Client.setView("ProjectView");
-            projectView.setProject(project);
-        }, keyEvent -> {
-            if(keyEvent.getCode() == KeyCode.ENTER){
-                ProjectView projectView = (ProjectView) Client.setView("ProjectView");
-                projectView.setProject(project);
-            }
-        });
-        //TODO: Turn into right-click-menu-option
-        makeTreeItem("+", parent, mouseEvent -> {
-            CreateProjectView createProjectView = (CreateProjectView) Client.setView("CreateProjectView");
-            createProjectView.setParentProject(project);
-        }, keyEvent -> {
+        ProjectView projectView = (ProjectView) Client.getComponent("ProjectView");
+        projectView.setProject(project);
+
+        MenuItem menuItem = new MenuItem("New subproject");
+        menuItem.setOnAction(event ->
+        {
             CreateProjectView createProjectView = (CreateProjectView) Client.setView("CreateProjectView");
             createProjectView.setParentProject(project);
         });
-        project.getProjects().forEach(subProject -> makeProjectTreeItem(projectItem, subProject));
+        ContextMenu contextMenu = new ContextMenu(menuItem);
+
+        TreeItem<MainMenuItem> projectItem = makeTreeItem(parent, projectView, contextMenu);
+
+        projectItem.getValue().setOnDragDropped(dragEvent ->
+        {
+            DragAndDropManager.onTaskDropped(dragEvent, project);
+        });
+
+        return projectItem;
     }
 
-    /**
-     * Creates a new Treeitem.
-     * @param title The title of the Treeitem.
-     * @param parent The parent TreeItem to create the Treeitem from.
-     * @param eventHandler The eventHandler for when the Treeitem is clicked.
-     * @return The TreeItem it created.
-     */
-    private TreeItem<Label> makeTreeItem(String title, TreeItem<Label> parent, EventHandler<MouseEvent> eventHandler , EventHandler<KeyEvent> keyEventEventHandler)
+    private void makeAllProjectTreeItems(TreeItem<MainMenuItem> parent, Project project)
     {
-        Label label = new Label(title);
-        label.setOnMouseClicked(eventHandler);
-        label.setOnKeyPressed(keyEventEventHandler);
-        TreeItem<Label> item = new TreeItem<>(label);
+        TreeItem<MainMenuItem> projectItem = makeProjectTreeItem(parent, project);
+        project.getProjects().forEach(subProject -> makeAllProjectTreeItems(projectItem, subProject));
+    }
+
+    private void onMainMenuItemEvent(Event event)
+    {
+        TreeView clickedTree = (TreeView) event.getSource();
+        TreeItem clickedItem = (TreeItem) clickedTree.getSelectionModel().getSelectedItem();
+        if (clickedItem == null) return;
+        Object clickedItemValue = clickedItem.getValue();
+        if (clickedItemValue instanceof MainMenuItem)
+        {
+            selectedTreeItem = clickedItem;
+            ((MainMenuItem) clickedItemValue).handleEvent(event);
+        }
+        else
+        {
+            treeView.getSelectionModel().select(selectedTreeItem);
+        }
+    }
+
+    private TreeItem<MainMenuItem> makeTreeItem(TreeItem<MainMenuItem> parent, View view, ContextMenu contextMenu)
+    {
+        MainMenuItem mainMenuItem = new MainMenuItem(view, contextMenu);
+
+        TreeItem<MainMenuItem> item = new TreeItem<>(mainMenuItem);
         item.setExpanded(true);
+        item.setGraphic(mainMenuItem.getLabel());
         parent.getChildren().add(item);
+
+        treeItems.add(item);
         return item;
     }
 }

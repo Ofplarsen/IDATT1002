@@ -2,7 +2,7 @@ package edu.ntnu.idatt1002.k2_2.mitodo;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.RootProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.file.FileManager;
-import edu.ntnu.idatt1002.k2_2.mitodo.testdata.Default;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.Component;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.PrimaryView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
@@ -30,10 +30,12 @@ public class Client extends Application
 
         //Default.fillWithTestData(rootProject);
 
-        primaryView = (PrimaryView) FileManager.getView("PrimaryView");
+        primaryView = (PrimaryView) getComponent("PrimaryView");
 
         ProjectView projectView = (ProjectView) Client.setView("ProjectView");
         projectView.setProject(rootProject);
+
+        updateMainMenu();
 
         Scene primaryScene = primaryView.getScene();
         stage.setScene(primaryScene);
@@ -54,27 +56,48 @@ public class Client extends Application
         launch();
     }
 
+    public static void setView(View view)
+    {
+        if (view.equals(currentView)) return;
+        previousView = currentView;
+        currentView = view;
+        primaryView.setContent(view);
+        view.getParent().requestFocus();
+    }
+
     public static View setView(String name)
     {
-        previousView = currentView;
-        currentView = FileManager.getView(name);
-        primaryView.setContent(currentView);
-        currentView.getParent().requestFocus();
-        return currentView;
+        View newView = (View) getComponent(name);
+        setView(newView);
+        return newView;
+    }
+
+    public static Component getComponent(String name)
+    {
+        return FileManager.getComponent(name);
     }
 
     public static View returnToPreviousView()
     {
-        currentView = previousView;
-        primaryView.setContent(currentView);
-        currentView.getParent().requestFocus();
+        setView(previousView);
         currentView.update();
+        selectCurrentViewInMainMenu();
         return currentView;
     }
 
     public static PrimaryView getPrimaryView()
     {
         return primaryView;
+    }
+
+    public static void selectCurrentViewInMainMenu()
+    {
+        primaryView.selectCurrentViewInMainMenu(currentView);
+    }
+
+    public static void updateMainMenu()
+    {
+        primaryView.updateMainMenu(currentView);
     }
 
     public static View getCurrentView()

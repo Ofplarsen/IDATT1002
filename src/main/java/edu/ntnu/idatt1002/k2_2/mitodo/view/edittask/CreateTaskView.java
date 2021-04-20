@@ -3,6 +3,7 @@ package edu.ntnu.idatt1002.k2_2.mitodo.view.edittask;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.effects.SoundEffects;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -32,5 +33,17 @@ public class CreateTaskView extends EditOrCreateTaskView
             Alert alert = new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage(), ButtonType.OK);
             alert.showAndWait();
         }
+    }
+
+    @Override
+    public String getMainMenuTitle()
+    {
+        return "Create Task";
+    }
+
+    @Override
+    public boolean equals(View view)
+    {
+        return view instanceof EditTaskView;
     }
 }

@@ -4,6 +4,7 @@ import edu.ntnu.idatt1002.k2_2.mitodo.Client;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.UserProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.edittask.EditTaskView;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -59,9 +60,8 @@ public class EditProjectView extends View
         try
         {
             project.setTitle(projectTitle.getText());
-            Client.getPrimaryView().updateMainMenu();
-
             Client.returnToPreviousView();
+            Client.updateMainMenu();
         }
         catch (IllegalArgumentException e)
         {
@@ -92,10 +92,9 @@ public class EditProjectView extends View
             if(type == ButtonType.OK)
             {
                 Client.getRootProject().removeProjectFromAll(project.getID());
-                Client.getPrimaryView().updateMainMenu();
-
                 ProjectView projectView = (ProjectView) Client.setView("ProjectView");
                 projectView.setProject(project.getParent());
+                Client.updateMainMenu();
             }
         });
     }
@@ -104,5 +103,17 @@ public class EditProjectView extends View
     public Node getParent()
     {
         return parent;
+    }
+
+    @Override
+    public String getMainMenuTitle()
+    {
+        return "Edit Project";
+    }
+
+    @Override
+    public boolean equals(View view)
+    {
+        return view instanceof EditProjectView && ((EditProjectView) view).project.equals(project);
     }
 }

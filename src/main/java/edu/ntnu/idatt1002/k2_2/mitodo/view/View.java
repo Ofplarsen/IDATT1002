@@ -1,9 +1,8 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
-import javafx.scene.Node;
-
-public abstract class View
+public abstract class View extends Component
 {
-    public abstract Node getParent();
-    public void update(){};
+    public abstract String getMainMenuTitle();
+    public abstract boolean equals(View view);
+    public void update(){}
 }

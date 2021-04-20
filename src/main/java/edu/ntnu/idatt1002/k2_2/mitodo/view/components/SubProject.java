@@ -3,9 +3,11 @@ package edu.ntnu.idatt1002.k2_2.mitodo.view.components;
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
-import edu.ntnu.idatt1002.k2_2.mitodo.file.FileManager;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.Component;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.editproject.CreateProjectView;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.editproject.EditProjectView;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
@@ -38,12 +40,13 @@ public class SubProject extends View
             setSubprojectTasks(listContainer,showTasks.isSelected());
         }
     }
+
     private void setSubprojectTasks(VBox listContainer, boolean value) {
         int i = listContainer.getChildren().indexOf(parent) + 1;
         if (value) {
             for (Task task : project.getAllTasks())
             {
-                TaskInProject taskInProject = (TaskInProject) FileManager.getView("TaskInProject");
+                TaskInProject taskInProject = (TaskInProject) Client.getComponent("TaskInProject");
                 taskInProject.setTask(task);
                 taskInProject.setView(this);
                 listContainer.getChildren().add(i,taskInProject.getParent());
@@ -68,5 +71,17 @@ public class SubProject extends View
     public Node getParent()
     {
         return parent;
+    }
+
+    @Override
+    public String getMainMenuTitle()
+    {
+        return project.getTitle();
+    }
+
+    @Override
+    public boolean equals(View view)
+    {
+        return view instanceof SubProject && ((SubProject) view).project.equals(project);
     }
 }

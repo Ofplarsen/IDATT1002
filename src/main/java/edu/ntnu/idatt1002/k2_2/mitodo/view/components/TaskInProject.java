@@ -3,22 +3,22 @@ package edu.ntnu.idatt1002.k2_2.mitodo.view.components;
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.RepeatEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.effects.SoundEffects;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.Component;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.edittask.EditTaskView;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
-import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.BorderPane;
 
 import java.net.URL;
 
-public class TaskInProject extends View
+public class TaskInProject extends Component
 {
     @FXML
     private BorderPane parent;
@@ -50,6 +50,15 @@ public class TaskInProject extends View
     {
         this.task = task;
         setInfo();
+
+        parent.setOnDragDetected(dragEvent ->
+        {
+            Dragboard db = parent.startDragAndDrop(TransferMode.MOVE);
+            ClipboardContent cc = new ClipboardContent();
+            cc.putString(task.getTitle());
+            db.setContent(cc);
+            DragAndDropManager.setValue(task);
+        });
     }
 
     public void setView(View view)
@@ -137,6 +146,11 @@ public class TaskInProject extends View
         repeatLabel.setText(task.getRepeat() == RepeatEnum.DoesNotRepeat? "" : task.getRepeat().toString());
         projectNameLabel.setText(task.getParent().getTitle());
         setPriorityInfo();
+    }
+
+    public Task getTask()
+    {
+        return task;
     }
 
     public Node getParent()

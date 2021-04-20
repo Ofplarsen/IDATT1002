@@ -71,6 +71,10 @@ on: #ffffff
     -fx-text-fill: #000000;
 }
 
+.tree-cell:hover {
+    -fx-background-color: #F3F3F3;
+}
+
 .tree-cell:selected {
     -fx-background-color: #2e9edf;
     -fx-text-fill: #ffffff;
@@ -93,4 +97,16 @@ on: #ffffff
 .background {
     -fx-background-color: #ffffff;
     -fx-text-fill: #000000;
+}
+
+.mainMenuTreeView *.scroll-bar:horizontal,
+.mainMenuTreeView *.scroll-bar:horizontal *.track,
+.mainMenuTreeView *.scroll-bar:horizontal *.track-background,
+.mainMenuTreeView *.scroll-bar:horizontal *.thumb,
+.mainMenuTreeView *.scroll-bar:horizontal *.increment-button,
+.mainMenuTreeView *.scroll-bar:horizontal *.decrement-button,
+.mainMenuTreeView *.scroll-bar:horizontal *.increment-arrow,
+.mainMenuTreeView *.scroll-bar:horizontal *.decrement-arrow {
+    -fx-base: transparent;
+    -fx-background-color: white;
 }

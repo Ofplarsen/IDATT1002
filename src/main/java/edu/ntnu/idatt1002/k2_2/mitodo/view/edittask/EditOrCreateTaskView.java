@@ -6,7 +6,6 @@ import edu.ntnu.idatt1002.k2_2.mitodo.data.task.PriorityEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.RepeatEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
-import edu.ntnu.idatt1002.k2_2.mitodo.effects.SoundEffects;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -16,12 +15,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.UUID;
-
-public abstract class EditOrCreateTaskView extends View
+public abstract class
+EditOrCreateTaskView extends View
 {
     @FXML
     private ChoiceBox<Project> selectProject;

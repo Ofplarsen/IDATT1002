@@ -62,10 +62,9 @@ public class CreateProjectView extends View
         try
         {
             UserProject project = parentProject.addProject(projectTitle.getText());
-            Client.getPrimaryView().updateMainMenu();
-
             ProjectView projectView = (ProjectView) Client.setView("ProjectView");
             projectView.setProject(project);
+            Client.updateMainMenu();
         }
         catch (IllegalArgumentException e)
         {
@@ -85,5 +84,17 @@ public class CreateProjectView extends View
     public Node getParent()
     {
         return parent;
+    }
+
+    @Override
+    public String getMainMenuTitle()
+    {
+        return "Create New Project";
+    }
+
+    @Override
+    public boolean equals(View view)
+    {
+        return view instanceof CreateProjectView;
     }
 }

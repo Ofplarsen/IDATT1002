@@ -1,9 +1,9 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.file;
 
-import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.Component;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
-import javafx.fxml.FXMLLoader;
 
+import javafx.fxml.FXMLLoader;
 import java.io.*;
 import java.net.URL;
 
@@ -19,7 +19,7 @@ public class FileManager
      * @param name The name of the file without the file-ending ".fxml".
      * @return The loaded FXMLLoader. null if not found.
      */
-    public static View getView(String name)
+    public static Component getComponent(String name)
     {
         URL url = FileManager.class.getResource("/fxml/" + name + ".fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(url);
@@ -39,12 +39,12 @@ public class FileManager
 
     public static void saveSerializableObject(Serializable object, String name)
     {
-        File projectFile = new File(SAVE_DIR, name);
+        File file = new File(SAVE_DIR, name);
 
         try
         {
             SAVE_DIR.mkdir();
-            projectFile.createNewFile();
+            file.createNewFile();
         }
         catch (IOException e)
         {
@@ -53,7 +53,7 @@ public class FileManager
 
         try
         (
-            FileOutputStream fs = new FileOutputStream(projectFile);
+            FileOutputStream fs = new FileOutputStream(file);
             ObjectOutputStream os = new ObjectOutputStream(fs);
         )
         {
@@ -67,27 +67,27 @@ public class FileManager
 
     public static Serializable loadSerializableObject(String name)
     {
-        File projectFile = new File(SAVE_DIR, name);
+        File file = new File(SAVE_DIR, name);
 
-        if (!projectFile.isFile())
+        if (!file.isFile())
         {
             return null;
         }
 
-        Project project;
+        Serializable serializable;
         try
         (
-            FileInputStream fs = new FileInputStream(projectFile);
+            FileInputStream fs = new FileInputStream(file);
             ObjectInputStream is = new ObjectInputStream(fs);
         )
         {
-            project = (Project) is.readObject();
+            serializable = (Serializable) is.readObject();
         }
         catch (IOException | ClassNotFoundException e)
         {
             e.printStackTrace();
             return null;
         }
-        return project;
+        return serializable;
     }
 }

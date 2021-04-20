@@ -6,7 +6,6 @@ import edu.ntnu.idatt1002.k2_2.mitodo.data.project.RootProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.UserProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.TaskListSorter;
-import edu.ntnu.idatt1002.k2_2.mitodo.file.FileManager;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.SubProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.TaskInProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.editproject.EditProjectView;
@@ -83,11 +82,7 @@ public class ProjectView extends View
         }
 
         this.tasks = project.getTasks();
-
         this.subprojects = project.getProjects();
-
-        this.title.setText(project.getTitle());
-        Platform.runLater(() -> title.requestFocus());
         update();
     }
 
@@ -100,6 +95,9 @@ public class ProjectView extends View
     @Override
     public void update()
     {
+        this.title.setText(project.getTitle());
+        Platform.runLater(() -> title.requestFocus());
+
         ShowOption showOption = showComboBox.getValue();
         switch (showOption)
         {
@@ -170,7 +168,7 @@ public class ProjectView extends View
 
         for (Project project : subprojects)
         {
-            SubProject subProject = (SubProject) FileManager.getView("SubProject");
+            SubProject subProject = (SubProject) Client.getComponent("SubProject");
             subProject.setProjectAndListContainer(project, listContainer);
             listContainer.getChildren().add(subProject.getParent());
         }
@@ -183,7 +181,7 @@ public class ProjectView extends View
 
         for (Task task : tasks)
         {
-            TaskInProject taskInProject = (TaskInProject) FileManager.getView("TaskInProject");
+            TaskInProject taskInProject = (TaskInProject) Client.getComponent("TaskInProject");
             taskInProject.setTask(task);
             taskInProject.setView(this);
             listContainer.getChildren().add(taskInProject.getParent());
@@ -201,5 +199,17 @@ public class ProjectView extends View
     public Node getParent()
     {
         return parent;
+    }
+
+    @Override
+    public String getMainMenuTitle()
+    {
+        return project.getTitle();
+    }
+
+    @Override
+    public boolean equals(View view)
+    {
+        return view instanceof ProjectView && ((ProjectView) view).project.equals(project);
     }
 }

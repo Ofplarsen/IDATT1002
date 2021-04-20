@@ -2,11 +2,11 @@ package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.data.FontSizeEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.MainMenu;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.components.MainMenuItem;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
@@ -31,7 +31,7 @@ public class PrimaryView extends View
     private SplitPane parent;
 
     @FXML
-    private TreeView<Label> mainMenuTreeView;
+    private TreeView<MainMenuItem> mainMenuTreeView;
 
     @FXML
     private AnchorPane content;
@@ -44,16 +44,20 @@ public class PrimaryView extends View
     {
         this.scene = new Scene(parent);
         mainMenu = new MainMenu(mainMenuTreeView);
-        updateMainMenu();
         parent.getStylesheets().add(defaultTextCss);
     }
 
     /**
      * Updates the main menu.
      */
-    public void updateMainMenu()
+    public void updateMainMenu(View currentView)
     {
-        mainMenu.update();
+        mainMenu.update(currentView);
+    }
+
+    public void selectCurrentViewInMainMenu(View currentView)
+    {
+        mainMenu.selectCurrentView(currentView);
     }
 
     /**
@@ -95,6 +99,12 @@ public class PrimaryView extends View
         return parent;
     }
 
+    @Override
+    public String getMainMenuTitle()
+    {
+        return "Primary";
+    }
+
     public FontSizeEnum getCurrentFontSize(){
         return currentFontSize;
     }
@@ -125,5 +135,11 @@ public class PrimaryView extends View
                 currentFontSize = FontSizeEnum.Small;
                 break;
         }
+    }
+
+    @Override
+    public boolean equals(View view)
+    {
+        return view instanceof PrimaryView;
     }
 }

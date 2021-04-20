@@ -12,7 +12,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-public class SettingsView extends View{
+public class SettingsView extends View
+{
     @FXML
     private VBox parent;
     @FXML
@@ -24,7 +25,8 @@ public class SettingsView extends View{
     @FXML
     private Text savedText;
 
-    public void initialize(){
+    public void initialize()
+    {
         selectFontSize.getItems().setAll(FontSizeEnum.values());
         selectFontSize.setValue(Client.getPrimaryView().getCurrentFontSize());
         if(SoundEffects.toggleSound){
@@ -34,7 +36,8 @@ public class SettingsView extends View{
         }
     }
 
-    public void save() {
+    public void save()
+    {
         Client.getPrimaryView().setFontSize(selectFontSize.getValue());
         if(onSounds.isSelected()){
             SoundEffects.setToggleSound(true);
@@ -50,18 +53,31 @@ public class SettingsView extends View{
         timeline.play();
     }
 
-    public void about(){
+    public void about()
+    {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About");
         alert.setHeaderText("Mitodo");
         alert.setContentText("Version 1.0.0 \nMade by Mitoto");
 
         alert.showAndWait();
-
     }
 
     @Override
-    public Node getParent() {
+    public Node getParent()
+    {
         return parent;
+    }
+
+    @Override
+    public String getMainMenuTitle()
+    {
+        return "Settings";
+    }
+
+    @Override
+    public boolean equals(View view)
+    {
+        return view instanceof SettingsView;
     }
 }

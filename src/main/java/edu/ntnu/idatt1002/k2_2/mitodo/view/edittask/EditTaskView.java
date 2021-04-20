@@ -3,6 +3,9 @@ package edu.ntnu.idatt1002.k2_2.mitodo.view.edittask;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.effects.SoundEffects;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.CalendarView;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -48,5 +51,17 @@ public class EditTaskView extends EditOrCreateTaskView
     {
         task.deleteItself();
         cancel();
+    }
+
+    @Override
+    public String getMainMenuTitle()
+    {
+        return "Edit Task";
+    }
+
+    @Override
+    public boolean equals(View view)
+    {
+        return view instanceof EditTaskView && ((EditTaskView) view).task.equals(task);
     }
 }
