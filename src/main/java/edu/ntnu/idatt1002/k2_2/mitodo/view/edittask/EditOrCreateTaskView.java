@@ -68,10 +68,7 @@ public abstract class EditOrCreateTaskView extends View
     @FXML
     protected void handleIsDoneCheckBox()
     {
-        if(isDone.isSelected())
-        {
-            SoundEffects.playPlingSound();
-        }
+        isDone.isSelected();
     }
 
     @FXML
