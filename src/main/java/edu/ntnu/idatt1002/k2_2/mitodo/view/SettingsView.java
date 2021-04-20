@@ -2,33 +2,52 @@ package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.FontSizeEnum;
+import edu.ntnu.idatt1002.k2_2.mitodo.effects.SoundEffects;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 public class SettingsView extends View{
     @FXML
-    private Label label;
-    @FXML
     private VBox parent;
     @FXML
-    private ToggleButton on;
-    @FXML
-    private ToggleButton off;
-    @FXML
     private ChoiceBox<FontSizeEnum> selectFontSize;
+    @FXML
+    private ToggleButton onSounds;
+    @FXML
+    private ToggleButton offSounds;
+    @FXML
+    private Text savedText;
 
     public void initialize(){
         selectFontSize.getItems().setAll(FontSizeEnum.values());
         selectFontSize.setValue(Client.getPrimaryView().getCurrentFontSize());
+        if(SoundEffects.toggleSound){
+            onSounds.setSelected(true);
+        } else {
+            offSounds.setSelected(true);
+        }
     }
 
-    public void save(){
+    public void save() {
         Client.getPrimaryView().setFontSize(selectFontSize.getValue());
+        if(onSounds.isSelected()){
+            SoundEffects.setToggleSound(true);
+        } else {
+            SoundEffects.setToggleSound(false);
+            onSounds.setSelected(false);
+            offSounds.setSelected(true);
+        }
+        savedText.setText("Saved!");
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), ev -> {
+            savedText.setText("");
+        }));
+        timeline.play();
     }
 
     public void about(){
