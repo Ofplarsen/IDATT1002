@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
@@ -26,7 +27,7 @@ public class ProjectView extends View
     @FXML
     private VBox parent;
     @FXML
-    private Label title;
+    private Text title;
     @FXML
     private Button editProjectButton;
     @FXML
