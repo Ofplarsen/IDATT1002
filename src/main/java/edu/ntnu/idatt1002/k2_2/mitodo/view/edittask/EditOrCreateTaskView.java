@@ -240,7 +240,12 @@ public abstract class EditOrCreateTaskView extends View
         if (selectProject.getValue() == null) return;
         String selectedProjectTitle = selectProject.getValue();
         UUID projectID = UUID.fromString(selectedProjectTitle.substring(selectedProjectTitle.lastIndexOf(" ")+1));
-        project.moveTask(this.task, Client.getRootProject().getProject(projectID));
+            for (UserProject userProject : Client.getRootProject().getAllProjects()) {
+                if (userProject.getID().equals(projectID)) {
+                    project.moveTask(this.task, userProject);
+                    return;
+                }
+            }
     }
 
     @Override
