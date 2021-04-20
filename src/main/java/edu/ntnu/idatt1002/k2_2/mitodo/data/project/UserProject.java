@@ -57,8 +57,6 @@ public class UserProject extends Project
     @Override
     public String toString()
     {
-        return "\nProject{" +
-                "\ntitle='" + title +
-                "\n}";
+        return title;
     }
 }

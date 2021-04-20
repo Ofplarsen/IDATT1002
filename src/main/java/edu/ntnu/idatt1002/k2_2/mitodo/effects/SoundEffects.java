@@ -6,6 +6,7 @@ import java.io.File;
 
 public class SoundEffects
 {
+    public static boolean toggleSound = true;
 
     public static void playPlingSound()
     {
@@ -13,7 +14,9 @@ public class SoundEffects
 
         Media sound = new Media(new File(musicFile).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.play();
+        if(toggleSound){
+            mediaPlayer.play();
+        }
     }
 
     public static void playErrorSound()
@@ -22,6 +25,12 @@ public class SoundEffects
 
         Media sound = new Media(new File(musicFile).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.play();
+        if(toggleSound){
+            mediaPlayer.play();
+        }
+    }
+
+    public static void setToggleSound(boolean bool){
+        toggleSound = bool;
     }
 }

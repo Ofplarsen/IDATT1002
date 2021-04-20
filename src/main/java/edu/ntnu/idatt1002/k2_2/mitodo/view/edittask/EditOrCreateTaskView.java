@@ -24,7 +24,7 @@ import java.util.UUID;
 public abstract class EditOrCreateTaskView extends View
 {
     @FXML
-    private ChoiceBox<String> selectProject;
+    private ChoiceBox<Project> selectProject;
     @FXML
     protected VBox parent;
     @FXML
@@ -51,11 +51,7 @@ public abstract class EditOrCreateTaskView extends View
     @FXML
     public void initialize()
     {
-        ArrayList<String> projectTitles = new ArrayList<>();
-        for (UserProject userProject : Client.getRootProject().getAllProjects()) {
-            projectTitles.add(userProject.getTitle() + ": " + userProject.getID());
-        }
-        selectProject.getItems().setAll(projectTitles);
+        selectProject.getItems().setAll(Client.getRootProject().getAllProjects());
 
         selectPriority.getItems().setAll(PriorityEnum.values());
         selectPriority.setValue(PriorityEnum.Undefined);
@@ -258,9 +254,8 @@ public abstract class EditOrCreateTaskView extends View
 
     public void moveTask() {
         if (selectProject.getValue() == null) return;
-        String selectedProjectTitle = selectProject.getValue();
-        UUID projectID = UUID.fromString(selectedProjectTitle.substring(selectedProjectTitle.lastIndexOf(" ")+1));
-        project.moveTask(this.task, Client.getRootProject().getProject(projectID));
+        Project userProject = selectProject.getValue();
+        project.moveTask(this.task, userProject);
     }
 
     @Override
