@@ -9,17 +9,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.text.Text?>
 <VBox styleClass="content-container" fx:id="parent" alignment="CENTER" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView">
    <children>
       <HBox alignment="TOP_CENTER" spacing="10.0" VBox.vgrow="NEVER">
          <children>
             <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                <children>
-                  <Label fx:id="title" styleClass="h1" text="Label">
+                  <Text fx:id="title" styleClass="header" text="Label">
                      <font>
                         <Font />
                      </font>
-                  </Label>
+                  </Text>
                </children>
             </HBox>
             <HBox alignment="CENTER_RIGHT" spacing="20.0" HBox.hgrow="NEVER">
@@ -28,22 +29,22 @@
                   <Button fx:id="editProjectButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleEditButtonClick" text="Edit Project" />
                   <HBox fx:id="sortByContainer" alignment="CENTER" spacing="5.0">
                      <children>
-                        <Label contentDisplay="TOP" styleClass="h2" text="Sort by: ">
+                        <Label contentDisplay="TOP" text="Sort by: ">
                            <font>
                               <Font />
                            </font>
                         </Label>
-                        <ComboBox fx:id="sortByComboBox" onAction="#updateSortOption" promptText="Standard" />
+                        <ComboBox fx:id="sortByComboBox" onAction="#updateSortOption" promptText="Standard" styleClass="textInBoxes"/>
                      </children>
                   </HBox>
                   <HBox fx:id="showContainer" alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="5.0">
                      <children>
-                        <Label contentDisplay="TOP" styleClass="h2" text="Show:">
+                        <Label contentDisplay="TOP" text="Show:">
                            <font>
                               <Font />
                            </font>
                         </Label>
-                        <ComboBox fx:id="showComboBox" onAction="#updateShowOption" promptText="Show Tasks" />
+                        <ComboBox fx:id="showComboBox" onAction="#updateShowOption" promptText="Show Tasks" styleClass="textInBoxes"/>
                      </children>
                   </HBox>
                </children>

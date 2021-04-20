@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
@@ -26,7 +27,7 @@ public class ProjectView extends View
     @FXML
     private VBox parent;
     @FXML
-    private Label title;
+    private Text title;
     @FXML
     private Button editProjectButton;
     @FXML
@@ -87,13 +88,6 @@ public class ProjectView extends View
 
         this.title.setText(project.getTitle());
         Platform.runLater(() -> title.requestFocus());
-        update();
-    }
-
-    @FXML
-    public void setShowOption(ShowOption option)
-    {
-        showComboBox.setValue(option);
         update();
     }
 
@@ -178,7 +172,6 @@ public class ProjectView extends View
         {
             SubProject subProject = (SubProject) FileManager.getView("SubProject");
             subProject.setProjectAndListContainer(project, listContainer);
-            subProject.setOriginProject(this.project);
             listContainer.getChildren().add(subProject.getParent());
         }
     }
@@ -199,7 +192,7 @@ public class ProjectView extends View
 
     private void setElementVisible(Node node, boolean visible)
     {
-        node.setVisible(visible);
+        node.setVisible(visible); //Trur at den disable den
         node.setManaged(visible);
         node.setDisable(!visible);
     }

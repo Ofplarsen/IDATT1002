@@ -72,11 +72,13 @@ public class MainMenu
             }
         });
 
-        /*
-        makeBranch("Settings", root, mouseEvent -> {
+
+        makeTreeItem("Settings", root, mouseEvent -> {
             Client.setView("SettingsView");
+        }, keyEvent -> {
+            Client.setView("CalendarView");
         });
-         */
+
 
         ArrayList<UserProject> projects = Client.getRootProject().getProjects();
         projects.forEach(project -> makeProjectTreeItem(root, project));

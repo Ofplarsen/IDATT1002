@@ -134,7 +134,7 @@ public class TaskInProject extends View
         isDoneCheckBox.setText(task.getTitle());
         startDateLabel.setText(task.getStartDateAsString());
         dueDateLabel.setText(task.getDueDateAsString());
-        repeatLabel.setText(task.getRepeat() == RepeatEnum.DoesNotRepeat? "" : "Repeats " + task.getRepeat().toString());
+        repeatLabel.setText(task.getRepeat() == RepeatEnum.DoesNotRepeat? "" : task.getRepeat().toString());
         projectNameLabel.setText(task.getParent().getTitle());
         setPriorityInfo();
     }
