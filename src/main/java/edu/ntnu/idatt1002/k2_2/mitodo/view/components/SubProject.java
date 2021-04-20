@@ -24,17 +24,12 @@ public class SubProject extends View
 
     private Project project;
     private VBox listContainer;
-    private Project originProject;
 
     public void setProjectAndListContainer(Project project, VBox listContainer)
     {
         this.project = project;
         this.listContainer = listContainer;
         projectName.setText(project.getTitle());
-    }
-
-    public void setOriginProject(Project originProject) {
-        this.originProject = originProject;
     }
 
     @FXML
@@ -54,7 +49,7 @@ public class SubProject extends View
                 listContainer.getChildren().add(i,taskInProject.getParent());
             }
         } else {
-            for (Task task : project.getAllTasks())
+            for (int j = 0; j<project.getAllTasks().size();j++) //removed for each because task was never used
             {
                 listContainer.getChildren().remove(i);
             }
