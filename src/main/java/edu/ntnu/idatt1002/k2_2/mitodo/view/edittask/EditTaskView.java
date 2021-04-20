@@ -4,6 +4,8 @@ import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 public class EditTaskView extends EditOrCreateTaskView
 {
@@ -30,7 +32,12 @@ public class EditTaskView extends EditOrCreateTaskView
     @FXML
     protected void saveAndExit()
     {
-        super.saveAndExit();
+        try {
+            super.saveAndExit();
+        }catch (IllegalArgumentException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage(), ButtonType.OK);
+            alert.showAndWait();
+        }
     }
 
     @FXML

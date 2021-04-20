@@ -99,6 +99,11 @@ public class Task implements Serializable
 
     public void setTitle(String title)
     {
+        if(title.isBlank() || title.isEmpty())
+        {
+            SoundEffects.playErrorSound2();
+            throw new IllegalArgumentException("Empty String is not accepted as title");
+        }
         this.title = title;
     }
 

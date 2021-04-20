@@ -72,20 +72,14 @@ public abstract class EditOrCreateTaskView extends View
 
     protected void saveAndExit()
     {
-        try
-        {
-            task.setDone(isDone.isSelected());
-            task.setDates(selectStartDate.getValue(),selectDueDate.getValue(), selectRepeat.getValue());
-            task.setComments(comments.getText());
-            task.setPriority(selectPriority.getValue());
-            task.setTitle(taskName.getText());
-            cancel();
-        }
-        catch (IllegalArgumentException e)
-        {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage(), ButtonType.OK);
-            alert.showAndWait();
-        }
+
+        task.setTitle(taskName.getText());
+        task.setDone(isDone.isSelected());
+        task.setDates(selectStartDate.getValue(),selectDueDate.getValue(), selectRepeat.getValue());
+        task.setComments(comments.getText());
+        task.setPriority(selectPriority.getValue());
+        cancel();
+
     }
 
     @FXML
