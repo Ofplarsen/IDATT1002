@@ -47,6 +47,7 @@ EditOrCreateTaskView extends View
     public void initialize()
     {
         selectProject.getItems().setAll(Client.getRootProject().getAllProjects());
+        selectProject.getItems().add(Client.getRootProject());
 
         selectPriority.getItems().setAll(PriorityEnum.values());
         selectPriority.setValue(PriorityEnum.Undefined);

@@ -7,4 +7,9 @@ public class RootProject extends Project
     {
         return "Quick Tasks";
     }
+
+    @Override
+    public String toString() {
+        return this.getTitle();
+    }
 }
