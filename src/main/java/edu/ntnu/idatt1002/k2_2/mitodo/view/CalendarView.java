@@ -53,6 +53,14 @@ public class CalendarView extends View
     private void fillWithTasks()
     {
         taskContainer.getChildren().clear();
+        ArrayList<Task> expiredTasks = (ArrayList<Task>) tasks.stream().filter(t -> t.getDueDate().isBefore(LocalDate.now())&&!t.isDone()).collect(Collectors.toList());
+        tasks.removeAll(expiredTasks);
+        if(!expiredTasks.isEmpty()){
+            addLabel("Overdue Tasks");
+            for (Task task : expiredTasks){
+                addTask(task);
+            }
+        }
 
         addLabel("Today");
 

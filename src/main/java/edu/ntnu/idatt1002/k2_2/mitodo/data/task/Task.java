@@ -244,4 +244,10 @@ public class Task implements Serializable
     {
         return Objects.hash(ID);
     }
+
+    public boolean isExpired()
+    {
+        if (dueDate == null) return false;
+        return dueDate.isBefore(LocalDate.now()) && !isDone;
+    }
 }
