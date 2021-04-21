@@ -8,6 +8,7 @@ public class UserProject extends Project
 
     public UserProject(String title, Project parent)
     {
+        this.parent = parent;
         if(title.isEmpty() || title.isBlank())
         {
             throw new IllegalArgumentException("Title of projects can't be empty");
@@ -19,7 +20,6 @@ public class UserProject extends Project
         }
 
         this.title = title.trim();
-        this.parent = parent;
     }
 
     public String getTitle()

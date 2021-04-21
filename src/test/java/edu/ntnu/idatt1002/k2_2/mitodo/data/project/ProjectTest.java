@@ -1,13 +1,10 @@
-package edu.ntnu.idatt1002.k2_2.mitodo.data;
+package edu.ntnu.idatt1002.k2_2.mitodo.data.project;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.RootProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.UserProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.UUID;
 
@@ -24,6 +21,21 @@ class ProjectTest {
         project.addTask(task2.getTitle());
         project.addTask(task3.getTitle());
     }
+
+    @Nested
+    @DisplayName("Addproject tests")
+    class addProject{
+        @Test
+        void addProjectTrue() {
+            UserProject testpord = project.addProject("Test");
+            Assertions.assertEquals(testpord.getParent(), project);
+        }
+        @Test
+        void addProjectFalse(){
+
+        }
+    }
+
 
     @Nested
     class TestsForBothGetTaskMethods{
