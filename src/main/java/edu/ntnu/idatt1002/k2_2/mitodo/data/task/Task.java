@@ -1,7 +1,6 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.data.task;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
-import edu.ntnu.idatt1002.k2_2.mitodo.effects.SoundEffects;
 
 import java.io.Serializable;
 import java.time.LocalDate;

@@ -1,4 +1,4 @@
-package edu.ntnu.idatt1002.k2_2.mitodo.effects;
+package edu.ntnu.idatt1002.k2_2.mitodo.util;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;

@@ -1,8 +1,7 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.FontSizeEnum;
-import edu.ntnu.idatt1002.k2_2.mitodo.effects.SoundEffects;
+import edu.ntnu.idatt1002.k2_2.mitodo.util.SoundEffects;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
