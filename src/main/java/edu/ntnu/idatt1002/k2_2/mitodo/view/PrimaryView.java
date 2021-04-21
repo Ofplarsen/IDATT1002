@@ -1,6 +1,5 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
-import edu.ntnu.idatt1002.k2_2.mitodo.data.FontSizeEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.MainMenu;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.MainMenuItem;
 import javafx.application.Platform;

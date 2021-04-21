@@ -1,7 +1,6 @@
-package edu.ntnu.idatt1002.k2_2.mitodo.file;
+package edu.ntnu.idatt1002.k2_2.mitodo.util;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.view.Component;
-import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 
 import javafx.fxml.FXMLLoader;
 import java.io.*;
