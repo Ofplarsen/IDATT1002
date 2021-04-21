@@ -37,6 +37,7 @@ public class Task implements Serializable
         }
 
         this.title = title.trim();
+
         this.parent = parent;
         this.priority = PriorityEnum.Undefined;
         this.startDate = null;

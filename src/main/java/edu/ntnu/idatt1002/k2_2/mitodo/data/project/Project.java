@@ -128,6 +128,24 @@ public abstract class Project implements Serializable
         return task;
     }
 
+    public void moveTask(Task task, int newIndex)
+    {
+        if (!tasks.contains(task)) return;
+
+        int oldIndex = tasks.indexOf(task);
+
+        if (newIndex == oldIndex) return;
+        if (newIndex == oldIndex+1) return;
+
+        if (newIndex > oldIndex)
+        {
+            newIndex--;
+        }
+
+        tasks.remove(task);
+        tasks.add(newIndex, task);
+    }
+
     public void moveTask(Task task, Project project)
     {
         project.addTask(task.getTitle(), task.getPriority(), task.getStartDate(), task.getDueDate(),task.getRepeat(), task.getComments());

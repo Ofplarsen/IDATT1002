@@ -6,6 +6,7 @@ import edu.ntnu.idatt1002.k2_2.mitodo.data.project.RootProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.UserProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.TaskListSorter;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.components.DragAndDropManager;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.SubProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.TaskInProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.editproject.EditProjectView;
@@ -16,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
@@ -46,6 +48,7 @@ public class ProjectView extends View
 
     public enum SortOption
     {
+        Standard,
         IsDone,
         PriorityIncreasing,
         PriorityDecreasing,
@@ -179,13 +182,45 @@ public class ProjectView extends View
         setElementVisible(sortByContainer, true);
         listContainer.getChildren().clear();
 
+        int index = 0;
+        addSeperator(index);
+        index++;
         for (Task task : tasks)
         {
             TaskInProject taskInProject = (TaskInProject) Client.getComponent("TaskInProject");
             taskInProject.setTask(task);
             taskInProject.setView(this);
             listContainer.getChildren().add(taskInProject.getParent());
+            addSeperator(index);
+            index++;
         }
+    }
+
+    private void addSeperator(int index)
+    {
+        BorderPane borderPane = new BorderPane();
+        borderPane.setPrefHeight(20);
+        borderPane.setMinHeight(20);
+
+        if (showComboBox.getValue() == ShowOption.Task && sortByComboBox.getValue() == SortOption.Standard)
+        borderPane.setOnDragOver(event ->
+        {
+            event.acceptTransferModes(TransferMode.MOVE);
+        });
+
+        borderPane.setOnDragDropped(event ->
+        {
+            Object value = DragAndDropManager.getValue();
+            if (value instanceof Task)
+            {
+                Task task = (Task) value;
+                project.moveTask(task, index);
+                update();
+            }
+        });
+
+
+        listContainer.getChildren().add(borderPane);
     }
 
     private void setElementVisible(Node node, boolean visible)

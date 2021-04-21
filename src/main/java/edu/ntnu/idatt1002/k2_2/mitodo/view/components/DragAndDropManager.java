@@ -19,7 +19,7 @@ public class DragAndDropManager
         return value;
     }
 
-    public static void onTaskDropped(DragEvent dragEvent, Project project)
+    public static void onTaskDroppedInMainMenu(DragEvent dragEvent, Project project)
     {
         if (value instanceof Task)
         {
