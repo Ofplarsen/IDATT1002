@@ -27,8 +27,10 @@ public class CreateTaskView extends EditOrCreateTaskView
     {
         try {
             this.task = project.addTask(taskName.getText());
+
             super.saveAndExit();
         }catch(IllegalArgumentException e){
+            task.deleteItself();
             SoundEffects.playErrorSound();
             Alert alert = new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage(), ButtonType.OK);
             alert.showAndWait();
