@@ -34,17 +34,9 @@ public class TaskInProject extends Component
     private Label repeatLabel;
     @FXML
     private Label projectNameLabel;
-    @FXML
-    private Button deleteButton;
 
     private Task task;
     private View view;
-
-    @FXML
-    private void initialize()
-    {
-        setButtonImage(deleteButton, "deleteImage.png");
-    }
 
     public void setTask(Task task)
     {
@@ -64,15 +56,6 @@ public class TaskInProject extends Component
     public void setView(View view)
     {
         this.view = view;
-    }
-
-    private void setButtonImage(Button button, String imageFileName)
-    {
-        URL deleteImageUrl = getClass().getResource("/images/" + imageFileName);
-        ImageView image = new ImageView(deleteImageUrl.toExternalForm());
-        image.setFitHeight(25);
-        image.setFitWidth(25);
-        button.setGraphic(image);
     }
 
     @FXML

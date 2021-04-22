@@ -31,7 +31,7 @@ public class ProjectView extends View
     @FXML
     private VBox parent;
     @FXML
-    private Text title;
+    private Label title;
     @FXML
     private Button editProjectButton;
     @FXML
@@ -65,7 +65,7 @@ public class ProjectView extends View
     {
         Task,
         Subprojects,
-        SubprojectsTasks
+        AllTasks
     }
 
     @FXML
@@ -115,7 +115,7 @@ public class ProjectView extends View
             case Subprojects:
                 fillWithSubprojects();
                 break;
-            case SubprojectsTasks:
+            case AllTasks:
                 tasks = project.getAllTasks();
                 updateSortOption();
                 break;

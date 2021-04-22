@@ -95,10 +95,6 @@ on: #ffffff
     -fx-text-fill: #000000;
 }
 
-.scroll-pane {
-    -fx-background-color:transparent;
-}
-
 .error {
     -fx-background-color: #ff0030;
     -fx-text-fill: #ffffff;
