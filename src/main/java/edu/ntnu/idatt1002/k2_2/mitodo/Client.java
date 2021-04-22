@@ -11,6 +11,8 @@ import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class Client extends Application
@@ -59,6 +61,7 @@ public class Client extends Application
         stage.setHeight(640);
         stage.setTitle("MiTodo");
         stage.show();
+        stage.getIcons().add(new Image("/images/logo.png"));
     }
 
     @Override
