@@ -65,7 +65,7 @@ public class ProjectView extends View
     {
         Task,
         Subprojects,
-        SubprojectsTasks
+        AllTasks
     }
 
     @FXML
@@ -115,7 +115,7 @@ public class ProjectView extends View
             case Subprojects:
                 fillWithSubprojects();
                 break;
-            case SubprojectsTasks:
+            case AllTasks:
                 tasks = project.getAllTasks();
                 updateSortOption();
                 break;
