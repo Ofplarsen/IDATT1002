@@ -61,7 +61,7 @@ public class MainMenu
         selectedTreeItem = makeTreeItem(root, quickTasksView, null);
         selectedTreeItem.getValue().setOnDragDropped(dragEvent ->
         {
-            DragAndDropManager.onTaskDropped(dragEvent, Client.getRootProject());
+            DragAndDropManager.onTaskDroppedInMainMenu(dragEvent, Client.getRootProject());
         });
 
         makeTreeItem(root, (View) Client.getComponent("CalendarView"), null);
@@ -109,7 +109,7 @@ public class MainMenu
 
         projectItem.getValue().setOnDragDropped(dragEvent ->
         {
-            DragAndDropManager.onTaskDropped(dragEvent, project);
+            DragAndDropManager.onTaskDroppedInMainMenu(dragEvent, project);
         });
 
         return projectItem;

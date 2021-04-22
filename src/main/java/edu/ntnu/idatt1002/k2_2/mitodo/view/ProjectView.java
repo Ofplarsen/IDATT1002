@@ -6,6 +6,7 @@ import edu.ntnu.idatt1002.k2_2.mitodo.data.project.RootProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.UserProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.TaskListSorter;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.components.DragAndDropManager;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.SubProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.TaskInProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.editproject.EditProjectView;
@@ -16,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -49,6 +51,7 @@ public class ProjectView extends View
 
     public enum SortOption
     {
+        Standard,
         IsDone,
         PriorityIncreasing,
         PriorityDecreasing,
@@ -69,7 +72,7 @@ public class ProjectView extends View
     private void initialize()
     {
         sortByComboBox.setItems(FXCollections.observableArrayList(SortOption.values()));
-        sortByComboBox.setValue(SortOption.IsDone);
+        sortByComboBox.setValue(SortOption.Standard);
         showComboBox.setItems(FXCollections.observableArrayList(ShowOption.values()));
         showComboBox.setValue(ShowOption.Task);
     }
@@ -181,25 +184,67 @@ public class ProjectView extends View
     {
         setElementVisible(sortByContainer, true);
         listContainer.getChildren().clear();
-        ArrayList<Task> expiredTasks = (ArrayList<Task>) tasks.stream().filter(t -> t.getDueDate().isBefore(LocalDate.now())&&!t.isDone()).collect(Collectors.toList());
+
+
+        ArrayList<Task> expiredTasks = (ArrayList<Task>) tasks.stream().filter(Task::isExpired).collect(Collectors.toList());
         tasks.removeAll(expiredTasks);
         if(!expiredTasks.isEmpty()){
             addLabel("Overdue Tasks");
+            addSeperator(0, true);
             for (Task task : expiredTasks){
                 TaskInProject taskInProject = (TaskInProject) Client.getComponent("TaskInProject");
                 taskInProject.setTask(task);
                 taskInProject.setView(this);
                 listContainer.getChildren().add(taskInProject.getParent());
+                addSeperator(project.getTasks().indexOf(task) +1, true);
             }
             addLabel("Tasks");
         }
+
+        addSeperator(0, false);
         for (Task task : tasks)
         {
             TaskInProject taskInProject = (TaskInProject) Client.getComponent("TaskInProject");
             taskInProject.setTask(task);
             taskInProject.setView(this);
             listContainer.getChildren().add(taskInProject.getParent());
+            addSeperator(project.getTasks().indexOf(task) +1, false);
         }
+    }
+
+    private void addSeperator(int index, boolean expired)
+    {
+        BorderPane borderPane = new BorderPane();
+        borderPane.setPrefHeight(20);
+        borderPane.setMinHeight(20);
+
+        if (showComboBox.getValue() == ShowOption.Task && sortByComboBox.getValue() == SortOption.Standard)
+        borderPane.setOnDragOver(event ->
+        {
+            Object value = DragAndDropManager.getValue();
+            if (value instanceof Task)
+            {
+                Task task = (Task) value;
+                if (task.isExpired() == expired)
+                {
+                    event.acceptTransferModes(TransferMode.MOVE);
+                }
+            }
+        });
+
+        borderPane.setOnDragDropped(event ->
+        {
+            Object value = DragAndDropManager.getValue();
+            if (value instanceof Task)
+            {
+                Task task = (Task) value;
+                project.moveTask(task, index);
+                update();
+            }
+        });
+
+
+        listContainer.getChildren().add(borderPane);
     }
 
     private void setElementVisible(Node node, boolean visible)

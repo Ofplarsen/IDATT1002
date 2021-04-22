@@ -37,6 +37,7 @@ public class Task implements Serializable
         }
 
         this.title = title.trim();
+
         this.parent = parent;
         this.priority = PriorityEnum.Undefined;
         this.startDate = null;
@@ -242,5 +243,11 @@ public class Task implements Serializable
     public int hashCode()
     {
         return Objects.hash(ID);
+    }
+
+    public boolean isExpired()
+    {
+        if (dueDate == null) return false;
+        return dueDate.isBefore(LocalDate.now()) && !isDone;
     }
 }
