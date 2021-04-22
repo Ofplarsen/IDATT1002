@@ -15,6 +15,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+import java.util.Stack;
+
 public class Client extends Application
 {
     private static RootProject rootProject;
@@ -22,12 +24,11 @@ public class Client extends Application
 
     private static Settings settings;
 
-    private static View previousView;
+    private static final Stack<View> previousViews = new Stack<>();
     private static View currentView;
 
     private static final String rootProjectFileName = "rootProject";
     private static final String settingsFileName = "settings";
-
 
     @Override
     public void start(Stage stage) {
@@ -78,7 +79,7 @@ public class Client extends Application
     public static void setView(View view)
     {
         if (view.equals(currentView)) return;
-        previousView = currentView;
+        previousViews.add(currentView);
         currentView = view;
         primaryView.setContent(view);
         view.getParent().requestFocus();
@@ -98,7 +99,9 @@ public class Client extends Application
 
     public static View returnToPreviousView()
     {
-        setView(previousView);
+        currentView = previousViews.pop();
+        primaryView.setContent(currentView);
+        currentView.getParent().requestFocus();
         currentView.update();
         selectCurrentViewInMainMenu();
         return currentView;
@@ -127,11 +130,6 @@ public class Client extends Application
     public static View getCurrentView()
     {
         return currentView;
-    }
-
-    public static View getPreviousView()
-    {
-        return previousView;
     }
 
     public static RootProject getRootProject()
