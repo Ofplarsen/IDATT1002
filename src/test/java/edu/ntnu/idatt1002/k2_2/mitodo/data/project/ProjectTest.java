@@ -1,5 +1,7 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.data.project;
 
+import edu.ntnu.idatt1002.k2_2.mitodo.data.task.PriorityEnum;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.task.RepeatEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
 import org.junit.Assert;
 import org.junit.Before;
@@ -9,6 +11,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import javax.annotation.processing.SupportedAnnotationTypes;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
@@ -234,157 +237,115 @@ class ProjectTest {
         }
     }
 
-
-
-    @Test
-    void getAllTasks() {
-    }
-
-    @Test
-    void getAllSubProjectTasks() {
-    }
-
-    @Test
-    void removeTaskFromAll() {
-    }
-
-    @Test
-    void getTask() {
-    }
-
-    @Test
-    void addTask() {
-    }
-
-    @Test
-    void moveTask() {
-    }
-
-    @Test
-    void testMoveTask() {
-    }
-
-    @Test
-    void testAddTask() {
-    }
-
-    @Test
-    void removeTask() {
-    }
-
     @Nested
-    class TestsForBothGetTaskMethods{
-
-        @Nested
-        class GetTasksById{
-
-            @Test
-            void idBelongsToATaskInProject(){
-                task2 = rootProject.getTasks().stream().filter(p -> p.getTitle().equals("Task2")).findFirst().get();
-                UUID supposedId = rootProject.getTasks().stream().filter(p -> p.getTitle().equals("Task2")).findFirst().get().getID();
-
-                assertEquals(task2, rootProject.getTask(supposedId));
-            }
-
-            @Test
-            void idDoesNotBelongToAnyTaskInProject(){
-                UUID id = UUID.randomUUID();
-
-                assertNull(rootProject.getTask(id));
-            }
-        }
-
-        @Nested
-        class GetTaskByName{
-
-            @Test
-            void nameBelongsToATaskInProject(){
-                String supposedName = "Task1";
-
-                //Assertions.assertEquals(task1, project.getTask(supposedName));
-            }
-
-            @Test
-            void nameDoesNotBelongToAnyTaskInProject(){
-                String task4 = "Task4";
-
-               // Assertions.assertNull(project.getTask(task4));
-            }
-        }
-    }
-
-    @Nested
-    class TestsForBothGetProjectMethods {
-
-        RootProject project2 = new RootProject();
-        Task task4 = new Task("Task4", project2);
-        Task task5 = new Task("Task5", project2);
-        Task task6 = new Task("Task6", project2);
-
+    @DisplayName("Tests for task methods in Project")
+    class taskMethods{
+        RootProject rootProjectTaskTest = new RootProject();
+        UserProject userProjectTaskTest1;
+        UserProject userProjectTaskTest2;
+        UserProject subProjectTaskTest1;
+        ArrayList<Task> allTasks;
+        Task userTask1;
+        Task userTask2;
+        Task subTask;
         @BeforeEach
-        void prep(){
-            //project2.addTask(task4);
-            //project2.addTask(task5);
-            //project2.addTask(task6);
-           rootProject.addProject("Project2");
+        void initTaskMethods(){
+            userProjectTaskTest1 = rootProjectTaskTest.addProject("UserProdTest1");
+            userProjectTaskTest2 = rootProjectTaskTest.addProject("UserProdTest2");
+            subProjectTaskTest1 = userProjectTaskTest1.addProject("Subproject");
+            userTask1 = userProjectTaskTest1.addTask("TestTask1");
+            userTask2 = userProjectTaskTest2.addTask("TestTask2");
+            subTask = subProjectTaskTest1.addTask("TaskToSub");
         }
 
         @Nested
-        class GetProjectById{
+        @DisplayName("Tests for getAllTasks")
+        class getAllTasks{
+            @BeforeEach
+            void initGetTasks(){
 
+                allTasks = new ArrayList<>();
+                allTasks.add(userTask1);
+                allTasks.add(userTask2);
+                allTasks.add(subTask);
+            }
             @Test
-            void projectWithIdIsInAnotherProject(){
-                Project p = rootProject.getProjects().stream().filter(e -> e.getTitle().equals("Project2")).findFirst().get();
-
-                assertNotNull(rootProject.getProject(p.getID()));
+            void getAllTasksTrue() {
+                assertEquals(allTasks.size(), rootProjectTaskTest.getAllTasks().size());
+                subProjectTaskTest1.addTask("newTask");
+                assertNotEquals(allTasks.size(), rootProjectTaskTest.getAllTasks().size());
+            }
+            @Test
+            void getAllTasksFalse(){
+                allTasks.remove(subTask);
+                assertNotEquals(allTasks, rootProjectTaskTest.getAllTasks());
             }
 
-            @Test
-            void idDoesNotBelongToAnyProjectInAnotherProject(){
-                UUID notAProjectId = UUID.randomUUID();
 
-                assertNull(rootProject.getProject(notAProjectId));
-            }
-        }
-    }
-
-    @Nested
-    class TestsForBothMoveProjectMethods {
-
-        @BeforeEach
-        void setup() {
-            rootProject.addProject("project2");
-            rootProject.addProject("project3");
-            rootProject.addProject("project4");
-
-        }
-    }
-
-    @Nested
-    class TestsForBothRemoveProjectMethods {
-
-
-
-        @BeforeEach
-        void setup() {
-            rootProject.addProject("project2");
-            rootProject.addProject("project3");
-            rootProject.addProject("project4");
         }
 
         @Nested
-        class RemoveAProjectById {
+        @DisplayName("Tests for add/move and remove task")
+        class addRemoveMoveTask{
 
             @Test
-            void removeASubprojectFromAProject(){
-                //Assertions.assertTrue(project.removeProject(project2.getID()));
+            void addTaskTrue() {
+                Task testTask = rootProjectTaskTest.addTask("Task");
+                Task testTask2 = rootProjectTaskTest.addTask("Task2", PriorityEnum.High, LocalDate.now(), LocalDate.now(), RepeatEnum.DoesNotRepeat, "");
+                assertTrue(rootProjectTaskTest.getAllTasks().stream().anyMatch(t -> t.equals(testTask)));
+                assertTrue(rootProjectTaskTest.getAllTasks().stream().anyMatch(t -> t.equals(testTask2)));
+            }
+            /*
+            //TODO skal jeg gjøre dette her? :P
+            @Nested
+            @DisplayName("Tests to check if the correct throws are made if addTask fails")
+            class addTaskFalse{
+                @Test
+                void addTaskDateDueBeforeStartThrows(){
+                    try{
+                        Task testTask2 = rootProjectTaskTest.addTask("Task3", PriorityEnum.High, LocalDate.now(), LocalDate.of(1000,10,1), RepeatEnum.DoesNotRepeat, "");
+                    }catch (IllegalArgumentException e){
+                        assertEquals(e.getMessage(), );
+                    }
+                }
+            }
+
+
+             */
+
+            @Test
+            void moveTaskTrue() {
+                Task localTask = rootProjectTaskTest.addTask("task1");
+                assertEquals(rootProjectTaskTest.getTasks().size(), 1);
+                assertEquals(subProjectTaskTest1.getTasks().size(), 1);
+                assertTrue(rootProjectTaskTest.moveTask(localTask, subProjectTaskTest1));
+                assertEquals(subProjectTaskTest1.getTasks().size(), 2);
             }
 
             @Test
-            void removeAProjectThatIsNotASubproject(){
-                RootProject project5 = new RootProject();
-                assertFalse(rootProject.removeProject(project5.getID()));
+            void moveTaskNull(){
+                rootProjectTaskTest.addTask("Task2");
+                assertEquals(rootProjectTaskTest.getTasks().size(), 1);
+                assertFalse(rootProjectTaskTest.moveTask(task1, subProjectTaskTest1));
+                assertEquals(rootProjectTaskTest.getTasks().size(), 1);
             }
+
+            @Test
+            void removeTaskTrue() {
+                Task localTask = subProjectTaskTest1.addTask("localTask");
+                assertEquals(subProjectTaskTest1.getTasks().size(), 2);
+                assertTrue(subProjectTaskTest1.removeTask(localTask.getID()));
+                assertEquals(subProjectTaskTest1.getTasks().size(), 1);
+            }
+
+            @Test
+            void removeTaskFalse(){
+                Task localTask = subProjectTaskTest1.addTask("localTask");
+                assertTrue(subProjectTaskTest1.removeTask(localTask.getID()));
+                assertFalse(subProjectTaskTest1.removeTask(localTask.getID()));
+            }
+
         }
     }
+
 }

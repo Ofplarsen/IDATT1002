@@ -78,7 +78,7 @@ public abstract class Project implements Serializable
         return taskBucket;
     }
 
-    public ArrayList<Task> getAllSubProjectTasks()
+    private ArrayList<Task> getAllSubProjectTasks()
     {
         ArrayList<Task> taskBucket = new ArrayList<>();
 
@@ -90,36 +90,12 @@ public abstract class Project implements Serializable
         return taskBucket;
     }
 
-    public boolean removeTaskFromAll(UUID id)
-    {
-        boolean removed = removeTask(id);
-        if (removed) return true;
-
-        for(Project project : userProjects)
-        {
-            removed = project.removeTaskFromAll(id);
-            if (removed) return true;
-        }
-        return false;
-    }
 
     public ArrayList<Task> getTasks()
     {
         return new ArrayList<>(tasks);
     }
 
-    public Task getTask(UUID id)
-    {
-        for (Task task : tasks)
-        {
-            if (task.getID().equals(id))
-            {
-                return task;
-            }
-        }
-
-        return null;
-    }
 
     public Task addTask(String title)
     {
@@ -128,14 +104,14 @@ public abstract class Project implements Serializable
         return task;
     }
 
-    public void moveTask(Task task, int newIndex)
+    public boolean moveTask(Task task, int newIndex)
     {
-        if (!tasks.contains(task)) return;
+        if (!tasks.contains(task)) return false;
 
         int oldIndex = tasks.indexOf(task);
 
-        if (newIndex == oldIndex) return;
-        if (newIndex == oldIndex+1) return;
+        if (newIndex == oldIndex) return false;
+        if (newIndex == oldIndex+1) return false;
 
         if (newIndex > oldIndex)
         {
@@ -144,12 +120,14 @@ public abstract class Project implements Serializable
 
         tasks.remove(task);
         tasks.add(newIndex, task);
+        return true;
     }
 
-    public void moveTask(Task task, Project project)
+    public boolean moveTask(Task task, Project project)
     {
         project.addTask(task.getTitle(), task.getPriority(), task.getStartDate(), task.getDueDate(),task.getRepeat(), task.getComments());
-        task.deleteItself();
+        return task.deleteItself();
+
     }
 
     public Task addTask(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate, RepeatEnum repeat, String comments)

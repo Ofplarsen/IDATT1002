@@ -205,9 +205,9 @@ public class Task implements Serializable
         setDone(!isDone);
     }
 
-    public void deleteItself()
+    public boolean deleteItself()
     {
-        parent.removeTask(ID);
+        return parent.removeTask(ID);
     }
 
     public void moveItself(Project project) {
