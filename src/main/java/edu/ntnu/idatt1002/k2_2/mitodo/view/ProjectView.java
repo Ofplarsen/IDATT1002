@@ -199,6 +199,7 @@ public class ProjectView extends View
             for (Task task : expiredTasks){
                 TaskInProject taskInProject = (TaskInProject) Client.getComponent("TaskInProject");
                 taskInProject.setTask(task);
+                if(!showComboBox.getValue().equals(ShowOption.AllTasks)){taskInProject.removeProjectLabel();}
                 taskInProject.setView(this);
                 listContainer.getChildren().add(taskInProject.getParent());
                 addSeperator(project.getTasks().indexOf(task) +1, true);
@@ -211,6 +212,7 @@ public class ProjectView extends View
         {
             TaskInProject taskInProject = (TaskInProject) Client.getComponent("TaskInProject");
             taskInProject.setTask(task);
+            if(!showComboBox.getValue().equals(ShowOption.AllTasks)){taskInProject.removeProjectLabel();}
             taskInProject.setView(this);
             listContainer.getChildren().add(taskInProject.getParent());
             addSeperator(project.getTasks().indexOf(task) +1, false);
