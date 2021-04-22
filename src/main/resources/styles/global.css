@@ -41,6 +41,7 @@ on: #ffffff
     border:1px;
     -fx-border-color: black;
 }
+
 .card {
     -fx-background-color: #f3f3f3;
     -fx-text-fill: #000000;
@@ -53,6 +54,15 @@ on: #ffffff
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 14, 0, 5, 6)
 }
 
+.menu-item:hover, .menu-item:selected, .menu-item:cell-selection, .menu-item:focused {
+    -fx-background-color: #2e9edf;
+    -fx-text-fill: #000000;
+}
+
+.tree-item:selected, .tree-item:focused {
+    -fx-background-color: #2e9edf;
+    -fx-text-fill: #000000;
+}
 .priority-low {
     -fx-background-color:#dceffa;
 
