@@ -42,6 +42,8 @@ public class Client extends Application
         stage.setScene(primaryScene);
 
         stage.setWidth(1120);
+        stage.setMinWidth(800);
+        stage.setMinHeight(500);
         stage.setHeight(640);
         stage.setTitle("MiTodo");
         stage.show();
