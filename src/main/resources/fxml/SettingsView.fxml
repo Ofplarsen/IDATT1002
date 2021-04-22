@@ -28,7 +28,7 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <ChoiceBox fx:id="selectFontSize" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0" HBox.hgrow="ALWAYS" />
+            <ChoiceBox fx:id="selectFontSize" onAction="#save" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0" HBox.hgrow="ALWAYS" />
          </children>
          <VBox.margin>
             <Insets bottom="10.0" top="5.0" />
@@ -44,12 +44,12 @@
                   <Insets />
                </HBox.margin>
             </Label>
-            <RadioButton fx:id="onSounds" mnemonicParsing="false" styleClass="textInBoxes" text="On">
+            <RadioButton fx:id="onSounds" onAction="#save" mnemonicParsing="false" styleClass="textInBoxes" text="On">
                <toggleGroup>
                   <ToggleGroup fx:id="sounds" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="offSounds" mnemonicParsing="false" styleClass="textInBoxes" text="Off" toggleGroup="$sounds" />
+            <RadioButton fx:id="offSounds" onAction="#save"  mnemonicParsing="false" styleClass="textInBoxes" text="Off" toggleGroup="$sounds" />
          </children>
          <VBox.margin>
             <Insets bottom="10.0" top="5.0" />
@@ -59,18 +59,6 @@
          <VBox.margin>
             <Insets bottom="10.0" top="10.0" />
          </VBox.margin></Button>
-      <HBox spacing="5.0">
-         <children>
-            <Button mnemonicParsing="false" onAction="#save" text="Save" />
-            <Text fx:id="savedText" styleClass="label" HBox.hgrow="ALWAYS">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <HBox.margin>
-                  <Insets top="5.0" />
-               </HBox.margin>
-            </Text>
-         </children></HBox>
    </children>
    <padding>
       <Insets left="10.0" />

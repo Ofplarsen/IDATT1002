@@ -35,21 +35,21 @@ public class SettingsView extends View
         }
     }
 
-    public void save()
+    @FXML
+    private void save()
     {
         Client.getPrimaryView().setFontSize(selectFontSize.getValue());
-        if(onSounds.isSelected()){
+
+        if(onSounds.isSelected())
+        {
             SoundEffects.setToggleSound(true);
-        } else {
+        }
+        else
+        {
             SoundEffects.setToggleSound(false);
             onSounds.setSelected(false);
             offSounds.setSelected(true);
         }
-        savedText.setText("Saved!");
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), ev -> {
-            savedText.setText("");
-        }));
-        timeline.play();
     }
 
     public void about()
