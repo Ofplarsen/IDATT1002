@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.annotation.processing.SupportedAnnotationTypes;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -192,19 +193,48 @@ class ProjectTest {
                 }
             }
         }
+        @Nested
+        @DisplayName("Tests for removeProject and removeProjectFromAll method in project")
+        class removeProjectAndRemoveProjectFromAll{
+
+
+            @Nested
+            @DisplayName("Tests for removeProject")
+            class removeProject {
+                RootProject rootProjectRemoveP = new RootProject();
+                UserProject userProjectRemove1;
+                UserProject userProjectRemove2;
+
+                @BeforeEach
+                void initRemoveProject() {
+                    userProjectRemove1 = rootProjectRemoveP.addProject("Project1");
+                    userProjectRemove2 = rootProjectRemoveP.addProject("Project2");
+                }
+
+                @Test
+                void removeProjectTrue() {
+                    assertTrue(rootProjectRemoveP.removeProject(userProjectRemove1.getID()));
+                    ArrayList<UserProject> userProjects = new ArrayList<>();
+                    userProjects.add(userProjectRemove2);
+                    assertEquals(userProjects, rootProjectRemoveP.getProjects());
+                }
+
+                @Test
+                void removeProjectFalse() {
+                    assertTrue(rootProjectRemoveP.removeProject(userProjectRemove1.getID()));
+                    assertFalse(rootProjectRemoveP.removeProject(userProjectRemove1.getID()));
+                }
+            }
+
+            @Nested
+            @DisplayName("Tests for removeProjectFromAll")
+            class removeProjectFromAll{
+                //TODO MAKE TESTS FOR THIS SHIT :))))
+            }
+        }
     }
 
-    @Test
-    void addProject() {
-    }
 
-    @Test
-    void removeProject() {
-    }
-
-    @Test
-    void removeProjectFromAll() {
-    }
 
     @Test
     void getAllTasks() {
@@ -241,21 +271,6 @@ class ProjectTest {
     @Test
     void removeTask() {
     }
-
-    @Nested
-    @DisplayName("Addproject tests")
-    class addProject{
-        @Test
-        void addProjectTrue() {
-            UserProject testpord = rootProject.addProject("Test");
-            assertEquals(testpord.getParent(), rootProject);
-        }
-        @Test
-        void addProjectFalse(){
-
-        }
-    }
-
 
     @Nested
     class TestsForBothGetTaskMethods{
