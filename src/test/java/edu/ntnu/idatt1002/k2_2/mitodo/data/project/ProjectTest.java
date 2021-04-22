@@ -8,6 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import javax.annotation.processing.SupportedAnnotationTypes;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -166,7 +167,29 @@ class ProjectTest {
                     }
                 }
 
-                //TODO legg til Erlend sin throw
+
+                @Test
+                void addProjectLongerThan28CharThrows(){
+
+                    assertThrows(IllegalArgumentException.class, () -> {
+                        rootProjectAddProject.addProject("12345678901234567890123456789");
+                    });
+                }
+                @Test
+                void addProjectLongerThan28CharThrowsMessage(){
+                    try{
+                        rootProjectAddProject.addProject("12345678901234567890123456789");
+                    }catch (IllegalArgumentException e){
+                        assertEquals(e.getMessage(), "Project Name must be below 28.");
+                    }
+                }
+
+                @Test
+                void addProjectLessThan28CharOK(){
+                    assertDoesNotThrow(() ->{
+                        rootProjectAddProject.addProject("1234567890123456789012345678");
+                    });
+                }
             }
         }
     }

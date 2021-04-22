@@ -13,7 +13,9 @@ public class UserProject extends Project
         {
             throw new IllegalArgumentException("Title of projects can't be empty");
         }
-
+        if(title.length() > MAX_TITLE_SIZE){
+            throw new IllegalArgumentException("Project Name must be below " + MAX_TITLE_SIZE + ".");
+        }
         if(projectAlreadyCreated(title))
         {
             throw new IllegalArgumentException("Project already created");
@@ -32,6 +34,9 @@ public class UserProject extends Project
         if(title.isEmpty() || title.isBlank())
         {
             throw new IllegalArgumentException("Title of projects can't be empty");
+        }
+        if(title.length() > MAX_TITLE_SIZE){
+            throw new IllegalArgumentException("Project Name must be below " + MAX_TITLE_SIZE + ".");
         }
         if(projectAlreadyCreated(title))
         {
