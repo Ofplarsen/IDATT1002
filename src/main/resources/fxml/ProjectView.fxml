@@ -8,25 +8,24 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <VBox fx:id="parent" alignment="CENTER" styleClass="content-container" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView">
    <children>
       <HBox alignment="TOP_CENTER" spacing="10.0" VBox.vgrow="NEVER">
          <children>
-            <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT" HBox.hgrow="NEVER">
                <children>
-                  <Text fx:id="title" styleClass="header" text="Label">
+                  <Label fx:id="title" styleClass="header" text="Label">
                      <font>
                         <Font />
                      </font>
-                  </Text>
+                  </Label>
                </children>
             </HBox>
-            <HBox alignment="CENTER_RIGHT" spacing="20.0" HBox.hgrow="NEVER">
+            <HBox alignment="CENTER_RIGHT" spacing="20.0" HBox.hgrow="SOMETIMES">
                <children>
-                  <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleAddTaskButton" text="Add Task" />
-                  <Button fx:id="editProjectButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleEditButtonClick" text="Edit Project" />
+                  <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAddTaskButton" text="Add Task" />
+                  <Button fx:id="editProjectButton" alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleEditButtonClick" text="Edit Project" />
                   <HBox fx:id="sortByContainer" alignment="CENTER" spacing="5.0">
                      <children>
                         <Label contentDisplay="TOP" text="Sort by: ">
@@ -34,7 +33,7 @@
                               <Font />
                            </font>
                         </Label>
-                        <ComboBox fx:id="sortByComboBox" onAction="#updateShowOption" promptText="Standard" styleClass="textInBoxes"/>
+                        <ComboBox fx:id="sortByComboBox" onAction="#updateShowOption" promptText="Standard" styleClass="textInBoxes" />
                      </children>
                   </HBox>
                   <HBox fx:id="showContainer" alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="5.0">

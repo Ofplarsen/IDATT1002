@@ -19,7 +19,7 @@ public class MainMenuItem
 
         label = new Label(view.getMainMenuTitle());
         label.setContextMenu(contextMenu);
-        label.setPrefWidth(350);
+        label.setPrefWidth(340);
         label.getStyleClass().add("tree-item");
     }
 
