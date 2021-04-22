@@ -65,6 +65,7 @@ public class SubProject extends View
     {
         ProjectView projectView = (ProjectView) Client.setView("ProjectView");
         projectView.setProject(project);
+        Client.updateMainMenu();
     }
 
     @Override

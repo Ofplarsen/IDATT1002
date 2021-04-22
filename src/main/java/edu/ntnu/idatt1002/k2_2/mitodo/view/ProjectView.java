@@ -87,6 +87,11 @@ public class ProjectView extends View
             setElementVisible(showContainer, false);
         }
 
+        if (project.getProjects().size()==0)
+        {
+            setElementVisible(showContainer, false);
+        }
+
         this.tasks = project.getTasks();
         this.subprojects = project.getProjects();
         update();

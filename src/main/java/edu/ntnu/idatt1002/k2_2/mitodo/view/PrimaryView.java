@@ -3,12 +3,15 @@ package edu.ntnu.idatt1002.k2_2.mitodo.view;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.MainMenu;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.MainMenuItem;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TreeView;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
+import org.w3c.dom.events.Event;
 
 import java.io.File;
 
