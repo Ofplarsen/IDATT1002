@@ -1,5 +1,7 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
+import edu.ntnu.idatt1002.k2_2.mitodo.Client;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.FontSizeEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.MainMenu;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.MainMenuItem;
 import javafx.application.Platform;
@@ -24,7 +26,6 @@ public class PrimaryView extends View
     private final String smallTextCss = new File("smallText.css").toString();
     private final String bigTextCss = new File("bigText.css").toString();
     private final String defaultTextCss = new File("defaultText.css").toString();
-    private FontSizeEnum currentFontSize = FontSizeEnum.Medium;
 
     @FXML
     private SplitPane parent;
@@ -104,12 +105,8 @@ public class PrimaryView extends View
         return "Primary";
     }
 
-    public FontSizeEnum getCurrentFontSize(){
-        return currentFontSize;
-    }
-
     public void setFontSize(FontSizeEnum newFontSize){
-        switch(currentFontSize){
+        switch(Client.getSettings().getFontSize()){
             case Big:
                 parent.getStylesheets().remove(bigTextCss);
                 break;
@@ -120,18 +117,16 @@ public class PrimaryView extends View
                 parent.getStylesheets().remove(smallTextCss);
                 break;
         }
+        Client.getSettings().setFontSize(newFontSize);
         switch (newFontSize){
             case Big:
                 parent.getStylesheets().add(bigTextCss);
-                currentFontSize = FontSizeEnum.Big;
                 break;
             case Medium:
                 parent.getStylesheets().add(defaultTextCss);
-                currentFontSize = FontSizeEnum.Medium;
                 break;
             case Small:
                 parent.getStylesheets().add(smallTextCss);
-                currentFontSize = FontSizeEnum.Small;
                 break;
         }
     }

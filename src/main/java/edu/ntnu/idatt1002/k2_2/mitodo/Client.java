@@ -1,5 +1,7 @@
 package edu.ntnu.idatt1002.k2_2.mitodo;
 
+import edu.ntnu.idatt1002.k2_2.mitodo.data.FontSizeEnum;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.Settings;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.RootProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.testdata.Default;
 import edu.ntnu.idatt1002.k2_2.mitodo.util.FileManager;
@@ -16,10 +18,14 @@ public class Client extends Application
     private static RootProject rootProject;
     private static PrimaryView primaryView;
 
+    private static Settings settings;
+
     private static View previousView;
     private static View currentView;
 
     private static final String rootProjectFileName = "rootProject";
+    private static final String settingsFileName = "settings";
+
 
     @Override
     public void start(Stage stage) {
@@ -27,6 +33,12 @@ public class Client extends Application
         if (rootProject ==null)
         {
             rootProject = new RootProject();
+        }
+
+        settings = (Settings) FileManager.loadSerializableObject(settingsFileName);
+        if (settings == null)
+        {
+            settings = new Settings(false, FontSizeEnum.Medium);
         }
 
         //Default.fillWithTestData(rootProject);
@@ -51,6 +63,7 @@ public class Client extends Application
     public void stop()
     {
         FileManager.saveSerializableObject(rootProject, rootProjectFileName);
+        FileManager.saveSerializableObject(settings, settingsFileName);
     }
 
     public static void main(String[] args) {
@@ -84,6 +97,11 @@ public class Client extends Application
         currentView.update();
         selectCurrentViewInMainMenu();
         return currentView;
+    }
+
+    public static Settings getSettings()
+    {
+        return settings;
     }
 
     public static PrimaryView getPrimaryView()

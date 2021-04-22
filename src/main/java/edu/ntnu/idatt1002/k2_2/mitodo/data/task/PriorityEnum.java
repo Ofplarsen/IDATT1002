@@ -1,6 +1,8 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.data.task;
 
-public enum PriorityEnum
+import java.io.Serializable;
+
+public enum PriorityEnum implements Serializable
 {
     Undefined,
     Low,
