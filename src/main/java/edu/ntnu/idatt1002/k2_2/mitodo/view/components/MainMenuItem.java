@@ -25,6 +25,7 @@ public class MainMenuItem
         label = new Label(view.getMainMenuTitle());
         label.setContextMenu(contextMenu);
         label.setPrefWidth(10000);
+        label.getStyleClass().add("tree-item");
     }
 
     public void setOnDragDropped(EventHandler<DragEvent> eventHandler)

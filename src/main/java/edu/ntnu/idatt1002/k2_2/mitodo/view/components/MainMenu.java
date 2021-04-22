@@ -5,6 +5,8 @@ import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.UserProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.*;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.editproject.CreateProjectView;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.editproject.EditProjectView;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.edittask.CreateTaskView;
 import javafx.event.Event;
 import javafx.scene.control.*;
 
@@ -97,13 +99,25 @@ public class MainMenu
         ProjectView projectView = (ProjectView) Client.getComponent("ProjectView");
         projectView.setProject(project);
 
-        MenuItem menuItem = new MenuItem("New subproject");
-        menuItem.setOnAction(event ->
+        MenuItem editProject = new MenuItem("Edit project");
+        editProject.setOnAction(event ->
+        {
+            EditProjectView editProjectView = (EditProjectView) Client.setView("EditProjectView");
+            editProjectView.setProject((UserProject) project);
+        });
+        MenuItem addSubProject = new MenuItem("Add subproject");
+        addSubProject.setOnAction(event ->
         {
             CreateProjectView createProjectView = (CreateProjectView) Client.setView("CreateProjectView");
             createProjectView.setParentProject(project);
         });
-        ContextMenu contextMenu = new ContextMenu(menuItem);
+        MenuItem addTask = new MenuItem("Add task");
+        addTask.setOnAction(event ->
+        {
+            CreateTaskView createTaskView = (CreateTaskView) Client.setView("CreateTaskView");
+            createTaskView.setProject(project);
+        });
+        ContextMenu contextMenu = new ContextMenu(editProject, addSubProject, addTask);
 
         TreeItem<MainMenuItem> projectItem = makeTreeItem(parent, projectView, contextMenu);
 
