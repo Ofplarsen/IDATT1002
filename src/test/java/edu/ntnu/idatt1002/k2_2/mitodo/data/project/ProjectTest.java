@@ -1,25 +1,222 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.data.project;
 
-import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.project.RootProject;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.project.UserProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
-import org.junit.jupiter.api.*;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class ProjectTest {
 
-    RootProject project = new RootProject();
-    Task task1 = new Task("Task1", project);
-    Task task2 = new Task("Task2", project);
-    Task task3 = new Task("Task3", project);
+    RootProject rootProject = new RootProject();
+    Task task1 = new Task("Task1", rootProject);
+    Task task2 = new Task("Task2", rootProject);
+    Task task3 = new Task("Task3", rootProject);
 
+    UserProject userProject1;
+    UserProject subProjectUP1;
+    UserProject userProject2;
+    UserProject userProject3;
     @BeforeEach
     void init(){
-        project.addTask(task1.getTitle());
-        project.addTask(task2.getTitle());
-        project.addTask(task3.getTitle());
+        rootProject.addTask(task1.getTitle());
+        rootProject.addTask(task2.getTitle());
+        rootProject.addTask(task3.getTitle());
+
+        userProject1 = rootProject.addProject("User Project1");
+        subProjectUP1 = userProject1.addProject("Subproject UP1");
+        userProject2 = rootProject.addProject("User Project2");
+        userProject3 = rootProject.addProject("User Project3");
+    }
+
+
+    @Nested
+    @DisplayName("Test to make for all getProjects methods ")
+    class getProjectsAndGetAllProjects{
+        ArrayList<Project> projects = new ArrayList<>();
+
+        @Nested
+        @DisplayName("Tests for getProjects")
+        class getProjects {
+            @BeforeEach
+            void initGetProjects() {
+
+                projects.add(userProject1);
+                projects.add(userProject2);
+                projects.add(userProject3);
+            }
+
+            @Test
+            void getProjectsSame() {
+
+                assertEquals(projects, rootProject.getProjects());
+            }
+
+            @Test
+            void getProjectsDifferent() {
+                projects.remove(userProject3);
+                assertNotEquals(projects, rootProject.getProjects());
+            }
+        }
+
+        @Nested
+        @DisplayName("Tests for getAllProjects")
+        class getAllProjects{
+            @BeforeEach
+            void initGetProjects() {
+
+                projects.add(userProject1);
+                projects.add(userProject2);
+                projects.add(userProject3);
+                projects.add(subProjectUP1);
+            }
+
+            @Test
+            void getAllProjectsEquals() {
+                assertEquals(projects, rootProject.getAllProjects());
+            }
+
+            @Test
+            void getAllProjectsNotEquals(){
+                projects.remove(subProjectUP1);
+                assertNotEquals(projects, rootProject.getAllProjects());
+            }
+
+            @Test
+            void getAllProjectsVsGetProjects(){
+                assertNotEquals(rootProject.getAllProjects(), rootProject.getProjects());
+            }
+        }
+
+        @Nested
+        @DisplayName("Tests for getProject(UUID)")
+        class getProject{
+            @Test
+            void getProjectEquals(){
+                assertEquals(userProject1, rootProject.getProject(userProject1.getID()));
+            }
+
+            @Test
+            void getProjectsNotEquals(){
+                assertNotEquals(userProject1, rootProject.getProject(userProject2.getID()));
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("Tests for add/remove project")
+    class addRemoveProject{
+        @Nested
+        @DisplayName("Tests for addProject")
+        class addProject{
+
+            RootProject rootProjectAddProject = new RootProject();
+            UserProject addProjectUP;
+            @BeforeEach
+            void initAddProject(){
+
+            }
+            @Test
+            void addProjectTrue(){
+                addProjectUP = rootProject.addProject("New Project");
+                assertEquals(addProjectUP,rootProject.getProject(addProjectUP.getID()));
+            }
+
+            @Nested
+            @DisplayName("Tests to make sure addProject throws exception under certain conditions")
+            class addProjectThrows{
+                @Test
+                void addProjectNoNameThrowsIllEx(){
+                    assertThrows(IllegalArgumentException.class, () -> {
+                        rootProjectAddProject.addProject("");
+                    });
+
+                }
+
+                @Test
+                void addProjectNoNameThrowsMessage(){
+                    try{
+                        rootProjectAddProject.addProject("");
+                    }catch (IllegalArgumentException e){
+                        assertEquals(e.getMessage(), "Title of projects can't be empty");
+                    }
+                }
+
+                @Test
+                void addProjectSameProjectThrows(){
+                    rootProjectAddProject.addProject("New Project");
+                    assertThrows(IllegalArgumentException.class, () -> {
+                        rootProjectAddProject.addProject("New Project");
+                    });
+                }
+
+                @Test
+                void addProjectSameProjectThrowsMessage(){
+                    try{
+                        rootProjectAddProject.addProject("New Project");
+                    }catch (IllegalArgumentException e){
+                        assertEquals(e.getMessage(), "Project already created");
+                    }
+                }
+
+                //TODO legg til Erlend sin throw
+            }
+        }
+    }
+
+    @Test
+    void addProject() {
+    }
+
+    @Test
+    void removeProject() {
+    }
+
+    @Test
+    void removeProjectFromAll() {
+    }
+
+    @Test
+    void getAllTasks() {
+    }
+
+    @Test
+    void getAllSubProjectTasks() {
+    }
+
+    @Test
+    void removeTaskFromAll() {
+    }
+
+    @Test
+    void getTask() {
+    }
+
+    @Test
+    void addTask() {
+    }
+
+    @Test
+    void moveTask() {
+    }
+
+    @Test
+    void testMoveTask() {
+    }
+
+    @Test
+    void testAddTask() {
+    }
+
+    @Test
+    void removeTask() {
     }
 
     @Nested
@@ -27,8 +224,8 @@ class ProjectTest {
     class addProject{
         @Test
         void addProjectTrue() {
-            UserProject testpord = project.addProject("Test");
-            Assertions.assertEquals(testpord.getParent(), project);
+            UserProject testpord = rootProject.addProject("Test");
+            assertEquals(testpord.getParent(), rootProject);
         }
         @Test
         void addProjectFalse(){
@@ -45,17 +242,17 @@ class ProjectTest {
 
             @Test
             void idBelongsToATaskInProject(){
-                task2 = project.getTasks().stream().filter(p -> p.getTitle().equals("Task2")).findFirst().get();
-                UUID supposedId = project.getTasks().stream().filter(p -> p.getTitle().equals("Task2")).findFirst().get().getID();
+                task2 = rootProject.getTasks().stream().filter(p -> p.getTitle().equals("Task2")).findFirst().get();
+                UUID supposedId = rootProject.getTasks().stream().filter(p -> p.getTitle().equals("Task2")).findFirst().get().getID();
 
-                Assertions.assertEquals(task2, project.getTask(supposedId));
+                assertEquals(task2, rootProject.getTask(supposedId));
             }
 
             @Test
             void idDoesNotBelongToAnyTaskInProject(){
                 UUID id = UUID.randomUUID();
 
-                Assertions.assertNull(project.getTask(id));
+                assertNull(rootProject.getTask(id));
             }
         }
 
@@ -91,7 +288,7 @@ class ProjectTest {
             //project2.addTask(task4);
             //project2.addTask(task5);
             //project2.addTask(task6);
-           project.addProject("Project2");
+           rootProject.addProject("Project2");
         }
 
         @Nested
@@ -99,16 +296,16 @@ class ProjectTest {
 
             @Test
             void projectWithIdIsInAnotherProject(){
-                Project p = project.getProjects().stream().filter(e -> e.getTitle().equals("Project2")).findFirst().get();
+                Project p = rootProject.getProjects().stream().filter(e -> e.getTitle().equals("Project2")).findFirst().get();
 
-                Assertions.assertNotNull(project.getProject(p.getID()));
+                assertNotNull(rootProject.getProject(p.getID()));
             }
 
             @Test
             void idDoesNotBelongToAnyProjectInAnotherProject(){
                 UUID notAProjectId = UUID.randomUUID();
 
-                Assertions.assertNull(project.getProject(notAProjectId));
+                assertNull(rootProject.getProject(notAProjectId));
             }
         }
     }
@@ -118,9 +315,9 @@ class ProjectTest {
 
         @BeforeEach
         void setup() {
-            project.addProject("project2");
-            project.addProject("project3");
-            project.addProject("project4");
+            rootProject.addProject("project2");
+            rootProject.addProject("project3");
+            rootProject.addProject("project4");
 
         }
     }
@@ -132,9 +329,9 @@ class ProjectTest {
 
         @BeforeEach
         void setup() {
-            project.addProject("project2");
-            project.addProject("project3");
-            project.addProject("project4");
+            rootProject.addProject("project2");
+            rootProject.addProject("project3");
+            rootProject.addProject("project4");
         }
 
         @Nested
@@ -148,7 +345,7 @@ class ProjectTest {
             @Test
             void removeAProjectThatIsNotASubproject(){
                 RootProject project5 = new RootProject();
-                Assertions.assertFalse(project.removeProject(project5.getID()));
+                assertFalse(rootProject.removeProject(project5.getID()));
             }
         }
     }

@@ -72,7 +72,9 @@ EditOrCreateTaskView extends View
 
     protected void saveAndExit()
     {
-        task.setTitle(taskName.getText());
+        final int taskNameMaxLength = 28;
+        if (taskName.getText().length() > taskNameMaxLength) throw new IllegalArgumentException("taskName must be below " + taskNameMaxLength);
+        else task.setTitle(taskName.getText());
         task.setDone(isDone.isSelected());
         task.setDates(selectStartDate.getValue(),selectDueDate.getValue(), selectRepeat.getValue());
         task.setComments(comments.getText());

@@ -59,7 +59,9 @@ public class EditProjectView extends View
     {
         try
         {
-            project.setTitle(projectTitle.getText());
+            final int projectTitleMaxLength = 28;
+            if (projectTitle.getText().length() > projectTitleMaxLength) throw new IllegalArgumentException("Project Name must be below " + projectTitleMaxLength);
+            else project.setTitle(projectTitle.getText());
             Client.returnToPreviousView();
             Client.updateMainMenu();
         }
