@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.EnumToStringConverter;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.FontSizeEnum;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -24,6 +25,7 @@ public class SettingsView extends View
         onSounds.setSelected(isSound);
         offSounds.setSelected(!isSound);
 
+        selectFontSize.setConverter(new EnumToStringConverter<>());
         selectFontSize.getItems().setAll(FontSizeEnum.values());
         selectFontSize.setValue(Client.getSettings().getFontSize());
     }

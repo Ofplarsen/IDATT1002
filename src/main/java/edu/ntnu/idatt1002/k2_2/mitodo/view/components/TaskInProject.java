@@ -115,6 +115,9 @@ public class TaskInProject extends Component
         task.deleteItself();
         view.update();
     }
+    public void removeProjectLabel(){
+        projectNameLabel.setVisible(false);
+    }
 
     private void setInfo()
     {
