@@ -2,10 +2,11 @@ package edu.ntnu.idatt1002.k2_2.mitodo.data.task;
 
 import javafx.util.StringConverter;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-public enum RepeatEnum
+public enum RepeatEnum implements Serializable
 {
     DoesNotRepeat,
     Daily,

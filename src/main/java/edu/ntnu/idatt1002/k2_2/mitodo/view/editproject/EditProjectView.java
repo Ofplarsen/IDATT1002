@@ -55,6 +55,12 @@ public class EditProjectView extends View
     }
 
     @FXML
+    private void addSubProject() {
+        CreateProjectView createProjectView = (CreateProjectView) Client.setView("CreateProjectView");
+        createProjectView.setParentProject(project);
+    }
+
+    @FXML
     private void saveAndExit()
     {
         try

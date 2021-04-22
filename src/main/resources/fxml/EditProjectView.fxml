@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox styleClass="content-container" fx:id="parent" spacing="16.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.editproject.EditProjectView">
+<VBox fx:id="parent" spacing="16.0" styleClass="content-container" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.editproject.EditProjectView">
    <children>
       <BorderPane>
          <right>
@@ -22,16 +22,25 @@
             <Insets bottom="8.0" right="8.0" top="8.0" />
          </padding>
          <center>
-            <TextField fx:id="projectTitle" prefHeight="32.0" promptText="Project title" BorderPane.alignment="CENTER" onKeyPressed="#keyListener">
+            <TextField fx:id="projectTitle" onKeyPressed="#keyListener" prefHeight="32.0" promptText="Project title" BorderPane.alignment="CENTER">
                <padding>
                   <Insets left="8.0" right="8.0" />
                </padding>
             </TextField>
          </center>
       </BorderPane>
+      <HBox layoutX="42.0" layoutY="82.0">
+         <children>
+            <Button contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addSubProject" text="Add Subproject">
+               <HBox.margin>
+                  <Insets right="8.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
       <HBox>
          <children>
-            <Button contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" fx:id="btnSaE" onAction="#saveAndExit" onKeyPressed="#keyListener" text="Save and exit">
+            <Button fx:id="btnSaE" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveAndExit" onKeyPressed="#keyListener" text="Save and exit">
                <HBox.margin>
                   <Insets right="8.0" />
                </HBox.margin>
@@ -41,7 +50,7 @@
                   <Insets right="8.0" />
                </HBox.margin></Button>
             <Pane HBox.hgrow="ALWAYS" />
-            <Button contentDisplay="RIGHT" graphicTextGap="0.0" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyListener" mnemonicParsing="false" onAction="#delete" styleClass="error" text="Delete" />
+            <Button contentDisplay="RIGHT" graphicTextGap="0.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#delete" onKeyPressed="#keyListener" styleClass="error" text="Delete" />
          </children>
       </HBox>
    </children>
