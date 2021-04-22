@@ -1,20 +1,20 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.util;
 
+import edu.ntnu.idatt1002.k2_2.mitodo.Client;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import java.io.File;
 
 public class SoundEffects
 {
-    public static boolean toggleSound = true;
-
     public static void playPlingSound()
     {
         String musicFile = "src/main/resources/sounds/pling.mp3";
 
         Media sound = new Media(new File(musicFile).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        if(toggleSound){
+        if(Client.getSettings().getIsSound())
+        {
             mediaPlayer.play();
         }
     }
@@ -25,12 +25,9 @@ public class SoundEffects
 
         Media sound = new Media(new File(musicFile).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        if(toggleSound){
+        if(Client.getSettings().getIsSound())
+        {
             mediaPlayer.play();
         }
-    }
-
-    public static void setToggleSound(boolean bool){
-        toggleSound = bool;
     }
 }
