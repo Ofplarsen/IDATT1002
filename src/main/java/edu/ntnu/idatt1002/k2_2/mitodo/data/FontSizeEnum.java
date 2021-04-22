@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public enum FontSizeEnum implements Serializable
 {
-    Small,
-    Medium,
-    Big
+    SMALL,
+    MEDIUM,
+    BIG
 }

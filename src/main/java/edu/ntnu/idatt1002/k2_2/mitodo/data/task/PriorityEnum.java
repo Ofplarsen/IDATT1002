@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public enum PriorityEnum implements Serializable
 {
-    Undefined,
-    Low,
-    Medium,
-    High;
+    UNDEFINED,
+    LOW,
+    MEDIUM,
+    HIGH;
 }

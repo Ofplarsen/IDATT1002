@@ -3,7 +3,6 @@ package edu.ntnu.idatt1002.k2_2.mitodo;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.FontSizeEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.Settings;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.RootProject;
-import edu.ntnu.idatt1002.k2_2.mitodo.testdata.Default;
 import edu.ntnu.idatt1002.k2_2.mitodo.util.FileManager;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.Component;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.PrimaryView;
@@ -12,7 +11,6 @@ import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.util.Stack;
@@ -41,7 +39,7 @@ public class Client extends Application
         settings = (Settings) FileManager.loadSerializableObject(settingsFileName);
         if (settings == null)
         {
-            settings = new Settings(false, FontSizeEnum.Medium);
+            settings = new Settings(false, FontSizeEnum.MEDIUM);
         }
 
         //Default.fillWithTestData(rootProject);

@@ -5,15 +5,12 @@ import edu.ntnu.idatt1002.k2_2.mitodo.data.FontSizeEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.MainMenu;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.components.MainMenuItem;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TreeView;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
-import org.w3c.dom.events.Event;
 
 import java.io.File;
 
@@ -110,25 +107,25 @@ public class PrimaryView extends View
 
     public void setFontSize(FontSizeEnum newFontSize){
         switch(Client.getSettings().getFontSize()){
-            case Big:
+            case BIG:
                 parent.getStylesheets().remove(bigTextCss);
                 break;
-            case Medium:
+            case MEDIUM:
                 parent.getStylesheets().remove(defaultTextCss);
                 break;
-            case Small:
+            case SMALL:
                 parent.getStylesheets().remove(smallTextCss);
                 break;
         }
         Client.getSettings().setFontSize(newFontSize);
         switch (newFontSize){
-            case Big:
+            case BIG:
                 parent.getStylesheets().add(bigTextCss);
                 break;
-            case Medium:
+            case MEDIUM:
                 parent.getStylesheets().add(defaultTextCss);
                 break;
-            case Small:
+            case SMALL:
                 parent.getStylesheets().add(smallTextCss);
                 break;
         }
