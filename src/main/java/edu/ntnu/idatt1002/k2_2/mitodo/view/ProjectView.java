@@ -31,7 +31,7 @@ public class ProjectView extends View
     @FXML
     private VBox parent;
     @FXML
-    private Text title;
+    private Label title;
     @FXML
     private Button editProjectButton;
     @FXML
