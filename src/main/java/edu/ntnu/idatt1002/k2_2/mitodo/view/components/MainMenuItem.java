@@ -4,14 +4,9 @@ import edu.ntnu.idatt1002.k2_2.mitodo.Client;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.input.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 
 public class MainMenuItem
 {
@@ -24,7 +19,8 @@ public class MainMenuItem
 
         label = new Label(view.getMainMenuTitle());
         label.setContextMenu(contextMenu);
-        label.setPrefWidth(10000);
+        label.setPrefWidth(350);
+        label.getStyleClass().add("tree-item");
     }
 
     public void setOnDragDropped(EventHandler<DragEvent> eventHandler)

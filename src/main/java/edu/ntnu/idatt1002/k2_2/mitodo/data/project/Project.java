@@ -14,7 +14,7 @@ public abstract class Project implements Serializable
 {
     private final ArrayList<UserProject> userProjects = new ArrayList<>();
     private final ArrayList<Task> tasks = new ArrayList<>();
-
+    protected final static int MAX_TITLE_SIZE = 28;
     private final UUID ID = UUID.randomUUID();
 
     public abstract String getTitle();
