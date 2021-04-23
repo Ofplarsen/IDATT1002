@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.EnumToStringConverter;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.RootProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.UserProject;
@@ -22,7 +23,6 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -51,30 +51,30 @@ public class ProjectView extends View
 
     public enum SortOption
     {
-        Standard,
-        IsDone,
-        PriorityIncreasing,
-        PriorityDecreasing,
-        DueDateIncreasing,
-        DueDateDecreasing,
-        StartDateIncreasing,
-        StartDateDecreasing
+        STANDARD,
+        IS_DONE,
+        PRIORITY,
+        DUE_DATE,
+        START_DATE
     }
 
     public enum ShowOption
     {
-        Task,
-        Subprojects,
-        AllTasks
+        TASKS,
+        SUBPROJECTS,
+        ALL_TASKS
     }
 
     @FXML
     private void initialize()
     {
+        sortByComboBox.setConverter(new EnumToStringConverter<>());
         sortByComboBox.setItems(FXCollections.observableArrayList(SortOption.values()));
-        sortByComboBox.setValue(SortOption.Standard);
+        sortByComboBox.setValue(SortOption.STANDARD);
+
+        showComboBox.setConverter(new EnumToStringConverter<>());
         showComboBox.setItems(FXCollections.observableArrayList(ShowOption.values()));
-        showComboBox.setValue(ShowOption.Task);
+        showComboBox.setValue(ShowOption.TASKS);
     }
 
     public void setProject(Project project)
@@ -112,14 +112,14 @@ public class ProjectView extends View
         ShowOption showOption = showComboBox.getValue();
         switch (showOption)
         {
-            case Subprojects:
+            case SUBPROJECTS:
                 fillWithSubprojects();
                 break;
-            case AllTasks:
+            case ALL_TASKS:
                 tasks = project.getAllTasks();
                 updateSortOption();
                 break;
-            case Task:
+            case TASKS:
                 tasks = project.getTasks();
                 updateSortOption();
                 break;
@@ -147,26 +147,17 @@ public class ProjectView extends View
         SortOption sortOption = sortByComboBox.getValue();
         switch (sortOption)
         {
-            case IsDone:
+            case IS_DONE:
                 TaskListSorter.sortByIsDone(tasks);
                 break;
-            case PriorityIncreasing:
+            case PRIORITY:
                 TaskListSorter.sortByPriority(tasks, increasing);
                 break;
-            case PriorityDecreasing:
-                TaskListSorter.sortByPriority(tasks, !increasing);
-                break;
-            case StartDateIncreasing:
+            case START_DATE:
                 TaskListSorter.sortByStartDate(tasks, increasing);
                 break;
-            case StartDateDecreasing:
-                TaskListSorter.sortByStartDate(tasks, !increasing);
-                break;
-            case DueDateIncreasing:
+            case DUE_DATE:
                 TaskListSorter.sortByDueDate(tasks, increasing);
-                break;
-            case DueDateDecreasing:
-                TaskListSorter.sortByDueDate(tasks, !increasing);
                 break;
         }
         fillWithTasks();
@@ -199,7 +190,7 @@ public class ProjectView extends View
             for (Task task : expiredTasks){
                 TaskInProject taskInProject = (TaskInProject) Client.getComponent("TaskInProject");
                 taskInProject.setTask(task);
-                if(!showComboBox.getValue().equals(ShowOption.AllTasks)){taskInProject.removeProjectLabel();}
+                if(!showComboBox.getValue().equals(ShowOption.ALL_TASKS)){taskInProject.removeProjectLabel();}
                 taskInProject.setView(this);
                 listContainer.getChildren().add(taskInProject.getParent());
                 addSeperator(project.getTasks().indexOf(task) +1, true);
@@ -212,7 +203,7 @@ public class ProjectView extends View
         {
             TaskInProject taskInProject = (TaskInProject) Client.getComponent("TaskInProject");
             taskInProject.setTask(task);
-            if(!showComboBox.getValue().equals(ShowOption.AllTasks)){taskInProject.removeProjectLabel();}
+            if(!showComboBox.getValue().equals(ShowOption.ALL_TASKS)){taskInProject.removeProjectLabel();}
             taskInProject.setView(this);
             listContainer.getChildren().add(taskInProject.getParent());
             addSeperator(project.getTasks().indexOf(task) +1, false);
@@ -225,7 +216,7 @@ public class ProjectView extends View
         borderPane.setPrefHeight(20);
         borderPane.setMinHeight(20);
 
-        if (showComboBox.getValue() == ShowOption.Task && sortByComboBox.getValue() == SortOption.Standard)
+        if (showComboBox.getValue() == ShowOption.TASKS && sortByComboBox.getValue() == SortOption.STANDARD)
         borderPane.setOnDragOver(event ->
         {
             Object value = DragAndDropManager.getValue();

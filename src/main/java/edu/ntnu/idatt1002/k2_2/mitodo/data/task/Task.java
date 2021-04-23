@@ -39,10 +39,10 @@ public class Task implements Serializable
         this.title = title.trim();
 
         this.parent = parent;
-        this.priority = PriorityEnum.Undefined;
+        this.priority = PriorityEnum.UNDEFINED;
         this.startDate = null;
         this.dueDate = null;
-        this.repeat = RepeatEnum.DoesNotRepeat;
+        this.repeat = RepeatEnum.DOES_NOT_REPEAT;
         ID = UUID.randomUUID();
     }
 
@@ -57,7 +57,7 @@ public class Task implements Serializable
         //Makes sure priority is never null
         if(this.priority == null)
         {
-            this.priority = PriorityEnum.Undefined;
+            this.priority = PriorityEnum.UNDEFINED;
         }
 
         this.parent = parent;
@@ -65,12 +65,13 @@ public class Task implements Serializable
         this.priority = priority;
         this.startDate = startDate;
         this.dueDate = dueDate;
-        this.repeat = repeat == null ? RepeatEnum.DoesNotRepeat : repeat;
+        this.repeat = repeat == null ? RepeatEnum.DOES_NOT_REPEAT : repeat;
         if(comments != null){
             this.comments = comments.trim();
         }else {
-            this.comments = comments;
+        this.comments = comments;
         }
+
         ID = UUID.randomUUID();
     }
 
@@ -139,7 +140,7 @@ public class Task implements Serializable
             throw new IllegalArgumentException("Can't set due date earlier than today's date");
         }
 
-        if(startDate == null && dueDate == null && repeat != RepeatEnum.DoesNotRepeat)
+        if(startDate == null && dueDate == null && repeat != RepeatEnum.DOES_NOT_REPEAT)
         {
             throw new IllegalArgumentException("Can't repeat without either start date or due date.");
         }
@@ -185,7 +186,7 @@ public class Task implements Serializable
     {
         if (repeat == null)
         {
-            repeat = RepeatEnum.DoesNotRepeat;
+            repeat = RepeatEnum.DOES_NOT_REPEAT;
         }
         return repeat;
     }
@@ -199,7 +200,7 @@ public class Task implements Serializable
     {
         this.isDone = isDone;
 
-        if (isDone && repeat != RepeatEnum.DoesNotRepeat && !createdNextRepeatingTask)
+        if (isDone && repeat != RepeatEnum.DOES_NOT_REPEAT && !createdNextRepeatingTask)
         {
             LocalDate nextStartDate = repeat.getNextDate(startDate);
             LocalDate nextDueDate = repeat.getNextDate(dueDate);

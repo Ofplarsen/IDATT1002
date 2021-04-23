@@ -9,14 +9,10 @@ import edu.ntnu.idatt1002.k2_2.mitodo.view.edittask.EditTaskView;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.BorderPane;
-
-import java.net.URL;
 
 public class TaskInProject extends Component
 {
@@ -74,21 +70,21 @@ public class TaskInProject extends Component
         }
 
         switch (task.getPriority()) {
-            case Undefined:
+            case UNDEFINED:
                 priorityLabel.setText("");
                 break;
 
-            case Low:
+            case LOW:
                 parent.getStyleClass().add("priority-low");
                 priorityLabel.setText("P3");
                 break;
 
-            case Medium:
+            case MEDIUM:
                 parent.getStyleClass().add("priority-medium");
                 priorityLabel.setText("P2");
                 break;
 
-            case High:
+            case HIGH:
                 parent.getStyleClass().add("priority-high");
                 priorityLabel.setText("P1");
                 break;
@@ -129,7 +125,7 @@ public class TaskInProject extends Component
         isDoneCheckBox.setText(task.getTitle());
         startDateLabel.setText(task.getStartDateAsString());
         dueDateLabel.setText(task.getDueDateAsString());
-        repeatLabel.setText(task.getRepeat() == RepeatEnum.DoesNotRepeat? "" : task.getRepeat().toString());
+        repeatLabel.setText(task.getRepeat() == RepeatEnum.DOES_NOT_REPEAT ? "" : task.getRepeat().toString());
         projectNameLabel.setText(task.getParent().getTitle());
         setPriorityInfo();
     }

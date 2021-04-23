@@ -1,7 +1,7 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view.edittask;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
-import edu.ntnu.idatt1002.k2_2.mitodo.data.project.UserProject;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.EnumToStringConverter;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.PriorityEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.RepeatEnum;
@@ -49,12 +49,13 @@ EditOrCreateTaskView extends View
         selectProject.getItems().setAll(Client.getRootProject().getAllProjects());
         selectProject.getItems().add(Client.getRootProject());
 
+        selectPriority.setConverter(new EnumToStringConverter<>());
         selectPriority.getItems().setAll(PriorityEnum.values());
-        selectPriority.setValue(PriorityEnum.Undefined);
+        selectPriority.setValue(PriorityEnum.UNDEFINED);
 
-        selectRepeat.setConverter(RepeatEnum.toString);
+        selectRepeat.setConverter(new EnumToStringConverter<>());
         selectRepeat.getItems().setAll(RepeatEnum.values());
-        selectRepeat.setValue(RepeatEnum.DoesNotRepeat);
+        selectRepeat.setValue(RepeatEnum.DOES_NOT_REPEAT);
     }
 
     @FXML
