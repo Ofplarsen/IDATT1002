@@ -20,6 +20,7 @@ public class CreateTaskView extends EditOrCreateTaskView
             }
         });
         this.project = project;
+        selectProject.setValue(project);
     }
 
     @FXML
