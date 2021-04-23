@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TaskTest {
+public class TaskTest {
 
     @Test
     void getParent() {
