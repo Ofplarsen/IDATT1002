@@ -30,7 +30,7 @@ public class UserProjectTest {
 
     @Nested
     @DisplayName("Tests for the method projectAlreadyCreated")
-    public class projectAlreadyCreated{
+    public class ProjectAlreadyCreated{
         @Test
         void projectNotCreated() {
 
@@ -52,7 +52,7 @@ public class UserProjectTest {
         }
     }
     @Nested
-    public class getParent{
+    public class GetParent{
         @Test
         void getParentTest() {
             assertEquals(userProject1, userProject11.getParent());

@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.Region;
 
 public class CreateTaskView extends EditOrCreateTaskView
 {
@@ -33,7 +34,9 @@ public class CreateTaskView extends EditOrCreateTaskView
         }catch(IllegalArgumentException e){
             task.deleteItself();
             SoundEffects.playErrorSound();
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage(), ButtonType.OK);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Error: " + e.getMessage());
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.showAndWait();
         }
     }
