@@ -44,12 +44,12 @@ public class ProjectTest {
 
     @Nested
     @DisplayName("Test to make for all getProjects methods ")
-    public class getProjectsAndGetAllProjects{
+    public class GetProjectsAndGetAllProjects{
         ArrayList<Project> projects = new ArrayList<>();
 
         @Nested
         @DisplayName("Tests for getProjects")
-        public class getProjects {
+        public class GetProjects {
             @BeforeEach
             void initGetProjects() {
 
@@ -73,7 +73,7 @@ public class ProjectTest {
 
         @Nested
         @DisplayName("Tests for getAllProjects")
-        public class getAllProjects{
+        public class GetAllProjects{
             @BeforeEach
             void initGetProjects() {
 
@@ -102,7 +102,7 @@ public class ProjectTest {
 
         @Nested
         @DisplayName("Tests for getProject(UUID)")
-        public class getProject{
+        public class GetProject{
             @Test
             void getProjectEquals(){
                 assertEquals(userProject1, rootProject.getProject(userProject1.getID()));
@@ -117,10 +117,10 @@ public class ProjectTest {
 
     @Nested
     @DisplayName("Tests for add/remove project")
-    public class addRemoveProject{
+    public class AddRemoveProject{
         @Nested
         @DisplayName("Tests for addProject")
-        public class addProject{
+        public class AddProject{
 
             RootProject rootProjectAddProject = new RootProject();
             UserProject addProjectUP;
@@ -136,7 +136,7 @@ public class ProjectTest {
 
             @Nested
             @DisplayName("Tests to make sure addProject throws exception under certain conditions")
-            public class addProjectThrows{
+            public class AddProjectThrows{
                 @Test
                 void addProjectNoNameThrowsIllEx(){
                     assertThrows(IllegalArgumentException.class, () -> {
@@ -198,12 +198,12 @@ public class ProjectTest {
         }
         @Nested
         @DisplayName("Tests for removeProject and removeProjectFromAll method in project")
-        public class removeProjectAndRemoveProjectFromAll{
+        public class RemoveProjectAndRemoveProjectFromAll{
 
 
             @Nested
             @DisplayName("Tests for removeProject")
-            public class removeProject {
+            public class RemoveProject {
                 RootProject rootProjectRemoveP = new RootProject();
                 UserProject userProjectRemove1;
                 UserProject userProjectRemove2;
@@ -229,17 +229,12 @@ public class ProjectTest {
                 }
             }
 
-            @Nested
-            @DisplayName("Tests for removeProjectFromAll")
-            public class removeProjectFromAll{
-                //TODO MAKE TESTS FOR THIS SHIT :))))
-            }
         }
     }
 
     @Nested
     @DisplayName("Tests for task methods in Project")
-    public class taskMethods{
+    public class TaskMethods{
         RootProject rootProjectTaskTest = new RootProject();
         UserProject userProjectTaskTest1;
         UserProject userProjectTaskTest2;
@@ -260,7 +255,7 @@ public class ProjectTest {
 
         @Nested
         @DisplayName("Tests for getAllTasks")
-        public class getAllTasks{
+        public class GetAllTasks{
             @BeforeEach
             void initGetTasks(){
 
@@ -286,7 +281,7 @@ public class ProjectTest {
 
         @Nested
         @DisplayName("Tests for add/move and remove task")
-        public class addRemoveMoveTask{
+        public class AddRemoveMoveTask{
 
             @Test
             void addTaskTrue() {
