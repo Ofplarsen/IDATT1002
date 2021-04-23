@@ -291,7 +291,7 @@ public class ProjectTest {
             @Test
             void addTaskTrue() {
                 Task testTask = rootProjectTaskTest.addTask("Task");
-                Task testTask2 = rootProjectTaskTest.addTask("Task2", PriorityEnum.High, LocalDate.now(), LocalDate.now(), RepeatEnum.DoesNotRepeat, "");
+                Task testTask2 = rootProjectTaskTest.addTask("Task2", PriorityEnum.HIGH, LocalDate.now(), LocalDate.now(), RepeatEnum.DOES_NOT_REPEAT, "");
                 assertTrue(rootProjectTaskTest.getAllTasks().stream().anyMatch(t -> t.equals(testTask)));
                 assertTrue(rootProjectTaskTest.getAllTasks().stream().anyMatch(t -> t.equals(testTask2)));
             }
