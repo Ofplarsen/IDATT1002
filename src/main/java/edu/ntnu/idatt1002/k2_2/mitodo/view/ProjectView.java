@@ -42,6 +42,8 @@ public class ProjectView extends View
     @FXML
     private ComboBox<SortOption> sortByComboBox;
     @FXML
+    private CheckBox ascendingCheckBox;
+    @FXML
     private HBox showContainer;
     @FXML
     private ComboBox<ShowOption> showComboBox;
@@ -219,19 +221,23 @@ public class ProjectView extends View
 
     private void updateSortOption()
     {
-        boolean increasing = true;
+        setElementVisible(ascendingCheckBox, true);
+        boolean ascending = ascendingCheckBox.isSelected();
 
         SortOption sortOption = sortByComboBox.getValue();
         switch (sortOption)
         {
+            case STANDARD:
+                setElementVisible(ascendingCheckBox, false);
+                break;
             case PRIORITY:
-                TaskListSorter.sortByPriority(tasks, increasing);
+                TaskListSorter.sortByPriority(tasks, ascending);
                 break;
             case START_DATE:
-                TaskListSorter.sortByStartDate(tasks, increasing);
+                TaskListSorter.sortByStartDate(tasks, ascending);
                 break;
             case DUE_DATE:
-                TaskListSorter.sortByDueDate(tasks, increasing);
+                TaskListSorter.sortByDueDate(tasks, ascending);
                 break;
         }
 

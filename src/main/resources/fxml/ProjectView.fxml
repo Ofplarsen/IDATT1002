@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -49,19 +50,20 @@
                      <tooltip>
                         <Tooltip text="Edit Project" />
                      </tooltip></Button>
-                  <HBox fx:id="sortByContainer" alignment="CENTER" spacing="5.0">
+                  <HBox fx:id="sortByContainer" alignment="CENTER" spacing="1.0">
                      <children>
-                        <Label contentDisplay="TOP" text="Sort:">
+                        <Label contentDisplay="TOP" text="Sort: ">
                            <font>
                               <Font />
                            </font>
                         </Label>
                         <ComboBox fx:id="sortByComboBox" onAction="#updateShowAndSortOption" promptText="Standard" styleClass="textInBoxes" />
+                        <CheckBox fx:id="ascendingCheckBox" onAction="#updateShowAndSortOption" mnemonicParsing="false" styleClass="sorting-checkbox" />
                      </children>
                   </HBox>
-                  <HBox fx:id="showContainer" alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="5.0">
+                  <HBox fx:id="showContainer" alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="1.0">
                      <children>
-                        <Label contentDisplay="TOP" text="Show:">
+                        <Label contentDisplay="TOP" text="Show: ">
                            <font>
                               <Font />
                            </font>
