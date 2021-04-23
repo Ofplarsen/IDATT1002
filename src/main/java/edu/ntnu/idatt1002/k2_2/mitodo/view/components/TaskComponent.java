@@ -14,7 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.*;
 import javafx.scene.layout.BorderPane;
 
-public class TaskInProject extends Component
+public class TaskComponent extends Component
 {
     @FXML
     private BorderPane parent;

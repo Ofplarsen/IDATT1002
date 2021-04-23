@@ -18,16 +18,4 @@ public class DragAndDropManager
     {
         return value;
     }
-
-    public static void onTaskDroppedInMainMenu(DragEvent dragEvent, Project project)
-    {
-        if (value instanceof Task)
-        {
-            Task task = (Task) value;
-            project.addTask(task.getTitle(), task.getPriority(), task.getStartDate(), task.getDueDate(), task.getRepeat(), task.getComments());
-
-            task.deleteItself();
-            Client.getCurrentView().update();
-        }
-    }
 }

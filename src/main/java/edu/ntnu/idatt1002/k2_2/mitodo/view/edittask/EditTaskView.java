@@ -17,11 +17,13 @@ public class EditTaskView extends EditOrCreateTaskView
         this.task = task;
         this.project = task.getParent();
 
+
         isDone.setSelected(task.isDone());
         selectStartDate.setValue(task.getStartDate());
         selectDueDate.setValue(task.getDueDate());
         selectRepeat.setValue(task.getRepeat());
         taskName.setText(task.getTitle());
+        selectProject.setValue(project);
         Platform.runLater(new Runnable() {
             @Override
             public void run() {

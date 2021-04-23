@@ -8,7 +8,7 @@ import static java.util.Comparator.comparing;
 
 public class TaskListSorter
 {
-    public static void sortByIsDone(ArrayList<Task> tasks)
+    public static void sortByIsDone(ArrayList<Task> tasks, boolean increasing)
     {
         tasks.sort(comparing(Task::isDone));
     }
