@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="parent" onMouseClicked="#handleEditTaskButtonClick" styleClass="card" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.components.TaskInProject">
+<BorderPane fx:id="parent" onMouseClicked="#handleEditTaskButtonClick" styleClass="card" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.components.TaskComponent">
    <right>
       <HBox alignment="CENTER_RIGHT" minWidth="-Infinity" spacing="8.0" BorderPane.alignment="CENTER_RIGHT">
          <children>

@@ -49,8 +49,32 @@ public abstract class Project implements Serializable
     public UserProject addProject(String title)
     {
         UserProject project = new UserProject(title, this);
-        userProjects.add(project);
+        userProjects.add(0, project);
         return project;
+    }
+
+    protected void addProject(UserProject userProject)
+    {
+        userProjects.add(0, userProject);
+    }
+
+    public boolean moveProject(UserProject subproject, int newIndex)
+    {
+        if (!userProjects.contains(subproject)) return false;
+
+        int oldIndex = userProjects.indexOf(subproject);
+
+        if (newIndex == oldIndex) return false;
+        if (newIndex == oldIndex+1) return false;
+
+        if (newIndex > oldIndex)
+        {
+            newIndex--;
+        }
+
+        userProjects.remove(subproject);
+        userProjects.add(newIndex, subproject);
+        return true;
     }
 
     public boolean removeProject(UUID id)
@@ -100,7 +124,7 @@ public abstract class Project implements Serializable
     public Task addTask(String title)
     {
         Task task = new Task(title, this);
-        tasks.add(task);
+        tasks.add(0, task);
         return task;
     }
 
@@ -123,11 +147,10 @@ public abstract class Project implements Serializable
         return true;
     }
 
-    public boolean moveTask(Task task, Project project)
+    public boolean moveTask(Task task, Project newParentProject)
     {
-        project.addTask(task.getTitle(), task.getPriority(), task.getStartDate(), task.getDueDate(),task.getRepeat(), task.getComments());
+        newParentProject.addTask(task.getTitle(), task.getPriority(), task.getStartDate(), task.getDueDate(),task.getRepeat(), task.getComments());
         return task.deleteItself();
-
     }
 
     public Task addTask(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate, RepeatEnum repeat, String comments)
@@ -135,7 +158,7 @@ public abstract class Project implements Serializable
         try
         {
             Task task = new Task(title, priority, startDate, dueDate,repeat, comments, this);
-            tasks.add(task);
+            tasks.add(0, task);
             return task;
         }
         catch (IllegalArgumentException e)

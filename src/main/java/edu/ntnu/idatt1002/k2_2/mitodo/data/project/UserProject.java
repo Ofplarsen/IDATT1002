@@ -4,7 +4,7 @@ package edu.ntnu.idatt1002.k2_2.mitodo.data.project;
 public class UserProject extends Project
 {
     private String title;
-    private final Project parent;
+    private Project parent;
 
     public UserProject(String title, Project parent)
     {
@@ -43,6 +43,23 @@ public class UserProject extends Project
             throw new IllegalArgumentException("Project already created");
         }
         this.title = title;
+    }
+
+    public boolean canMoveTo(Project newParentProject)
+    {
+        if (equals(newParentProject)) return false;
+        return !getAllProjects().contains(newParentProject);
+    }
+
+    public boolean moveTo(Project newParentProject)
+    {
+        if (!canMoveTo(newParentProject)) return false;
+
+        parent.removeProject(getID());
+        parent = newParentProject;
+        parent.addProject(this);
+
+        return true;
     }
 
     public boolean projectAlreadyCreated(String title)

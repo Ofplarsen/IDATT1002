@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="parent" alignment="TOP_CENTER" spacing="8.0" styleClass="card" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.components.SubProject">
+<HBox fx:id="parent" alignment="TOP_CENTER" spacing="8.0" styleClass="card" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.components.SubProjectComponent">
    <children>
       <HBox alignment="CENTER_LEFT" HBox.hgrow="NEVER">
          <children>
@@ -24,11 +24,6 @@
          </HBox.margin>
          <children>
             <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleGoToProjectClick" text="Go To Project" HBox.hgrow="ALWAYS" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER_RIGHT">
-         <children>
-            <CheckBox fx:id="showTasks" mnemonicParsing="false" onAction="#showSubProjectTasks" text="Show Tasks" />
          </children>
       </HBox>
    </children>
