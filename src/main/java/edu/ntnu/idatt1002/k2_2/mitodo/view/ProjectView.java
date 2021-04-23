@@ -174,12 +174,6 @@ public class ProjectView extends View
         this.title.setText(project.getTitle());
         Platform.runLater(() -> title.requestFocus());
 
-        if (project instanceof RootProject)
-        {
-            setElementVisible(editProjectButton, false);
-            setElementVisible(showContainer, false);
-        }
-
         if (project.getProjects().size()==0)
         {
             setElementVisible(showContainer, false);
@@ -189,6 +183,12 @@ public class ProjectView extends View
         else
         {
             setElementVisible(showContainer, true);
+        }
+
+        if (project instanceof RootProject)
+        {
+            setElementVisible(editProjectButton, false);
+            setElementVisible(showContainer, false);
         }
 
         updateShowAndSortOption();

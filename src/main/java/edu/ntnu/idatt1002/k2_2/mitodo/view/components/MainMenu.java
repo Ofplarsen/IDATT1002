@@ -67,6 +67,8 @@ public class MainMenu
         ProjectView quickTasksView = (ProjectView) Client.getComponent("ProjectView");
         quickTasksView.setProject(Client.getRootProject());
         selectedTreeItem = makeTreeItem(root, quickTasksView, null);
+        selectedTreeItem.getValue().setOnDragOver(event -> onDragOverProjectView(Client.getRootProject(), event));
+        selectedTreeItem.getValue().setOnDragDropped(event -> onDragDroppedOnProjectView(Client.getRootProject()));
 
         makeTreeItem(root, (View) Client.getComponent("CalendarView"), null);
 
