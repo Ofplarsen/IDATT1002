@@ -18,7 +18,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ProjectTest {
+public class ProjectTest {
 
     RootProject rootProject = new RootProject();
     Task task1 = new Task("Task1", rootProject);
@@ -44,12 +44,12 @@ class ProjectTest {
 
     @Nested
     @DisplayName("Test to make for all getProjects methods ")
-    class getProjectsAndGetAllProjects{
+    public class getProjectsAndGetAllProjects{
         ArrayList<Project> projects = new ArrayList<>();
 
         @Nested
         @DisplayName("Tests for getProjects")
-        class getProjects {
+        public class getProjects {
             @BeforeEach
             void initGetProjects() {
 
@@ -73,7 +73,7 @@ class ProjectTest {
 
         @Nested
         @DisplayName("Tests for getAllProjects")
-        class getAllProjects{
+        public class getAllProjects{
             @BeforeEach
             void initGetProjects() {
 
@@ -102,7 +102,7 @@ class ProjectTest {
 
         @Nested
         @DisplayName("Tests for getProject(UUID)")
-        class getProject{
+        public class getProject{
             @Test
             void getProjectEquals(){
                 assertEquals(userProject1, rootProject.getProject(userProject1.getID()));
@@ -117,10 +117,10 @@ class ProjectTest {
 
     @Nested
     @DisplayName("Tests for add/remove project")
-    class addRemoveProject{
+    public class addRemoveProject{
         @Nested
         @DisplayName("Tests for addProject")
-        class addProject{
+        public class addProject{
 
             RootProject rootProjectAddProject = new RootProject();
             UserProject addProjectUP;
@@ -136,7 +136,7 @@ class ProjectTest {
 
             @Nested
             @DisplayName("Tests to make sure addProject throws exception under certain conditions")
-            class addProjectThrows{
+            public class addProjectThrows{
                 @Test
                 void addProjectNoNameThrowsIllEx(){
                     assertThrows(IllegalArgumentException.class, () -> {
@@ -198,12 +198,12 @@ class ProjectTest {
         }
         @Nested
         @DisplayName("Tests for removeProject and removeProjectFromAll method in project")
-        class removeProjectAndRemoveProjectFromAll{
+        public class removeProjectAndRemoveProjectFromAll{
 
 
             @Nested
             @DisplayName("Tests for removeProject")
-            class removeProject {
+            public class removeProject {
                 RootProject rootProjectRemoveP = new RootProject();
                 UserProject userProjectRemove1;
                 UserProject userProjectRemove2;
@@ -231,7 +231,7 @@ class ProjectTest {
 
             @Nested
             @DisplayName("Tests for removeProjectFromAll")
-            class removeProjectFromAll{
+            public class removeProjectFromAll{
                 //TODO MAKE TESTS FOR THIS SHIT :))))
             }
         }
@@ -239,7 +239,7 @@ class ProjectTest {
 
     @Nested
     @DisplayName("Tests for task methods in Project")
-    class taskMethods{
+    public class taskMethods{
         RootProject rootProjectTaskTest = new RootProject();
         UserProject userProjectTaskTest1;
         UserProject userProjectTaskTest2;
@@ -260,7 +260,7 @@ class ProjectTest {
 
         @Nested
         @DisplayName("Tests for getAllTasks")
-        class getAllTasks{
+        public class getAllTasks{
             @BeforeEach
             void initGetTasks(){
 
@@ -286,7 +286,7 @@ class ProjectTest {
 
         @Nested
         @DisplayName("Tests for add/move and remove task")
-        class addRemoveMoveTask{
+        public class addRemoveMoveTask{
 
             @Test
             void addTaskTrue() {
