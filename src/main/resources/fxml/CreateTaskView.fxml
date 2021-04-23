@@ -6,99 +6,110 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="parent" prefWidth="613.0" spacing="16.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.edittask.CreateTaskView">
+
+<VBox fx:id="parent" styleClass="content-container" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.edittask.CreateTaskView">
    <children>
-      <HBox minHeight="-Infinity" minWidth="-Infinity">
-         <children>
-            <CheckBox fx:id="isDone" onAction="#handleIsDoneCheckBox" mnemonicParsing="false">
-               <padding>
-                  <Insets right="8.0" />
-               </padding></CheckBox>
-            <TextField fx:id="taskName" text="Task Name" HBox.hgrow="ALWAYS" onKeyPressed="#keyHandler">
-               <padding>
-                  <Insets left="8.0" right="8.0" />
-               </padding>
-            </TextField>
-         </children>
-      </HBox>
-      <VBox spacing="8.0">
-         <padding>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-         </padding>
-         <Label text="Comments" />
-         <TextArea fx:id="comments" onKeyPressed="#keyHandler"/>
-      </VBox>
-      <HBox spacing="8.0">
-         <children>
-            <Label minHeight="-Infinity" minWidth="-Infinity" text="Project" />
-            <ChoiceBox fx:id="selectProject" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyHandler" prefWidth="120.0" HBox.hgrow="ALWAYS" />
-         </children>
-         <padding>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-         </padding>
-      </HBox>
-      <HBox layoutX="18.0" layoutY="18.0" prefHeight="26.0" prefWidth="243.0" spacing="8.0">
-         <children>
-            <Label text="Start Date" />
-            <DatePicker fx:id="selectStartDate" onKeyPressed="#keyHandler"/>
-         </children>
-         <padding>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-         </padding>
-      </HBox>
-      <HBox layoutX="18.0" layoutY="68.0" spacing="8.0">
-         <children>
-            <Label text="Due Date" />
-            <DatePicker fx:id="selectDueDate" onKeyPressed="#keyHandler"/>
-            <Button mnemonicParsing="false" fx:id="btnClearDates" onAction="#clearDates" text="Clear Dates" onKeyPressed="#keyHandler"/>
-         </children>
-         <padding>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-         </padding>
-      </HBox>
-      <HBox spacing="8.0">
-         <children>
-            <Label text="Repeat" />
-            <ChoiceBox fx:id="selectRepeat" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0" HBox.hgrow="ALWAYS" onKeyPressed="#keyHandler"/>
-         </children>
-         <padding>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-         </padding>
-      </HBox>
-      <HBox layoutX="18.0" layoutY="406.0" spacing="8.0">
-         <children>
-            <Label text="Priority" />
-            <ChoiceBox fx:id="selectPriority" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0" HBox.hgrow="ALWAYS" onKeyPressed="#keyHandler"/>
-         </children>
-         <padding>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-         </padding>
-      </HBox>
-      <BorderPane>
-         <left>
-            <HBox minHeight="-Infinity" minWidth="-Infinity" spacing="8.0" BorderPane.alignment="CENTER">
+      <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="content-container" VBox.vgrow="ALWAYS">
+         <content>
+            <VBox spacing="16.0" styleClass="content-container">
                <children>
-                  <Button contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveAndExit" text="Save and exit" onKeyPressed="#keyHandler">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#cancel" text="Cancel" onKeyPressed="#keyHandler"/>
+                  <HBox>
+                     <children>
+                        <CheckBox fx:id="isDone" mnemonicParsing="false" onAction="#handleIsDoneCheckBox" onKeyPressed="#keyHandler">
+                           <padding>
+                              <Insets right="8.0" />
+                           </padding>
+                        </CheckBox>
+                        <TextField fx:id="taskName" onKeyPressed="#keyHandler" text="Task Name" HBox.hgrow="ALWAYS">
+                           <padding>
+                              <Insets left="8.0" right="8.0" />
+                           </padding>
+                        </TextField>
+                     </children>
+                  </HBox>
+                   <VBox spacing="8.0">
+                       <padding>
+                           <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                       </padding>
+                       <Label minHeight="-Infinity" minWidth="-Infinity" text="Comments" />
+                       <TextArea fx:id="comments" onKeyPressed="#keyHandler" />
+                   </VBox>
+                  <HBox spacing="8.0">
+                     <children>
+                        <Label minHeight="-Infinity" minWidth="-Infinity" text="Project" />
+                        <ChoiceBox fx:id="selectProject" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyHandler" HBox.hgrow="ALWAYS" />
+                     </children>
+                     <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </padding>
+                  </HBox>
+                  <HBox layoutX="18.0" layoutY="18.0" onKeyPressed="#keyHandler" spacing="8.0">
+                     <children>
+                        <Label minHeight="-Infinity" minWidth="-Infinity" text="Start Date" />
+                        <DatePicker fx:id="selectStartDate" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyHandler" />
+                     </children>
+                     <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </padding>
+                  </HBox>
+                  <HBox layoutX="18.0" layoutY="68.0" onKeyPressed="#keyHandler" spacing="8.0">
+                     <children>
+                        <Label minHeight="-Infinity" minWidth="-Infinity" text="Due Date" />
+                        <DatePicker fx:id="selectDueDate" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyHandler" />
+                        <Button fx:id="btnClearDates" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#clearDates" onKeyPressed="#keyHandler" text="Clear Dates" />
+                     </children>
+                     <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </padding>
+                  </HBox>
+                  <HBox spacing="8.0">
+                     <children>
+                        <Label minHeight="-Infinity" minWidth="-Infinity" text="Repeat" />
+                        <ChoiceBox fx:id="selectRepeat" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyHandler" HBox.hgrow="ALWAYS" />
+                     </children>
+                     <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </padding>
+                  </HBox>
+                  <HBox layoutX="18.0" layoutY="406.0" spacing="8.0">
+                     <children>
+                        <Label minHeight="-Infinity" minWidth="-Infinity" text="Priority" />
+                        <ChoiceBox fx:id="selectPriority" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyHandler" HBox.hgrow="ALWAYS" />
+                     </children>
+                     <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </padding>
+                  </HBox>
+                  <BorderPane>
+                     <left>
+                        <HBox minHeight="-Infinity" minWidth="-Infinity" spacing="8.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Button contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveAndExit" onKeyPressed="#keyHandler" text="Save and exit">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Button>
+                              <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancel" onKeyPressed="#keyHandler" text="Cancel" />
+                           </children>
+                        </HBox>
+                     </left>
+                     <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </padding>
+                  </BorderPane>
                </children>
-            </HBox>
-         </left>
-         <padding>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-         </padding>
-      </BorderPane>
+               <padding>
+                  <Insets bottom="8.0" left="32.0" right="32.0" top="8.0" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
    </children>
-   <padding>
-      <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-   </padding>
 </VBox>

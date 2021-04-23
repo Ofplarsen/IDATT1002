@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <VBox fx:id="parent" alignment="CENTER" styleClass="content-container" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView">
    <children>
@@ -58,7 +59,7 @@
                            </font>
                         </Label>
                         <ComboBox fx:id="sortByComboBox" onAction="#updateShowAndSortOption" promptText="Standard" styleClass="textInBoxes" />
-                        <CheckBox fx:id="ascendingCheckBox" onAction="#updateShowAndSortOption" mnemonicParsing="false" styleClass="sorting-checkbox" />
+                        <CheckBox fx:id="ascendingCheckBox" mnemonicParsing="false" onAction="#updateShowAndSortOption" styleClass="sorting-checkbox" />
                      </children>
                   </HBox>
                   <HBox fx:id="showContainer" alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="1.0">
@@ -80,10 +81,23 @@
       </HBox>
       <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
          <content>
-            <VBox fx:id="listContainer" styleClass="content-container">
+            <VBox styleClass="content-container">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
+               <children>
+                  <Text fx:id="expiredTitle" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="header" text="Overdue" />
+                  <VBox fx:id="expiredContainer" styleClass="content-container" />
+                  <Text fx:id="normalTitle" layoutX="20.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="header" text="Tasks" />
+                  <VBox fx:id="normalContainer" styleClass="content-container" />
+                  <HBox fx:id="doneTitleContainer" alignment="CENTER_LEFT" spacing="5.0">
+                     <children>
+                        <CheckBox fx:id="showDoneTasksCheckBox" mnemonicParsing="false" onAction="#updateDoneTaskContainer" styleClass="show-done-tasks-check-box" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="header" text="Done" />
+                     </children>
+                  </HBox>
+                  <VBox fx:id="doneContainer" styleClass="content-container" />
+               </children>
             </VBox>
          </content>
       </ScrollPane>

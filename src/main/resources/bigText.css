@@ -1,5 +1,5 @@
 /* Change the font size accordingly */
-.header, .label.header{
+.header, .label.header, .hBox.header{
     -fx-font-size: 50px;
 }
 

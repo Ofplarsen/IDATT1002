@@ -49,7 +49,20 @@ public class ProjectView extends View
     private ComboBox<ShowOption> showComboBox;
 
     @FXML
-    private VBox listContainer;
+    private VBox expiredContainer;
+    @FXML
+    private VBox normalContainer;
+    @FXML
+    private VBox doneContainer;
+
+    @FXML
+    private Text expiredTitle;
+    @FXML
+    private Text normalTitle;
+    @FXML
+    private HBox doneTitleContainer;
+    @FXML
+    private CheckBox showDoneTasksCheckBox;
 
     private Project project;
     private ArrayList<UserProject> subprojects;
@@ -200,6 +213,7 @@ public class ProjectView extends View
         updateShowOption();
         updateSortOption();
         fillListContainer();
+        updateDoneTaskContainer();
     }
 
     private void updateShowOption()
@@ -250,6 +264,14 @@ public class ProjectView extends View
 
     private void fillListContainer()
     {
+        expiredContainer.getChildren().clear();
+        normalContainer.getChildren().clear();
+        doneContainer.getChildren().clear();
+
+        setElementVisible(expiredTitle, false);
+        setElementVisible(normalTitle, false);
+        setElementVisible(doneTitleContainer, false);
+
         if (showComboBox.getValue() == ShowOption.SUBPROJECTS)
         {
             fillWithSubprojects();
@@ -263,23 +285,21 @@ public class ProjectView extends View
     private void fillWithSubprojects()
     {
         setElementVisible(sortByContainer, false);
-        listContainer.getChildren().clear();
 
-        addSeparator(onSubprojectDragOverEventHandler, event -> onSubprojectDragDropped(0));
+        addSeparator(normalContainer, onSubprojectDragOverEventHandler, event -> onSubprojectDragDropped(0));
         for (Project subproject : subprojects)
         {
             SubProjectComponent subProjectComponent = (SubProjectComponent) Client.getComponent("SubProject");
             subProjectComponent.setProject(subproject);
-            listContainer.getChildren().add(subProjectComponent.getParent());
+            normalContainer.getChildren().add(subProjectComponent.getParent());
             int index = subprojects.indexOf(subproject) + 1;
-            addSeparator(onSubprojectDragOverEventHandler, event -> onSubprojectDragDropped(index));
+            addSeparator(normalContainer, onSubprojectDragOverEventHandler, event -> onSubprojectDragDropped(index));
         }
     }
 
     private void fillWithTasks()
     {
         setElementVisible(sortByContainer, true);
-        listContainer.getChildren().clear();
 
         addExpiredTasks();
         addNormalTasks();
@@ -290,28 +310,27 @@ public class ProjectView extends View
     {
         if(!expiredTasks.isEmpty())
         {
-            addLabel("Overdue Tasks");
+            setElementVisible(expiredTitle, true);
+            setElementVisible(normalTitle, true);
 
-            addSeparator(onOverdueTaskDragOverEventHandler, event -> onTaskDragDropped(0));
+            addSeparator(expiredContainer, onOverdueTaskDragOverEventHandler, event -> onTaskDragDropped(0));
             for (Task task : expiredTasks)
             {
-                addTask(task);
+                addTask(expiredContainer, task);
                 int index = project.getTasks().indexOf(task) + 1;
-                addSeparator(onOverdueTaskDragOverEventHandler, event -> onTaskDragDropped(index));
+                addSeparator(expiredContainer, onOverdueTaskDragOverEventHandler, event -> onTaskDragDropped(index));
             }
-
-            addLabel("Tasks");
         }
     }
 
     private void addNormalTasks()
     {
-        addSeparator(onNormalTaskDragOverEventHandler, event -> onTaskDragDropped(0));
+        addSeparator(normalContainer, onNormalTaskDragOverEventHandler, event -> onTaskDragDropped(0));
         for (Task task : tasks)
         {
-            addTask(task);
+            addTask(normalContainer, task);
             int index = project.getTasks().indexOf(task) + 1;
-            addSeparator(onNormalTaskDragOverEventHandler, event -> onTaskDragDropped(index));
+            addSeparator(normalContainer, onNormalTaskDragOverEventHandler, event -> onTaskDragDropped(index));
         }
     }
 
@@ -319,19 +338,25 @@ public class ProjectView extends View
     {
         if(!doneTasks.isEmpty())
         {
-            addLabel("Done Tasks");
+            setElementVisible(doneTitleContainer, true);
 
-            addSeparator(onDoneTaskDragOverEventHandler, event -> onTaskDragDropped(0));
+            addSeparator(doneContainer, onDoneTaskDragOverEventHandler, event -> onTaskDragDropped(0));
             for (Task task : doneTasks)
             {
-                addTask(task);
+                addTask(doneContainer, task);
                 int index = project.getTasks().indexOf(task) + 1;
-                addSeparator(onDoneTaskDragOverEventHandler, event -> onTaskDragDropped(index));
+                addSeparator(doneContainer, onDoneTaskDragOverEventHandler, event -> onTaskDragDropped(index));
             }
         }
     }
 
-    private void addTask(Task task)
+    @FXML
+    private void updateDoneTaskContainer()
+    {
+        setElementVisible(doneContainer, showDoneTasksCheckBox.isSelected());
+    }
+
+    private void addTask(VBox container, Task task)
     {
         TaskComponent taskComponent = (TaskComponent) Client.getComponent("TaskInProject");
         taskComponent.setTask(task);
@@ -342,7 +367,7 @@ public class ProjectView extends View
             taskComponent.removeProjectLabel();
         }
 
-        listContainer.getChildren().add(taskComponent.getParent());
+        container.getChildren().add(taskComponent.getParent());
     }
 
     private void onTaskDragDropped(int index)
@@ -369,18 +394,18 @@ public class ProjectView extends View
         return  (showComboBox.getValue() == ShowOption.SUBPROJECTS);
     }
 
-    private BorderPane addSeparator()
+    private BorderPane addSeparator(VBox container)
     {
         BorderPane borderPane = new BorderPane();
         borderPane.setPrefHeight(20);
         borderPane.setMinHeight(20);
-        listContainer.getChildren().add(borderPane);
+        container.getChildren().add(borderPane);
         return borderPane;
     }
 
-    private void addSeparator(EventHandler<DragEvent> onDragOverEventHandler, EventHandler<DragEvent> onDragDroppedEventHandler)
+    private void addSeparator(VBox container, EventHandler<DragEvent> onDragOverEventHandler, EventHandler<DragEvent> onDragDroppedEventHandler)
     {
-        BorderPane borderPane = addSeparator();
+        BorderPane borderPane = addSeparator(container);
         borderPane.setOnDragOver(onDragOverEventHandler);
         borderPane.setOnDragDropped(onDragDroppedEventHandler);
     }
@@ -390,14 +415,6 @@ public class ProjectView extends View
         node.setVisible(visible);
         node.setManaged(visible);
         node.setDisable(!visible);
-    }
-
-    private void addLabel(String title)
-    {
-        Text todayLabel = new Text(title);
-        todayLabel.setFont(new Font("System", 32));
-        todayLabel.setId("header");
-        listContainer.getChildren().add(todayLabel);
     }
 
     @Override
