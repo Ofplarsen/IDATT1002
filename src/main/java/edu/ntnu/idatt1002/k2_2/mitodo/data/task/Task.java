@@ -66,7 +66,11 @@ public class Task implements Serializable
         this.startDate = startDate;
         this.dueDate = dueDate;
         this.repeat = repeat == null ? RepeatEnum.DoesNotRepeat : repeat;
-        this.comments = comments.trim();
+        if(comments != null){
+            this.comments = comments.trim();
+        }else {
+            this.comments = comments;
+        }
         ID = UUID.randomUUID();
     }
 
@@ -92,7 +96,11 @@ public class Task implements Serializable
 
     public void setComments(String comments)
     {
-        this.comments = comments.trim();
+        if(comments != null){
+            this.comments = comments.trim();
+        }else {
+            this.comments = comments;
+        }
     }
 
     public void setTitle(String title)
