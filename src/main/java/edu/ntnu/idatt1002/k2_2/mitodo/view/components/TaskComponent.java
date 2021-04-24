@@ -8,11 +8,18 @@ import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.edittask.EditTaskView;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
 import javafx.fxml.FXML;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Camera;
 import javafx.scene.Node;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.transform.Transform;
 
 public class TaskComponent extends Component
 {
@@ -41,11 +48,20 @@ public class TaskComponent extends Component
 
         parent.setOnDragDetected(dragEvent ->
         {
-            Dragboard db = parent.startDragAndDrop(TransferMode.MOVE);
-            ClipboardContent cc = new ClipboardContent();
-            cc.putString(task.getTitle());
-            db.setContent(cc);
+            Dragboard dragboard = parent.startDragAndDrop(TransferMode.MOVE);
+
+            SnapshotParameters parameters = new SnapshotParameters();
+            parameters.setFill(Color.TRANSPARENT);
+            Image image = parent.snapshot(parameters, null);
+            dragboard.setDragView(image);
+
+            ClipboardContent clipboardContent = new ClipboardContent();
+            clipboardContent.putString("");
+            dragboard.setContent(clipboardContent);
+
             DragAndDropManager.setValue(task);
+
+            dragEvent.consume();
         });
     }
 

@@ -6,11 +6,14 @@ import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 
 public class SubProjectComponent extends View
 {
@@ -28,11 +31,21 @@ public class SubProjectComponent extends View
 
         parent.setOnDragDetected(dragEvent ->
         {
-            Dragboard db = parent.startDragAndDrop(TransferMode.MOVE);
-            ClipboardContent cc = new ClipboardContent();
-            cc.putString(project.getTitle());
-            db.setContent(cc);
+            Dragboard dragboard = parent.startDragAndDrop(TransferMode.MOVE);
+
+            ClipboardContent clipboardContent = new ClipboardContent();
+
+            SnapshotParameters parameters = new SnapshotParameters();
+            parameters.setFill(Color.TRANSPARENT);
+            Image image = parent.snapshot(parameters, null);
+            dragboard.setDragView(image);
+
+            clipboardContent.putString("");
+            dragboard.setContent(clipboardContent);
+
             DragAndDropManager.setValue(project);
+
+            dragEvent.consume();
         });
     }
 

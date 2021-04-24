@@ -9,7 +9,6 @@ import edu.ntnu.idatt1002.k2_2.mitodo.view.editproject.CreateProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.editproject.EditProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.edittask.CreateTaskView;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
@@ -129,13 +128,20 @@ public class MainMenu
 
         TreeItem<MainMenuItem> projectItem = makeTreeItem(parent, projectView, contextMenu);
 
-        projectItem.getValue().setOnDragDetected(event ->
+        Label label = projectItem.getValue().getLabel();
+
+
+        label.setOnDragDetected(dragEvent ->
         {
-            Dragboard db = projectItem.getValue().getLabel().startDragAndDrop(TransferMode.MOVE);
-            ClipboardContent cc = new ClipboardContent();
-            cc.putString(project.getTitle());
-            db.setContent(cc);
+            Dragboard dragboard = label.startDragAndDrop(TransferMode.MOVE);
+
+            ClipboardContent clipboardContent = new ClipboardContent();
+            clipboardContent.putString("");
+            dragboard.setContent(clipboardContent);
+
             DragAndDropManager.setValue(project);
+
+            dragEvent.consume();
         });
         projectItem.getValue().setOnDragOver(event -> onDragOverProjectView(project, event));
         projectItem.getValue().setOnDragDropped(event -> onDragDroppedOnProjectView(project));
