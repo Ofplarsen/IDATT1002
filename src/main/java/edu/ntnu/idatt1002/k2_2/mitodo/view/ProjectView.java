@@ -382,6 +382,7 @@ public class ProjectView extends View
         UserProject subproject = (UserProject) DragAndDropManager.getValue();
         project.moveProject(subproject, index);
         updateShowAndSortOption();
+        Client.updateMainMenu();
     }
 
     private boolean isDragAndDrop()
