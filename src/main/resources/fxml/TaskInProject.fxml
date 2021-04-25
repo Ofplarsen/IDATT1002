@@ -46,12 +46,10 @@
    <center>
       <HBox alignment="CENTER" prefWidth="600.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="priorityLabel" text="Medium Priority" />
-            <Label fx:id="startDateLabel" alignment="CENTER_RIGHT" text="01.01.1001" />
-            <Label fx:id="minusSign" text="-" />
-            <Label fx:id="dueDateLabel" text="02.01.1001" />
-            <Label fx:id="repeatLabel" layoutX="262.0" layoutY="24.0" text="Monthly" />
-            <Label fx:id="projectNameLabel" text="Project Name" />
+            <Label fx:id="priorityLabel" minHeight="-Infinity" minWidth="-Infinity" />
+            <Label fx:id="dateLabel" alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" />
+            <Label fx:id="repeatLabel" layoutX="262.0" layoutY="24.0" minHeight="-Infinity" minWidth="-Infinity" />
+            <Label fx:id="projectNameLabel" minHeight="-Infinity" minWidth="-Infinity" />
          </children>
          <BorderPane.margin>
             <Insets right="8.0" />
