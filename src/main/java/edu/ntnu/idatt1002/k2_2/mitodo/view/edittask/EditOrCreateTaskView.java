@@ -19,7 +19,7 @@ public abstract class
 EditOrCreateTaskView extends View
 {
     @FXML
-    private ChoiceBox<Project> selectProject;
+    protected ChoiceBox<Project> selectProject;
     @FXML
     protected VBox parent;
     @FXML
@@ -39,7 +39,6 @@ EditOrCreateTaskView extends View
     @FXML
     protected Button btnClearDates;
 
-    protected int elementIndex = 0;
     protected Task task;
     protected Project project;
 
@@ -73,9 +72,7 @@ EditOrCreateTaskView extends View
 
     protected void saveAndExit()
     {
-        final int taskNameMaxLength = 28;
-        if (taskName.getText().length() > taskNameMaxLength) throw new IllegalArgumentException("taskName must be below " + taskNameMaxLength);
-        else task.setTitle(taskName.getText());
+        task.setTitle(taskName.getText());
         task.setDone(isDone.isSelected());
         task.setDates(selectStartDate.getValue(),selectDueDate.getValue(), selectRepeat.getValue());
         task.setComments(comments.getText());
@@ -88,7 +85,11 @@ EditOrCreateTaskView extends View
     @FXML
     protected void cancel()
     {
-        Client.returnToPreviousView();
+        try {
+            Client.returnToPreviousView();
+        }catch (RuntimeException re){
+            re.printStackTrace();
+        }
     }
 
     @FXML
@@ -252,7 +253,7 @@ EditOrCreateTaskView extends View
     }
 
     public void moveTask() {
-        if (selectProject.getValue() == null) return;
+        if (selectProject.getValue() == null|| selectProject.getValue().equals(project)) return; //trur det ska gå ann å fjerna == null
         Project userProject = selectProject.getValue();
         project.moveTask(this.task, userProject);
     }

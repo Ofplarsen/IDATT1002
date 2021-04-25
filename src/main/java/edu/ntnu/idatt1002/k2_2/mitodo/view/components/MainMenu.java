@@ -3,12 +3,17 @@ package edu.ntnu.idatt1002.k2_2.mitodo.view.components;
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.UserProject;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.*;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.editproject.CreateProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.editproject.EditProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.edittask.CreateTaskView;
 import javafx.event.Event;
 import javafx.scene.control.*;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 
 import java.util.ArrayList;
 
@@ -61,10 +66,8 @@ public class MainMenu
         ProjectView quickTasksView = (ProjectView) Client.getComponent("ProjectView");
         quickTasksView.setProject(Client.getRootProject());
         selectedTreeItem = makeTreeItem(root, quickTasksView, null);
-        selectedTreeItem.getValue().setOnDragDropped(dragEvent ->
-        {
-            DragAndDropManager.onTaskDroppedInMainMenu(dragEvent, Client.getRootProject());
-        });
+        selectedTreeItem.getValue().setOnDragOver(event -> onDragOverProjectView(Client.getRootProject(), event));
+        selectedTreeItem.getValue().setOnDragDropped(event -> onDragDroppedOnProjectView(Client.getRootProject()));
 
         makeTreeItem(root, (View) Client.getComponent("CalendarView"), null);
 
@@ -77,6 +80,10 @@ public class MainMenu
         Separator separator = new Separator();
         TreeItem<Separator> separatorTreeItem = new TreeItem<>(separator);
         root.getChildren().add(separatorTreeItem);
+
+        separator.setPrefHeight(20);
+        separator.setOnDragOver(event ->onDragOverProjectView(Client.getRootProject(), event));
+        separator.setOnDragDropped(event -> onDragDroppedOnProjectView(Client.getRootProject()));
 
         ArrayList<UserProject> projects = Client.getRootProject().getProjects();
         projects.forEach(project -> makeAllProjectTreeItems(root, project));
@@ -121,10 +128,23 @@ public class MainMenu
 
         TreeItem<MainMenuItem> projectItem = makeTreeItem(parent, projectView, contextMenu);
 
-        projectItem.getValue().setOnDragDropped(dragEvent ->
+        Label label = projectItem.getValue().getLabel();
+
+
+        label.setOnDragDetected(dragEvent ->
         {
-            DragAndDropManager.onTaskDroppedInMainMenu(dragEvent, project);
+            Dragboard dragboard = label.startDragAndDrop(TransferMode.MOVE);
+
+            ClipboardContent clipboardContent = new ClipboardContent();
+            clipboardContent.putString("");
+            dragboard.setContent(clipboardContent);
+
+            DragAndDropManager.setValue(project);
+
+            dragEvent.consume();
         });
+        projectItem.getValue().setOnDragOver(event -> onDragOverProjectView(project, event));
+        projectItem.getValue().setOnDragDropped(event -> onDragDroppedOnProjectView(project));
 
         return projectItem;
     }
@@ -133,6 +153,44 @@ public class MainMenu
     {
         TreeItem<MainMenuItem> projectItem = makeProjectTreeItem(parent, project);
         project.getProjects().forEach(subProject -> makeAllProjectTreeItems(projectItem, subProject));
+    }
+
+    private void onDragOverProjectView(Project project, DragEvent event)
+    {
+        Object obj = DragAndDropManager.getValue();
+        if (obj instanceof Task)
+        {
+            event.acceptTransferModes(TransferMode.MOVE);
+        }
+        else if (obj instanceof UserProject)
+        {
+            UserProject userProject = (UserProject) obj;
+            if (userProject.canMoveTo(project))
+            {
+                event.acceptTransferModes(TransferMode.MOVE);
+            }
+        }
+
+        Client.getCurrentView().update();
+    }
+
+    private void onDragDroppedOnProjectView(Project project)
+    {
+        Object obj = DragAndDropManager.getValue();
+        if (obj instanceof Task)
+        {
+            Task task = (Task) obj;
+            project.addTask(task.getTitle(), task.getPriority(), task.getStartDate(), task.getDueDate(),task.getRepeat(), task.getComments());
+            task.deleteItself();
+        }
+        else if (obj instanceof UserProject)
+        {
+            UserProject userProject = (UserProject) obj;
+            userProject.moveTo(project);
+        }
+
+        Client.getCurrentView().update();
+        Client.updateMainMenu();
     }
 
     private void onMainMenuItemEvent(Event event)

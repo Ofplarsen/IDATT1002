@@ -104,6 +104,52 @@ on: #ffffff
     -fx-text-fill: #000000;
 }
 
+.sorting-checkbox>.box {
+    -fx-padding: 10px;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+.sorting-checkbox>.box>.mark {
+    -fx-padding: 10px;
+    -fx-background-image: url("../images/arrowDownImage.png");
+    -fx-background-position: center;
+    -fx-background-repeat: stretch;
+    -fx-background-size: stretch;
+    -fx-shape: none;
+}
+
+.sorting-checkbox:selected>.box>.mark{
+    -fx-padding: 10px;
+    -fx-background-color: transparent;
+    -fx-background-image: url("../images/arrowUpImage.png");
+}
+
+.show-done-tasks-check-box>.box {
+    -fx-padding: 10px;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+.show-done-tasks-check-box>.box>.mark {
+    -fx-padding: 10px;
+    -fx-background-image: url("../images/arrowRightImage.png");
+    -fx-background-position: center;
+    -fx-background-repeat: stretch;
+    -fx-background-size: stretch;
+    -fx-shape: none;
+}
+
+.show-done-tasks-check-box:selected>.box>.mark{
+    -fx-padding: 10px;
+    -fx-background-color: transparent;
+    -fx-background-image: url("../images/arrowDownImage.png");
+}
+
+
+
 .mainMenuTreeView *.scroll-bar:horizontal,
 .mainMenuTreeView *.scroll-bar:horizontal *.track,
 .mainMenuTreeView *.scroll-bar:horizontal *.track-background,

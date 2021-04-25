@@ -6,18 +6,33 @@ import java.util.stream.Collectors;
 
 import static java.util.Comparator.comparing;
 
+/**
+ * Class containing sorting logic for ArrayLists of Task objects.
+ */
 public class TaskListSorter
 {
+    /**
+     * Sorts a given ArrayList of Task objects by whether they are done or not.
+     *
+     * @param tasks the ArrayList containing Task objects
+     */
     public static void sortByIsDone(ArrayList<Task> tasks)
     {
         tasks.sort(comparing(Task::isDone));
     }
 
+    /**
+     * Sorts a given ArrayList of Task objects by priority. Depending on the boolean increasing, the Task objects are sorted
+     * either in an increasing order (increasing = true) or a decreasing order (increasing = false).
+     *
+     * @param tasks      the ArrayList containing Task objects
+     * @param increasing the boolean for deciding if the tasks are sorted increasingly or decreasingly
+     */
     public static void sortByPriority(ArrayList<Task> tasks, boolean increasing)
     {
         Comparator<Task> priorityComparator;
         if (increasing) {
-            priorityComparator = (t1, t2) -> t1.getPriority().compareTo(t2.getPriority());
+            priorityComparator = comparing(Task::getPriority);
         } else {
             priorityComparator = (t1, t2) -> t2.getPriority().compareTo(t1.getPriority());
         }
@@ -25,6 +40,14 @@ public class TaskListSorter
         tasks.sort(priorityComparator);
     }
 
+    /**
+     * Sorts a given ArrayList of Task objects by due date. Depending on the boolean increasing, the Task objects are sorted
+     * either in an increasing order (increasing = true) or a decreasing order (increasing = false). If a Task does not
+     * have a due date, it will be appended to the end of the sorted ArrayList.
+     *
+     * @param tasks      the ArrayList containing Task objects
+     * @param increasing the boolean deciding if the tasks are sorted increasingly or decreasingly
+     */
     public static void sortByDueDate(ArrayList<Task> tasks, boolean increasing) {
         ArrayList<Task> noDueDate = (ArrayList<Task>) tasks.stream().filter(t -> t.getDueDate() == null).collect(Collectors.toList());
 
@@ -41,6 +64,14 @@ public class TaskListSorter
         tasks.addAll(noDueDate);
     }
 
+    /**
+     * Sorts a given ArrayList of Task objects by start date. Depending on the boolean increasing, the Task objects are sorted
+     * either in an increasing order (increasing = true) or a decreasing order (increasing = false). If a Task does not
+     * have a start date, it will be appended to the end of the sorted ArrayList.
+     *
+     * @param tasks      the ArrayList containing Task objects
+     * @param increasing the boolean deciding if the tasks are sorted increasingly or decreasingly
+     */
     public static void sortByStartDate(ArrayList<Task> tasks, boolean increasing) {
         ArrayList<Task> noStartDate = (ArrayList<Task>) tasks.stream().filter(t -> t.getStartDate() == null).collect(Collectors.toList());
 

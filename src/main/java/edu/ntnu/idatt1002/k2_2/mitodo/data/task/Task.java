@@ -25,7 +25,7 @@ public class Task implements Serializable
     private LocalDate dueDate;
     private RepeatEnum repeat;
     private boolean isDone = false;
-
+    private final static int TASK_MAX_LENGTH = 28;
     private final Project parent;
     private boolean createdNextRepeatingTask = false;
 
@@ -35,9 +35,11 @@ public class Task implements Serializable
         {
             throw new IllegalArgumentException("Empty String is not accepted as title");
         }
+        if (title.length() > TASK_MAX_LENGTH){
+            throw new IllegalArgumentException("Task title must be below " + TASK_MAX_LENGTH + " characters.");
+        }
 
         this.title = title.trim();
-
         this.parent = parent;
         this.priority = PriorityEnum.UNDEFINED;
         this.startDate = null;
@@ -53,20 +55,22 @@ public class Task implements Serializable
         {
             throw new IllegalArgumentException("Empty String is not accepted as title");
         }
-
-        //Makes sure priority is never null
-        if(this.priority == null)
-        {
-            this.priority = PriorityEnum.UNDEFINED;
+        //Title no longer than 28
+        if (title.length() > TASK_MAX_LENGTH){
+            throw new IllegalArgumentException("Task title must be below " + TASK_MAX_LENGTH+ " characters.");
         }
+
 
         this.parent = parent;
         this.title = title.trim();
-        this.priority = priority;
-        this.startDate = startDate;
-        this.dueDate = dueDate;
+        this.priority = priority == null ? PriorityEnum.UNDEFINED : priority;
         this.repeat = repeat == null ? RepeatEnum.DOES_NOT_REPEAT : repeat;
-        this.comments = comments.trim();
+        setDates(startDate, dueDate, this.repeat);
+        if(comments != null){
+            this.comments = comments.trim();
+        }else {
+        this.comments = comments;
+        }
 
         ID = UUID.randomUUID();
     }
@@ -93,7 +97,11 @@ public class Task implements Serializable
 
     public void setComments(String comments)
     {
-        this.comments = comments.trim();
+        if(comments != null){
+            this.comments = comments.trim();
+        }else {
+            this.comments = comments;
+        }
     }
 
     public void setTitle(String title)
@@ -102,7 +110,10 @@ public class Task implements Serializable
         {
             throw new IllegalArgumentException("Empty String is not accepted as title");
         }
-        this.title = title;
+        if (title.length() > TASK_MAX_LENGTH){
+            throw new IllegalArgumentException("Task title must be below " + TASK_MAX_LENGTH+ " characters.");
+        }
+        this.title = title.trim();
     }
 
     public PriorityEnum getPriority()
@@ -112,7 +123,7 @@ public class Task implements Serializable
 
     public void setPriority(PriorityEnum priority)
     {
-        this.priority = priority;
+        this.priority = priority == null ? PriorityEnum.UNDEFINED : priority;
     }
 
     public LocalDate getStartDate()

@@ -10,7 +10,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserProjectTest {
+public class UserProjectTest {
 
     RootProject rootProject = new RootProject();
     UserProject userProject1;
@@ -30,7 +30,7 @@ class UserProjectTest {
 
     @Nested
     @DisplayName("Tests for the method projectAlreadyCreated")
-    class projectAlreadyCreated{
+    public class ProjectAlreadyCreated{
         @Test
         void projectNotCreated() {
 
@@ -52,7 +52,7 @@ class UserProjectTest {
         }
     }
     @Nested
-    class getParent{
+    public class GetParent{
         @Test
         void getParentTest() {
             assertEquals(userProject1, userProject11.getParent());

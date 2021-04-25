@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.Region;
 
 public class EditTaskView extends EditOrCreateTaskView
 {
@@ -16,11 +17,13 @@ public class EditTaskView extends EditOrCreateTaskView
         this.task = task;
         this.project = task.getParent();
 
+
         isDone.setSelected(task.isDone());
         selectStartDate.setValue(task.getStartDate());
         selectDueDate.setValue(task.getDueDate());
         selectRepeat.setValue(task.getRepeat());
         taskName.setText(task.getTitle());
+        selectProject.setValue(project);
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -38,7 +41,9 @@ public class EditTaskView extends EditOrCreateTaskView
             super.saveAndExit();
         }catch (IllegalArgumentException e){
             SoundEffects.playErrorSound();
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage(), ButtonType.OK);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Error: " + e.getMessage());
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.showAndWait();
         }
     }

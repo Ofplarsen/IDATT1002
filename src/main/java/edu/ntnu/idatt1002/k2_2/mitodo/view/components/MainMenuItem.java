@@ -23,12 +23,18 @@ public class MainMenuItem
         label.getStyleClass().add("tree-item");
     }
 
+    public void setOnDragDetected(EventHandler<MouseEvent> eventHandler)
+    {
+        label.setOnDragDetected(eventHandler);
+    }
+
+    public void setOnDragOver(EventHandler<DragEvent> eventHandler)
+    {
+        label.setOnDragOver(eventHandler);
+    }
+
     public void setOnDragDropped(EventHandler<DragEvent> eventHandler)
     {
-        label.setOnDragOver(event -> {
-            event.acceptTransferModes(TransferMode.MOVE);
-        });
-
         label.setOnDragDropped(eventHandler);
     }
 

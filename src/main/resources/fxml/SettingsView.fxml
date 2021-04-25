@@ -11,14 +11,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox fx:id="parent" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.SettingsView">
+<VBox fx:id="parent" minHeight="-Infinity" minWidth="-Infinity" styleClass="content-container" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.SettingsView">
    <children>
       <Text styleClass="header" text="Settings">
          <font>
             <Font size="36.0" />
          </font>
       </Text>
-      <HBox>
+      <HBox alignment="CENTER_LEFT">
          <children>
             <Label text="Font size">
                <font>
@@ -28,13 +28,13 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <ChoiceBox fx:id="selectFontSize" onAction="#save" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0" HBox.hgrow="ALWAYS" />
+            <ChoiceBox fx:id="selectFontSize" minHeight="-Infinity" minWidth="-Infinity" onAction="#save" prefWidth="120.0" HBox.hgrow="ALWAYS" />
          </children>
          <VBox.margin>
             <Insets bottom="10.0" top="5.0" />
          </VBox.margin>
       </HBox>
-      <HBox spacing="10.0">
+      <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
             <Label text="Toggle sounds:">
                <font>
@@ -44,12 +44,12 @@
                   <Insets />
                </HBox.margin>
             </Label>
-            <RadioButton fx:id="onSounds" onAction="#save" mnemonicParsing="false" styleClass="textInBoxes" text="On">
+            <RadioButton fx:id="onSounds" mnemonicParsing="false" onAction="#save" styleClass="textInBoxes" text="On">
                <toggleGroup>
                   <ToggleGroup fx:id="sounds" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="offSounds" onAction="#save"  mnemonicParsing="false" styleClass="textInBoxes" text="Off" toggleGroup="$sounds" />
+            <RadioButton fx:id="offSounds" mnemonicParsing="false" onAction="#save" styleClass="textInBoxes" text="Off" toggleGroup="$sounds" />
          </children>
          <VBox.margin>
             <Insets bottom="10.0" top="5.0" />

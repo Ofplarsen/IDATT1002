@@ -5,8 +5,14 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import java.io.File;
 
+/**
+ * Class responsible for sound effects.
+ */
 public class SoundEffects
 {
+    /**
+     * Plays "pling" sound.
+     */
     public static void playPlingSound()
     {
         String musicFile = "src/main/resources/sounds/pling.mp3";
@@ -19,6 +25,9 @@ public class SoundEffects
         }
     }
 
+    /**
+     * Plays error sound.
+     */
     public static void playErrorSound()
     {
         String musicFile = "src/main/resources/sounds/error.mp3";
