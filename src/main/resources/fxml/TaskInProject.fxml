@@ -48,7 +48,7 @@
          <children>
             <Label fx:id="priorityLabel" text="Medium Priority" />
             <Label fx:id="startDateLabel" alignment="CENTER_RIGHT" text="01.01.1001" />
-            <Label text="-" />
+            <Label fx:id="minusSign" text="-" />
             <Label fx:id="dueDateLabel" text="02.01.1001" />
             <Label fx:id="repeatLabel" layoutX="262.0" layoutY="24.0" text="Monthly" />
             <Label fx:id="projectNameLabel" text="Project Name" />

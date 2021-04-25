@@ -24,6 +24,8 @@ import javafx.scene.transform.Transform;
 public class TaskComponent extends Component
 {
     @FXML
+    private Label minusSign;
+    @FXML
     private BorderPane parent;
     @FXML
     private CheckBox isDoneCheckBox;
@@ -135,8 +137,17 @@ public class TaskComponent extends Component
         projectNameLabel.setVisible(false);
     }
 
+    public void updateMinusSign() {
+        if (task.getDueDate() != null && task.getStartDate() != null) {
+            minusSign.setText("-");
+        } else {
+            minusSign.setText("");
+        }
+    }
+
     private void setInfo()
     {
+        updateMinusSign();
         isDoneCheckBox.setSelected(task.isDone());
         isDoneCheckBox.setText(task.getTitle());
         startDateLabel.setText(task.getStartDateAsString());
