@@ -58,7 +58,6 @@ on: #ffffff
     -fx-background-color: #2e9edf;
     -fx-text-fill: #000000;
 }
-
 .tree-item:selected, .tree-item:focused {
     -fx-background-color: #2e9edf;
     -fx-text-fill: #000000;
