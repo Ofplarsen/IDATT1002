@@ -241,7 +241,7 @@ public class ProjectView extends View
         switch (sortOption)
         {
             case STANDARD:
-                setElementVisible(ascendingCheckBox, false);
+                ascendingCheckBox.setDisable(true);
                 break;
             case PRIORITY:
                 TaskListSorter.sortByPriority(tasks, ascending);
