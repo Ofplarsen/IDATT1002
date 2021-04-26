@@ -21,11 +21,13 @@ public class CreateTaskView extends EditOrCreateTaskView
     @FXML
     protected void saveAndExit()
     {
-        try {
+        try
+        {
             this.task = project.addTask(taskName.getText());
-
             super.saveAndExit();
-        }catch(IllegalArgumentException e){
+        }
+        catch(IllegalArgumentException e)
+        {
             task.deleteItself();
             SoundEffects.playErrorSound();
             Alert alert = new Alert(Alert.AlertType.ERROR);

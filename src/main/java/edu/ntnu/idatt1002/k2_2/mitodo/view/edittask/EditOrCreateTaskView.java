@@ -15,8 +15,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 
-public abstract class
-EditOrCreateTaskView extends View
+public abstract class EditOrCreateTaskView extends View
 {
     @FXML
     protected ChoiceBox<Project> selectProject;
@@ -192,7 +191,8 @@ EditOrCreateTaskView extends View
         }
     }
 
-    public void moveTask() {
+    public void moveTask()
+    {
         if (selectProject.getValue() == null|| selectProject.getValue().equals(project)) return;
         Project userProject = selectProject.getValue();
         project.moveTask(this.task, userProject);
