@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TaskListSorterTest {
+public class TaskListSorterTest {
     RootProject rootProject = new RootProject();
     ArrayList<Task> listToSort = new ArrayList<>();
     ArrayList<Task> sortedByDone = new ArrayList<>();

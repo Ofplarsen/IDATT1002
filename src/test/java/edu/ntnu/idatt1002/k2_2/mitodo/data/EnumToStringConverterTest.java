@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class EnumToStringConverterTest {
+public class EnumToStringConverterTest {
     EnumToStringConverter converter = new EnumToStringConverter();
 
     @Nested
