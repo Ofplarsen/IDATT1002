@@ -15,12 +15,12 @@
    <right>
       <HBox alignment="CENTER_RIGHT" minWidth="-Infinity" spacing="8.0" BorderPane.alignment="CENTER_RIGHT">
          <children>
-            <Button fx:id="deleteButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleDeleteTaskButtonClick" prefHeight="25.0" prefWidth="25.0" styleClass="error">
+            <Button fx:id="deleteButton" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleDeleteTaskButtonClick" prefHeight="35.0" prefWidth="35.0" styleClass="error, iconButton">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
                <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/deleteImage.png" />
                      </image>
@@ -34,7 +34,7 @@
       </HBox>
    </right>
    <left>
-      <CheckBox fx:id="isDoneCheckBox" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleTaskIsDoneButtonClick" onKeyPressed="#boxKeyListener" styleClass="label, checkbox" text="CheckBox" BorderPane.alignment="CENTER_LEFT">
+      <CheckBox fx:id="isDoneCheckBox" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleTaskIsDoneButtonClick" onKeyPressed="#boxKeyListener" styleClass="label, taskCheckBox" text="CheckBox" BorderPane.alignment="CENTER_LEFT">
          <font>
             <Font />
          </font>

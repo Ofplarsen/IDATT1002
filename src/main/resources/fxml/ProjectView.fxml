@@ -29,9 +29,9 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" spacing="20.0" HBox.hgrow="SOMETIMES">
                <children>
-                  <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAddTaskButton">
+                  <Button alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAddTaskButton" prefHeight="35.0" prefWidth="35.0" styleClass="iconButton">
                      <graphic>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/addImage.png" />
                            </image>
@@ -40,9 +40,9 @@
                      <tooltip>
                         <Tooltip text="Add Task" />
                      </tooltip></Button>
-                  <Button fx:id="editProjectButton" alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleEditButtonClick">
+                  <Button fx:id="editProjectButton" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleEditButtonClick" prefHeight="35.0" prefWidth="35.0" styleClass="iconButton">
                      <graphic>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/editImage.png" />
                            </image>

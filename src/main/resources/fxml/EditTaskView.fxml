@@ -21,7 +21,7 @@
                <children>
                   <HBox>
                      <children>
-                        <CheckBox fx:id="isDone" mnemonicParsing="false" onAction="#handleIsDoneCheckBox" onKeyPressed="#keyHandler">
+                        <CheckBox styleClass="taskCheckBox" fx:id="isDone" mnemonicParsing="false" onAction="#handleIsDoneCheckBox" onKeyPressed="#keyHandler">
                            <padding>
                               <Insets right="8.0" />
                            </padding>

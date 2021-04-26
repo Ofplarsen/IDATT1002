@@ -32,6 +32,26 @@ on: #ffffff
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 4, 0, 2 ,2);
 }
 
+.combo-box, .choice-box, .check-box > .box, .radio-button > .radio {
+    -fx-background-color: #f3f3f3;
+    -fx-border-color: #cccccc;
+}
+
+.combo-box, .choice-box {
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+}
+.radio-button > .radio {
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+}
+
+.iconButton {
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+    -fx-padding: 10px;
+}
+
 .button:hover {
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 8, 0, 3, 4)
 }
@@ -99,10 +119,15 @@ on: #ffffff
     -fx-text-fill: #000000;
 }
 
-.check-box .box {
+.check-box > .box {
+    -fx-border-color: none;
+}
+
+.taskCheckBox > .box {
     -fx-border-radius: 50%;
     -fx-background-radius: 50%;
-    -fx-padding: 5px;
+    -fx-padding: 6px;
+    -fx-border-color: #000000;
 }
 
 .sorting-checkbox>.box {

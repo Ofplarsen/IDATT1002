@@ -16,8 +16,7 @@ import javafx.stage.Stage;
 
 import java.util.Stack;
 
-public class Client extends Application
-{
+public class Client extends Application {
     private static RootProject rootProject;
     private static PrimaryView primaryView;
 
@@ -32,14 +31,12 @@ public class Client extends Application
     @Override
     public void start(Stage stage) {
         rootProject = (RootProject) FileManager.loadSerializableObject(rootProjectFileName);
-        if (rootProject ==null)
-        {
+        if (rootProject == null) {
             rootProject = new RootProject();
         }
 
         settings = (Settings) FileManager.loadSerializableObject(settingsFileName);
-        if (settings == null)
-        {
+        if (settings == null) {
             settings = new Settings(false, FontSizeEnum.MEDIUM);
         }
 
@@ -65,8 +62,7 @@ public class Client extends Application
     }
 
     @Override
-    public void stop()
-    {
+    public void stop() {
         FileManager.saveSerializableObject(rootProject, rootProjectFileName);
         FileManager.saveSerializableObject(settings, settingsFileName);
     }
@@ -75,11 +71,9 @@ public class Client extends Application
         launch();
     }
 
-    public static void setView(View view)
-    {
+    public static void setView(View view) {
         if (view.equals(currentView)) return;
-        if (currentView != null)
-        {
+        if (currentView != null) {
             previousViews.add(currentView);
         }
         currentView = view;
@@ -87,52 +81,43 @@ public class Client extends Application
         view.getParent().requestFocus();
     }
 
-    public static View setView(String name)
-    {
+    public static View setView(String name) {
         View newView = (View) getComponent(name);
         setView(newView);
         return newView;
     }
 
-    public static Component getComponent(String name)
-    {
+    public static Component getComponent(String name) {
         return FileManager.getComponent(name);
     }
 
-    public static View returnToPreviousView()
-    {
+    public static View returnToPreviousView() {
         View view = previousViews.pop();
         setView(view);
         return currentView;
     }
 
-    public static Settings getSettings()
-    {
+    public static Settings getSettings() {
         return settings;
     }
 
-    public static PrimaryView getPrimaryView()
-    {
+    public static PrimaryView getPrimaryView() {
         return primaryView;
     }
 
-    public static void selectCurrentViewInMainMenu()
-    {
+    public static void selectCurrentViewInMainMenu() {
         primaryView.selectCurrentViewInMainMenu(currentView);
     }
 
-    public static void updateMainMenu()
-    {
+    public static void updateMainMenu() {
         primaryView.updateMainMenu(currentView);
     }
 
-    public static View getCurrentView()
-    {
+    public static View getCurrentView() {
         return currentView;
     }
 
-    public static RootProject getRootProject()
-    {
+    public static RootProject getRootProject() {
         return rootProject;
     }
 }
