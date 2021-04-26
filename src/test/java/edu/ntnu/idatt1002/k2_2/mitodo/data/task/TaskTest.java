@@ -128,6 +128,7 @@ public class TaskTest {
             @Nested
             @DisplayName("Tests for setting the dates from constuctor")
             public class SettingDates{
+                Task taskTest = new Task("Task", rootProject);
                 @Test
                 void setDatesSuccessful(){
                     Task taskTest = new Task("task", PriorityEnum.HIGH, LocalDate.now(), LocalDate.now(), RepeatEnum.WEEKLY, "", rootProject);
