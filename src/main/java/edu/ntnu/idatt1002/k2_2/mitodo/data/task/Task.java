@@ -136,7 +136,7 @@ public class Task implements Serializable
 
     public void setDates(LocalDate startDate, LocalDate dueDate, RepeatEnum repeat)
     {
-        if((startDate!= null || dueDate != null) && (!(startDate instanceof LocalDate) || !(dueDate instanceof LocalDate))){
+        if((startDate!= null && !(startDate instanceof LocalDate))|| (dueDate != null && !(dueDate instanceof LocalDate))){
             throw new IllegalArgumentException("Invalid input when setting dates. Please use the calendar to pick start/due date");
         }
         if (startDate != null && dueDate != null && dueDate.isBefore(startDate))
