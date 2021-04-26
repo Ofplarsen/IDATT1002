@@ -8,8 +8,6 @@ import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.edittask.EditTaskView;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
 import javafx.fxml.FXML;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Camera;
 import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.CheckBox;
@@ -18,21 +16,17 @@ import javafx.scene.image.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.transform.Transform;
 
 public class TaskComponent extends Component
 {
+    @FXML
+    public Label dateLabel;
     @FXML
     private BorderPane parent;
     @FXML
     private CheckBox isDoneCheckBox;
     @FXML
     private Label priorityLabel;
-    @FXML
-    private Label startDateLabel;
-    @FXML
-    private Label dueDateLabel;
     @FXML
     private Label repeatLabel;
     @FXML
@@ -135,12 +129,23 @@ public class TaskComponent extends Component
         projectNameLabel.setVisible(false);
     }
 
+    public void updateDateThings() {
+        if (task.getDueDate() != null && task.getStartDate() == null) {
+            dateLabel.setText("Due: " + task.getDueDateAsString());
+        }
+        if (task.getDueDate() == null && task.getStartDate() != null) {
+            dateLabel.setText("Starting: " + task.getStartDateAsString());
+        }
+        if (task.getDueDate() != null && task.getStartDate() != null) {
+            dateLabel.setText(task.getStartDateAsString() + " - " + task.getDueDateAsString());
+        }
+    }
+
     private void setInfo()
     {
+        updateDateThings();
         isDoneCheckBox.setSelected(task.isDone());
         isDoneCheckBox.setText(task.getTitle());
-        startDateLabel.setText(task.getStartDateAsString());
-        dueDateLabel.setText(task.getDueDateAsString());
         repeatLabel.setText(task.getRepeat() == RepeatEnum.DOES_NOT_REPEAT ? "" : task.getRepeat().toString());
         projectNameLabel.setText(task.getParent().getTitle());
         setPriorityInfo();
