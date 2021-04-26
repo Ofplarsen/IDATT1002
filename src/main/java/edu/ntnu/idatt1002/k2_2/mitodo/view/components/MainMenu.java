@@ -98,8 +98,8 @@ public class MainMenu
     }
 
     /**
-     * @param parent The parent TreeItem to create the Treeitem from.
-     * @param project The project to create a Treeitem for.
+     * @param parent The parent TreeItem to create the TreeItem from.
+     * @param project The project to create a TreeItem for.
      */
     private TreeItem<MainMenuItem> makeProjectTreeItem(TreeItem<MainMenuItem> parent, Project project)
     {
@@ -112,24 +112,26 @@ public class MainMenu
             EditProjectView editProjectView = (EditProjectView) Client.setView("EditProjectView");
             editProjectView.setProject((UserProject) project);
         });
+
         MenuItem addSubProject = new MenuItem("Add subproject");
         addSubProject.setOnAction(event ->
         {
             CreateProjectView createProjectView = (CreateProjectView) Client.setView("CreateProjectView");
             createProjectView.setParentProject(project);
         });
+
         MenuItem addTask = new MenuItem("Add task");
         addTask.setOnAction(event ->
         {
             CreateTaskView createTaskView = (CreateTaskView) Client.setView("CreateTaskView");
             createTaskView.setProject(project);
         });
+
         ContextMenu contextMenu = new ContextMenu(editProject, addSubProject, addTask);
 
         TreeItem<MainMenuItem> projectItem = makeTreeItem(parent, projectView, contextMenu);
 
         Label label = projectItem.getValue().getLabel();
-
 
         label.setOnDragDetected(dragEvent ->
         {

@@ -4,7 +4,6 @@ import edu.ntnu.idatt1002.k2_2.mitodo.Client;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.UserProject;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
-import edu.ntnu.idatt1002.k2_2.mitodo.view.edittask.EditTaskView;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;

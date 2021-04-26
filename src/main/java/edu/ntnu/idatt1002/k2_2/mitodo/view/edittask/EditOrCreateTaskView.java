@@ -15,8 +15,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 
-public abstract class
-EditOrCreateTaskView extends View
+public abstract class EditOrCreateTaskView extends View
 {
     @FXML
     protected ChoiceBox<Project> selectProject;
@@ -55,6 +54,91 @@ EditOrCreateTaskView extends View
         selectRepeat.setConverter(new EnumToStringConverter<>());
         selectRepeat.getItems().setAll(RepeatEnum.values());
         selectRepeat.setValue(RepeatEnum.DOES_NOT_REPEAT);
+
+        addKeyEventFilter(
+                taskName,
+                () -> taskName.requestFocus(),
+                () -> isDone.requestFocus()
+        );
+
+        addKeyEventFilter(
+                isDone,
+                () -> taskName.requestFocus(),
+                () -> comments.requestFocus()
+        );
+
+        addKeyEventFilter(
+                comments,
+                () -> isDone.requestFocus(),
+                () -> selectProject.requestFocus()
+        );
+
+        addKeyEventFilter(
+                selectProject,
+                () -> comments.requestFocus(),
+                () ->
+                {
+                    selectStartDate.requestFocus();
+                    selectStartDate.show();
+                }
+        );
+
+        addKeyEventFilter(
+                selectStartDate,
+                () -> selectProject.requestFocus(),
+                () ->
+                {
+                    selectDueDate.requestFocus();
+                    selectDueDate.show();
+                }
+        );
+
+        addKeyEventFilter(
+                selectDueDate,
+                () ->
+                {
+                    selectStartDate.requestFocus();
+                    selectStartDate.show();
+                },
+                () -> btnClearDates.requestFocus()
+        );
+
+        addKeyEventFilter(
+                btnClearDates,
+                () ->
+                {
+                    selectDueDate.requestFocus();
+                    selectDueDate.show();
+                },
+                () -> selectRepeat.requestFocus()
+        );
+
+        addKeyEventFilter(
+                selectRepeat,
+                () -> btnClearDates.requestFocus(),
+                () -> selectPriority.requestFocus()
+        );
+
+        addKeyEventFilter(
+                selectPriority,
+                () -> selectRepeat.requestFocus(),
+                () -> selectPriority.requestFocus()
+        );
+    }
+
+    private void addKeyEventFilter(Node node, Runnable keyUpRunnable, Runnable keyDownRunnable)
+    {
+        node.addEventFilter(KeyEvent.KEY_PRESSED, keyEventClearD ->
+        {
+            if(keyEventClearD.getCode() == KeyCode.UP)
+            {
+                Platform.runLater(keyUpRunnable);
+            }
+            if(keyEventClearD.getCode() == KeyCode.DOWN)
+            {
+                Platform.runLater(keyDownRunnable);
+            }
+        });
     }
 
     @FXML
@@ -79,181 +163,37 @@ EditOrCreateTaskView extends View
         task.setPriority(selectPriority.getValue());
         moveTask();
         cancel();
-
     }
 
     @FXML
     protected void cancel()
     {
-        try {
+        try
+        {
             Client.returnToPreviousView();
-        }catch (RuntimeException re){
+        }
+        catch (RuntimeException re)
+        {
             re.printStackTrace();
         }
     }
 
     @FXML
-    public void keyHandler(KeyEvent keyEvent){
-        taskName.addEventFilter(KeyEvent.KEY_PRESSED, keyEventName -> {
-            if(keyEventName.getCode() == KeyCode.UP){
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        taskName.requestFocus();
-                    }
-                });
-            }
-            if(keyEventName.getCode() == KeyCode.DOWN){
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        isDone.requestFocus();
-                    }
-                });
-
-            }
-        });
-
-
-        isDone.addEventFilter(KeyEvent.KEY_PRESSED, keyEventDone -> {
-            if(keyEventDone.getCode() == KeyCode.UP){
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        taskName.requestFocus();
-                    }
-                });
-            }
-            if(keyEventDone.getCode() == KeyCode.DOWN){
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        comments.requestFocus();
-                    }
-                });
-            }
-        });
-
-        comments.addEventFilter(KeyEvent.KEY_PRESSED, keyEventComment -> {
-            if(keyEventComment.getCode() == KeyCode.UP){
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        isDone.requestFocus();
-                    }
-                });
-            }
-            if(keyEventComment.getCode() == KeyCode.DOWN){
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        selectProject.requestFocus();
-                    }
-                });
-            }
-        });
-
-        selectProject.addEventFilter(KeyEvent.KEY_PRESSED, keyEventProject -> {
-            if(keyEventProject.getCode() == KeyCode.UP){
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        comments.requestFocus();
-                    }
-                });
-            }
-            if(keyEventProject.getCode() == KeyCode.DOWN){
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        selectStartDate.requestFocus();
-                        selectStartDate.show();
-                    }
-                });
-            }
-        });
-
-        selectStartDate.addEventFilter(KeyEvent.KEY_PRESSED, keyEventStartD -> {
-            if(keyEventStartD.getCode() == KeyCode.UP){
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        selectProject.requestFocus();
-                    }
-                });
-            }
-            if(keyEventStartD.getCode() == KeyCode.DOWN){
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        selectDueDate.requestFocus();
-                        selectDueDate.show();
-                    }
-                });
-            }
-        });
-
-        selectDueDate.addEventFilter(KeyEvent.KEY_PRESSED, keyEventDueD -> {
-            if(keyEventDueD.getCode() == KeyCode.UP){
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        selectStartDate.requestFocus();
-                        selectStartDate.show();
-                    }
-                });
-            }
-            if(keyEventDueD.getCode() == KeyCode.DOWN){
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        btnClearDates.requestFocus();
-                    }
-                });
-            }
-        });
-
-        btnClearDates.addEventFilter(KeyEvent.KEY_PRESSED, keyEventClearD -> {
-            if(keyEventClearD.getCode() == KeyCode.UP){
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        selectDueDate.requestFocus();
-                        selectDueDate.show();
-                    }
-                });
-            }
-            if(keyEventClearD.getCode() == KeyCode.DOWN){
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        selectRepeat.requestFocus();
-                    }
-                });
-            }
-        });
-
-        selectRepeat.addEventFilter(KeyEvent.KEY_PRESSED, keyEventRepeat -> {
-            if(keyEventRepeat.getCode() == KeyCode.UP){
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        btnClearDates.requestFocus();
-                    }
-                });
-            }
-        });
-        if(keyEvent.getCode() == KeyCode.ENTER){
+    public void keyHandler(KeyEvent keyEvent)
+    {
+        if(keyEvent.getCode() == KeyCode.ENTER)
+        {
             saveAndExit();
-        }else if(keyEvent.getCode() == KeyCode.ESCAPE){
+        }
+        else if(keyEvent.getCode() == KeyCode.ESCAPE)
+        {
             cancel();
-        }else if(keyEvent.getCode() == KeyCode.DELETE){
-
         }
     }
 
-    public void moveTask() {
-        if (selectProject.getValue() == null|| selectProject.getValue().equals(project)) return; //trur det ska gå ann å fjerna == null
+    public void moveTask()
+    {
+        if (selectProject.getValue() == null|| selectProject.getValue().equals(project)) return;
         Project userProject = selectProject.getValue();
         project.moveTask(this.task, userProject);
     }

@@ -7,7 +7,6 @@ import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Region;
 
 public class EditTaskView extends EditOrCreateTaskView
@@ -24,12 +23,7 @@ public class EditTaskView extends EditOrCreateTaskView
         selectRepeat.setValue(task.getRepeat());
         taskName.setText(task.getTitle());
         selectProject.setValue(project);
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                taskName.requestFocus();
-            }
-        });
+        Platform.runLater(() -> taskName.requestFocus());
         comments.setText(task.getComments());
         selectPriority.setValue(task.getPriority());
     }
@@ -37,9 +31,12 @@ public class EditTaskView extends EditOrCreateTaskView
     @FXML
     protected void saveAndExit()
     {
-        try {
+        try
+        {
             super.saveAndExit();
-        }catch (IllegalArgumentException e){
+        }
+        catch (IllegalArgumentException e)
+        {
             SoundEffects.playErrorSound();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Error: " + e.getMessage());

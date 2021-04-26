@@ -12,16 +12,6 @@ import static java.util.Comparator.comparing;
 public class TaskListSorter
 {
     /**
-     * Sorts a given ArrayList of Task objects by whether they are done or not.
-     *
-     * @param tasks the ArrayList containing Task objects
-     */
-    public static void sortByIsDone(ArrayList<Task> tasks)
-    {
-        tasks.sort(comparing(Task::isDone));
-    }
-
-    /**
      * Sorts a given ArrayList of Task objects by priority. Depending on the boolean increasing, the Task objects are sorted
      * either in an increasing order (increasing = true) or a decreasing order (increasing = false).
      *
@@ -30,14 +20,14 @@ public class TaskListSorter
      */
     public static void sortByPriority(ArrayList<Task> tasks, boolean increasing)
     {
-        Comparator<Task> priorityComparator;
-        if (increasing) {
-            priorityComparator = comparing(Task::getPriority);
-        } else {
-            priorityComparator = (t1, t2) -> t2.getPriority().compareTo(t1.getPriority());
+        Comparator<Task> comparator = comparing(Task::getPriority);
+
+        if (!increasing)
+        {
+            comparator = comparator.reversed();
         }
 
-        tasks.sort(priorityComparator);
+        tasks.sort(comparator);
     }
 
     /**
@@ -50,17 +40,16 @@ public class TaskListSorter
      */
     public static void sortByDueDate(ArrayList<Task> tasks, boolean increasing) {
         ArrayList<Task> noDueDate = (ArrayList<Task>) tasks.stream().filter(t -> t.getDueDate() == null).collect(Collectors.toList());
-
         tasks.removeAll(noDueDate);
 
-        Comparator<Task> dueDateComparator;
-        if (increasing) {
-            dueDateComparator = comparing(Task::getDueDate);
-        } else {
-            dueDateComparator = (t1, t2) -> t2.getDueDate().compareTo(t1.getDueDate());
+        Comparator<Task> comparator = comparing(Task::getDueDate);
+
+        if (!increasing)
+        {
+            comparator = comparator.reversed();
         }
 
-        tasks.sort(dueDateComparator);
+        tasks.sort(comparator);
         tasks.addAll(noDueDate);
     }
 
@@ -74,17 +63,16 @@ public class TaskListSorter
      */
     public static void sortByStartDate(ArrayList<Task> tasks, boolean increasing) {
         ArrayList<Task> noStartDate = (ArrayList<Task>) tasks.stream().filter(t -> t.getStartDate() == null).collect(Collectors.toList());
-
         tasks.removeAll(noStartDate);
 
-        Comparator<Task> startDateComparator;
-        if (increasing) {
-            startDateComparator = comparing(Task::getStartDate);
-        } else {
-            startDateComparator = (t1, t2) -> t2.getStartDate().compareTo(t1.getStartDate());
+        Comparator<Task> comparator = comparing(Task::getStartDate);
+
+        if (!increasing)
+        {
+            comparator = comparator.reversed();
         }
 
-        tasks.sort(startDateComparator);
+        tasks.sort(comparator);
         tasks.addAll(noStartDate);
     }
 }

@@ -23,7 +23,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
@@ -311,7 +310,11 @@ public class ProjectView extends View
         if(!expiredTasks.isEmpty())
         {
             setElementVisible(expiredTitle, true);
-            setElementVisible(normalTitle, true);
+
+            if (!tasks.isEmpty())
+            {
+                setElementVisible(normalTitle, true);
+            }
 
             addSeparator(expiredContainer, onOverdueTaskDragOverEventHandler, event -> onTaskDragDropped(0));
             for (Task task : expiredTasks)

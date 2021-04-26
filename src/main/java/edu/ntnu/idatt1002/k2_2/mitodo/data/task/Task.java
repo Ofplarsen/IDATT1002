@@ -66,10 +66,10 @@ public class Task implements Serializable
         this.priority = priority == null ? PriorityEnum.UNDEFINED : priority;
         this.repeat = repeat == null ? RepeatEnum.DOES_NOT_REPEAT : repeat;
         setDates(startDate, dueDate, this.repeat);
-        if(comments != null){
+
+        if(comments != null)
+        {
             this.comments = comments.trim();
-        }else {
-        this.comments = comments;
         }
 
         ID = UUID.randomUUID();
@@ -97,10 +97,13 @@ public class Task implements Serializable
 
     public void setComments(String comments)
     {
-        if(comments != null){
+        if(comments != null)
+        {
             this.comments = comments.trim();
-        }else {
-            this.comments = comments;
+        }
+        else
+        {
+            this.comments = null;
         }
     }
 
@@ -220,10 +223,6 @@ public class Task implements Serializable
     public boolean deleteItself()
     {
         return parent.removeTask(ID);
-    }
-
-    public void moveItself(Project project) {
-        parent.moveTask(this, project);
     }
 
     @Override
