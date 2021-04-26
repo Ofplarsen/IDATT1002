@@ -7,6 +7,8 @@ import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 
 public class CreateTaskView extends EditOrCreateTaskView
@@ -33,6 +35,19 @@ public class CreateTaskView extends EditOrCreateTaskView
             alert.setContentText("Error: " + e.getMessage());
             alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.showAndWait();
+        }
+    }
+
+    @FXML
+    public void keyHandler(KeyEvent keyEvent)
+    {
+        if(keyEvent.getCode() == KeyCode.ENTER)
+        {
+            saveAndExit();
+        }
+        else if(keyEvent.getCode() == KeyCode.ESCAPE)
+        {
+            cancel();
         }
     }
 
