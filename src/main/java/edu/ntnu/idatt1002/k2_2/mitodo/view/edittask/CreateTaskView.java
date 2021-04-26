@@ -30,6 +30,7 @@ public class CreateTaskView extends EditOrCreateTaskView
         }
         catch(IllegalArgumentException e)
         {
+            project.removeTask(task);
             SoundEffects.playErrorSound();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Error: " + e.getMessage());
