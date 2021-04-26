@@ -70,12 +70,7 @@ public class PrimaryView extends View
 
         content.getChildren().clear();
         content.getChildren().add(viewParent);
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                viewParent.requestFocus();
-            }
-        });
+        Platform.runLater(viewParent::requestFocus);
         AnchorPane.setBottomAnchor(viewParent, 0.0);
         AnchorPane.setLeftAnchor(viewParent, 0.0);
         AnchorPane.setRightAnchor(viewParent, 0.0);
