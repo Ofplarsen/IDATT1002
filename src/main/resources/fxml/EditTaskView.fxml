@@ -13,8 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox fx:id="parent" styleClass="content-container" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.edittask.EditTaskView">
+<VBox fx:id="parent" onKeyPressed="#keyHandler" styleClass="content-container" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.k2_2.mitodo.view.edittask.EditTaskView">
    <children>
       <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="content-container" VBox.vgrow="ALWAYS">
          <content>

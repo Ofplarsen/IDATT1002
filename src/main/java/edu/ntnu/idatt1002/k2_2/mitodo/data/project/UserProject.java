@@ -1,6 +1,5 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.data.project;
 
-
 public class UserProject extends Project
 {
     private String title;

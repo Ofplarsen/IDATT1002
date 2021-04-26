@@ -8,8 +8,6 @@ import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.edittask.EditTaskView;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
 import javafx.fxml.FXML;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Camera;
 import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.CheckBox;
@@ -18,8 +16,6 @@ import javafx.scene.image.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.transform.Transform;
 
 public class TaskComponent extends Component
 {

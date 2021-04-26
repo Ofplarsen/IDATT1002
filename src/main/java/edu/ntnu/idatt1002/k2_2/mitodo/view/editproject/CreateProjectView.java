@@ -30,12 +30,7 @@ public class CreateProjectView extends View
 
     public void setParentProject(Project parentProject)
     {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                projectTitle.requestFocus();
-            }
-        });
+        Platform.runLater(() -> projectTitle.requestFocus());
         this.parentProject = parentProject;
     }
 
