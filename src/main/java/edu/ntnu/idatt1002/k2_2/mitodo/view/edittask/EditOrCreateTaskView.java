@@ -178,19 +178,6 @@ public abstract class EditOrCreateTaskView extends View
         }
     }
 
-    @FXML
-    public void keyHandler(KeyEvent keyEvent)
-    {
-        if(keyEvent.getCode() == KeyCode.ENTER)
-        {
-            saveAndExit();
-        }
-        else if(keyEvent.getCode() == KeyCode.ESCAPE)
-        {
-            cancel();
-        }
-    }
-
     public void moveTask()
     {
         if (selectProject.getValue() == null|| selectProject.getValue().equals(project)) return;

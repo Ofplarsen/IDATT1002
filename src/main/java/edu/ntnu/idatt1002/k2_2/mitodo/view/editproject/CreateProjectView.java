@@ -9,10 +9,7 @@ import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
@@ -25,6 +22,8 @@ public class CreateProjectView extends View
     private VBox parent;
     @FXML
     private Button btnSaE;
+    @FXML
+    private Label header;
 
     private Project parentProject;
 
@@ -32,6 +31,8 @@ public class CreateProjectView extends View
     {
         Platform.runLater(() -> projectTitle.requestFocus());
         this.parentProject = parentProject;
+        if(parentProject.equals(Client.getRootProject())){ header.setText("Creating New Project"); }
+        else header.setText("Creating New Project in " + parentProject.getTitle());
     }
 
     @FXML

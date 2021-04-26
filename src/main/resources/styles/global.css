@@ -94,10 +94,15 @@ on: #ffffff
     -fx-background-color: #ff0030;
     -fx-text-fill: #ffffff;
 }
-
 .background {
     -fx-background-color: #ffffff;
     -fx-text-fill: #000000;
+}
+
+.check-box .box {
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+    -fx-padding: 5px;
 }
 
 .sorting-checkbox>.box {
