@@ -347,16 +347,6 @@ public class TaskTest {
         assertFalse(rootProject.getTasks().stream().anyMatch(t->t.getID()==testTask.getID()));
     }
 
-    @Test
-    void moveItself() {
-        Task testTask = rootProject.addTask("TestTask");
-        UserProject moveToProject = rootProject.addProject("ProjectToMoveTo");
-        assertTrue(rootProject.getTasks().stream().anyMatch(t->t.getID()==testTask.getID()));
-        testTask.moveItself(moveToProject);
-        assertFalse(rootProject.getTasks().stream().anyMatch(t->t.getID()==testTask.getID()));
-        assertTrue(moveToProject.getTasks().stream().anyMatch(t->t.getTitle()==testTask.getTitle()));
-        rootProject.removeProject(moveToProject.getID());
-    }
 
     @Test
     void isExpired() {
