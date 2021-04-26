@@ -177,6 +177,18 @@ public abstract class Project implements Serializable
         return tasks.removeIf(task -> task.getID().equals(id));
     }
 
+    public boolean removeTasksFromAll(UUID id){
+        boolean removed = removeTask(id);
+        if (removed) return true;
+
+        for(UserProject project : userProjects)
+        {
+            removed = project.removeTasksFromAll(id);
+            if (removed) return true;
+        }
+        return false;
+    }
+
     public UUID getID()
     {
         return ID;

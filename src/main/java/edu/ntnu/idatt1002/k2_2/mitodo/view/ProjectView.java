@@ -215,6 +215,14 @@ public class ProjectView extends View
         updateDoneTaskContainer();
     }
 
+    @FXML
+    private void deleteDoneTasks(){
+        for (Task e : doneTasks){
+            project.removeTasksFromAll(e.getID());
+        }
+        update();
+    }
+
     private void updateShowOption()
     {
         ShowOption showOption = showComboBox.getValue();
