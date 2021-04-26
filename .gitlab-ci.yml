@@ -11,7 +11,7 @@ generatepdf:
     - apt-get -y install npm  # installerer npm, som er en pakkehåndterer (litt likt apt-get) for (hovedsaklig) javascript-biblioteker
     - npm install -g github-wikito-converter  # installerer wiki-til-html-konverterer via npm 
     - apt-get -y install git  # installerer git
-    - git clone "https://$CI_PROJECT_URL.wiki.git"  # hver eneste gitlab-wiki ligger i et eget repo, og kan klones med git som man kloner andre prosjekter
+    - git clone "$CI_REPOSITORY_URL.wiki.git"  # hver eneste gitlab-wiki ligger i et eget repo, og kan klones med git som man kloner andre prosjekter
     - gwtc $CI_PROJECT_TITLE.wiki  # Dette er kommandoen for å generere en singel HTML-fil av hele wikien
     - wkhtmltopdf documentation.html wiki.pdf  # Dette konverterer fra HTML til PDF
   artifacts:
