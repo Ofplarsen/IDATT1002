@@ -124,6 +124,8 @@ public abstract class EditOrCreateTaskView extends View
                 () -> selectRepeat.requestFocus(),
                 () -> selectPriority.requestFocus()
         );
+
+        Platform.runLater(() -> taskName.requestFocus());
     }
 
     private void addKeyEventFilter(Node node, Runnable keyUpRunnable, Runnable keyDownRunnable)

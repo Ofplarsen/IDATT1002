@@ -60,11 +60,11 @@ public class Task implements Serializable
             throw new IllegalArgumentException("Task title must be below " + TASK_MAX_LENGTH+ " characters.");
         }
 
-
         this.parent = parent;
         this.title = title.trim();
         this.priority = priority == null ? PriorityEnum.UNDEFINED : priority;
         this.repeat = repeat == null ? RepeatEnum.DOES_NOT_REPEAT : repeat;
+
         setDates(startDate, dueDate, this.repeat);
 
         if(comments != null)

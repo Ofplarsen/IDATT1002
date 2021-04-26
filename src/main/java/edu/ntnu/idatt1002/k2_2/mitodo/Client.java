@@ -103,6 +103,7 @@ public class Client extends Application
     {
         View view = previousViews.pop();
         setView(view);
+        currentView.update();
         return currentView;
     }
 
