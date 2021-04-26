@@ -23,9 +23,9 @@ public class PrimaryView extends View
     private Scene scene;
     private MainMenu mainMenu;
 
-    private final String smallTextCss = new File("styles/smallText.css").toString();
-    private final String bigTextCss = new File("styles/bigText.css").toString();
-    private final String defaultTextCss = new File("styles/defaultText.css").toString();
+    private final String smallTextCss = new File("smallText.css").toString();
+    private final String bigTextCss = new File("bigText.css").toString();
+    private final String defaultTextCss = new File("defaultText.css").toString();
 
     @FXML
     private SplitPane parent;
