@@ -22,7 +22,7 @@
                <children>
                   <HBox>
                      <children>
-                        <CheckBox fx:id="isDone" mnemonicParsing="false" onAction="#handleIsDoneCheckBox">
+                        <CheckBox styleClass="taskCheckBox" fx:id="isDone" mnemonicParsing="false" onAction="#handleIsDoneCheckBox">
                            <padding>
                               <Insets right="8.0" />
                            </padding>
