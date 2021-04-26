@@ -85,7 +85,6 @@ public class Client extends Application
         currentView = view;
         primaryView.setContent(view);
         view.getParent().requestFocus();
-        selectCurrentViewInMainMenu();
     }
 
     public static View setView(String name)
