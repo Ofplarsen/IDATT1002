@@ -20,15 +20,13 @@ import javafx.scene.paint.Color;
 public class TaskComponent extends Component
 {
     @FXML
+    public Label dateLabel;
+    @FXML
     private BorderPane parent;
     @FXML
     private CheckBox isDoneCheckBox;
     @FXML
     private Label priorityLabel;
-    @FXML
-    private Label startDateLabel;
-    @FXML
-    private Label dueDateLabel;
     @FXML
     private Label repeatLabel;
     @FXML
@@ -131,12 +129,23 @@ public class TaskComponent extends Component
         projectNameLabel.setVisible(false);
     }
 
+    public void updateDateThings() {
+        if (task.getDueDate() != null && task.getStartDate() == null) {
+            dateLabel.setText("Due: " + task.getDueDateAsString());
+        }
+        if (task.getDueDate() == null && task.getStartDate() != null) {
+            dateLabel.setText("Starting: " + task.getStartDateAsString());
+        }
+        if (task.getDueDate() != null && task.getStartDate() != null) {
+            dateLabel.setText(task.getStartDateAsString() + " - " + task.getDueDateAsString());
+        }
+    }
+
     private void setInfo()
     {
+        updateDateThings();
         isDoneCheckBox.setSelected(task.isDone());
         isDoneCheckBox.setText(task.getTitle());
-        startDateLabel.setText(task.getStartDateAsString());
-        dueDateLabel.setText(task.getDueDateAsString());
         repeatLabel.setText(task.getRepeat() == RepeatEnum.DOES_NOT_REPEAT ? "" : task.getRepeat().toString());
         projectNameLabel.setText(task.getParent().getTitle());
         setPriorityInfo();

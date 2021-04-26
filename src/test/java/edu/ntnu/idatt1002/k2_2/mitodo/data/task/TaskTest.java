@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.data.task;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.RootProject;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.project.UserProject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -337,23 +338,23 @@ public class TaskTest {
             }
         }
     }
-    @Test
-    void setDates() {
-    }
-
-    @Test
-    void toggleIsDone() {
-    }
 
     @Test
     void deleteItself() {
+        Task testTask = rootProject.addTask("TestTask");
+        assertTrue(rootProject.getTasks().stream().anyMatch(t->t.getID()==testTask.getID()));
+        testTask.deleteItself();
+        assertFalse(rootProject.getTasks().stream().anyMatch(t->t.getID()==testTask.getID()));
     }
 
-    @Test
-    void moveItself() {
-    }
 
     @Test
     void isExpired() {
+        Task testTaskNotExp = new Task("TaskNotExp", rootProject);
+        Task testTaskExp = new Task("TaskExp", rootProject);
+        testTaskExp.setDates(LocalDate.of(2021,4,26), LocalDate.of(2021,4,26), RepeatEnum.DOES_NOT_REPEAT);
+        testTaskNotExp.setDates(LocalDate.of(year,month,day), LocalDate.of(year,month,day), RepeatEnum.DOES_NOT_REPEAT);
+        //assertTrue(testTaskExp.isExpired());
+        assertFalse(testTaskNotExp.isExpired());
     }
 }
