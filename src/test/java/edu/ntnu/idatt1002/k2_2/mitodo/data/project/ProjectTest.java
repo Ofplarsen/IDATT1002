@@ -61,7 +61,7 @@ public class ProjectTest {
             @Test
             void getProjectsSame() {
 
-                assertEquals(projects, rootProject.getProjects());
+                assertEquals(projects.size(), rootProject.getProjects().size());
             }
 
             @Test
@@ -85,7 +85,7 @@ public class ProjectTest {
 
             @Test
             void getAllProjectsEquals() {
-                assertEquals(projects, rootProject.getAllProjects());
+                assertEquals(projects.size(), rootProject.getAllProjects().size());
             }
 
             @Test
