@@ -60,11 +60,11 @@ public class Task implements Serializable
             throw new IllegalArgumentException("Task title must be below " + TASK_MAX_LENGTH+ " characters.");
         }
 
-
         this.parent = parent;
         this.title = title.trim();
         this.priority = priority == null ? PriorityEnum.UNDEFINED : priority;
         this.repeat = repeat == null ? RepeatEnum.DOES_NOT_REPEAT : repeat;
+
         setDates(startDate, dueDate, this.repeat);
 
         if(comments != null)
@@ -136,7 +136,7 @@ public class Task implements Serializable
 
     public void setDates(LocalDate startDate, LocalDate dueDate, RepeatEnum repeat)
     {
-        if((startDate!= null || dueDate != null) && (!(startDate instanceof LocalDate) || !(dueDate instanceof LocalDate))){
+        if((startDate!= null && !(startDate instanceof LocalDate))|| (dueDate != null && !(dueDate instanceof LocalDate))){
             throw new IllegalArgumentException("Invalid input when setting dates. Please use the calendar to pick start/due date");
         }
         if (startDate != null && dueDate != null && dueDate.isBefore(startDate))

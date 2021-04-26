@@ -94,6 +94,7 @@ public class Client extends Application {
     public static View returnToPreviousView() {
         View view = previousViews.pop();
         setView(view);
+        currentView.update();
         return currentView;
     }
 

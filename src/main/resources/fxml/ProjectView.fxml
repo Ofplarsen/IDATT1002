@@ -94,6 +94,8 @@
                      <children>
                         <CheckBox fx:id="showDoneTasksCheckBox" mnemonicParsing="false" onAction="#updateDoneTaskContainer" styleClass="show-done-tasks-check-box" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="header" text="Done" />
+                        <HBox HBox.hgrow="ALWAYS" />
+                        <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#deleteDoneTasks" text="Delete Done Tasks" />
                      </children>
                   </HBox>
                   <VBox fx:id="doneContainer" styleClass="content-container" />

@@ -61,9 +61,10 @@ public class SettingsView extends View
         try {
             Desktop.getDesktop().browse(new URI("https://gitlab.stud.idi.ntnu.no/idatt1002_2021_k2-2/idatt1002_2021_k2-2/-/wikis/User-manual"));
         } catch (Exception e){
-            e.getMessage();
+            e.printStackTrace();
         }
     }
+
     public void about()
     {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

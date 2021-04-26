@@ -28,9 +28,9 @@ public class EditProjectView extends View
 
     public void setProject(UserProject project)
     {
-        Platform.runLater(() -> projectTitle.requestFocus());
         this.project = project;
         projectTitle.setText(project.getTitle());
+        Platform.runLater(() -> projectTitle.requestFocus());
     }
 
     @FXML

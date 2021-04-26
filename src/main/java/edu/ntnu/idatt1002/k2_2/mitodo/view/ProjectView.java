@@ -23,6 +23,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
@@ -215,6 +216,14 @@ public class ProjectView extends View
         updateDoneTaskContainer();
     }
 
+    @FXML
+    private void deleteDoneTasks(){
+        for (Task e : doneTasks){
+            project.removeTasksFromAll(e.getID());
+        }
+        update();
+    }
+
     private void updateShowOption()
     {
         ShowOption showOption = showComboBox.getValue();
@@ -328,12 +337,19 @@ public class ProjectView extends View
 
     private void addNormalTasks()
     {
-        addSeparator(normalContainer, onNormalTaskDragOverEventHandler, event -> onTaskDragDropped(0));
-        for (Task task : tasks)
-        {
-            addTask(normalContainer, task);
-            int index = project.getTasks().indexOf(task) + 1;
-            addSeparator(normalContainer, onNormalTaskDragOverEventHandler, event -> onTaskDragDropped(index));
+        if(tasks.isEmpty()){
+            Label noTasksLabel = new Label("No Tasks");
+            noTasksLabel.setFont(new Font("System", 32));
+            normalContainer.getChildren().add(noTasksLabel);
+        }
+        else{
+            addSeparator(normalContainer, onNormalTaskDragOverEventHandler, event -> onTaskDragDropped(0));
+            for (Task task : tasks)
+            {
+                addTask(normalContainer, task);
+                int index = project.getTasks().indexOf(task) + 1;
+                addSeparator(normalContainer, onNormalTaskDragOverEventHandler, event -> onTaskDragDropped(index));
+            }
         }
     }
 
