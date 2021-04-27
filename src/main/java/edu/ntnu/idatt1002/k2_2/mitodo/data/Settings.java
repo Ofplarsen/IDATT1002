@@ -2,6 +2,9 @@ package edu.ntnu.idatt1002.k2_2.mitodo.data;
 
 import java.io.Serializable;
 
+/**
+ * A class representing the application settings.
+ */
 public class Settings implements Serializable
 {
     private boolean isSound;

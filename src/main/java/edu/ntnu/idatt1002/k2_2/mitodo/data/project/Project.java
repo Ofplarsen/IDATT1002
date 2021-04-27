@@ -10,20 +10,29 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * Abstract class representing a Project with an ID, a list of tasks and a list of projects.
+ */
 public abstract class Project implements Serializable
 {
     private final ArrayList<UserProject> userProjects = new ArrayList<>();
     private final ArrayList<Task> tasks = new ArrayList<>();
-    protected final static int MAX_TITLE_SIZE = 28;
     private final UUID ID = UUID.randomUUID();
 
     public abstract String getTitle();
 
+    /**
+     * @return This project's projects.
+     */
     public ArrayList<UserProject> getProjects()
     {
         return new ArrayList<>(userProjects);
     }
 
+    /**
+     * @return All projects below this project. That is to say,
+     * the subprojects of this project and all subprojects of the subprojects.
+     */
     public ArrayList<UserProject> getAllProjects()
     {
         ArrayList<UserProject> projectBucket = new ArrayList<>(userProjects);
@@ -34,18 +43,11 @@ public abstract class Project implements Serializable
         return projectBucket;
     }
 
-    public UserProject getProject(UUID id)
-    {
-        for (UserProject project : userProjects)
-        {
-            if (project.getID().equals(id))
-            {
-                return project;
-            }
-        }
-        return null;
-    }
-
+    /**
+     * Adds a new project to this project.
+     * @param title The title of the new project.
+     * @return The newly created project.
+     */
     public UserProject addProject(String title)
     {
         UserProject project = new UserProject(title, this);
@@ -53,11 +55,21 @@ public abstract class Project implements Serializable
         return project;
     }
 
+    /**
+     * Protected method allowing the child class to add a project to this project.
+     * @param userProject The project to add.
+     */
     protected void addProject(UserProject userProject)
     {
         userProjects.add(0, userProject);
     }
 
+    /**
+     * Moves a project in this project to a different index in the list.
+     * @param subproject The project to move.
+     * @param newIndex The index to move to the project to.
+     * @return False if the project is not in this project or the new index is equal to the old index. Otherwise true.
+     */
     public boolean moveProject(UserProject subproject, int newIndex)
     {
         if (!userProjects.contains(subproject)) return false;
@@ -77,11 +89,21 @@ public abstract class Project implements Serializable
         return true;
     }
 
+    /**
+     * Removes a project from this project.
+     * @param id The id of the project to remove.
+     * @return True if the project was removed. Otherwise false.
+     */
     public boolean removeProject(UUID id)
     {
         return userProjects.removeIf(project -> project.getID().equals(id));
     }
 
+    /**
+     * Removes a project from this project and all projects below this project.
+     * @param id The id of the project to remove.
+     * @return True if the project was removed. Otherwise false.
+     */
     public boolean removeProjectFromAll(UUID id)
     {
         boolean removed = removeProject(id);
@@ -95,6 +117,9 @@ public abstract class Project implements Serializable
         return false;
     }
 
+    /**
+     * @return The tasks of this project and the tasks of all projects below this project.
+     */
     public ArrayList<Task> getAllTasks()
     {
         ArrayList<Task> taskBucket = new ArrayList<>(tasks);
@@ -102,6 +127,9 @@ public abstract class Project implements Serializable
         return taskBucket;
     }
 
+    /**
+     * @return The tasks of all projects below this project.
+     */
     private ArrayList<Task> getAllSubProjectTasks()
     {
         ArrayList<Task> taskBucket = new ArrayList<>();
@@ -115,12 +143,19 @@ public abstract class Project implements Serializable
     }
 
 
+    /**
+     * @return A shallow copy of the ArrayList of tasks in this project.
+     */
     public ArrayList<Task> getTasks()
     {
         return new ArrayList<>(tasks);
     }
 
-
+    /**
+     * Adds a new task to this project.
+     * @param title The title of the new task.
+     * @return The newly created task.
+     */
     public Task addTask(String title)
     {
         Task task = new Task(title, this);
@@ -128,6 +163,36 @@ public abstract class Project implements Serializable
         return task;
     }
 
+    /**
+     * Adds a new task to this project.
+     * @param title The title of the new task.
+     * @param priority The priority of the new task.
+     * @param startDate The start date of the new task.
+     * @param dueDate The due date of the new task.
+     * @param repeat The repeating frequency of the new task.
+     * @param comments The comments of the new task.
+     * @return The newly created task.
+     */
+    public Task addTask(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate, RepeatEnum repeat, String comments)
+    {
+        try
+        {
+            Task task = new Task(title, priority, startDate, dueDate,repeat, comments, this);
+            tasks.add(0, task);
+            return task;
+        }
+        catch (IllegalArgumentException e)
+        {
+            throw new IllegalArgumentException(e.getMessage());
+        }
+    }
+
+    /**
+     * Moves a task in this project to a different index in the list.
+     * @param task The task to move.
+     * @param newIndex The index to move to the task to.
+     * @return False if the task is not in this project or the new index is equal to the old index. Otherwise true.
+     */
     public boolean moveTask(Task task, int newIndex)
     {
         if (!tasks.contains(task)) return false;
@@ -147,36 +212,43 @@ public abstract class Project implements Serializable
         return true;
     }
 
-    public boolean moveTask(Task task, Project newParentProject)
+    /**
+     * Moves a task to a different project.
+     * @param task The task to move.
+     * @param newParentProject The project to move the task to.
+     * @return True if the task was moved to the new project and removed from the old project. Otherwise false.
+     */
+    public boolean moveTaskTo(Task task, Project newParentProject)
     {
         newParentProject.addTask(task.getTitle(), task.getPriority(), task.getStartDate(), task.getDueDate(),task.getRepeat(), task.getComments());
         return task.deleteItself();
     }
 
-    public Task addTask(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate, RepeatEnum repeat, String comments)
-    {
-        try
-        {
-            Task task = new Task(title, priority, startDate, dueDate,repeat, comments, this);
-            tasks.add(0, task);
-            return task;
-        }
-        catch (IllegalArgumentException e)
-        {
-            throw new IllegalArgumentException(e.getMessage());
-        }
-    }
-
+    /**
+     * Removes a task from this project.
+     * @param task The task to remove.
+     * @return True if the task was removed. Otherwise false.
+     */
     public boolean removeTask(Task task)
     {
         return tasks.remove(task);
     }
 
+    /**
+     * Removes a task from this project.
+     * @param id The id of the task to remove.
+     * @return True if the task was removed. Otherwise false.
+     */
     public boolean removeTask(UUID id)
     {
         return tasks.removeIf(task -> task.getID().equals(id));
     }
 
+    /**
+     * Removes a task from this project and all projects below this project.
+     * @param id The id of the task to remove.
+     * @return True if the task was removed. Otherwise false.
+     */
     public boolean removeTasksFromAll(UUID id){
         boolean removed = removeTask(id);
         if (removed) return true;

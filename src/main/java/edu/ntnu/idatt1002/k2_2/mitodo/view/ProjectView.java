@@ -56,7 +56,7 @@ public class ProjectView extends View
     private VBox doneContainer;
 
     @FXML
-    private Text expiredTitle;
+    private Text overdueTitle;
     @FXML
     private Text normalTitle;
     @FXML
@@ -68,7 +68,7 @@ public class ProjectView extends View
     private ArrayList<UserProject> subprojects;
 
     private ArrayList<Task> tasks;
-    private ArrayList<Task> expiredTasks;
+    private ArrayList<Task> overdueTasks;
     private ArrayList<Task> doneTasks;
 
     private final EventHandler<DragEvent> onOverdueTaskDragOverEventHandler = dragEvent ->
@@ -79,7 +79,7 @@ public class ProjectView extends View
         if (!(obj instanceof Task)) return;
 
         Task task = (Task) obj;
-        if (task.isExpired() && !task.isDone())
+        if (task.isOverdue() && !task.isDone())
         {
             dragEvent.acceptTransferModes(TransferMode.MOVE);
         }
@@ -93,7 +93,7 @@ public class ProjectView extends View
         if (!(obj instanceof Task)) return;
 
         Task task = (Task) obj;
-        if (!task.isExpired() && !task.isDone())
+        if (!task.isOverdue() && !task.isDone())
         {
             dragEvent.acceptTransferModes(TransferMode.MOVE);
         }
@@ -263,8 +263,8 @@ public class ProjectView extends View
                 break;
         }
 
-        expiredTasks = (ArrayList<Task>) tasks.stream().filter(Task::isExpired).collect(Collectors.toList());
-        tasks.removeAll(expiredTasks);
+        overdueTasks = (ArrayList<Task>) tasks.stream().filter(Task::isOverdue).collect(Collectors.toList());
+        tasks.removeAll(overdueTasks);
 
         doneTasks = (ArrayList<Task>) tasks.stream().filter(Task::isDone).collect(Collectors.toList());
         tasks.removeAll(doneTasks);
@@ -276,7 +276,7 @@ public class ProjectView extends View
         normalContainer.getChildren().clear();
         doneContainer.getChildren().clear();
 
-        setElementVisible(expiredTitle, false);
+        setElementVisible(overdueTitle, false);
         setElementVisible(normalTitle, false);
         setElementVisible(doneTitleContainer, false);
 
@@ -316,9 +316,9 @@ public class ProjectView extends View
 
     private void addExpiredTasks()
     {
-        if(!expiredTasks.isEmpty())
+        if(!overdueTasks.isEmpty())
         {
-            setElementVisible(expiredTitle, true);
+            setElementVisible(overdueTitle, true);
 
             if (!tasks.isEmpty())
             {
@@ -326,7 +326,7 @@ public class ProjectView extends View
             }
 
             addSeparator(expiredContainer, onOverdueTaskDragOverEventHandler, event -> onTaskDragDropped(0));
-            for (Task task : expiredTasks)
+            for (Task task : overdueTasks)
             {
                 addTask(expiredContainer, task);
                 int index = project.getTasks().indexOf(task) + 1;

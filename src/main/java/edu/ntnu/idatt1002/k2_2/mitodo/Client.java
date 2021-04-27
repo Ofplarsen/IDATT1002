@@ -73,9 +73,12 @@ public class Client extends Application {
 
     public static void setView(View view) {
         if (view.equals(currentView)) return;
-        if (currentView != null) {
+
+        if (currentView != null)
+        {
             previousViews.add(currentView);
         }
+
         currentView = view;
         primaryView.setContent(view);
         view.getParent().requestFocus();
@@ -94,6 +97,7 @@ public class Client extends Application {
     public static View returnToPreviousView() {
         View view = previousViews.pop();
         setView(view);
+        previousViews.pop();
         currentView.update();
         return currentView;
     }

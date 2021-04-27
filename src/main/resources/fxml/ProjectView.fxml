@@ -86,7 +86,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
-                  <Text fx:id="expiredTitle" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="header" text="Overdue" />
+                  <Text fx:id="overdueTitle" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="header" text="Overdue" />
                   <VBox fx:id="expiredContainer" styleClass="content-container" />
                   <Text fx:id="normalTitle" layoutX="20.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="header" text="Tasks" />
                   <VBox fx:id="normalContainer" styleClass="content-container" />

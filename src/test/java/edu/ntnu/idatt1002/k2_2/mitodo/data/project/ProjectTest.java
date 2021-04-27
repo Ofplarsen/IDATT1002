@@ -3,18 +3,13 @@ package edu.ntnu.idatt1002.k2_2.mitodo.data.project;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.PriorityEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.RepeatEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.Task;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import javax.annotation.processing.SupportedAnnotationTypes;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -98,20 +93,6 @@ public class ProjectTest {
             @Test
             void getAllProjectsVsGetProjects(){
                 assertNotEquals(rootProject.getAllProjects(), rootProject.getProjects());
-            }
-        }
-
-        @Nested
-        @DisplayName("Tests for getProject(UUID)")
-        public class GetProject{
-            @Test
-            void getProjectEquals(){
-                assertEquals(userProject1, rootProject.getProject(userProject1.getID()));
-            }
-
-            @Test
-            void getProjectsNotEquals(){
-                assertNotEquals(userProject1, rootProject.getProject(userProject2.getID()));
             }
         }
     }
@@ -314,7 +295,7 @@ public class ProjectTest {
                 Task localTask = rootProjectTaskTest.addTask("task1");
                 assertEquals(rootProjectTaskTest.getTasks().size(), 1);
                 assertEquals(subProjectTaskTest1.getTasks().size(), 1);
-                assertTrue(rootProjectTaskTest.moveTask(localTask, subProjectTaskTest1));
+                assertTrue(rootProjectTaskTest.moveTaskTo(localTask, subProjectTaskTest1));
                 assertEquals(subProjectTaskTest1.getTasks().size(), 2);
             }
 
@@ -322,7 +303,7 @@ public class ProjectTest {
             void moveTaskNull(){
                 rootProjectTaskTest.addTask("Task2");
                 assertEquals(rootProjectTaskTest.getTasks().size(), 1);
-                assertFalse(rootProjectTaskTest.moveTask(task1, subProjectTaskTest1));
+                assertFalse(rootProjectTaskTest.moveTaskTo(task1, subProjectTaskTest1));
                 assertEquals(rootProjectTaskTest.getTasks().size(), 1);
             }
 

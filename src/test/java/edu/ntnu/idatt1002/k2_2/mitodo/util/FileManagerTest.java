@@ -7,8 +7,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-
 import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("Tests for Persistence")
 public class FileManagerTest {
@@ -61,9 +59,9 @@ public class FileManagerTest {
             assertTrue(rootProjectCopy.getProjects().stream().anyMatch(p-> p.equals(userProject1)));
             assertTrue(rootProjectCopy.getProjects().stream().anyMatch(p-> p.equals(userProject2)));
             assertTrue(rootProjectCopy.getProjects().stream().anyMatch(p-> p.equals(userProject)));
-            assertTrue(rootProjectCopy.getProject(userProject1.getID()).getProjects().stream().anyMatch(p-> p.equals(subProjectUP1)));
-            assertTrue(rootProjectCopy.getProject(userProject1.getID()).getTasks().stream().anyMatch(t->t.equals(userProject1Task)));
-            assertTrue(rootProjectCopy.getProject(userProject1.getID()).getProject(subProjectUP1.getID()).getTasks().stream().anyMatch(t-> t.equals(subProUP1Task)));
+            assertTrue(userProject1.getProjects().stream().anyMatch(p-> p.equals(subProjectUP1)));
+            assertTrue(userProject1.getTasks().stream().anyMatch(t->t.equals(userProject1Task)));
+            assertTrue(subProjectUP1.getTasks().stream().anyMatch(t-> t.equals(subProUP1Task)));
         }
     }
 }

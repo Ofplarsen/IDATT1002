@@ -184,7 +184,7 @@ public abstract class EditOrCreateTaskView extends View
     {
         if (selectProject.getValue() == null|| selectProject.getValue().equals(project)) return;
         Project userProject = selectProject.getValue();
-        project.moveTask(this.task, userProject);
+        project.moveTaskTo(this.task, userProject);
     }
 
     @Override

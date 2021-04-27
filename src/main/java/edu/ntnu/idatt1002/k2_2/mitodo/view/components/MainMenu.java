@@ -18,7 +18,7 @@ import javafx.scene.input.TransferMode;
 import java.util.ArrayList;
 
 /**
- * The main menu has a treeView that it fills with buttons to all pages.
+ * The main menu has a treeView that it fills with TreeItems containing MainMenuItems containing a View.
  * Keypress:
  * ENTER = Clicks on selected item/label
  * RIGHT = Folds out a folded tree branch
@@ -41,6 +41,10 @@ public class MainMenu
         this.treeView = treeView;
     }
 
+    /**
+     * Highlights the current view in the main menu.
+     * @param currentView The current view.
+     */
     public void selectCurrentView(View currentView)
     {
         for (TreeItem<MainMenuItem> treeItem : treeItems)
@@ -98,6 +102,7 @@ public class MainMenu
     }
 
     /**
+     * Makes a TreeItem for a project with a context menu.
      * @param parent The parent TreeItem to create the TreeItem from.
      * @param project The project to create a TreeItem for.
      */
@@ -151,12 +156,23 @@ public class MainMenu
         return projectItem;
     }
 
+    /**
+     * Makes a TreeItem for the project and all projects below the project.
+     * @param parent The parent TreeItem to create the TreeItem from.
+     * @param project The project to create TreeItems for.
+     */
     private void makeAllProjectTreeItems(TreeItem<MainMenuItem> parent, Project project)
     {
         TreeItem<MainMenuItem> projectItem = makeProjectTreeItem(parent, project);
         project.getProjects().forEach(subProject -> makeAllProjectTreeItems(projectItem, subProject));
     }
 
+    /**
+     * Method for handling an object getting dragged over a TreeItem with a link to a ProjectView.
+     * It accepts all tasks and user projects that can move to the project.
+     * @param project The project it gets dragged over.
+     * @param event The drag event.
+     */
     private void onDragOverProjectView(Project project, DragEvent event)
     {
         Object obj = DragAndDropManager.getValue();
@@ -176,13 +192,18 @@ public class MainMenu
         Client.getCurrentView().update();
     }
 
+    /**
+     * Method for handling an object getting dropped on a TreeItem with a link to a ProjectView.
+     * It adds the object to the project if it is a task or an user project that can move to the project.
+     * @param project The project it gets dropped on.
+     */
     private void onDragDroppedOnProjectView(Project project)
     {
         Object obj = DragAndDropManager.getValue();
         if (obj instanceof Task)
         {
             Task task = (Task) obj;
-            project.addTask(task.getTitle(), task.getPriority(), task.getStartDate(), task.getDueDate(),task.getRepeat(), task.getComments());
+            task.getParent().moveTaskTo(task, project);
             task.deleteItself();
         }
         else if (obj instanceof UserProject)
@@ -195,6 +216,11 @@ public class MainMenu
         Client.updateMainMenu();
     }
 
+    /**
+     * Method for handling an event to the TreeView.
+     * Gets the clicked MainMenuItem and passes the event to the MainMenuItem.
+     * @param event The event.
+     */
     private void onMainMenuItemEvent(Event event)
     {
         TreeView clickedTree = (TreeView) event.getSource();
@@ -212,6 +238,13 @@ public class MainMenu
         }
     }
 
+    /**
+     * Makes a TreeItem containing a MainMenuItem.
+     * @param parent The parent TreeItem to create the TreeItem from.
+     * @param view The view the TreeItem links to.
+     * @param contextMenu The context menu of the TreeItem.
+     * @return The newly created TreeItem.
+     */
     private TreeItem<MainMenuItem> makeTreeItem(TreeItem<MainMenuItem> parent, View view, ContextMenu contextMenu)
     {
         MainMenuItem mainMenuItem = new MainMenuItem(view, contextMenu);

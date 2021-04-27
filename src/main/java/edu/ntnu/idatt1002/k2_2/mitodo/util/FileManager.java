@@ -36,7 +36,13 @@ public class FileManager
         return fxmlLoader.getController();
     }
 
-    public static void saveSerializableObject(Serializable object, String name)
+    /**
+     * Saves a Serializable as file to the "user.home.mitodo directory.
+     * @param serializable The serializable to save.
+     * @param name The name of the file.
+     * @return True if the file was saved. Otherwise false.
+     */
+    public static boolean saveSerializableObject(Serializable serializable, String name)
     {
         File file = new File(SAVE_DIR, name);
 
@@ -48,6 +54,7 @@ public class FileManager
         catch (IOException e)
         {
             e.printStackTrace();
+            return false;
         }
 
         try
@@ -56,14 +63,22 @@ public class FileManager
             ObjectOutputStream os = new ObjectOutputStream(fs);
         )
         {
-            os.writeObject(object);
+            os.writeObject(serializable);
         }
         catch (IOException e)
         {
             e.printStackTrace();
+            return false;
         }
+
+        return true;
     }
 
+    /**
+     * Loads a file as Serializable from the "user.home.mitodo directory.
+     * @param name The name of the file to load.
+     * @return The Serializable loaded. Null if the file does not exist or something went wrong.
+     */
     public static Serializable loadSerializableObject(String name)
     {
         File file = new File(SAVE_DIR, name);

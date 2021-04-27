@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * An enum representing the different repeating frequencies a task can have.
+ */
 public enum RepeatEnum implements Serializable
 {
     DOES_NOT_REPEAT,
@@ -11,6 +14,12 @@ public enum RepeatEnum implements Serializable
     WEEKLY,
     MONTHLY;
 
+    /**
+     * Checks if the repeating period is shorter than the time between two dates.
+     * @param startDate The start date.
+     * @param dueDate The due date.
+     * @return True if the repeating period is shorter than the time between two dates. Otherwise false.
+     */
     public boolean isShorterThanDates(LocalDate startDate, LocalDate dueDate)
     {
         if(startDate==null || dueDate==null) return false;
@@ -31,20 +40,24 @@ public enum RepeatEnum implements Serializable
         }
     }
 
-    public LocalDate getNextDate(LocalDate date)
+    /**
+     * @param prevDate The previous date.
+     * @return The previous date + the repeating period.
+     */
+    public LocalDate getNextDate(LocalDate prevDate)
     {
-        if (date==null) return null;
+        if (prevDate==null) return null;
 
         switch (this)
         {
             case DAILY:
-                return date.plusDays(1);
+                return prevDate.plusDays(1);
             case WEEKLY:
-                return date.plusWeeks(1);
+                return prevDate.plusWeeks(1);
             case MONTHLY:
-                return date.plusMonths(1);
+                return prevDate.plusMonths(1);
             default:
-                return date;
+                return prevDate;
         }
     }
 }

@@ -8,8 +8,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
- * Public class Task
- * The Task class consists of an id, title, priority and end/start date
+ * A class representing a task consisting of an id, title, comments, priority and end/start date repeating period and is-done status.
  * When the user creates a task, it gets an unique Id and the user gives the task an title
  * The unique id is created from the class UUID, which is a Java class that among other things lets you get a random
  * 128-bit number. This makes it as good as impossible for two task get the same id. This is implemented, because the user
@@ -29,7 +28,13 @@ public class Task implements Serializable
     private final Project parent;
     private boolean createdNextRepeatingTask = false;
 
-    public Task(String title, Project parent)
+    /**
+     * Constructs a new task.
+     * @param title The title of the task.
+     * @param parent The parent project of the task.
+     * @throws IllegalArgumentException If the length of the title is 0 or above 28.
+     */
+    public Task(String title, Project parent) throws IllegalArgumentException
     {
         if(title.isBlank() && title.isEmpty())
         {
@@ -48,7 +53,21 @@ public class Task implements Serializable
         ID = UUID.randomUUID();
     }
 
-    public Task(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate,RepeatEnum repeat, String comments, Project parent)
+    /**
+     * Constructs a new task.
+     * @param title The title of the new task.
+     * @param priority The priority of the new task.
+     * @param startDate The start date of the new task.
+     * @param dueDate The due date of the new task.
+     * @param repeat The repeating frequency of the new task.
+     * @param comments The comments of the new task.
+     * @param parent The parent project of the task.
+     * @throws IllegalArgumentException If the length of the title is 0 or above 28,
+     * the due date is earlier than the start date,
+     * the due date is earlier than today's date, trying to repeat without start date or due date
+     * or the time between start date and due date is longer than the repeating period.
+     */
+    public Task(String title, PriorityEnum priority, LocalDate startDate, LocalDate dueDate,RepeatEnum repeat, String comments, Project parent) throws IllegalArgumentException
     {
         //Makes sure title is not null, nor is empty
         if(title.isBlank() || title.isEmpty())
@@ -107,7 +126,12 @@ public class Task implements Serializable
         }
     }
 
-    public void setTitle(String title)
+    /**
+     * Sets the title of the task.
+     * @param title The title of the new task.
+     * @throws IllegalArgumentException If the length of the title is 0 or above 28.
+     */
+    public void setTitle(String title) throws IllegalArgumentException
     {
         if(title.isBlank() || title.isEmpty())
         {
@@ -134,11 +158,17 @@ public class Task implements Serializable
         return startDate;
     }
 
-    public void setDates(LocalDate startDate, LocalDate dueDate, RepeatEnum repeat)
+    /**
+     * Sets the start date, due date and repeating frequency.
+     * @param startDate The start date.
+     * @param dueDate The due date.
+     * @param repeat The repeating frequency.
+     * @throws IllegalArgumentException If the due date is earlier than the start date,
+     * the due date is earlier than today's date, trying to repeat without start date or due date
+     * or the time between start date and due date is longer than the repeating period.
+     */
+    public void setDates(LocalDate startDate, LocalDate dueDate, RepeatEnum repeat) throws IllegalArgumentException
     {
-        if((startDate!= null && !(startDate instanceof LocalDate))|| (dueDate != null && !(dueDate instanceof LocalDate))){
-            throw new IllegalArgumentException("Invalid input when setting dates. Please use the calendar to pick start/due date");
-        }
         if (startDate != null && dueDate != null && dueDate.isBefore(startDate))
         {
             throw new IllegalArgumentException("Can't set due date earlier than start date");
@@ -205,6 +235,10 @@ public class Task implements Serializable
         return isDone;
     }
 
+    /**
+     * Sets the is-done status. Creates the next task if the task is a repeating task.
+     * @param isDone The new is-done status.
+     */
     public void setDone(boolean isDone)
     {
         this.isDone = isDone;
@@ -223,9 +257,19 @@ public class Task implements Serializable
         setDone(!isDone);
     }
 
+    /**
+     * Removes itself from the parent project.
+     * @return True if the task was removed. Otherwise false.
+     */
     public boolean deleteItself()
     {
         return parent.removeTask(ID);
+    }
+
+    public boolean isOverdue()
+    {
+        if (dueDate == null) return false;
+        return dueDate.isBefore(LocalDate.now()) && !isDone;
     }
 
     @Override
@@ -257,11 +301,5 @@ public class Task implements Serializable
     public int hashCode()
     {
         return Objects.hash(ID);
-    }
-
-    public boolean isExpired()
-    {
-        if (dueDate == null) return false;
-        return dueDate.isBefore(LocalDate.now()) && !isDone;
     }
 }
