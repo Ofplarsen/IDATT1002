@@ -58,7 +58,7 @@
                               <Font />
                            </font>
                         </Label>
-                        <ComboBox fx:id="sortByComboBox" onAction="#updateShowAndSortOption" promptText="Standard" styleClass="textInBoxes" />
+                        <ComboBox fx:id="sortByComboBox" minWidth="-Infinity" onAction="#updateShowAndSortOption" promptText="Standard" styleClass="textInBoxes" />
                         <CheckBox fx:id="ascendingCheckBox" mnemonicParsing="false" onAction="#updateShowAndSortOption" styleClass="sorting-checkbox" />
                      </children>
                   </HBox>
@@ -69,7 +69,7 @@
                               <Font />
                            </font>
                         </Label>
-                        <ComboBox fx:id="showComboBox" onAction="#updateShowAndSortOption" promptText="Show Tasks" styleClass="textInBoxes" />
+                        <ComboBox fx:id="showComboBox" minWidth="-Infinity" onAction="#updateShowAndSortOption" promptText="Show Tasks" styleClass="textInBoxes" />
                      </children>
                   </HBox>
                </children>

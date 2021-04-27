@@ -1,6 +1,8 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view.components;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.EnumToStringConverter;
+import edu.ntnu.idatt1002.k2_2.mitodo.data.task.PriorityEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.task.RepeatEnum;
 import edu.ntnu.idatt1002.k2_2.mitodo.util.SoundEffects;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.Component;
@@ -79,25 +81,18 @@ public class TaskComponent extends Component
             parent.getStyleClass().remove(1);
         }
 
-        switch (task.getPriority()) {
-            case UNDEFINED:
-                priorityLabel.setText("");
-                break;
+        PriorityEnum priority = task.getPriority();
+        String priorityString = new EnumToStringConverter<PriorityEnum>().toString(priority);
 
-            case LOW:
-                parent.getStyleClass().add("priority-low");
-                priorityLabel.setText("P3");
-                break;
+        parent.getStyleClass().add("priority-" + priorityString.toLowerCase());
 
-            case MEDIUM:
-                parent.getStyleClass().add("priority-medium");
-                priorityLabel.setText("P2");
-                break;
-
-            case HIGH:
-                parent.getStyleClass().add("priority-high");
-                priorityLabel.setText("P1");
-                break;
+        if (priority == PriorityEnum.UNDEFINED)
+        {
+            priorityLabel.setText("");
+        }
+        else
+        {
+            priorityLabel.setText(priorityString + " priority");
         }
     }
 
@@ -125,8 +120,9 @@ public class TaskComponent extends Component
         task.deleteItself();
         view.update();
     }
+
     public void removeProjectLabel(){
-        projectNameLabel.setVisible(false);
+        projectNameLabel.setText("");
     }
 
     public void updateDateThings() {
@@ -146,7 +142,7 @@ public class TaskComponent extends Component
         updateDateThings();
         isDoneCheckBox.setSelected(task.isDone());
         isDoneCheckBox.setText(task.getTitle());
-        repeatLabel.setText(task.getRepeat() == RepeatEnum.DOES_NOT_REPEAT ? "" : task.getRepeat().toString());
+        repeatLabel.setText(task.getRepeat() == RepeatEnum.DOES_NOT_REPEAT ? "" : new EnumToStringConverter<RepeatEnum>().toString(task.getRepeat()));
         projectNameLabel.setText(task.getParent().getTitle());
         setPriorityInfo();
     }
