@@ -110,11 +110,6 @@ public class ProjectTest {
             void initAddProject(){
 
             }
-            @Test
-            void addProjectTrue(){
-                addProjectUP = rootProject.addProject("New Project");
-                assertEquals(addProjectUP,rootProject.getProject(addProjectUP.getID()));
-            }
 
             @Nested
             @DisplayName("Tests to make sure addProject throws exception under certain conditions")

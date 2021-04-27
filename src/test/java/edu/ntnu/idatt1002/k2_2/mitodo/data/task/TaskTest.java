@@ -136,10 +136,10 @@ public class TaskTest {
                 @Test
                 void dueDateBeforeStart(){
                     assertThrows(IllegalArgumentException.class, () ->{
-                        Task taskTest = new Task("task", PriorityEnum.HIGH, LocalDate.of(year,month,day+4), LocalDate.now(), null, "", rootProject);
+                        Task taskTest = new Task("task", PriorityEnum.HIGH, LocalDate.of(year,month,day+1), LocalDate.now(), null, "", rootProject);
                     });
                     try{
-                        Task taskTest = new Task("task", PriorityEnum.HIGH, LocalDate.of(year,month,day+4), LocalDate.now(), null, "", rootProject);
+                        Task taskTest = new Task("task", PriorityEnum.HIGH, LocalDate.of(year,month,day+1), LocalDate.now(), null, "", rootProject);
                     }catch (IllegalArgumentException e){
                         assertEquals(e.getMessage(), "Can't set due date earlier than start date");
                     }
@@ -269,10 +269,10 @@ public class TaskTest {
         @Test
         void dueDateBeforeStart(){
             assertThrows(IllegalArgumentException.class, () ->{
-                taskTest.setDates(LocalDate.of(year,month,day+4), LocalDate.now(), null);
+                taskTest.setDates(LocalDate.of(year,month,day+1), LocalDate.now(), null);
             });
             try{
-                taskTest.setDates(LocalDate.of(year,month,day+4), LocalDate.now(), null);
+                taskTest.setDates(LocalDate.of(year,month,day+1), LocalDate.now(), null);
             }catch (IllegalArgumentException e){
                 assertEquals(e.getMessage(), "Can't set due date earlier than start date");
             }
@@ -347,14 +347,4 @@ public class TaskTest {
         assertFalse(rootProject.getTasks().stream().anyMatch(t->t.getID()==testTask.getID()));
     }
 
-
-    @Test
-    void isExpired() {
-        Task testTaskNotExp = new Task("TaskNotExp", rootProject);
-        Task testTaskExp = new Task("TaskExp", rootProject);
-        testTaskExp.setDates(LocalDate.of(2021,4,26), LocalDate.of(2021,4,26), RepeatEnum.DOES_NOT_REPEAT);
-        testTaskNotExp.setDates(LocalDate.of(year,month,day), LocalDate.of(year,month,day), RepeatEnum.DOES_NOT_REPEAT);
-        //assertTrue(testTaskExp.isExpired());
-        assertFalse(testTaskNotExp.isOverdue());
-    }
 }
