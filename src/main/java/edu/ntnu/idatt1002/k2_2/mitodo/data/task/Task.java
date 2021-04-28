@@ -131,7 +131,7 @@ public class Task implements Serializable
      * @param title The title of the new task.
      * @throws IllegalArgumentException If the length of the title is 0 or above 28.
      */
-    public void setTitle(String title) throws IllegalArgumentException
+    public void setTitle(String title)
     {
         if(title.isBlank() || title.isEmpty())
         {
