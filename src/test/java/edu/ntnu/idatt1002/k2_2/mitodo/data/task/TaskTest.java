@@ -269,10 +269,10 @@ public class TaskTest {
         @Test
         void dueDateBeforeStart(){
             assertThrows(IllegalArgumentException.class, () ->{
-                taskTest.setDates(LocalDate.of(year,month,day+1), LocalDate.now(), null);
+                taskTest.setDates(LocalDate.of(year,month,day).plusDays(1), LocalDate.now(), null);
             });
             try{
-                taskTest.setDates(LocalDate.of(year,month,day+1), LocalDate.now(), null);
+                taskTest.setDates(LocalDate.of(year,month,day).plusDays(1), LocalDate.now(), null);
             }catch (IllegalArgumentException e){
                 assertEquals(e.getMessage(), "Can't set due date earlier than start date");
             }
@@ -281,10 +281,10 @@ public class TaskTest {
         @Test
         void dueDateBeforeToday(){
             assertThrows(IllegalArgumentException.class, () ->{
-                taskTest.setDates(LocalDate.of(year,month,day-4), LocalDate.of(year,month,day-1), null);
+                taskTest.setDates(LocalDate.of(year,month,day).minusDays(4), LocalDate.of(year,month,day).minusDays(1), null);
             });
             try{
-                taskTest.setDates(LocalDate.of(year,month,day-4), LocalDate.of(year,month,day-1), null);
+                taskTest.setDates(LocalDate.of(year,month,day).minusDays(4), LocalDate.of(year,month,day).minusDays(1), null);
             }catch (IllegalArgumentException e){
                 assertEquals(e.getMessage(), "Can't set due date earlier than today's date");
             }
@@ -305,10 +305,10 @@ public class TaskTest {
         @Test
         void repeatIsShorterThanDatesDaily(){
             assertThrows(IllegalArgumentException.class, () ->{
-                taskTest.setDates(LocalDate.of(year,month,day), LocalDate.of(year,month,day+2), RepeatEnum.DAILY);
+                taskTest.setDates(LocalDate.of(year,month,day), LocalDate.of(year,month,day).plusDays(2), RepeatEnum.DAILY);
             });
             try{
-                taskTest.setDates(LocalDate.of(year,month,day), LocalDate.of(year,month,day+2), RepeatEnum.DAILY);
+                taskTest.setDates(LocalDate.of(year,month,day), LocalDate.of(year,month,day).plusDays(2), RepeatEnum.DAILY);
             }catch (IllegalArgumentException e){
                 assertEquals(e.getMessage(), "Time between start date and due date can't be longer than the repeating period.");
             }
@@ -317,10 +317,10 @@ public class TaskTest {
         @Test
         void repeatIsShorterThanDatesWeekly(){
             assertThrows(IllegalArgumentException.class, () ->{
-                taskTest.setDates(LocalDate.of(year,month,day+2), LocalDate.of(year,month+1,day), RepeatEnum.WEEKLY);
+                taskTest.setDates(LocalDate.of(year,month,day).plusDays(2), LocalDate.of(year,month,day).plusMonths(1), RepeatEnum.WEEKLY);
             });
             try{
-                taskTest.setDates(LocalDate.of(year,month,day+2), LocalDate.of(year,month+1,day), RepeatEnum.WEEKLY);
+                taskTest.setDates(LocalDate.of(year,month,day).plusDays(2), LocalDate.of(year,month,day).plusMonths(1), RepeatEnum.WEEKLY);
             }catch (IllegalArgumentException e){
                 assertEquals(e.getMessage(), "Time between start date and due date can't be longer than the repeating period.");
             }
@@ -329,10 +329,10 @@ public class TaskTest {
         @Test
         void repeatIsShorterThanDatesMonthly(){
             assertThrows(IllegalArgumentException.class, () ->{
-                taskTest.setDates(LocalDate.of(year,month,day), LocalDate.of(year,month+2,day), RepeatEnum.MONTHLY);
+                taskTest.setDates(LocalDate.of(year,month,day), LocalDate.of(year,month,day).plusMonths(2), RepeatEnum.MONTHLY);
             });
             try{
-                taskTest.setDates(LocalDate.of(year,month,day), LocalDate.of(year,month+2,day), RepeatEnum.MONTHLY);
+                taskTest.setDates(LocalDate.of(year,month,day), LocalDate.of(year,month,day).plusMonths(2), RepeatEnum.MONTHLY);
             }catch (IllegalArgumentException e){
                 assertEquals(e.getMessage(), "Time between start date and due date can't be longer than the repeating period.");
             }
