@@ -19,6 +19,11 @@ import javafx.scene.input.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 
+/**
+ * Class representing a task component displayed in CalendarView and ProjectView when
+ * the show option is set to tasks or all tasks.
+ * Linked with the Task.fxml file.
+ */
 public class TaskComponent extends Component
 {
     @FXML
@@ -37,6 +42,10 @@ public class TaskComponent extends Component
     private Task task;
     private View view;
 
+    /**
+     * Sets the task this task component displays and links to.
+     * @param task The task.
+     */
     public void setTask(Task task)
     {
         this.task = task;
@@ -61,19 +70,30 @@ public class TaskComponent extends Component
         });
     }
 
+    /**
+     * Sets the view this task component is displayed in.
+     * @param view The view.
+     */
     public void setView(View view)
     {
         this.view = view;
     }
 
+    /**
+     * Key listener for the task component. Goes to edit task view if the key is enter.
+     * @param keyEvent The key event.
+     */
     @FXML
-    public void boxKeyListener(KeyEvent keyEvent){
+    private void boxKeyListener(KeyEvent keyEvent){
         if(keyEvent.getCode() == KeyCode.ENTER){
             EditTaskView editTaskView = (EditTaskView) Client.setView("EditTaskView");
             editTaskView.setTask(task);
         }
     }
 
+    /**
+     * Sets the priority text in the task component to match the task.
+     */
     private void setPriorityInfo()
     {
         if (parent.getStyleClass().size() > 1)
@@ -121,25 +141,39 @@ public class TaskComponent extends Component
         view.update();
     }
 
-    public void removeProjectLabel(){
+    /**
+     * Removes the project name label from the task component.
+     */
+    public void removeProjectLabel()
+    {
         projectNameLabel.setText("");
     }
 
-    public void updateDateThings() {
-        if (task.getDueDate() != null && task.getStartDate() == null) {
+    /**
+     * Sets the date label in the task component to match the task dates.
+     */
+    public void setDateLabel()
+    {
+        if (task.getDueDate() != null && task.getStartDate() == null)
+        {
             dateLabel.setText("Due: " + task.getDueDateAsString());
         }
-        if (task.getDueDate() == null && task.getStartDate() != null) {
+        if (task.getDueDate() == null && task.getStartDate() != null)
+        {
             dateLabel.setText("Starting: " + task.getStartDateAsString());
         }
-        if (task.getDueDate() != null && task.getStartDate() != null) {
+        if (task.getDueDate() != null && task.getStartDate() != null)
+        {
             dateLabel.setText(task.getStartDateAsString() + " - " + task.getDueDateAsString());
         }
     }
 
+    /**
+     * Sets the info in the task component to match the task info.
+     */
     private void setInfo()
     {
-        updateDateThings();
+        setDateLabel();
         isDoneCheckBox.setSelected(task.isDone());
         isDoneCheckBox.setText(task.getTitle());
         repeatLabel.setText(task.getRepeat() == RepeatEnum.DOES_NOT_REPEAT ? "" : new EnumToStringConverter<RepeatEnum>().toString(task.getRepeat()));

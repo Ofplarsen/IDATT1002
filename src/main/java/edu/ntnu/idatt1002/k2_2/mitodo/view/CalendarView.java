@@ -119,7 +119,7 @@ public class CalendarView extends View
 
     private void addTask(Task task)
     {
-        TaskComponent taskComponent = (TaskComponent) Client.getComponent("TaskInProject");
+        TaskComponent taskComponent = (TaskComponent) Client.getComponent("Task");
         taskComponent.setTask(task);
         taskComponent.setView(this);
         taskContainer.getChildren().add(taskComponent.getParent());

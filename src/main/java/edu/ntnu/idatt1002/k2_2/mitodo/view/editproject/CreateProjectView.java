@@ -8,25 +8,22 @@ import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.VBox;
-
-public class CreateProjectView extends View
+/**
+ * Class representing the view for creating a new user project
+ * Linked with the CreateProjectView.fxml file.
+ */
+public class CreateProjectView extends EditOrCreateProjectView
 {
-    @FXML
-    private TextField projectTitle;
-    @FXML
-    private VBox parent;
-    @FXML
-    private Button btnSaE;
     @FXML
     private Label header;
 
     private Project parentProject;
 
+    /**
+     * Sets the parent project of the new project.
+     * @param parentProject The parent project.
+     */
     public void setParentProject(Project parentProject)
     {
         Platform.runLater(() -> projectTitle.requestFocus());
@@ -35,25 +32,13 @@ public class CreateProjectView extends View
         else header.setText("Creating New Project in " + parentProject.getTitle());
     }
 
+    /**
+     * Saves the project and goes to project view with the new project.
+     * Displays an popup alert window if the user wrote any illegal input.
+     */
     @FXML
-    public void keyListener(KeyEvent keyEvent){
-        switch (keyEvent.getCode()){
-            case ENTER:
-                saveAndExit();
-                break;
-            case ESCAPE:
-                cancel();
-                break;
-        }
-        projectTitle.addEventFilter(KeyEvent.KEY_PRESSED, keyEventTitle ->{
-            if(keyEventTitle.getCode() == KeyCode.DOWN){
-                btnSaE.requestFocus();
-            }
-        });
-    }
-
-    @FXML
-    private void saveAndExit()
+    @Override
+    protected void saveAndExit()
     {
         try
         {
@@ -68,18 +53,6 @@ public class CreateProjectView extends View
             Alert alert = new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage(), ButtonType.OK);
             alert.showAndWait();
         }
-    }
-
-    @FXML
-    private void cancel()
-    {
-        Client.returnToPreviousView();
-    }
-
-    @Override
-    public Node getParent()
-    {
-        return parent;
     }
 
     @Override

@@ -29,14 +29,17 @@ public class Client extends Application {
     private static final String settingsFileName = "settings";
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage)
+    {
         rootProject = (RootProject) FileManager.loadSerializableObject(rootProjectFileName);
-        if (rootProject == null) {
+        if (rootProject == null)
+        {
             rootProject = new RootProject();
         }
 
         settings = (Settings) FileManager.loadSerializableObject(settingsFileName);
-        if (settings == null) {
+        if (settings == null)
+        {
             settings = new Settings(false, FontSizeEnum.MEDIUM);
         }
 

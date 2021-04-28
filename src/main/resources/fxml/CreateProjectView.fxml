@@ -33,7 +33,7 @@
             <Insets bottom="8.0" right="8.0" top="8.0" />
          </padding>
          <center>
-            <TextField fx:id="projectTitle" onKeyPressed="#keyListener" prefHeight="48.0" prefWidth="423.0" promptText="Project title" BorderPane.alignment="CENTER">
+            <TextField fx:id="projectTitle" onKeyPressed="#keyHandler" prefHeight="48.0" prefWidth="423.0" promptText="Project title" BorderPane.alignment="CENTER">
                <padding>
                   <Insets left="8.0" right="8.0" />
                </padding>
@@ -42,12 +42,12 @@
       </BorderPane>
       <HBox prefHeight="0.0" prefWidth="415.0">
          <children>
-            <Button fx:id="btnSaE" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveAndExit" onKeyPressed="#keyListener" text="Save and exit">
+            <Button fx:id="btnSaE" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveAndExit" onKeyPressed="#keyHandler" text="Save and exit">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Button>
-            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancel" onKeyPressed="#keyListener" text="Cancel" />
+            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancel" onKeyPressed="#keyHandler" text="Cancel" />
             <Pane prefHeight="27.0" prefWidth="270.0" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
