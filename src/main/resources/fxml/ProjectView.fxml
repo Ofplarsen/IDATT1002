@@ -34,7 +34,7 @@
                               <Font />
                            </font>
                         </Label>
-                        <ComboBox fx:id="sortByComboBox" onAction="#updateSortOption" promptText="Standard" styleClass="textInBoxes"/>
+                        <ComboBox fx:id="sortByComboBox" onAction="#update" promptText="Standard" styleClass="textInBoxes"/>
                      </children>
                   </HBox>
                   <HBox fx:id="showContainer" alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="5.0">

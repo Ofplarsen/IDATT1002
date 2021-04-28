@@ -17,9 +17,12 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class ProjectView extends View
 {
@@ -178,7 +181,18 @@ public class ProjectView extends View
     {
         setElementVisible(sortByContainer, true);
         listContainer.getChildren().clear();
-
+        ArrayList<Task> expiredTasks = (ArrayList<Task>) tasks.stream().filter(t -> t.getDueDate().isBefore(LocalDate.now())&&!t.isDone()).collect(Collectors.toList());
+        tasks.removeAll(expiredTasks);
+        if(!expiredTasks.isEmpty()){
+            addLabel("Overdue Tasks");
+            for (Task task : expiredTasks){
+                TaskInProject taskInProject = (TaskInProject) Client.getComponent("TaskInProject");
+                taskInProject.setTask(task);
+                taskInProject.setView(this);
+                listContainer.getChildren().add(taskInProject.getParent());
+            }
+            addLabel("Tasks");
+        }
         for (Task task : tasks)
         {
             TaskInProject taskInProject = (TaskInProject) Client.getComponent("TaskInProject");
@@ -193,6 +207,13 @@ public class ProjectView extends View
         node.setVisible(visible); //Trur at den disable den
         node.setManaged(visible);
         node.setDisable(!visible);
+    }
+    private void addLabel(String title)
+    {
+        Text todayLabel = new Text(title);
+        todayLabel.setFont(new Font("System", 32));
+        todayLabel.setId("header");
+        listContainer.getChildren().add(todayLabel);
     }
 
     @Override
