@@ -36,6 +36,8 @@ public class ProjectView extends View
     @FXML
     private Label title;
     @FXML
+    private Button addTaskButton;
+    @FXML
     private Button editProjectButton;
     @FXML
     private HBox sortByContainer;
@@ -293,6 +295,7 @@ public class ProjectView extends View
     private void fillWithSubprojects()
     {
         setElementVisible(sortByContainer, false);
+        setElementVisible(addTaskButton, false);
 
         addSeparator(normalContainer, onSubprojectDragOverEventHandler, event -> onSubprojectDragDropped(0));
         for (Project subproject : subprojects)
@@ -308,6 +311,7 @@ public class ProjectView extends View
     private void fillWithTasks()
     {
         setElementVisible(sortByContainer, true);
+        setElementVisible(addTaskButton, true);
 
         addExpiredTasks();
         addNormalTasks();
