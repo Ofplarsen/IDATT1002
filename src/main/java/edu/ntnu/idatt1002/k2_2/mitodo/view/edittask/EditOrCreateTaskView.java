@@ -44,6 +44,9 @@ public abstract class EditOrCreateTaskView extends View
     protected Task task;
     protected Project project;
 
+    /**
+     * Initializes the view.
+     */
     @FXML
     protected void initialize()
     {
@@ -131,6 +134,12 @@ public abstract class EditOrCreateTaskView extends View
         Platform.runLater(() -> taskName.requestFocus());
     }
 
+    /**
+     * Adds a up and down arrow key event filter for a node.
+     * @param node The node to add the event filter to.
+     * @param keyUpRunnable The Runnable to run for up arrow.
+     * @param keyDownRunnable The Runnable to run for up arrow.
+     */
     protected void addKeyEventFilter(Node node, Runnable keyUpRunnable, Runnable keyDownRunnable)
     {
         node.addEventFilter(KeyEvent.KEY_PRESSED, keyEventClearD ->
@@ -159,6 +168,9 @@ public abstract class EditOrCreateTaskView extends View
         selectStartDate.setValue(null);
     }
 
+    /**
+     * Saves the task changes and exits.
+     */
     protected void saveAndExit()
     {
         task.setTitle(taskName.getText());
@@ -170,19 +182,18 @@ public abstract class EditOrCreateTaskView extends View
         cancel();
     }
 
+    /**
+     * Returns to the previous page.
+     */
     @FXML
     protected void cancel()
     {
-        try
-        {
-            Client.returnToPreviousView();
-        }
-        catch (RuntimeException re)
-        {
-            re.printStackTrace();
-        }
+        Client.returnToPreviousView();
     }
 
+    /**
+     * Moves the task to the selected project.
+     */
     public void moveTask()
     {
         if (selectProject.getValue() == null|| selectProject.getValue().equals(project)) return;

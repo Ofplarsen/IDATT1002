@@ -7,17 +7,19 @@ import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 
 public class EditTaskView extends EditOrCreateTaskView
 {
+
+    /**
+     * Sets the task to edit.
+     * @param task The task.
+     */
     public void setTask(Task task)
     {
         this.task = task;
         this.project = task.getParent();
-
 
         isDone.setSelected(task.isDone());
         selectStartDate.setValue(task.getStartDate());
@@ -30,6 +32,10 @@ public class EditTaskView extends EditOrCreateTaskView
         selectPriority.setValue(task.getPriority());
     }
 
+    /**
+     * Saves the task and exits.
+     * Displays an popup alert window if the user wrote any illegal input.
+     */
     @FXML
     protected void saveAndExit()
     {
@@ -47,6 +53,9 @@ public class EditTaskView extends EditOrCreateTaskView
         }
     }
 
+    /**
+     * Deletes the task.
+     */
     @FXML
     private void delete()
     {

@@ -9,6 +9,7 @@ import edu.ntnu.idatt1002.k2_2.mitodo.view.Component;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.PrimaryView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -16,7 +17,11 @@ import javafx.stage.Stage;
 
 import java.util.Stack;
 
-public class Client extends Application {
+/**
+ * Class representing the start of the application.
+ */
+public class Client extends Application
+{
     private static RootProject rootProject;
     private static PrimaryView primaryView;
 
@@ -76,6 +81,10 @@ public class Client extends Application {
         launch();
     }
 
+    /**
+     * Sets the view to the given view.
+     * @param view The view.
+     */
     public static void setView(View view)
     {
         if (view.equals(currentView)) return;
@@ -90,6 +99,11 @@ public class Client extends Application {
         view.getParent().requestFocus();
     }
 
+    /**
+     * Sets the view to a javafx controller with a fxml file with the given name.
+     * @param name The fxml file name.
+     * @return The newly created view.
+     */
     public static View setView(String name)
     {
         View newView = (View) getComponent(name);
@@ -97,11 +111,20 @@ public class Client extends Application {
         return newView;
     }
 
+    /**
+     * Gets a javafx controller component with a fxml file with the given name.
+     * @param name The fxml file name.
+     * @return The newly created component.
+     */
     public static Component getComponent(String name)
     {
         return FileManager.getComponent(name);
     }
 
+    /**
+     * Sets the view to the previous view.
+     * @return The new view.
+     */
     public static View returnToPreviousView()
     {
         View view = previousViews.pop();
@@ -126,15 +149,18 @@ public class Client extends Application {
         primaryView.selectCurrentViewInMainMenu(currentView);
     }
 
-    public static void updateMainMenu() {
+    public static void updateMainMenu()
+    {
         primaryView.updateMainMenu(currentView);
     }
 
-    public static View getCurrentView() {
+    public static View getCurrentView()
+    {
         return currentView;
     }
 
-    public static RootProject getRootProject() {
+    public static RootProject getRootProject()
+    {
         return rootProject;
     }
 }

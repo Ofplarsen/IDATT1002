@@ -100,6 +100,10 @@ public class PrimaryView extends View
         return "Primary";
     }
 
+    /**
+     * Sets the font size for all content.
+     * @param newFontSize The font size.
+     */
     public void setFontSize(FontSizeEnum newFontSize)
     {
         switch(Client.getSettings().getFontSize())

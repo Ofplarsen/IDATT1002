@@ -11,6 +11,9 @@ import javafx.scene.layout.VBox;
 import java.awt.*;
 import java.net.*;
 
+/**
+ * Class representing the settings page.
+ * */
 public class SettingsView extends View
 {
     @FXML
@@ -22,6 +25,9 @@ public class SettingsView extends View
     @FXML
     private ToggleButton offSounds;
 
+    /**
+     * Initializes the page.
+     */
     @FXML
     private void initialize()
     {
@@ -34,6 +40,9 @@ public class SettingsView extends View
         selectFontSize.setValue(Client.getSettings().getFontSize());
     }
 
+    /**
+     * Saves the changes.
+     */
     @FXML
     private void save()
     {
@@ -52,6 +61,9 @@ public class SettingsView extends View
         }
     }
 
+    /**
+     * Handles the user manual button click.
+     */
     @FXML
     private void userManual()
     {
@@ -65,6 +77,9 @@ public class SettingsView extends View
         }
     }
 
+    /**
+     * Handles the about button click.
+     */
     @FXML
     private void about()
     {

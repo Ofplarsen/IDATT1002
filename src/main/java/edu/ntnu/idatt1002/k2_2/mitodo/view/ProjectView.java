@@ -29,6 +29,9 @@ import javafx.scene.text.Text;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+/**
+ * Class representing the page for a project.
+ */
 public class ProjectView extends View
 {
     @FXML
@@ -73,6 +76,9 @@ public class ProjectView extends View
     private ArrayList<Task> overdueTasks;
     private ArrayList<Task> doneTasks;
 
+    /**
+     * Event handler for when a overdue task is dragged over a separator.
+     */
     private final EventHandler<DragEvent> onOverdueTaskDragOverEventHandler = dragEvent ->
     {
         if (!isDragAndDrop()) return;
@@ -87,6 +93,9 @@ public class ProjectView extends View
         }
     };
 
+    /**
+     * Event handler for when a normal task is dragged over a separator.
+     */
     private final EventHandler<DragEvent> onNormalTaskDragOverEventHandler = dragEvent ->
     {
         if (!isDragAndDrop()) return;
@@ -101,6 +110,9 @@ public class ProjectView extends View
         }
     };
 
+    /**
+     * Event handler for when a done task is dragged over a separator.
+     */
     private final EventHandler<DragEvent> onDoneTaskDragOverEventHandler = dragEvent ->
     {
         if (!isDragAndDrop()) return;
@@ -115,6 +127,9 @@ public class ProjectView extends View
         }
     };
 
+    /**
+     * Event handler for when subproject is dragged over a separator.
+     */
     private final EventHandler<DragEvent> onSubprojectDragOverEventHandler = dragEvent ->
     {
         if (!isDragAndDrop()) return;
@@ -141,6 +156,9 @@ public class ProjectView extends View
         ALL_TASKS
     }
 
+    /**
+     * Initializes the page.
+     */
     @FXML
     private void initialize()
     {
@@ -153,6 +171,9 @@ public class ProjectView extends View
         showComboBox.setValue(ShowOption.TASKS);
     }
 
+    /**
+     * Sets the project to display.
+     */
     public void setProject(Project project)
     {
         this.project = project;
@@ -161,6 +182,9 @@ public class ProjectView extends View
         update();
     }
 
+    /**
+     * Handles add task button click.
+     */
     @FXML
     private void handleAddTaskButton()
     {
@@ -176,6 +200,9 @@ public class ProjectView extends View
         }
     }
 
+    /**
+     * Handles edit project button click.
+     */
     @FXML
     private void handleEditButtonClick()
     {
@@ -183,6 +210,9 @@ public class ProjectView extends View
         editProjectView.setProject((UserProject) project);
     }
 
+    /**
+     * Updates the page.
+     */
     @Override
     public void update()
     {
@@ -209,6 +239,9 @@ public class ProjectView extends View
         updateShowAndSortOption();
     }
 
+    /**
+     * Updates the show and sort option.
+     */
     @FXML
     private void updateShowAndSortOption()
     {
@@ -218,14 +251,22 @@ public class ProjectView extends View
         updateDoneTaskContainer();
     }
 
+    /**
+     * Handles delete done tasks button click.
+     */
     @FXML
-    private void deleteDoneTasks(){
-        for (Task e : doneTasks){
+    private void deleteDoneTasks()
+    {
+        for (Task e : doneTasks)
+        {
             project.removeTasksFromAll(e.getID());
         }
         update();
     }
 
+    /**
+     * Updates the tasks or subprojects based on the selected show option.
+     */
     private void updateShowOption()
     {
         ShowOption showOption = showComboBox.getValue();
@@ -243,6 +284,9 @@ public class ProjectView extends View
         }
     }
 
+    /**
+     * Updates the sorting based on the selected sorting option.
+     */
     private void updateSortOption()
     {
         setElementVisible(ascendingCheckBox, true);
@@ -255,7 +299,7 @@ public class ProjectView extends View
                 ascendingCheckBox.setDisable(true);
                 break;
             case PRIORITY:
-                TaskListSorter.sortByPriority(tasks, ascending);
+                TaskListSorter.sortByPriority(tasks, !ascending);
                 break;
             case START_DATE:
                 TaskListSorter.sortByStartDate(tasks, ascending);
@@ -272,6 +316,9 @@ public class ProjectView extends View
         tasks.removeAll(doneTasks);
     }
 
+    /**
+     * Fills the page with either tasks or subprojects.
+     */
     private void fillListContainer()
     {
         expiredContainer.getChildren().clear();
@@ -292,6 +339,9 @@ public class ProjectView extends View
         }
     }
 
+    /**
+     * Fill the page with subproject components for the subprojects.
+     */
     private void fillWithSubprojects()
     {
         setElementVisible(sortByContainer, false);
@@ -308,6 +358,9 @@ public class ProjectView extends View
         }
     }
 
+    /**
+     * Fill the page with tasks components for the tasks.
+     */
     private void fillWithTasks()
     {
         setElementVisible(sortByContainer, true);
@@ -318,6 +371,9 @@ public class ProjectView extends View
         addDoneTasks();
     }
 
+    /**
+     * Adds components for the expired tasks to the page
+     */
     private void addExpiredTasks()
     {
         if(!overdueTasks.isEmpty())
@@ -339,6 +395,9 @@ public class ProjectView extends View
         }
     }
 
+    /**
+     * Adds components for the normal tasks to the page
+     */
     private void addNormalTasks()
     {
         if(tasks.isEmpty()){
@@ -357,6 +416,9 @@ public class ProjectView extends View
         }
     }
 
+    /**
+     * Adds components for the done tasks to the page
+     */
     private void addDoneTasks()
     {
         if(!doneTasks.isEmpty())
@@ -373,12 +435,20 @@ public class ProjectView extends View
         }
     }
 
+    /**
+     * Updates the container for done tasks.
+     */
     @FXML
     private void updateDoneTaskContainer()
     {
         setElementVisible(doneContainer, showDoneTasksCheckBox.isSelected());
     }
 
+    /**
+     * Adds a task component to the given container.
+     * @param container The container.
+     * @param task The task to add a component for.
+     */
     private void addTask(VBox container, Task task)
     {
         TaskComponent taskComponent = (TaskComponent) Client.getComponent("Task");
@@ -393,6 +463,10 @@ public class ProjectView extends View
         container.getChildren().add(taskComponent.getParent());
     }
 
+    /**
+     * On task dropped on a separator.
+     * @param index The separator index.
+     */
     private void onTaskDragDropped(int index)
     {
         Task task = (Task) DragAndDropManager.getValue();
@@ -400,6 +474,10 @@ public class ProjectView extends View
         updateShowAndSortOption();
     }
 
+    /**
+     * On subproject dropped on a separator.
+     * @param index The separator index.
+     */
     private void onSubprojectDragDropped(int index)
     {
         UserProject subproject = (UserProject) DragAndDropManager.getValue();
@@ -408,6 +486,11 @@ public class ProjectView extends View
         Client.updateMainMenu();
     }
 
+    /**
+     * if the show and sort option are set such that drag and drop makes sense.
+     * @return true if the show option is tasks and sort option is standard
+     * or show option is subprojects. Otherwise false.
+     */
     private boolean isDragAndDrop()
     {
         if (showComboBox.getValue() == ShowOption.TASKS && sortByComboBox.getValue() == SortOption.STANDARD)
@@ -418,6 +501,11 @@ public class ProjectView extends View
         return  (showComboBox.getValue() == ShowOption.SUBPROJECTS);
     }
 
+    /**
+     * Adds a separator to the given container.
+     * @param container The container to add a separator.
+     * @return The newly created separator.
+     */
     private BorderPane addSeparator(VBox container)
     {
         BorderPane borderPane = new BorderPane();
@@ -427,6 +515,12 @@ public class ProjectView extends View
         return borderPane;
     }
 
+    /**
+     * Adds a separator to the given container with a drag over and drag dropped event handler.
+     * @param container The container to add a separator.
+     * @param onDragOverEventHandler The on drag over event handler.
+     * @param onDragDroppedEventHandler The on drag dropped event handler.
+     */
     private void addSeparator(VBox container, EventHandler<DragEvent> onDragOverEventHandler, EventHandler<DragEvent> onDragDroppedEventHandler)
     {
         BorderPane borderPane = addSeparator(container);
@@ -434,6 +528,11 @@ public class ProjectView extends View
         borderPane.setOnDragDropped(onDragDroppedEventHandler);
     }
 
+    /**
+     * Sets the visibility of the given node.
+     * @param node The node.
+     * @param visible The visibility.
+     */
     private void setElementVisible(Node node, boolean visible)
     {
         node.setVisible(visible);
