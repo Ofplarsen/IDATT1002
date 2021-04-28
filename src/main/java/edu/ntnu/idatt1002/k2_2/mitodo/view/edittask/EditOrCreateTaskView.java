@@ -15,6 +15,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 
+/**
+ * Abstract class representing edit or create task view.
+ */
 public abstract class EditOrCreateTaskView extends View
 {
     @FXML

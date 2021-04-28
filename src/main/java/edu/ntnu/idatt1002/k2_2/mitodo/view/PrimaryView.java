@@ -100,8 +100,10 @@ public class PrimaryView extends View
         return "Primary";
     }
 
-    public void setFontSize(FontSizeEnum newFontSize){
-        switch(Client.getSettings().getFontSize()){
+    public void setFontSize(FontSizeEnum newFontSize)
+    {
+        switch(Client.getSettings().getFontSize())
+        {
             case BIG:
                 parent.getStylesheets().remove(bigTextCss);
                 break;
@@ -112,8 +114,11 @@ public class PrimaryView extends View
                 parent.getStylesheets().remove(smallTextCss);
                 break;
         }
+
         Client.getSettings().setFontSize(newFontSize);
-        switch (newFontSize){
+
+        switch (newFontSize)
+        {
             case BIG:
                 parent.getStylesheets().add(bigTextCss);
                 break;

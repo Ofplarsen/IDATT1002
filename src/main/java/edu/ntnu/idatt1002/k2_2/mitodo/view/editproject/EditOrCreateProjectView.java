@@ -10,6 +10,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 
+/**
+ * Abstract class representing edit or create project view.
+ */
 public abstract class EditOrCreateProjectView extends View
 {
     @FXML

@@ -1,9 +1,9 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view.edittask;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
-
 import edu.ntnu.idatt1002.k2_2.mitodo.util.SoundEffects;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
