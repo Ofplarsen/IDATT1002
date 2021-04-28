@@ -2,8 +2,8 @@ package edu.ntnu.idatt1002.k2_2.mitodo.view.components;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
+import edu.ntnu.idatt1002.k2_2.mitodo.view.Component;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
-import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
@@ -15,7 +15,12 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
-public class SubProjectComponent extends View
+/**
+ * Class representing a subproject component displayed in ProjectView when
+ * the show option is set to subproject.
+ * Linked with the SubProject.fxml file.
+ */
+public class SubProjectComponent extends Component
 {
     @FXML
     private HBox parent;
@@ -24,6 +29,10 @@ public class SubProjectComponent extends View
 
     private Project project;
 
+    /**
+     * Sets the project this subproject component displays and links to.
+     * @param project The project.
+     */
     public void setProject(Project project)
     {
         this.project = project;
@@ -49,6 +58,9 @@ public class SubProjectComponent extends View
         });
     }
 
+    /**
+     * Handles a click on the "go to project" button.
+     */
     @FXML
     private void handleGoToProjectClick()
     {
@@ -61,17 +73,5 @@ public class SubProjectComponent extends View
     public Node getParent()
     {
         return parent;
-    }
-
-    @Override
-    public String getMainMenuTitle()
-    {
-        return project.getTitle();
-    }
-
-    @Override
-    public boolean equals(View view)
-    {
-        return view instanceof SubProjectComponent && ((SubProjectComponent) view).project.equals(project);
     }
 }

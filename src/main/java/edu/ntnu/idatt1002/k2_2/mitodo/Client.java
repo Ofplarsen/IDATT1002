@@ -29,14 +29,17 @@ public class Client extends Application {
     private static final String settingsFileName = "settings";
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage)
+    {
         rootProject = (RootProject) FileManager.loadSerializableObject(rootProjectFileName);
-        if (rootProject == null) {
+        if (rootProject == null)
+        {
             rootProject = new RootProject();
         }
 
         settings = (Settings) FileManager.loadSerializableObject(settingsFileName);
-        if (settings == null) {
+        if (settings == null)
+        {
             settings = new Settings(false, FontSizeEnum.MEDIUM);
         }
 
@@ -62,16 +65,19 @@ public class Client extends Application {
     }
 
     @Override
-    public void stop() {
+    public void stop()
+    {
         FileManager.saveSerializableObject(rootProject, rootProjectFileName);
         FileManager.saveSerializableObject(settings, settingsFileName);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         launch();
     }
 
-    public static void setView(View view) {
+    public static void setView(View view)
+    {
         if (view.equals(currentView)) return;
 
         if (currentView != null)
@@ -84,17 +90,20 @@ public class Client extends Application {
         view.getParent().requestFocus();
     }
 
-    public static View setView(String name) {
+    public static View setView(String name)
+    {
         View newView = (View) getComponent(name);
         setView(newView);
         return newView;
     }
 
-    public static Component getComponent(String name) {
+    public static Component getComponent(String name)
+    {
         return FileManager.getComponent(name);
     }
 
-    public static View returnToPreviousView() {
+    public static View returnToPreviousView()
+    {
         View view = previousViews.pop();
         setView(view);
         previousViews.pop();
@@ -102,15 +111,18 @@ public class Client extends Application {
         return currentView;
     }
 
-    public static Settings getSettings() {
+    public static Settings getSettings()
+    {
         return settings;
     }
 
-    public static PrimaryView getPrimaryView() {
+    public static PrimaryView getPrimaryView()
+    {
         return primaryView;
     }
 
-    public static void selectCurrentViewInMainMenu() {
+    public static void selectCurrentViewInMainMenu()
+    {
         primaryView.selectCurrentViewInMainMenu(currentView);
     }
 

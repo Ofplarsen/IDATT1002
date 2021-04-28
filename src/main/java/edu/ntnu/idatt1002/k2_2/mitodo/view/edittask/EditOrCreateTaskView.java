@@ -15,6 +15,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 
+/**
+ * Abstract class representing edit or create task view.
+ */
 public abstract class EditOrCreateTaskView extends View
 {
     @FXML
@@ -42,7 +45,7 @@ public abstract class EditOrCreateTaskView extends View
     protected Project project;
 
     @FXML
-    public void initialize()
+    protected void initialize()
     {
         selectProject.getItems().setAll(Client.getRootProject().getAllProjects());
         selectProject.getItems().add(Client.getRootProject());
@@ -128,7 +131,7 @@ public abstract class EditOrCreateTaskView extends View
         Platform.runLater(() -> taskName.requestFocus());
     }
 
-    private void addKeyEventFilter(Node node, Runnable keyUpRunnable, Runnable keyDownRunnable)
+    protected void addKeyEventFilter(Node node, Runnable keyUpRunnable, Runnable keyDownRunnable)
     {
         node.addEventFilter(KeyEvent.KEY_PRESSED, keyEventClearD ->
         {
@@ -185,6 +188,23 @@ public abstract class EditOrCreateTaskView extends View
         if (selectProject.getValue() == null|| selectProject.getValue().equals(project)) return;
         Project userProject = selectProject.getValue();
         project.moveTaskTo(this.task, userProject);
+    }
+
+    /**
+     * Key handler for this page. Saves and exits for enter key and cancels for escape key.
+     * @param keyEvent The key event.
+     */
+    @FXML
+    protected void keyHandler(KeyEvent keyEvent)
+    {
+        if(keyEvent.getCode() == KeyCode.ENTER)
+        {
+            saveAndExit();
+        }
+        else if(keyEvent.getCode() == KeyCode.ESCAPE)
+        {
+            cancel();
+        }
     }
 
     @Override

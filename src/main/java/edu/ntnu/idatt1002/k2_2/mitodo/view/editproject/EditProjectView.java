@@ -6,26 +6,21 @@ import edu.ntnu.idatt1002.k2_2.mitodo.view.ProjectView;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.VBox;
 
-public class EditProjectView extends View
+/**
+ * Class representing the view for editing an existing user project
+ * Linked with the EditProjectView.fxml file.
+ */
+public class EditProjectView extends EditOrCreateProjectView
 {
-    @FXML
-    private TextField projectTitle;
-    @FXML
-    private VBox parent;
-    @FXML
-    private Button btnSaE;
-
     private UserProject project;
 
+    /**
+     * Sets the project to edit.
+     * @param project The project.
+     */
     public void setProject(UserProject project)
     {
         this.project = project;
@@ -33,34 +28,23 @@ public class EditProjectView extends View
         Platform.runLater(() -> projectTitle.requestFocus());
     }
 
+    /**
+     * Handles "add subproject" button clicks.
+     */
     @FXML
-    public void keyListener(KeyEvent keyEvent){
-        switch (keyEvent.getCode()){
-            case ENTER:
-                saveAndExit();
-                break;
-            case ESCAPE:
-                cancel();
-                break;
-            case DELETE:
-                delete();
-                break;
-        }
-        projectTitle.addEventFilter(KeyEvent.KEY_PRESSED, keyEventTitle ->{
-            if(keyEventTitle.getCode() == KeyCode.DOWN){
-                btnSaE.requestFocus();
-            }
-        });
-    }
-
-    @FXML
-    private void addSubProject() {
+    private void handleAddSubproject()
+    {
         CreateProjectView createProjectView = (CreateProjectView) Client.setView("CreateProjectView");
         createProjectView.setParentProject(project);
     }
 
+    /**
+     * Saves the changes and goes back to the previous view.
+     * Displays an popup alert window if the user wrote any illegal input.
+     */
     @FXML
-    private void saveAndExit()
+    @Override
+    protected void saveAndExit()
     {
         try
         {
@@ -72,7 +56,6 @@ public class EditProjectView extends View
         {
             if(project.getTitle().equalsIgnoreCase(projectTitle.getText()))
             {
-
                 cancel();
             }
             else
@@ -83,17 +66,16 @@ public class EditProjectView extends View
         }
     }
 
-    @FXML
-    private void cancel()
-    {
-        Client.returnToPreviousView();
-    }
-
+    /**
+     * Asks the user with a popup alert window for confirmation and then
+     * deletes the project and goes to project view with the parent project.
+     */
     @FXML
     private void delete()
     {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete the project?", ButtonType.OK, ButtonType.CANCEL);
-        alert.showAndWait().ifPresent(type ->{
+        alert.showAndWait().ifPresent(type ->
+        {
             if(type == ButtonType.OK)
             {
                 Client.getRootProject().removeProjectFromAll(project.getID());
@@ -102,12 +84,6 @@ public class EditProjectView extends View
                 Client.updateMainMenu();
             }
         });
-    }
-
-    @Override
-    public Node getParent()
-    {
-        return parent;
     }
 
     @Override

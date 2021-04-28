@@ -3,18 +3,12 @@ package edu.ntnu.idatt1002.k2_2.mitodo.view;
 import edu.ntnu.idatt1002.k2_2.mitodo.Client;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.EnumToStringConverter;
 import edu.ntnu.idatt1002.k2_2.mitodo.data.FontSizeEnum;
-import javafx.application.Application;
-import javafx.application.HostServices;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
 import java.awt.*;
-import java.io.IOException;
 import java.net.*;
 
 public class SettingsView extends View
@@ -28,7 +22,8 @@ public class SettingsView extends View
     @FXML
     private ToggleButton offSounds;
 
-    public void initialize()
+    @FXML
+    private void initialize()
     {
         boolean isSound = Client.getSettings().getIsSound();
         onSounds.setSelected(isSound);
@@ -57,15 +52,21 @@ public class SettingsView extends View
         }
     }
 
-    public void userManual() {
-        try {
+    @FXML
+    private void userManual()
+    {
+        try
+        {
             Desktop.getDesktop().browse(new URI("https://gitlab.stud.idi.ntnu.no/idatt1002_2021_k2-2/idatt1002_2021_k2-2/-/wikis/User-manual"));
-        } catch (Exception e){
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
 
-    public void about()
+    @FXML
+    private void about()
     {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About");

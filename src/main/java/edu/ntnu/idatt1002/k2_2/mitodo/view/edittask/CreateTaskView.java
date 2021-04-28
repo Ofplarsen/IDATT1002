@@ -1,18 +1,23 @@
 package edu.ntnu.idatt1002.k2_2.mitodo.view.edittask;
 
 import edu.ntnu.idatt1002.k2_2.mitodo.data.project.Project;
-
 import edu.ntnu.idatt1002.k2_2.mitodo.util.SoundEffects;
 import edu.ntnu.idatt1002.k2_2.mitodo.view.View;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 
+/**
+ * Class representing the view for creating a new task.
+ */
 public class CreateTaskView extends EditOrCreateTaskView
 {
+    /**
+     * Sets the project to create a task in.
+     * @param project The project.
+     */
     public void setProject(Project project)
     {
         Platform.runLater(() -> taskName.requestFocus());
@@ -20,6 +25,10 @@ public class CreateTaskView extends EditOrCreateTaskView
         selectProject.setValue(project);
     }
 
+    /**
+     * Saves the task and exits.
+     * Displays an popup alert window if the user wrote any illegal input.
+     */
     @FXML
     protected void saveAndExit()
     {
@@ -36,19 +45,6 @@ public class CreateTaskView extends EditOrCreateTaskView
             alert.setContentText("Error: " + e.getMessage());
             alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.showAndWait();
-        }
-    }
-
-    @FXML
-    public void keyHandler(KeyEvent keyEvent)
-    {
-        if(keyEvent.getCode() == KeyCode.ENTER)
-        {
-            saveAndExit();
-        }
-        else if(keyEvent.getCode() == KeyCode.ESCAPE)
-        {
-            cancel();
         }
     }
 

@@ -48,19 +48,6 @@ public class EditTaskView extends EditOrCreateTaskView
     }
 
     @FXML
-    public void keyHandler(KeyEvent keyEvent)
-    {
-        if(keyEvent.getCode() == KeyCode.ENTER)
-        {
-            saveAndExit();
-        }
-        else if(keyEvent.getCode() == KeyCode.ESCAPE)
-        {
-            cancel();
-        }
-    }
-
-    @FXML
     private void delete()
     {
         task.deleteItself();

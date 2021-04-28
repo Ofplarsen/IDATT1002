@@ -377,7 +377,7 @@ public class ProjectView extends View
 
     private void addTask(VBox container, Task task)
     {
-        TaskComponent taskComponent = (TaskComponent) Client.getComponent("TaskInProject");
+        TaskComponent taskComponent = (TaskComponent) Client.getComponent("Task");
         taskComponent.setTask(task);
         taskComponent.setView(this);
 
