@@ -69,6 +69,7 @@ public class MainMenu
 
         ProjectView quickTasksView = (ProjectView) Client.getComponent("ProjectView");
         quickTasksView.setProject(Client.getRootProject());
+
         selectedTreeItem = makeTreeItem(root, quickTasksView, null);
         selectedTreeItem.getValue().setOnDragOver(event -> onDragOverProjectView(Client.getRootProject(), event));
         selectedTreeItem.getValue().setOnDragDropped(event -> onDragDroppedOnProjectView(Client.getRootProject()));
@@ -131,8 +132,29 @@ public class MainMenu
             CreateTaskView createTaskView = (CreateTaskView) Client.setView("CreateTaskView");
             createTaskView.setProject(project);
         });
+        MenuItem deleteProject = new MenuItem("Delete project");
+        deleteProject.setOnAction(event ->
+        {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete the project?", ButtonType.OK, ButtonType.CANCEL);
+            alert.showAndWait().ifPresent(type ->
+            {
+                if(type == ButtonType.OK)
+                {
+                    Client.getRootProject().removeProjectFromAll(project.getID());
+                    if (project instanceof UserProject) {
+                        ProjectView _projectView = (ProjectView) Client.setView("ProjectView");
+                        UserProject currentProject = (UserProject) project;
+                        _projectView.setProject(currentProject.getParent());
+                    } else {
+                        Client.setView("ProjectView");
+                    }
+                    Client.updateMainMenu();
+                }
+            });
+        });
 
-        ContextMenu contextMenu = new ContextMenu(editProject, addSubProject, addTask);
+
+        ContextMenu contextMenu = new ContextMenu(editProject, addSubProject, addTask, deleteProject);
 
         TreeItem<MainMenuItem> projectItem = makeTreeItem(parent, projectView, contextMenu);
 

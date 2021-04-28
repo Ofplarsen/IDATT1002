@@ -72,6 +72,18 @@
                         <ComboBox fx:id="showComboBox" minWidth="-Infinity" onAction="#updateShowAndSortOption" promptText="Show Tasks" styleClass="textInBoxes" />
                      </children>
                   </HBox>
+                  <Button fx:id="deleteProjectButton" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleDeleteProjectClick" prefHeight="35.0" prefWidth="35.0" styleClass="iconButton, error">
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/deleteImage.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="Edit Project" />
+                     </tooltip>
+                  </Button>
                </children>
             </HBox>
          </children>

@@ -35,6 +35,8 @@ import java.util.stream.Collectors;
 public class ProjectView extends View
 {
     @FXML
+    private Button deleteProjectButton;
+    @FXML
     private VBox parent;
     @FXML
     private Label title;
@@ -75,6 +77,10 @@ public class ProjectView extends View
     private ArrayList<Task> tasks;
     private ArrayList<Task> overdueTasks;
     private ArrayList<Task> doneTasks;
+
+    public Project getProject() {
+        return project;
+    }
 
     /**
      * Event handler for when a overdue task is dragged over a separator.
@@ -210,12 +216,36 @@ public class ProjectView extends View
         editProjectView.setProject((UserProject) project);
     }
 
+    @FXML
+    private void handleDeleteProjectClick() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete the project?", ButtonType.OK, ButtonType.CANCEL);
+        alert.showAndWait().ifPresent(type ->
+        {
+            if(type == ButtonType.OK)
+            {
+                Client.getRootProject().removeProjectFromAll(project.getID());
+                if (project instanceof UserProject) {
+                    ProjectView projectView = (ProjectView) Client.setView("ProjectView");
+                    UserProject currentProject = (UserProject) project;
+                    projectView.setProject(currentProject.getParent());
+                } else {
+                    Client.setView("ProjectView");
+                }
+                Client.updateMainMenu();
+            }
+        });
+    }
+
     /**
      * Updates the page.
      */
     @Override
     public void update()
     {
+        /*Removes "delete-project-button" if project is showing quicktasks*/
+        if (project == Client.getRootProject()) {
+            deleteProjectButton.setManaged(false);
+        }
         this.title.setText(project.getTitle());
         Platform.runLater(() -> title.requestFocus());
 
