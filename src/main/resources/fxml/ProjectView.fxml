@@ -29,7 +29,7 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" spacing="20.0" HBox.hgrow="SOMETIMES">
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAddTaskButton" prefHeight="35.0" prefWidth="35.0" styleClass="iconButton">
+                  <Button fx:id="addTaskButton" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAddTaskButton" prefHeight="35.0" prefWidth="35.0" styleClass="iconButton">
                      <graphic>
                         <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                            <image>
