@@ -85,8 +85,8 @@ public class SettingsView extends View
     {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About");
-        alert.setHeaderText("Mitodo");
-        alert.setContentText("Version 1.0.0 \nMade by Mitoto");
+        alert.setHeaderText("MiTodo");
+        alert.setContentText("Version 1.0.0 \nMade by MITOTO");
 
         alert.showAndWait();
     }
