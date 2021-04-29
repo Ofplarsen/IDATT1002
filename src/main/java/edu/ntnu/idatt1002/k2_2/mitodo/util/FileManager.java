@@ -8,6 +8,8 @@ import java.net.URL;
 
 /**
  * Class with static methods for loading and saving files.
+ *
+ * @version 1.0.0
  */
 public class FileManager
 {

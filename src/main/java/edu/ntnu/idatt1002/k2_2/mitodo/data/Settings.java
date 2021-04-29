@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 /**
  * A class representing the application settings.
+ *
+ * @version 1.0.0
  */
 public class Settings implements Serializable
 {

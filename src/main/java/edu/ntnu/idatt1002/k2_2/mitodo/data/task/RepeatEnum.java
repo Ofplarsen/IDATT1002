@@ -6,6 +6,8 @@ import java.time.temporal.ChronoUnit;
 
 /**
  * An enum representing the different repeating frequencies a task can have.
+ *
+ * @version 1.0.0
  */
 public enum RepeatEnum implements Serializable
 {

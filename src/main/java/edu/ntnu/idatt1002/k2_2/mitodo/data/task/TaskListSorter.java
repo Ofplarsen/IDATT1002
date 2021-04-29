@@ -8,6 +8,8 @@ import static java.util.Comparator.comparing;
 
 /**
  * Class containing sorting logic for ArrayLists of Task objects.
+ *
+ * @version 1.0.0
  */
 public class TaskListSorter
 {

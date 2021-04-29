@@ -13,6 +13,8 @@ import java.util.UUID;
  * The unique id is created from the class UUID, which is a Java class that among other things lets you get a random
  * 128-bit number. This makes it as good as impossible for two task get the same id. This is implemented, because the user
  * should be able to create two tasks with the same title.
+ *
+ * @version 1.0.0
  */
 public class Task implements Serializable
 {

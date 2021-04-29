@@ -11,6 +11,8 @@ import javafx.scene.layout.Region;
 
 /**
  * Class representing the view for creating a new task.
+ *
+ * @version 1.0.0
  */
 public class CreateTaskView extends EditOrCreateTaskView
 {

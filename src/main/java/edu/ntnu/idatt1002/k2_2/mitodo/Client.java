@@ -19,6 +19,8 @@ import java.util.Stack;
 
 /**
  * Class representing the start of the application.
+ *
+ * @version 1.0.0
  */
 public class Client extends Application
 {

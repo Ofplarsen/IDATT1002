@@ -22,6 +22,8 @@ import java.util.stream.Collectors;
 /**
  * Class representing a calendar page.
  * Linked with the CalendarView.fxml file.
+ *
+ * @version 1.0.0
  */
 public class CalendarView extends View
 {

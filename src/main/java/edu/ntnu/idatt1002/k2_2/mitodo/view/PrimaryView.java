@@ -17,6 +17,8 @@ import java.io.File;
 /**
  * The PrimaryView contains the main menu and the content.
  * The main menu can be updated and the content can be changed.
+ *
+ * @version 1.0.0
  */
 public class PrimaryView extends View
 {

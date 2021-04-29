@@ -4,6 +4,8 @@ import javafx.scene.Node;
 
 /**
  * Abstract class for the javafx:controllers linked with a fxml file.
+ *
+ * @version 1.0.0
  */
 public abstract class Component
 {

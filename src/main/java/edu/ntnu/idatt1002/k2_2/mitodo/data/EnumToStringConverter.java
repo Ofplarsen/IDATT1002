@@ -5,6 +5,8 @@ import javafx.util.StringConverter;
 /**
  * Class for converting enums in the format "LOREM_IPSUM" to a string in the format "Lorem ipsum".
  * @param <T> The enum type to convert to string.
+ *
+ * @version 1.0.0
  */
 public class EnumToStringConverter<T> extends StringConverter<T>
 {

@@ -9,6 +9,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.Region;
 
+/**
+ * Class representing the view for editing a task.
+ *
+ * @version 1.0.0
+ */
 public class EditTaskView extends EditOrCreateTaskView
 {
 

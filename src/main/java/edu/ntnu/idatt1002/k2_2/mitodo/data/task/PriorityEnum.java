@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 /**
  * An enum representing the different priorities a task can have.
+ *
+ * @version 1.0.0
  */
 public enum PriorityEnum implements Serializable
 {

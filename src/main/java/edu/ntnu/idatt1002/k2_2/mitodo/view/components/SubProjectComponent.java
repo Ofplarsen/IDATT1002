@@ -19,6 +19,8 @@ import javafx.scene.paint.Color;
  * Class representing a subproject component displayed in ProjectView when
  * the show option is set to subproject.
  * Linked with the SubProject.fxml file.
+ *
+ * @version 1.0.0
  */
 public class SubProjectComponent extends Component
 {

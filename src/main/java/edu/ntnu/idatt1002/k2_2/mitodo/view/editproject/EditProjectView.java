@@ -12,6 +12,8 @@ import javafx.scene.control.ButtonType;
 /**
  * Class representing the view for editing an existing user project
  * Linked with the EditProjectView.fxml file.
+ *
+ * @version 1.0.0
  */
 public class EditProjectView extends EditOrCreateProjectView
 {

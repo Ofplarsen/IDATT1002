@@ -7,6 +7,8 @@ import java.io.File;
 
 /**
  * Class responsible for sound effects.
+ *
+ * @version 1.0.0
  */
 public class SoundEffects
 {

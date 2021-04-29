@@ -3,6 +3,8 @@ package edu.ntnu.idatt1002.k2_2.mitodo.data.project;
 /**
  * A class representing a project made by the user.
  * All user project belongs to a parent project.
+ *
+ * @version 1.0.0
  */
 public class UserProject extends Project
 {

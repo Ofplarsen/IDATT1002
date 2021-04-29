@@ -19,12 +19,15 @@ import java.util.ArrayList;
 
 /**
  * The main menu has a treeView that it fills with TreeItems containing MainMenuItems containing a View.
+ *
  * Keypress:
  * ENTER = Clicks on selected item/label
  * RIGHT = Folds out a folded tree branch
  * LEFT = Folds tree branch
  * UP = Selects label above
  * DOWN = Selects label below
+ *
+ * @version 1.0.0
  */
 public class MainMenu
 {

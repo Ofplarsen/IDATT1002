@@ -23,6 +23,8 @@ import javafx.scene.paint.Color;
  * Class representing a task component displayed in CalendarView and ProjectView when
  * the show option is set to tasks or all tasks.
  * Linked with the Task.fxml file.
+ *
+ * @version 1.0.0
  */
 public class TaskComponent extends Component
 {

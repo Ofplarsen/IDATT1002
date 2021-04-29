@@ -13,7 +13,9 @@ import java.net.*;
 
 /**
  * Class representing the settings page.
- * */
+ *
+ * @version 1.0.0
+ */
 public class SettingsView extends View
 {
     @FXML

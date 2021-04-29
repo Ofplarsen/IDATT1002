@@ -10,6 +10,8 @@ import javafx.scene.input.*;
 
 /**
  * Class representing a item in the main menu with a text-label link to a view and a context menu.
+ *
+ * @version 1.0.0
  */
 public class MainMenuItem
 {

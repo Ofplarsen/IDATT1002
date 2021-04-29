@@ -31,6 +31,8 @@ import java.util.stream.Collectors;
 
 /**
  * Class representing the page for a project.
+ *
+ * @version 1.0.0
  */
 public class ProjectView extends View
 {

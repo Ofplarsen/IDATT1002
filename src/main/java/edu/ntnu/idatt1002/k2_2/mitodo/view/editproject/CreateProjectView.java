@@ -12,6 +12,8 @@ import javafx.scene.control.*;
 /**
  * Class representing the view for creating a new user project
  * Linked with the CreateProjectView.fxml file.
+ *
+ * @version 1.0.0
  */
 public class CreateProjectView extends EditOrCreateProjectView
 {

@@ -12,6 +12,8 @@ import javafx.scene.layout.VBox;
 
 /**
  * Abstract class representing edit or create project view.
+ *
+ * @version 1.0.0
  */
 public abstract class EditOrCreateProjectView extends View
 {

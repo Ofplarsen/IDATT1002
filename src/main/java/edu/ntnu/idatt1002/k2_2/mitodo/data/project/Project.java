@@ -12,6 +12,8 @@ import java.util.UUID;
 
 /**
  * Abstract class representing a Project with an ID, a list of tasks and a list of projects.
+ *
+ * @version 1.0.0
  */
 public abstract class Project implements Serializable
 {

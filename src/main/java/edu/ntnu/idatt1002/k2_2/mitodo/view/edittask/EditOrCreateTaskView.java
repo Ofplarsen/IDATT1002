@@ -17,6 +17,8 @@ import javafx.scene.layout.VBox;
 
 /**
  * Abstract class representing edit or create task view.
+ *
+ * @version 1.0.0
  */
 public abstract class EditOrCreateTaskView extends View
 {
