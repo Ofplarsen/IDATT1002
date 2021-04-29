@@ -41,6 +41,9 @@
          <BorderPane.margin>
             <Insets right="8.0" />
          </BorderPane.margin>
+         <tooltip>
+            <Tooltip text="Mark Task As Done" />
+         </tooltip>
       </CheckBox>
    </left>
    <center>

@@ -59,7 +59,10 @@
                            </font>
                         </Label>
                         <ComboBox fx:id="sortByComboBox" minWidth="-Infinity" onAction="#updateShowAndSortOption" promptText="Standard" styleClass="textInBoxes" />
-                        <CheckBox fx:id="ascendingCheckBox" mnemonicParsing="false" onAction="#updateShowAndSortOption" styleClass="sorting-checkbox" />
+                        <CheckBox fx:id="ascendingCheckBox" mnemonicParsing="false" onAction="#updateShowAndSortOption" styleClass="sorting-checkbox">
+                           <tooltip>
+                              <Tooltip text="Increasing/Decreasing " />
+                           </tooltip></CheckBox>
                      </children>
                   </HBox>
                   <HBox fx:id="showContainer" alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="1.0">
@@ -81,7 +84,7 @@
                         </ImageView>
                      </graphic>
                      <tooltip>
-                        <Tooltip text="Edit Project" />
+                        <Tooltip text="Delete Project" />
                      </tooltip>
                   </Button>
                </children>
@@ -104,7 +107,10 @@
                   <VBox fx:id="normalContainer" styleClass="content-container" />
                   <HBox fx:id="doneTitleContainer" alignment="CENTER_LEFT" spacing="5.0">
                      <children>
-                        <CheckBox fx:id="showDoneTasksCheckBox" mnemonicParsing="false" onAction="#updateDoneTaskContainer" styleClass="show-done-tasks-check-box" />
+                        <CheckBox fx:id="showDoneTasksCheckBox" mnemonicParsing="false" onAction="#updateDoneTaskContainer" styleClass="show-done-tasks-check-box">
+                           <tooltip>
+                              <Tooltip text="Open/Close" />
+                           </tooltip></CheckBox>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="header" text="Done" />
                         <HBox HBox.hgrow="ALWAYS" />
                         <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#deleteDoneTasks" text="Delete Done Tasks" />
