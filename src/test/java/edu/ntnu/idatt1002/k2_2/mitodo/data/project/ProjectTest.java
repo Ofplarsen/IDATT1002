@@ -267,23 +267,6 @@ public class ProjectTest {
                 assertTrue(rootProjectTaskTest.getAllTasks().stream().anyMatch(t -> t.equals(testTask)));
                 assertTrue(rootProjectTaskTest.getAllTasks().stream().anyMatch(t -> t.equals(testTask2)));
             }
-            /*
-            //TODO skal jeg gjøre dette her? :P
-            @Nested
-            @DisplayName("Tests to check if the correct throws are made if addTask fails")
-            class addTaskFalse{
-                @Test
-                void addTaskDateDueBeforeStartThrows(){
-                    try{
-                        Task testTask2 = rootProjectTaskTest.addTask("Task3", PriorityEnum.High, LocalDate.now(), LocalDate.of(1000,10,1), RepeatEnum.DoesNotRepeat, "");
-                    }catch (IllegalArgumentException e){
-                        assertEquals(e.getMessage(), );
-                    }
-                }
-            }
-
-
-             */
 
             @Test
             void moveTaskTrue() {
